@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Análise Gráfica | Inferência Estatística com R</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Análise Gráfica | Inferência Estatística com R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Análise Gráfica | Inferência Estatística com R" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="P. Maçaira, L. Bastos, S. Aguilar &amp; I. Peres" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="analise_descritiva.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefácio</a></li>
+<li class="chapter" data-level="1" data-path="analise_descritiva.html"><a href="analise_descritiva.html"><i class="fa fa-check"></i><b>1</b> Análise Descritiva</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#introdução"><i class="fa fa-check"></i><b>1.1</b> Introdução</a></li>
+<li class="chapter" data-level="1.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coleta-e-armazenamento-de-dados"><i class="fa fa-check"></i><b>1.2</b> Coleta e Armazenamento de Dados</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#exemplo-inicial"><i class="fa fa-check"></i><b>1.2.1</b> Exemplo inicial</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>1.3</b> Tipos de Variáveis</a></li>
+<li class="chapter" data-level="1.4" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-quantitativas"><i class="fa fa-check"></i><b>1.4</b> Variáveis Quantitativas</a></li>
+<li class="chapter" data-level="1.5" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-qualitativas-ou-categóricas"><i class="fa fa-check"></i><b>1.5</b> Variáveis Qualitativas (ou categóricas)</a></li>
+<li class="chapter" data-level="1.6" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>1.6</b> Medidas de Tendência Central</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#média-aritmética-simples"><i class="fa fa-check"></i><b>1.6.1</b> Média Aritmética Simples</a></li>
+<li class="chapter" data-level="1.6.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#mediana"><i class="fa fa-check"></i><b>1.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="1.6.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#moda"><i class="fa fa-check"></i><b>1.6.3</b> Moda</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-variabilidade"><i class="fa fa-check"></i><b>1.7</b> Medidas de Variabilidade</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#amplitude-total"><i class="fa fa-check"></i><b>1.7.1</b> Amplitude Total</a></li>
+<li class="chapter" data-level="1.7.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#desvio-padrão"><i class="fa fa-check"></i><b>1.7.2</b> Desvio Padrão</a></li>
+<li class="chapter" data-level="1.7.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coeficiente-de-variação"><i class="fa fa-check"></i><b>1.7.3</b> Coeficiente de Variação</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-posição"><i class="fa fa-check"></i><b>1.8</b> Medidas de Posição</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#percentis"><i class="fa fa-check"></i><b>1.8.1</b> Percentis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="analise_descritiva.html"><a href="analise_descritiva.html#referências"><i class="fa fa-check"></i><b>1.9</b> Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-gráfica.html"><a href="análise-gráfica.html"><i class="fa fa-check"></i><b>2</b> Análise Gráfica</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#introdução-1"><i class="fa fa-check"></i><b>2.1</b> Introdução</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-qualitativas---nominais-e-ordinais"><i class="fa fa-check"></i><b>2.2</b> Variáveis Qualitativas - Nominais e Ordinais</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-discretas"><i class="fa fa-check"></i><b>2.3</b> Variáveis Quantitativas Discretas</a></li>
+<li class="chapter" data-level="2.4" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-contínuas"><i class="fa fa-check"></i><b>2.4</b> Variáveis Quantitativas Contínuas</a></li>
+<li class="chapter" data-level="2.5" data-path="análise-gráfica.html"><a href="análise-gráfica.html#histograma"><i class="fa fa-check"></i><b>2.5</b> Histograma</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#tendência-central"><i class="fa fa-check"></i><b>2.5.1</b> Tendência Central</a></li>
+<li class="chapter" data-level="2.5.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variabilidade"><i class="fa fa-check"></i><b>2.5.2</b> Variabilidade</a></li>
+<li class="chapter" data-level="2.5.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#forma"><i class="fa fa-check"></i><b>2.5.3</b> Forma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="análise-gráfica.html"><a href="análise-gráfica.html#boxplot"><i class="fa fa-check"></i><b>2.6</b> Boxplot</a></li>
+<li class="chapter" data-level="2.7" data-path="análise-gráfica.html"><a href="análise-gráfica.html#diagrama-de-dispersão"><i class="fa fa-check"></i><b>2.7</b> Diagrama de Dispersão</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-1"><i class="fa fa-check"></i><b>2.7.1</b> Exemplo 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-2"><i class="fa fa-check"></i><b>2.7.2</b> Exemplo 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="análise-gráfica.html"><a href="análise-gráfica.html#séries-temporais"><i class="fa fa-check"></i><b>2.8</b> Séries Temporais</a></li>
+<li class="chapter" data-level="2.9" data-path="análise-gráfica.html"><a href="análise-gráfica.html#gráfico-de-radar"><i class="fa fa-check"></i><b>2.9</b> Gráfico de Radar</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Inferência Estatística com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análise-gráfica" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Análise Gráfica</h1>
+<div id="introdução-1" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introdução</h2>
+<p>Já sabemos que as variáveis de um estudo dividem-se em quatro tipos:</p>
+<ul>
+<li>Qualitativas:
+<ul>
+<li>nominais</li>
+<li>ordinais</li>
+</ul></li>
+<li>Quantitativas:
+<ul>
+<li>discretas</li>
+<li>contínuas</li>
+</ul></li>
+</ul>
+<p>Os dados gerados por esses tipos de variáveis são de naturezas diferentes e devem receber tratamentos diferentes. Portanto, vamos estudar as ferramentas mais adequadas para cada tipo de dados, separadamente.</p>
+</div>
+<div id="variáveis-qualitativas---nominais-e-ordinais" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Variáveis Qualitativas - Nominais e Ordinais</h2>
+<p>Na base de dados <span class="math inline">\(\texttt{mtcars}\)</span>, uma das duas variáveis qualitativas presentes é a categoria da transmissão (automática ou manual). Para organizar os dados provenientes de uma variável qualitativa, é usual fazer uma tabela de frequências, como a tabela abaixo, onde estão apresentadas as frequências com que ocorre cada um dos tipos de transmissão no total dos 32 carros observados. Cada categoria da variável transmissão (automática, manual) é representada numa linha da tabela. Há uma coluna com as contagens de carros em cada categoria (frequência absoluta) e outra com os percentuais que essas contagens representam no total de carros (frequência relativa). Esse tipo de tabela representa a distribuição de frequências dos carros segundo a variável transmissão.</p>
+<p>Como a variável transmissão é qualitativa nominal, ou seja, não há uma ordem natural em suas categorias, a ordem das linhas da tabela pode ser qualquer uma. É comum a disposição das linhas pela ordem decrescente das frequências das classes.</p>
+<p>Quando a variável tabelada for do tipo qualitativa ordinal, as linhas da tabela de frequências devem ser dispostas na ordem existente para as categorias. A tabela abaixo mostra a distribuição de
+frequências das coletas segundo o mês de observação na base de dados <span class="math inline">\(\texttt{airquality}\)</span>, que é uma variável qualitativa ordinal. Nesse caso, podemos acrescentar mais duas colunas com as frequências acumuladas (absoluta e relativa), que mostram, para cada mês, a frequência das coletas até aquele mês. Por exemplo, até o mês de julho, foram coletadas 92 amostras, o que representa 60,13% do total de amostras coletadas.</p>
+<p>Note que as frequências acumuladas não fazem sentido em distribuição de frequências de variáveis para as quais não existe uma ordem natural nas categorias, as qualitativas nominais.</p>
+<p>A visualização da distribuição de frequências de uma variável fica mais fácil se fizermos um gráfico a partir da tabela de frequências. Existem vários tipos de gráficos, dependendo do tipo de variável a ser representada. Para as variáveis do tipo qualitativas, abordaremos dois tipos de gráficos: os de setores e os de barras.</p>
+<p>Os gráficos de setores, mais conhecidos como gráficos de pizza ou torta, são construídos dividindo-se um círculo (pizza) em setores (fatias), um para cada categoria, que serão proporcionais à frequência daquela categoria.</p>
+<p>A Figura a seguir mostra um gráfico de setores para a variável transmissão, construído a partir da primeira tabela de frequências. Através desse gráfico, fica mais fácil perceber que os carros automáticos são a grande maioria dos carros. Como esse gráfico contém todas as informações da tabela, pode substituí-la com a vantagem de tornar análise dessa variável mais agradável.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="análise-gráfica.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb35-2"><a href="análise-gráfica.html#cb35-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="fu">table</span>(mtcars<span class="sc">$</span>am))</span>
+<span id="cb35-3"><a href="análise-gráfica.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>Var1) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Automático&quot;</span>,<span class="st">&quot;Manual&quot;</span>)</span>
+<span id="cb35-4"><a href="análise-gráfica.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">&quot;&quot;</span>, <span class="at">y=</span>Freq, <span class="at">fill=</span>Var1)) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="análise-gráfica.html#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="análise-gráfica.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="at">start=</span><span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb35-7"><a href="análise-gráfica.html#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb35-8"><a href="análise-gráfica.html#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-23-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Quando houver mais de duas categorias de uma variável nominal, a disposição no gráfico de setores deve ser pela ordem decrescente das frequências, no sentido horário. A categoria “outros,” quando existir, deve ser sempre a última, mesmo não seja a de menor frequência.</p>
+<p>As vantagens da representação gráfica das distribuições de frequências ficam ainda mais evidentes quando há a necessidade de comparar vários grupos com relação à variáveis que possuem muitas categorias, como veremos mais adiante.</p>
+<p>Uma alternativa ao gráfico de setores é o gráfico de barras (colunas) como o da figura a seguir. Ao invés de dividirmos um círculo, dividimos uma barra. Note que, em ambos os gráficos, as frequências relativas das categorias devem somar 100%. Aliás, esse é a idéia dos gráficos: mostrar como se dá a divisão (distribuição) do total de elementos (100%) em partes (fatias).</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="análise-gráfica.html#cb36-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="fu">table</span>(mtcars<span class="sc">$</span>am))</span>
+<span id="cb36-2"><a href="análise-gráfica.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>Var1) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Automático&quot;</span>,<span class="st">&quot;Manual&quot;</span>)</span>
+<span id="cb36-3"><a href="análise-gráfica.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span>Var1, <span class="at">y=</span>Freq, <span class="at">fill=</span>Var1)) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="análise-gráfica.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="análise-gráfica.html#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq),<span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="análise-gráfica.html#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb36-7"><a href="análise-gráfica.html#cb36-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb36-8"><a href="análise-gráfica.html#cb36-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb36-9"><a href="análise-gráfica.html#cb36-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-24-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Uma situação diferente ocorre quando desejamos comparar a distribuição de frequências de uma mesma variável em vários grupos, como por exemplo, a frequência de estudantes com olhos azuis entre todas as cores de cabelo na base de dados <span class="math inline">\(\texttt{HairEyeColor}\)</span>. Se quisermos usar o gráfico de setores para fazer essa comparação, devemos fazer quatro gráficos, um para cada cor de cabelo, com duas fatias cada um (olhos azuis e olhos não azuis). Uma alternativa é a construção de um gráfico de colunas (barras) como os gráficos das figuras a seguir, onde há uma barra para cada cor de cabelo representando a frequência de estudantes com olhos azuis e aquela cor de cabelo. Além de economizar espaço na apresentação, permite que as comparações sejam feitas de maneira mais rápida.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="análise-gráfica.html#cb37-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(HairEyeColor[,,<span class="dv">1</span>] <span class="sc">+</span> HairEyeColor[,,<span class="dv">2</span>])</span>
+<span id="cb37-2"><a href="análise-gráfica.html#cb37-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Eye <span class="sc">==</span> <span class="st">&quot;Blue&quot;</span>)</span>
+<span id="cb37-3"><a href="análise-gráfica.html#cb37-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">=</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(Hair, <span class="fu">desc</span>(Freq))) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="análise-gráfica.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>name, <span class="at">y=</span>Freq, <span class="at">fill=</span>name)) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="análise-gráfica.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="análise-gráfica.html#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq),<span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="análise-gráfica.html#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb37-8"><a href="análise-gráfica.html#cb37-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb37-9"><a href="análise-gráfica.html#cb37-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb37-10"><a href="análise-gráfica.html#cb37-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb37-11"><a href="análise-gráfica.html#cb37-11" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">=</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">fct_reorder</span>(Hair, Freq)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-12"><a href="análise-gráfica.html#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>name, <span class="at">y=</span>Freq, <span class="at">fill=</span>name)) <span class="sc">+</span></span>
+<span id="cb37-13"><a href="análise-gráfica.html#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-14"><a href="análise-gráfica.html#cb37-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq),<span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb37-15"><a href="análise-gráfica.html#cb37-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb37-16"><a href="análise-gráfica.html#cb37-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb37-17"><a href="análise-gráfica.html#cb37-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb37-18"><a href="análise-gráfica.html#cb37-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb37-19"><a href="análise-gráfica.html#cb37-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb37-20"><a href="análise-gráfica.html#cb37-20" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1,p2,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-25-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>A ordem dos grupos pode ser qualquer, ou aquela mais adequada para a presente análise. Frequentemente, encontramos as barras em ordem decrescente, já antecipando nossa intuição de ordenar os grupos de acordo com sua frequência para facilitar as comparações. Caso a variável fosse do tipo ordinal, a ordem das barras seria a ordem natural das categorias, como na tabela de frequências.</p>
+<p>A figura abaixo mostra um gráfico de barras que pode ser usado da comparação da distribuição de frequências de uma mesma variável em vários grupos. É também uma alternativa ao uso de vários gráficos de setores, sendo, na verdade, a junção de dois gráficos com os das figuras acima num só gráfico. Porém, esse tipo de gráfico só deve ser usado quando não houver muitos grupos a serem comparados e a variável em estudo não tiver muitas categorias.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="análise-gráfica.html#cb38-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(HairEyeColor[,,<span class="dv">1</span>] <span class="sc">+</span> HairEyeColor[,,<span class="dv">2</span>])</span>
+<span id="cb38-2"><a href="análise-gráfica.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df,<span class="fu">aes</span>(<span class="at">x=</span>Hair, <span class="at">y=</span>Freq, <span class="at">fill=</span>Eye)) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="análise-gráfica.html#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="análise-gráfica.html#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq),<span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-26-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Frequentemente, é necessário fazer comparações da distribuição de frequências de uma variável em vários grupos simultaneamente. Nesse caso, o uso de gráficos bem escolhidos e construídos torna a tarefa muito mais fácil. Na figura abaixo, está representada a distribuição de frequências da cor dos olhos segundo a variável cor do cabelo.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="análise-gráfica.html#cb39-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(HairEyeColor[,,<span class="dv">1</span>] <span class="sc">+</span> HairEyeColor[,,<span class="dv">2</span>])</span>
+<span id="cb39-2"><a href="análise-gráfica.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df,<span class="fu">aes</span>(<span class="at">x=</span>Hair, <span class="at">y=</span>Freq, <span class="at">fill=</span>Eye)) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="análise-gráfica.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>,<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-4"><a href="análise-gráfica.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq),<span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-27-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="variáveis-quantitativas-discretas" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Variáveis Quantitativas Discretas</h2>
+<p>Quando estamos trabalhando com uma variável discreta que assume poucos valores, podemos dar a ela o mesmo tratamento dado às variáveis qualitativas ordinais, assumindo que cada valor é uma classe e que existe uma ordem natural nessas classes.</p>
+<p>Quando trabalhamos com uma variável discreta que pode assumir um grande número de valores distintos como, por exemplo, parte inteira da temperatura máxima, a construção da tabela de frequências e de gráficos considerando cada valor como uma categoria fica inviável. A solução é agrupar os valores em classes ao montar a tabela, como mostra a tabela abaixo.</p>
+<p>A Figura abaixo mostra o gráfico da distribuição de frequências da temperatura medida por 236 dias consecutivos.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="análise-gráfica.html#cb40-1" aria-hidden="true" tabindex="-1"></a>dt <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dt<span class="sc">$</span>Variavel <span class="sc">!=</span> <span class="st">&quot;Total&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="análise-gráfica.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Variavel, <span class="at">y=</span>Freq_rel)) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="análise-gráfica.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>,<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="análise-gráfica.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Temperatura&quot;</span>,<span class="at">y=</span><span class="st">&quot;Frequência Relativa (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-5"><a href="análise-gráfica.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-29-1.png" width="384" style="display: block; margin: auto;" /></p>
+</div>
+<div id="variáveis-quantitativas-contínuas" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Variáveis Quantitativas Contínuas</h2>
+<p>Quando a variável em estudo é do tipo contínua, que assume muitos valores distintos, o agrupamento dos dados em classes será sempre necessário na construção das tabelas de frequências. A tabela abaixo apresenta a distribuição de frequências para o peso dos carros.</p>
+</div>
+<div id="histograma" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Histograma</h2>
+<p>A representação gráfica da distribuição de frequências de uma variável contínua é feita através de um gráfico chamado histograma, mostrado nas figuras abaixo com o peso de diamantes (<span class="math inline">\(\texttt{diamonds}\)</span>). O histograma nada mais é do que o gráfico de barras verticais, porém construído com as barras unidas, devido ao caráter contínuo dos valores da variável.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="análise-gráfica.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb41-2"><a href="análise-gráfica.html#cb41-2" aria-hidden="true" tabindex="-1"></a>p1<span class="ot">=</span><span class="fu">ggplot</span>(diamonds,<span class="fu">aes</span>(carat)) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="análise-gráfica.html#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="análise-gráfica.html#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Frequência Absoluta&quot;</span>)</span>
+<span id="cb41-5"><a href="análise-gráfica.html#cb41-5" aria-hidden="true" tabindex="-1"></a>p2<span class="ot">=</span><span class="fu">ggplot</span>(diamonds,<span class="fu">aes</span>(carat)) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="análise-gráfica.html#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> (..count..)<span class="sc">/</span><span class="fu">sum</span>(..count..)<span class="sc">*</span><span class="dv">100</span>),<span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="análise-gráfica.html#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Frequência Relativa (%)&quot;</span>)</span>
+<span id="cb41-8"><a href="análise-gráfica.html#cb41-8" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1,p2,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-31-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>Os histogramas das figuras acima têm exatamente a mesma forma, apesar de serem construídos usando as frequências absolutas e relativas, respectivamente. O objetivo dessas figuras é mostrar que a escolha do tipo de frequência a ser usada não muda a forma da distribuição. Entretanto, o uso da frequência relativa torna o histograma comparável a outros histogramas, mesmo que os conjuntos de dados tenham tamanhos diferentes (desde a mesma escala seja usada!)</p>
+<p>Para o desenvolvimento do histograma:</p>
+<ul>
+<li>Calcule a amplitude dos dados</li>
+<li>Defina a quantidade de classes (as barras verticais). Não existe uma regra, porém uma boa aproximação seria calcular a raiz quadrada da quantidade de dados (<span class="math inline">\(\sqrt n\)</span>)</li>
+<li>Calcule o intervalo das classes dividindo a amplitude pela quantidade de classes</li>
+<li>Determine os limites das classes. Selecione o valor mínimo dos dados (se for mais viável, ele pode ser arredondado para baixo) e soma o valor do intervalo de classe para obter o limite superior</li>
+<li>Faça o passo anterior para todas as classes</li>
+<li>Calcule a frequência dos dados que pertence a cada intervalo</li>
+</ul>
+<p>Este é o passo a passo básico para a elaboração de um Histograma, que seja capaz de lhe trazer informações precisas sobre a frequência com que algo acontece em um determinado contexto.</p>
+<p>Ao estudarmos a distribuição de frequências de uma variável quantitativa, seja em um grupo apenas ou comparando vários grupos, devemos verificar basicamente três características:</p>
+<ul>
+<li>Tendência Central;</li>
+<li>Variabilidade;</li>
+<li>Forma.</li>
+</ul>
+<p>Tais características podem ser quantificadas através das medidas de síntese numérica ou visualizadas a partir do histograma.</p>
+<div id="tendência-central" class="section level3" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Tendência Central</h3>
+<p>A tendência central da distribuição de frequências de uma variável é caracterizada pelo valor (ou faixa de valores) “típico” da variável.</p>
+<p>Uma das maneiras de representar o que é “típico” é através do valor mais frequente da variável, chamado de moda. Ou, no caso da tabela de frequências, a classe de maior frequência, chamada de classe modal. No histograma, esta classe corresponde àquela com barra mais alta (“pico”).</p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-32-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>No exemplo acima, a classe modal é a que vai de 93.1 até 99.1. Assim, os dados repousam, tipicamente entre esses valores. Entretanto, temos dois picos.</p>
+<p>Geralmente, um histograma bimodal indica a existência de dois grupos, com valores centrados em dois pontos diferentes do eixo de valores. Uma distribuição de frequências pode também ser amodal, ou seja, todos os valores são igualmente frequentes. Ou também unimodal, quando os valores estão concentrados somente em um ponto/classe.</p>
+</div>
+<div id="variabilidade" class="section level3" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Variabilidade</h3>
+<p>Para descrever adequadamente a distribuição de frequências de uma variável quantitativa, além da informação do valor representativo da variável (tendência central), é necessário dizer também o quanto estes valores variam, ou seja, o quão dispersos eles são.</p>
+<p>De fato, somente a informação sobre a tendência central de um conjunto de dados não consegue representá-lo adequadamente. A Figura abaixo mostra um histograma para os tempos de espera de 1000 clientes de dois bancos, um com fila única e outro com fila múltipla, com o mesmo número de atendentes. Os tempos de espera nos dois bancos têm a mesma tendência central de 7 minutos. Entretanto, os dois conjuntos de dados são claramente diferentes, pois os valores são muito mais dispersos no banco com fila múltipla. Assim, quando entramos num fila única, esperamos ser atendidos em cerca de 7 minutos, com uma variação de, no máximo, meio minuto a mais ou a menos. Na fila múltipla, a variação é maior, indicando-se que tanto pode-se esperar muito mais ou muito menos que o valor típico de 7 minutos.</p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-33-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="forma" class="section level3" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Forma</h3>
+<p>A distribuição de frequências de uma variável pode ter várias formas, mas existem três formas básicas, apresentadas na figura abaixo através de histogramas.</p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-34-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Quando uma distribuição é simétrica em torno de um valor (o mais frequente), significa que as observações estão igualmente distribuídas em torno desse valor (metade acima e metade abaixo).</p>
+<p>A assimetria de uma distribuição pode ocorrer de duas formas:</p>
+<ul>
+<li>quando os valores concentram-se à esquerda (assimetria com concentração à esquerda ou assimetria com cauda à direita);</li>
+<li>quando os valores concentram-se à direita (assimetria com concentração à direita ou com assimetria cauda à esquerda);</li>
+</ul>
+<p>Ao definir a assimetria de uma distribuição, algumas pessoas preferem se referir ao lado onde está a concentração dos dados. Porém, outras pessoas preferem se referir ao lado onde está “faltando” dados (cauda). As duas denominações são alternativas.</p>
+<p>Em alguns casos, apenas o conhecimento da forma da distribuição de frequências de uma variável já nos fornece uma boa informação sobre o comportamento dessa variável. Por exemplo, o que você acharia se soubesse que a distribuição de frequências das notas da primeira prova da disciplina de Estatística que você está cursando é, geralmente, assimétrica com concentração à direita? Como você acha que é a forma da distribuição de frequências da renda no Brasil?</p>
+</div>
+</div>
+<div id="boxplot" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Boxplot</h2>
+<p>O Boxplot é um gráfico proposto para a detecção de valores discrepantes (outliers), que são aqueles valores muito diferentes do restante do conjunto de dados.</p>
+<p>Esses valores discrepantes podem representar erros no processo de coleta ou de processamento dos dados, e, nesse caso, devem ser corrigidos ou excluídos do banco de dados. No entanto, os outliers podem ser valores corretos, que, por alguma razão, são muito diferentes dos demais valores. Nesse caso, a análise desses dados deve ser cuidadosa, pois, como sabemos, algumas estatísticas descritivas, como a média e o desvio-padrão, são influenciadas por valores extremos.</p>
+<p>Na construção do Boxplot, utilizamos alguns percentis (mediana, primeiro e terceiro quartis), que são pouco influenciados por valores extremos. Além disso, precisamos saber quais são os valores mínimo e máximo do conjunto de dados.</p>
+<p>O Boxplot é constituído por uma caixa atravessada por uma linha, construído usando um eixo com uma escala de valores, como mostra a figura abaixo. Como sabemos, entre o primeiro e o terceiro quartis, temos 50% dos dados. Podemos pensar, então, que essa caixa contém metade dos dados do conjunto.</p>
+<p><img src="Boxplot%20exemplo.png" /><!-- --></p>
+<p>Como um gráfico tem que representar todos os valores do conjunto de dados, precisamos representar os outros 50%, sendo 25% abaixo do Q1 e 25% acima do Q3. Esses valores serão representados pelas duas linhas que saem das extremidades da caixa. Cada uma das linhas é traçada, a partir das extremidades da caixa, até que encontre o valor máximo ou mínimo; ou atinja o comprimento máximo de 1,5 vezes a altura da caixa (IQR). O que acontecer primeiro.</p>
+<p>No exemplo da imagem acima o segundo caso aconteceu, assim os valores que ainda não foram representados devem ser devidamente marcados em suas respectivas posições na escala de valores. Esses valores são considerados outliers pelo critério do boxplot. Obviamente, o limite superior do boxplot não coincidiu com o valor máximo do conjunto de dados, que foi considerado um valor discrepante (outlier).</p>
+<p>Além da detecção de valores discrepantes, o boxplot pode ser muito útil na análise da distribuição dos valores de um conjunto de dados. Através do boxplot, podemos:</p>
+<ul>
+<li>identificar a forma da distribuição (simétrica ou assimétrica);</li>
+<li>avaliar e comparar a tendência central (mediana) de dois ou mais conjuntos de dados;</li>
+<li>comparar a variabilidade de dois ou mais conjuntos de dados</li>
+</ul>
+<p>Para avaliar a forma da distribuição, devemos observar o deslocamento da caixa em relação a linha do boxplot. Lembrando que a caixa do boxplot contém 50% dos dados, o seu deslocamento na linha nos informa onde estão concentrados os dados.</p>
+<p>Se a caixa está mais deslocada para um dos lados da linha, significa que metade dos dados estão concentrados naquele lado da escala de valores e, assim, a distribuição é assimétrica. Se a caixa está praticamente no meio da linha, dividindo-a em duas partes iguais, é distribuição será considerada simétrica.</p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-36-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+<div id="diagrama-de-dispersão" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Diagrama de Dispersão</h2>
+<p>O diagrama de dispersão é um gráfico onde pontos no espaço cartesiano XY são usados para representar simultaneamente os valores de duas variáveis quantitativas medidas em cada indivíduo do conjunto de dados.</p>
+<p>O Quadro e a Figura abaixo mostram um esquema do desenho do diagrama de dispersão. Neste exemplo, foram medidos os valores de duas variáveis quantitativas, X e Y, em quatro indivíduos. O eixo horizontal do gráfico representa a variável X e o eixo vertical representa a variável Y.</p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>O diagrama de dispersão é usado principalmente para visualizar a relação/associação entre duas variáveis, mas também para é muito útil para:</p>
+<ul>
+<li>Comparar o efeito de dois tratamentos no mesmo indivíduo</li>
+<li>Verificar o efeito tipo antes/depois de um tratamento</li>
+</ul>
+<p>A seguir, veremos dois exemplos da utilização do diagrama de dispersão. O primeiro refere-se ao estudo da associação entre duas variáveis. O segundo utiliza o diagrama de dispersão para comparar o efeito da aplicação de um tratamento, comparando as medidas antes e depois da medicação.</p>
+<div id="exemplo-1" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Exemplo 1</h3>
+<p>Um produtor de morangos para exportação deseja produzir frutos grandes, pois frutos pequenos têm pouco valor mesmo no mercado interno. Além disso, os frutos, mesmo grandes, não devem ter tamanhos muito diferentes entre si. O produtor suspeita que uma dos fatores que altera o tamanho dos frutos é o número de frutos por árvore.</p>
+<p>Para investigar a relação entre o número de frutos que uma planta produz e o peso destes frutos, ele observou dados de 10 morangueiros na primeira safra (Quadro abaixo) e gerou o Diagrama de Dispersão apresentado abaixo.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="análise-gráfica.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb42-2"><a href="análise-gráfica.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb42-3"><a href="análise-gráfica.html#cb42-3" aria-hidden="true" tabindex="-1"></a>aux <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">15.15</span>,<span class="fl">15.45</span>,<span class="fl">15.63</span>,<span class="fl">15.65</span>,<span class="fl">16.38</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-4"><a href="análise-gráfica.html#cb42-4" aria-hidden="true" tabindex="-1"></a>               <span class="dv">14</span>,<span class="fl">14.5</span>,<span class="fl">15.35</span>,<span class="fl">15.86</span>,<span class="fl">15.94</span>,<span class="fl">16.13</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-5"><a href="análise-gráfica.html#cb42-5" aria-hidden="true" tabindex="-1"></a>               <span class="fl">13.67</span>,<span class="fl">13.76</span>,<span class="fl">14.06</span>,<span class="fl">14.11</span>,<span class="fl">14.54</span>,<span class="fl">14.89</span>,<span class="fl">15.5</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-6"><a href="análise-gráfica.html#cb42-6" aria-hidden="true" tabindex="-1"></a>               <span class="dv">11</span>,<span class="fl">11.5</span>,<span class="fl">12.39</span>,<span class="fl">12.39</span>,<span class="fl">12.9</span>,<span class="fl">14.5</span>,<span class="fl">15.5</span>,<span class="fl">16.56</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-7"><a href="análise-gráfica.html#cb42-7" aria-hidden="true" tabindex="-1"></a>               <span class="fl">10.24</span>,<span class="fl">11.12</span>,<span class="fl">12.05</span>,<span class="fl">12.37</span>,<span class="fl">13.48</span>,<span class="fl">13.8</span>,<span class="fl">14.04</span>,<span class="fl">15.39</span>,<span class="dv">16</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-8"><a href="análise-gráfica.html#cb42-8" aria-hidden="true" tabindex="-1"></a>               <span class="dv">9</span>,<span class="fl">9.32</span>,<span class="fl">10.67</span>,<span class="fl">11.56</span>,<span class="fl">11.67</span>,<span class="fl">12.56</span>,<span class="fl">12.83</span>,<span class="fl">12.84</span>,<span class="fl">13.43</span>,<span class="fl">15.09</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-9"><a href="análise-gráfica.html#cb42-9" aria-hidden="true" tabindex="-1"></a>               <span class="fl">7.82</span>,<span class="fl">8.56</span>,<span class="fl">8.74</span>,<span class="fl">9.57</span>,<span class="fl">11.08</span>,<span class="fl">11.92</span>,<span class="fl">12.13</span>,<span class="fl">12.5</span>,<span class="fl">14.14</span>,<span class="fl">14.2</span>,<span class="dv">14</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-10"><a href="análise-gráfica.html#cb42-10" aria-hidden="true" tabindex="-1"></a>               <span class="fl">7.25</span>,<span class="fl">9.41</span>,<span class="fl">10.15</span>,<span class="fl">10.33</span>,<span class="fl">10.8</span>,<span class="fl">10.95</span>,<span class="fl">11.13</span>,<span class="fl">11.48</span>,<span class="fl">11.49</span>,<span class="fl">12.86</span>,<span class="fl">13.37</span>,<span class="fl">15.04</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-11"><a href="análise-gráfica.html#cb42-11" aria-hidden="true" tabindex="-1"></a>               <span class="fl">6.95</span>,<span class="fl">7.61</span>,<span class="fl">8.53</span>,<span class="dv">10</span>,<span class="fl">10.94</span>,<span class="fl">11.04</span>,<span class="fl">11.43</span>,<span class="fl">11.63</span>,<span class="fl">11.97</span>,<span class="fl">12.02</span>,<span class="fl">12.74</span>,<span class="fl">13.53</span>,<span class="dv">14</span>,<span class="cn">NA</span>,</span>
+<span id="cb42-12"><a href="análise-gráfica.html#cb42-12" aria-hidden="true" tabindex="-1"></a>               <span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="fl">10.5</span>,<span class="dv">11</span>,<span class="fl">11.16</span>,<span class="fl">11.17</span>,<span class="fl">11.7</span>,<span class="fl">12.45</span>,<span class="fl">12.89</span>,<span class="fl">13.47</span>,<span class="fl">13.54</span>),</span>
+<span id="cb42-13"><a href="análise-gráfica.html#cb42-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">nrow=</span><span class="dv">10</span>,<span class="at">ncol =</span> <span class="dv">14</span>,<span class="at">byrow =</span> T)</span>
+<span id="cb42-14"><a href="análise-gráfica.html#cb42-14" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">ID_Morangueiro =</span> <span class="dv">1001</span><span class="sc">:</span><span class="dv">1010</span>,</span>
+<span id="cb42-15"><a href="análise-gráfica.html#cb42-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Qtd_Frutos =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">14</span>,aux)</span>
+<span id="cb42-16"><a href="análise-gráfica.html#cb42-16" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
+<span id="cb42-17"><a href="análise-gráfica.html#cb42-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">&quot;X&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-18"><a href="análise-gráfica.html#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Qtd_Frutos, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb42-19"><a href="análise-gráfica.html#cb42-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb42-20"><a href="análise-gráfica.html#cb42-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits=</span><span class="dv">5</span><span class="sc">:</span><span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb42-21"><a href="análise-gráfica.html#cb42-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Quantidade de Frutos&quot;</span>,<span class="at">y =</span> <span class="st">&quot;Peso do Fruto (g)&quot;</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>O diagrama de dispersão mostra-nos dois fatos. O primeiro, que há um decréscimo no valor médio do peso do fruto por árvore à medida que cresce o número de frutos na árvore. Ou seja, não é vantagem uma árvore produzir muitos frutos, pois eles tenderão a ser muito pequenos.</p>
+<p>O segundo fato que percebemos é que, com o aumento no número de frutos na árvore, cresce também a variabilidade no peso, gerando tanto frutos muito grandes, como muito pequenos.</p>
+<p>Assim, conclui-se que não é vantagem ter poucas plantas produzindo muito frutos, mas sim muitas plantas produzindo poucos frutos, mas grandes e uniformes. Uma análise mais detalhada poderá determinar o número ideal de frutos por árvore, aquele que maximiza o peso médio e, ao mesmo tempo, minimiza a variabilidade do peso.</p>
+</div>
+<div id="exemplo-2" class="section level3" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Exemplo 2</h3>
+<p>Captopril é um remédio destinado a baixar a pressão sistólica. Para testar seu efeito, ele foi ministrado a 12 pacientes, tendo sido medida a pressão sistólica antes e depois da medicação.</p>
+<p>Os mesmos indivíduos foram utilizados nas duas amostras (Antes/depois). Assim, é natural compararmos a pressão sistólica para cada indivíduo, comparando a pressão sistólica depois e antes. Para todos os pacientes, a pressão sistólica depois do Captopril é menor do que antes da medicação. Mas como podemos “ver” se estas diferenças são grandes? Com a ajuda do diagrama de dispersão mostrado na figura abaixo.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="análise-gráfica.html#cb43-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Paciente =</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>],</span>
+<span id="cb43-2"><a href="análise-gráfica.html#cb43-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Antes =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">174</span>, <span class="dv">198</span>, <span class="dv">170</span>, <span class="dv">179</span>, <span class="dv">182</span>, <span class="dv">193</span>, <span class="dv">209</span>, <span class="dv">185</span>, <span class="dv">155</span>, <span class="dv">169</span>, <span class="dv">210</span>),</span>
+<span id="cb43-3"><a href="análise-gráfica.html#cb43-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Depois =</span> <span class="fu">c</span>(<span class="dv">191</span>, <span class="dv">170</span>, <span class="dv">177</span>, <span class="dv">167</span>, <span class="dv">159</span>, <span class="dv">151</span>, <span class="dv">176</span>, <span class="dv">183</span>, <span class="dv">159</span>, <span class="dv">145</span>, <span class="dv">146</span>, <span class="dv">177</span>))</span>
+<span id="cb43-4"><a href="análise-gráfica.html#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="análise-gráfica.html#cb43-5" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="análise-gráfica.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Antes, <span class="at">y =</span> Depois)) <span class="sc">+</span></span>
+<span id="cb43-7"><a href="análise-gráfica.html#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb43-8"><a href="análise-gráfica.html#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">140</span>,<span class="dv">220</span>) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">140</span>,<span class="dv">220</span>) <span class="sc">+</span></span>
+<span id="cb43-9"><a href="análise-gráfica.html#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb43-10"><a href="análise-gráfica.html#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">200</span>, <span class="at">y =</span> <span class="dv">160</span>), <span class="at">label =</span> <span class="st">&quot;Depois &lt; Antes&quot;</span>) <span class="sc">+</span></span>
+<span id="cb43-11"><a href="análise-gráfica.html#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">160</span>, <span class="at">y =</span> <span class="dv">200</span>), <span class="at">label =</span> <span class="st">&quot;Depois &gt; Antes&quot;</span>) <span class="sc">+</span></span>
+<span id="cb43-12"><a href="análise-gráfica.html#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">210</span>, <span class="at">y =</span> <span class="dv">210</span>), <span class="at">label =</span> <span class="st">&quot;Depois = Antes&quot;</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-42-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Cada ponto no diagrama de dispersão corresponde às medidas de pressão sistólica de um paciente, medida antes e depois da medicação. A linha marcada no diagrama corresponde à situação onde a pressão sistólica não se alterou depois do paciente tomar o Captopril. Veja que todos os pontos estão abaixo desta linha, ou seja para todos os pacientes o Captopril fez efeito. Grande parte destes pontos está bem distante da linha, mostrando que a redução na pressão sistólica depois do uso do medicamento não foi pequena.</p>
+</div>
+</div>
+<div id="séries-temporais" class="section level2" number="2.8">
+<h2><span class="header-section-number">2.8</span> Séries Temporais</h2>
+<p>Séries temporais (ou séries históricas) são um conjunto de observações de uma mesma variável quantitativa (discreta ou contínua) feitas ao longo do tempo. O conjunto de novos casos da COVID-19 é um exemplo de série temporal.</p>
+<p>Um dos objetivos do estudo de séries temporais é conhecer o comportamento da série ao longo do tempo (aumento, estabilidade ou declínio dos valores). Em alguns estudos, esse conhecimento pode ser usado para se fazer previsões de valores futuros com base no comportamento dos valores passados.</p>
+<p>A representação gráfica de uma série temporal é feita através do gráfico de linha, como exemplificado nas figuras abaixo. No eixo horizontal do gráfico de linha, está o indicador de tempo e, no eixo vertical, a variável a ser representada.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="análise-gráfica.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsibble)</span>
+<span id="cb44-2"><a href="análise-gráfica.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb44-3"><a href="análise-gráfica.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb44-4"><a href="análise-gráfica.html#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="análise-gráfica.html#cb44-5" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv&quot;</span>)</span>
+<span id="cb44-6"><a href="análise-gráfica.html#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="análise-gráfica.html#cb44-7" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb44-8"><a href="análise-gráfica.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as_date</span>(date)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-9"><a href="análise-gráfica.html#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">key =</span> state, <span class="at">index =</span> date) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-10"><a href="análise-gráfica.html#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">&quot;TOTAL&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-11"><a href="análise-gráfica.html#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, newCases) <span class="sc">%&gt;%</span></span>
+<span id="cb44-12"><a href="análise-gráfica.html#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> newCases)) <span class="sc">+</span></span>
+<span id="cb44-13"><a href="análise-gráfica.html#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb44-14"><a href="análise-gráfica.html#cb44-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Evolução dos casos de COVID-19 no Brasil&quot;</span>,</span>
+<span id="cb44-15"><a href="análise-gráfica.html#cb44-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Novos Casos&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Data&quot;</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-43-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>De maneira geral, um gráfico de linhas deve ser construído de modo que:</p>
+<ul>
+<li>O início do eixo vertical seja o valor mínimo possível para a variável que está sendo representada, para evitar as distorções</li>
+<li>O final do eixo vertical seja tal que a série fica centrada em relação ao eixo vertical</li>
+<li>Os tamanhos dos eixos sejam o mais parecidos possível</li>
+</ul>
+</div>
+<div id="gráfico-de-radar" class="section level2" number="2.9">
+<h2><span class="header-section-number">2.9</span> Gráfico de Radar</h2>
+<p>O gráfico de radar é um diagrama e/ou gráfico que consiste de uma sequência de raios equi-angulares, com cada raio representando uma das variáveis. O comprimento de cada raio é proporcional à magnitude da variável para o ponto de dados em relação à máxima magnitude da variável em todos os pontos. Uma linha é desenhada ligando os valores de cada raio. Isso dá ao diagrama uma aparência de estrela, o que deu origem a um dos nomes mais populares para este gráfico. O gráfico de estrela pode ser usado para responder as seguintes questões:</p>
+<ul>
+<li>Que observações são mais semelhantes, por exemplo, existem clusters de observações?</li>
+<li>Existem exceções?</li>
+</ul>
+<p>Gráficos de radar oferecem uma maneira útil de exibir observações multivariáveis com um número arbitrário de variáveis. Cada estrela representa uma única observação. Normalmente, os gráficos de radar são gerados em um formato multi-diagrama com muitas estrelas em cada página, cada estrela representando uma observação. É um pouco mais fácil de ver padrões em dados se as observações forem organizadas em alguma ordem não-arbitrária (se as variáveis forem atribuídas aos raios da estrela em uma ordem significativa).</p>
+<p>Uma aplicação de gráficos de radar é o controle de melhoria de qualidade para apresentar as métricas de desempenho de qualquer programa em curso. Eles também são usados em esportes para representar os pontos fortes e fracos de jogadores, onde eles são geralmente chamados de gráficos de aranha. No exemplo abaixo vemos a performance de três alunos (a,b,c) em relação as dimensões matemática, inglês, biologia, música e R.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="análise-gráfica.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fmsb)</span>
+<span id="cb45-2"><a href="análise-gráfica.html#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="análise-gráfica.html#cb45-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">15</span>, <span class="at">replace=</span>F), <span class="at">ncol=</span><span class="dv">5</span>))</span>
+<span id="cb45-4"><a href="análise-gráfica.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dados) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;matemática&quot;</span>, <span class="st">&quot;inglês&quot;</span>, <span class="st">&quot;biologia&quot;</span>, <span class="st">&quot;música&quot;</span> ,<span class="st">&quot;R&quot;</span>)</span>
+<span id="cb45-5"><a href="análise-gráfica.html#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(dados) <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;aluno&quot;</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb45-6"><a href="análise-gráfica.html#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="análise-gráfica.html#cb45-7" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">rep</span>(<span class="dv">20</span>,<span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">5</span>), dados)</span>
+<span id="cb45-8"><a href="análise-gráfica.html#cb45-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb45-9"><a href="análise-gráfica.html#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="fu">radarchart</span>(dados)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-44-1.png" width="576" style="display: block; margin: auto;" /></p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Cota, Wesley. 2020. <span>“Monitoring the Number of <span>COVID</span>-19 Cases and Deaths in Brazil at Municipal and Federative Units Level.”</span> <em><span>SciELOPreprints:362</span></em>, May. <a href="https://doi.org/10.1590/scielopreprints.362">https://doi.org/10.1590/scielopreprints.362</a>.
+</div>
+<div class="csl-entry">
+R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="analise_descritiva.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-analise_grafica.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["inferencia_com_R.pdf", "inferencia_com_R.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

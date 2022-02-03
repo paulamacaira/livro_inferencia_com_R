@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Conceitos Básicos | Inferência Estatística com R</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Conceitos Básicos | Inferência Estatística com R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Conceitos Básicos | Inferência Estatística com R" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="P. Maçaira, L. Bastos, S. Aguilar &amp; I. Peres" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análise-gráfica.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefácio</a></li>
+<li class="chapter" data-level="1" data-path="analise_descritiva.html"><a href="analise_descritiva.html"><i class="fa fa-check"></i><b>1</b> Análise Descritiva</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#introdução"><i class="fa fa-check"></i><b>1.1</b> Introdução</a></li>
+<li class="chapter" data-level="1.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coleta-e-armazenamento-de-dados"><i class="fa fa-check"></i><b>1.2</b> Coleta e Armazenamento de Dados</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#exemplo-inicial"><i class="fa fa-check"></i><b>1.2.1</b> Exemplo inicial</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>1.3</b> Tipos de Variáveis</a></li>
+<li class="chapter" data-level="1.4" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-quantitativas"><i class="fa fa-check"></i><b>1.4</b> Variáveis Quantitativas</a></li>
+<li class="chapter" data-level="1.5" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-qualitativas-ou-categóricas"><i class="fa fa-check"></i><b>1.5</b> Variáveis Qualitativas (ou categóricas)</a></li>
+<li class="chapter" data-level="1.6" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>1.6</b> Medidas de Tendência Central</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#média-aritmética-simples"><i class="fa fa-check"></i><b>1.6.1</b> Média Aritmética Simples</a></li>
+<li class="chapter" data-level="1.6.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#mediana"><i class="fa fa-check"></i><b>1.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="1.6.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#moda"><i class="fa fa-check"></i><b>1.6.3</b> Moda</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-variabilidade"><i class="fa fa-check"></i><b>1.7</b> Medidas de Variabilidade</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#amplitude-total"><i class="fa fa-check"></i><b>1.7.1</b> Amplitude Total</a></li>
+<li class="chapter" data-level="1.7.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#desvio-padrão"><i class="fa fa-check"></i><b>1.7.2</b> Desvio Padrão</a></li>
+<li class="chapter" data-level="1.7.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coeficiente-de-variação"><i class="fa fa-check"></i><b>1.7.3</b> Coeficiente de Variação</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-posição"><i class="fa fa-check"></i><b>1.8</b> Medidas de Posição</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#percentis"><i class="fa fa-check"></i><b>1.8.1</b> Percentis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="analise_descritiva.html"><a href="analise_descritiva.html#referências"><i class="fa fa-check"></i><b>1.9</b> Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-gráfica.html"><a href="análise-gráfica.html"><i class="fa fa-check"></i><b>2</b> Análise Gráfica</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#introdução-1"><i class="fa fa-check"></i><b>2.1</b> Introdução</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-qualitativas---nominais-e-ordinais"><i class="fa fa-check"></i><b>2.2</b> Variáveis Qualitativas - Nominais e Ordinais</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-discretas"><i class="fa fa-check"></i><b>2.3</b> Variáveis Quantitativas Discretas</a></li>
+<li class="chapter" data-level="2.4" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-contínuas"><i class="fa fa-check"></i><b>2.4</b> Variáveis Quantitativas Contínuas</a></li>
+<li class="chapter" data-level="2.5" data-path="análise-gráfica.html"><a href="análise-gráfica.html#histograma"><i class="fa fa-check"></i><b>2.5</b> Histograma</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#tendência-central"><i class="fa fa-check"></i><b>2.5.1</b> Tendência Central</a></li>
+<li class="chapter" data-level="2.5.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variabilidade"><i class="fa fa-check"></i><b>2.5.2</b> Variabilidade</a></li>
+<li class="chapter" data-level="2.5.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#forma"><i class="fa fa-check"></i><b>2.5.3</b> Forma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="análise-gráfica.html"><a href="análise-gráfica.html#boxplot"><i class="fa fa-check"></i><b>2.6</b> Boxplot</a></li>
+<li class="chapter" data-level="2.7" data-path="análise-gráfica.html"><a href="análise-gráfica.html#diagrama-de-dispersão"><i class="fa fa-check"></i><b>2.7</b> Diagrama de Dispersão</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-1"><i class="fa fa-check"></i><b>2.7.1</b> Exemplo 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-2"><i class="fa fa-check"></i><b>2.7.2</b> Exemplo 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="análise-gráfica.html"><a href="análise-gráfica.html#séries-temporais"><i class="fa fa-check"></i><b>2.8</b> Séries Temporais</a></li>
+<li class="chapter" data-level="2.9" data-path="análise-gráfica.html"><a href="análise-gráfica.html#gráfico-de-radar"><i class="fa fa-check"></i><b>2.9</b> Gráfico de Radar</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html"><i class="fa fa-check"></i><b>3</b> Conceitos Básicos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#introdução-2"><i class="fa fa-check"></i><b>3.1</b> Introdução</a></li>
+<li class="chapter" data-level="3.2" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#população"><i class="fa fa-check"></i><b>3.2</b> População</a></li>
+<li class="chapter" data-level="3.3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#amostra"><i class="fa fa-check"></i><b>3.3</b> Amostra</a></li>
+<li class="chapter" data-level="3.4" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#estatísticas-e-parâmetros"><i class="fa fa-check"></i><b>3.4</b> Estatísticas e Parâmetros</a></li>
+<li class="chapter" data-level="3.5" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#distribuições-amostrais"><i class="fa fa-check"></i><b>3.5</b> Distribuições Amostrais</a></li>
+<li class="chapter" data-level="3.6" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#propriedades-dos-estimadores"><i class="fa fa-check"></i><b>3.6</b> Propriedades dos Estimadores</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Inferência Estatística com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="conceitos-básicos" class="section level1" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Conceitos Básicos</h1>
+<div id="introdução-2" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Introdução</h2>
+<p>No estudo da inferência estatística, o objetivo principal é obter informações sobre uma população a partir das informações de uma amostra e aqui vamos precisar de definições mais formais de população e amostra. Para facilitar a compreensão destes conceitos, apresentamos o exemplo abaixo a título de ilustração</p>
+<p>Em um estudo antropométrico em nível nacional, uma amostra de 5000 adultos é selecionada dentre os adultos brasileiros e uma das variáveis de estudo é a altura.</p>
+<p>Neste exemplo, a população é o conjunto de todos os brasileiros adultos. No entanto, o interesse (um deles, pelo menos) está na altura dos brasileiros. Assim, nesse estudo, a cada sujeito da população associamos um número correspondente à sua altura. Se determinado sujeito é sorteado para entrar na amostra, o que nos interessa é esse número, ou seja, sua altura.</p>
+<p>Como sabemos, essa é a definição de variável aleatória: uma função que associa a cada ponto do espaço amostral um número real. Dessa forma, a nossa população pode ser representada pela variável aleatória <span class="math inline">\(X\)</span> = ``altura do adulto brasileiro”. Como essa é uma v.a. contínua, a ela está associada uma função de densidade de probabilidade <span class="math inline">\(f\)</span> e da literatura, sabemos que é razoável supor que essa densidade seja a densidade normal. Assim, nossa população, nesse caso, é representada por uma v.a. <span class="math inline">\(X\sim N(\mu; \sigma^2)\)</span>. Conhecendo os valores de <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span> teremos informações completas sobre a nossa população.</p>
+<p>Uma forma de obtermos os valores de <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span> é medindo as alturas de todos os brasileiros adultos. Mas esse seria um procedimento caro e demorado. Uma solução, então, é retirar uma amostra (subonjunto) da população e estudar essa amostra. Suponhamos que essa amostra seja retirada com reposição e que os sorteios sejam feitos de forma independente, isto é, o resultado de cada extração não altera o resultado das demais extrações. Ao sortearmos o primeiro elemento, estamos realizando um experimento que dá origem à v.a. <span class="math inline">\(X_1=\)</span> altura do primeiro elemento; o segundo elemento dá origem à v.a. <span class="math inline">\(X_2=\)</span> ``altura do segundo elemento” e assim por diante. Como as extrações são feitas com reposição, todas as v.a. <span class="math inline">\(X_1, X_2, \ldots\)</span> têm a mesma distribuição, que reflete a distribuição da altura de todos os brasileiros adultos. Para uma amostra específica, temos os valores observados <span class="math inline">\(x_1, x_2, \ldots\)</span> dessas variáveis aleatórias.</p>
+</div>
+<div id="população" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> População</h2>
+<p>A inferência estatística trata do problema de se obter informação sobre uma população a partir de uma amostra. Embora a população real possa ser constituída de pessoas, empresas, animais etc., as pesquisas estatísticas buscam informações sobre determinadas características dos sujeitos, características essas que podem ser representadas por números. Sendo assim, a cada sujeito da população está associado um número, o que nos permite apresentar a seguinte definição.</p>
+<p> </p>
+<p>Os métodos de inferência nos permitirão obter estimativas dos parâmetros (característica de interesse) de tal variável aleatória, que pode ser contínua ou discreta.</p>
+</div>
+<div id="amostra" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Amostra</h2>
+<p>Embora existam vários métodos de seleção de amostras, nosso foco é a amostragem aleatória simples. Segundo tal método, toda amostra de mesmo tamanho <span class="math inline">\(n\)</span> tem igual chance (probabilidade) de ser sorteada. É possível extrair amostras aleatórias simples com e sem reposição. No entanto, para populações grandes - ou infinitas - extrações com e sem reposição não levam a resultados muito diferentes. Assim, no estudo da Inferência Estatística, estaremos lidando sempre com amostragem aleatória simples com reposição. Este método de seleção atribui a cada elemento da população a mesma probabilidade de ser selecionado e esta probabilidade se mantém constante ao longo do processo de seleção da amostra (se as extrações fossem sem reposição isso não aconteceria). No restante desse curso omitiremos a expressão ``com reposição”, ou seja, o termo amostragem (ou amostra) aleatória simples sempre se referirá à amostragem com reposição. Por simplicidade, muitas vezes abreviaremos o termo amostra aleatória simples por aas.</p>
+<p>Uma forma de se obter uma amostra aleatória simples é escrever os números ou nomes dos elementos da população em cartões iguais, colocar estes cartões em uma urna misturando-os bem e fazer os sorteios necessários, tendo o cuidado de colocar cada cartão sorteado na urna antes do próximo sorteio. Na prática, em geral são usados programas de computador, uma vez que as populações tendem a ser muito grandes.</p>
+<p>Agora vamos formalizar o processo de seleção de uma amostra aleatória simples, de forma a relacioná-lo com os problemas de inferência estatística que iremos estudar. Seja uma população representada por uma variável aleatória <span class="math inline">\(X\)</span>. De tal população será sorteada uma amostra aleatória simples com reposição de tamanho <span class="math inline">\(n\)</span>. Como visto nos exemplos anteriores, cada sorteio dá origem a uma variável aleatória <span class="math inline">\(X_i\)</span> e, como os sorteios são com reposição, todas essas variáveis têm a mesma distribuição de <span class="math inline">\(X\)</span>. Isso nos leva à seguinte definição.</p>
+<p> </p>
+<p>É interessante notar a convenção usual: o valor observado de uma v.a. <span class="math inline">\(X\)</span> é representado pela letra minúscula correspondente. Assim, depois do sorteio de uma aas de tamanho <span class="math inline">\(n\)</span>, temos valores observados <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span> das respectivas variáveis aleatórias.</p>
+</div>
+<div id="estatísticas-e-parâmetros" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Estatísticas e Parâmetros</h2>
+<p>Obtida uma aas, é possível calcular diversas características desta amostra, como, por exemplo, a média, a mediana, a variância, etc. Qualquer uma destas características é uma função de <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> e, portanto, o seu valor depende da amostra sorteada. Sendo assim, cada uma dessas características ou funções é também uma v.a.. Por exemplo, a média amostral é a v.a. definida por <span class="math display">\[\bar X = \frac{X_1+X_2+\ldots+X_n}{n}.\]</span></p>
+<p>Temos, então, a seguinte definição:</p>
+<p> </p>
+<p>As estatísticas amostrais que estaremos considerando neste curso são:</p>
+<ul>
+<li>média amostral: <span class="math inline">\(\bar X = \frac{1}{n}\sum_{i=1}^n X_i\)</span></li>
+<li>variância amostral: <span class="math inline">\(S^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2\)</span></li>
+</ul>
+<p>Para uma amostra específica, o valor obido para o estimador será denominado estimativa e, em geral, serão representadas por letras minúsculas. Por exemplo, temos as seguintes notações correspondentes à média amostral e à variância: <span class="math inline">\(\bar x\)</span> e <span class="math inline">\(s^2\)</span>.</p>
+<p>Outras estatísticas possíveis são o mínimo amostral, o máximo amostral, a amplitude amostral, etc.</p>
+<p>De forma análoga, temos as características de interesse da população. No entanto, para diferenciar entre as duas situações (população e amostra), atribuimos nomes diferentes.</p>
+<p> </p>
+<p>Assim, se a população é representada pela v.a. <span class="math inline">\(X\)</span>, alguns parâmetros são a esperança <span class="math inline">\(E(X)\)</span> e a variância <span class="math inline">\(V(X)\)</span>. Com relação às características mais usuais, vamos usar a seguinte notação:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Característica</th>
+<th>Parâmetro (população)</th>
+<th>Estatística (amostra)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Média</td>
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(\bar X\)</span></td>
+</tr>
+<tr class="even">
+<td>Variância</td>
+<td><span class="math inline">\(\sigma^2\)</span></td>
+<td><span class="math inline">\(S^2\)</span></td>
+</tr>
+<tr class="odd">
+<td>Número de elementos</td>
+<td><span class="math inline">\(N\)</span></td>
+<td><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="distribuições-amostrais" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Distribuições Amostrais</h2>
+<p>Nos problemas de inferência, estamos interessados em estimar um parâmetro <span class="math inline">\(\theta\)</span> da população (por exemplo, a média populacional) através de uma aas <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>. Para isso, usamos uma estatística <span class="math inline">\(T\)</span> (por exemplo, a média amostral) e, com base no valor obtido para <span class="math inline">\(T\)</span> a partir de uma particular amostra, iremos tomar as decisões que o problema exige. Já foi dito que <span class="math inline">\(T\)</span> é uma v.a., uma vez que depende da amostra sorteada; amostras diferentes fornecerão diferentes valores para <span class="math inline">\(T\)</span>.</p>
+<p>Consideremos o seguinte exemplo, onde nossa população é o conjunto <span class="math inline">\(\{1,3,6,8\}\)</span>, isto é, este é o conjunto dos valores da característica de interesse da população em estudo. Assim, para esta população, ou seja, para essa v.a. <span class="math inline">\(X\)</span> temos <span class="math inline">\(E(X)=\)</span> 4.5 e <span class="math inline">\(V(X)=\)</span> 7.25.</p>
+<p>Suponha que dessa população iremos extrair uma aas de tamanho 2 e a estatística que iremos calcular é a média amostral. Algumas possibilidades de amostra são <span class="math inline">\(\{1,1\}\)</span>, <span class="math inline">\(\{1,3\}\)</span>, <span class="math inline">\(\{6,8\}\)</span>, para as quais os valores da média amostral são <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span> e <span class="math inline">\(7\)</span>, respectivamente. Podemos ver, então, que há uma variabilidade nos valores da estatística e, assim, seria interessante que conhecêssemos tal variabilidade. Conhecendo tal variabilidade, temos condições de saber ``quão infelizes” podemos ser no sorteio da amostra. No exemplo acima, as amostras <span class="math inline">\(\{1,1\}\)</span> e <span class="math inline">\(\{8,8\}\)</span> são as que têm média amostral mais afastada da verdadeira média populacional. Se esses valores tiverem chance muito mais alta do que os valores mais próximos de <span class="math inline">\(E(X)\)</span>, podemos ter sérios problemas.</p>
+<p>Para conhecer o comportamento (distribuição) da média amostral, teríamos que conhecer todos os possíveis valores de <span class="math inline">\(X\)</span>, o que equivaleria a conhecer todas as possíveis amostras de tamanho 2 de tal população. Nesse exemplo, como só temos 4 elementos na população, a obtenção de todas as aas de tamanho 2 não é difícil. No entanto, para um número um pouco maior dele elementos, ou quando não conhecemos todo o espaço amostral, essa tarefa se torna complexa.</p>
+<p></p>
+<p>Em outras palavras, uma distribuição amostral é a distribuição de probabilidades de uma medida estatística baseada em uma amostra aleatória. Ao retirar uma amostra aleatória de uma população estaremos considerando cada valor da amostra como um valor de uma variável aleatória cuja distribuição de probabilidade é a mesma da população no instante da retirada desse elemento para a amostra. Em consequência do fato de os valores de amostra serem aleatórios, decorre que qualquer quantidade calculada em função dos elementos da amostra também será uma variável aleatória.</p>
+<p>Podemos ver que a obtenção da distribuição amostral de qualquer estatística <span class="math inline">\(T\)</span> é um processo tão ou mais complicado do que trabalhar com a população inteira. Na prática, o que temos é uma única amostra e com esse resultado é que temos que tomar as decisões pertinentes ao problema em estudo. Esta tomada de decisão, no entanto, será facilitada se conhecermos resultados teóricos sobre o comportamento da distribuição amostral.</p>
+</div>
+<div id="propriedades-dos-estimadores" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Propriedades dos Estimadores</h2>
+<p>Vimos anteriormente que, dada uma população, existem muitas e muitas aas de tamanho <span class="math inline">\(n\)</span> que podem ser sorteadas. Cada uma dessas amostras resulta em um valor diferente da estatística de interesse (<span class="math inline">\(\bar X\)</span> e <span class="math inline">\(S^2\)</span>, por exemplo). O que esses resultados estão mostrando é como esses diferentes valores se comportam em relação ao verdadeiro (mas desconhecido) valor do parâmetro.</p>
+<p>Considere a Figura abaixo, onde o alvo representa o valor do parâmetro e os ``tiros”, indicados pelos símbolo x, representam os diferentes valores amostrais da estatística de interesse.</p>
+<p><img src="Estimadores_exemplo.png" /><!-- --></p>
+<p>Nas partes (a) e (b) da figura, os tiros estão em torno do alvo, enquanto nas partes (c) e (d) isso não acontece. Comparando as partes (a) e (b), podemos ver que na parte (a) os tiros estão mais concentrados em torno do alvo, isto é, têm menor dispersão. Isso reflete uma pontaria mais certeira do atirador em (a). Analogamente, nas partes (c) e (d), embora ambos os atiradores estejam com a mira deslocada, os tiros do atirador (c) estão mais concentrados em torno de um alvo; o deslocamento poderia até ser resultado de um desalinhamento da arma. Já o atirador (d), além de estar com o alvo deslocado, ele tem os tiros mais espalhados, o que reflete menor precisão.</p>
+<p>Traduzindo esta situação para o contexto de estimadores e suas propriedades, temos o seguinte: nas partes (a) e (b), temos dois estimadores que fornecem estimativas centradas em torno do verdadeiro valor do parâmetro, ou seja, as diferentes amostras fornecem valores distribuídos em torno do verdadeiro valor do parâmetro. A diferença é que em (b) esses valores estão mais dispersos e, assim, temos mais chance de obter uma amostra ``infeliz”, ou seja, uma amostra que forneça um resultado muito afastado do valor do parâmetro. Essas duas propriedades estão associadas à esperança e à variância do estimador, que são medidas de centro e dispersão, respectivamente. Nas partes (c) e (d), as estimativas estão centradas em torno de um valor diferente do parâmetro de interesse e na parte (d), a dispersão é maior.</p>
+<p>Temos, assim, ilustrados os seguintes conceitos:</p>
+<p></p>
+<p>Essa esperança é calculada ao longo de todas as possíveis amostras, ou seja, é a esperança da distribuição amostral de <span class="math inline">\(T\)</span>. Nas partes (a) e (b) da Figura os estimadores são não-viesados e nas partes (c) e (d), os estimadores são viesados.</p>
+<p>Com relação aos estimadores <span class="math inline">\(bar X\)</span>, <span class="math inline">\(S^2\)</span> e <span class="math inline">\(\hat \sigma^2\)</span>, veremos formalmente que os dois primeiros são não-viesados para estimar a média e a variância populacionais, respectivamente, enquanto <span class="math inline">\(\hat \sigma^2\)</span> é viesado para estimar a variância populacional. Essa é a razão para se usar <span class="math inline">\(S^2\)</span>, e não <span class="math inline">\(\hat \sigma^2\)</span>.</p>
+<p></p>
+<p>Na Figura, o estimador da parte (a) é mais eficiente que o estimador da parte (b). Uma outra propriedade dos estimadores está relacionada à idéia bastante intuitiva de que à medida que se aumenta o tamanho da amostra, mais perto devemos ficar do verdadeiro valor do parâmetro.</p>
+<p></p>
+<ul>
+<li><span class="math inline">\(\lim_{n\to\infty} E(\hat\theta)=\theta\)</span></li>
+<li><span class="math inline">\(\lim_{n\to\infty} V(\hat\theta)=0\)</span></li>
+</ul>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Cota, Wesley. 2020. <span>“Monitoring the Number of <span>COVID</span>-19 Cases and Deaths in Brazil at Municipal and Federative Units Level.”</span> <em><span>SciELOPreprints:362</span></em>, May. <a href="https://doi.org/10.1590/scielopreprints.362">https://doi.org/10.1590/scielopreprints.362</a>.
+</div>
+<div class="csl-entry">
+R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análise-gráfica.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-conceitos_basicos.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["inferencia_com_R.pdf", "inferencia_com_R.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

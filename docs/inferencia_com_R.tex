@@ -113,6 +113,20 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
 \usepackage{booktabs}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -158,7 +172,7 @@ A saída abaixo mostra as versões dos pacotes que usamos na compilação desta 
 \begin{verbatim}
 ## v ggplot2 3.3.5     v purrr   0.3.4
 ## v tibble  3.1.6     v dplyr   1.0.7
-## v tidyr   1.2.0     v stringr 1.4.0
+## v tidyr   1.1.4     v stringr 1.4.0
 ## v readr   2.1.2     v forcats 0.5.1
 \end{verbatim}
 
@@ -211,7 +225,7 @@ O big data é um conceito muito importante e que vem ganhando bastante notorieda
 
 Dados sozinhos não podem dizer muita coisa. Por exemplo, eu posso te dizer que minha cor favorita é verde. Isso não te leva a tirar muitas conclusões sobre minha personalidade. Porém, se eu te der uma pequena tabela em excel com alguns dos meus livros favoritos, provavelmente você terá conclusões mais significativas sobre mim. O que aconteceu foi que você, munido da sua capacidade mental e analítica, aliada a uma certa quantidade de dados foi capaz de tirar alguns insights sobre um assunto. E é exatamente aí que está a beleza e a grandiosidade da chamada ``Era do Big Data''.
 
-\includegraphics[width=5in]{dados_sabedoria}
+\includegraphics{dados_sabedoria.jpg}
 
 Big Data é basicamente análise de dados. De fato isso não é nenhuma novidade. Há muitos e muitos anos a humanidade coleta dados para serem analisados. A grande inovação está em aliar métodos antigos e limitados de análise de dados aos modernos recursos de hardware de alto processamento. Ou seja, agora é possível transitar todos esses cálculos e análises por meio de softwares desenvolvidos especificamente para trabalharem com enormes quantidades de dados. Uma solução de Big Data funciona com algoritmos complexos que trabalham a informação de modo a obter como saída os mais diversos tipos de insights.
 
@@ -225,7 +239,7 @@ Não só nos artigos técnicos direcionados para pesquisadores, mas também nos 
 
 Durante a pandemia da COVID-19 foram publicadas ótimas visualizações de dados de casos e mortes, mas a mais conhecida delas é o gráfico de John Burn-Murdoch no Financial Times. Esta é uma ótima visualização e ajudou a apresentar gráficos em escala logarítimica para um público amplo.
 
-\includegraphics[width=3.5in]{financial_times}
+\includegraphics{financial_times.jpg}
 
 Ao mesmo tempo em que o uso das ferramentas estatísticas vem crescendo, aumenta também o abuso de tais ferramentas. É muito comum vermos em jornais e revistas, até mesmo em periódicos científicos, gráficos - voluntariamente ou intencionalmente - enganosos e estatísticas obscuras para justificar argumentos polêmicos.
 
@@ -336,7 +350,7 @@ São as características que podem ser medidas em uma escala quantitativa, ou se
 \end{itemize}
 
 \hypertarget{variuxe1veis-qualitativas-ou-categuxf3ricas}{%
-\subsection{Variáveis Qualitativas (ou categóricas)}\label{variuxe1veis-qualitativas-ou-categuxf3ricas}}
+\section{Variáveis Qualitativas (ou categóricas)}\label{variuxe1veis-qualitativas-ou-categuxf3ricas}}
 
 São as características que não possuem valores quantitativos, mas, ao contrário, são definidas por várias categorias, ou seja, representam uma classificação dos indivíduos. Podem ser nominais ou ordinais.
 
@@ -795,7 +809,7 @@ Os percentis de ordem \(25,50\) e \(75\) dividem o conjunto de dados em quatro p
 
 Existem vários processos para calcular os percentis, usando interpolação. Vamos ficar com um método mais simples, mostrado na Figura a seguir. As diferenças serão muito pequenas e desaparecerão à medida que aumenta o número de dados.
 
-\includegraphics[width=4in]{fluxograma_percentil}
+\includegraphics{fluxograma_percentil.png}
 
 Considere as notas finais dos 40 candidatos ao curso de Direito no Vestibular de certa faculdade, já colocadas em ordem crescente:
 
@@ -840,6 +854,587 @@ Veja que os valores encontrados pelo \(\texttt{R}\) não coincidem com os calcul
 
 \hypertarget{referuxeancias}{%
 \section{Referências}\label{referuxeancias}}
+
+\hypertarget{anuxe1lise-gruxe1fica}{%
+\chapter{Análise Gráfica}\label{anuxe1lise-gruxe1fica}}
+
+\hypertarget{introduuxe7uxe3o-1}{%
+\section{Introdução}\label{introduuxe7uxe3o-1}}
+
+Já sabemos que as variáveis de um estudo dividem-se em quatro tipos:
+
+\begin{itemize}
+\tightlist
+\item
+  Qualitativas:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    nominais
+  \item
+    ordinais
+  \end{itemize}
+\item
+  Quantitativas:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    discretas
+  \item
+    contínuas
+  \end{itemize}
+\end{itemize}
+
+Os dados gerados por esses tipos de variáveis são de naturezas diferentes e devem receber tratamentos diferentes. Portanto, vamos estudar as ferramentas mais adequadas para cada tipo de dados, separadamente.
+
+\hypertarget{variuxe1veis-qualitativas---nominais-e-ordinais}{%
+\section{Variáveis Qualitativas - Nominais e Ordinais}\label{variuxe1veis-qualitativas---nominais-e-ordinais}}
+
+Na base de dados \(\texttt{mtcars}\), uma das duas variáveis qualitativas presentes é a categoria da transmissão (automática ou manual). Para organizar os dados provenientes de uma variável qualitativa, é usual fazer uma tabela de frequências, como a tabela abaixo, onde estão apresentadas as frequências com que ocorre cada um dos tipos de transmissão no total dos 32 carros observados. Cada categoria da variável transmissão (automática, manual) é representada numa linha da tabela. Há uma coluna com as contagens de carros em cada categoria (frequência absoluta) e outra com os percentuais que essas contagens representam no total de carros (frequência relativa). Esse tipo de tabela representa a distribuição de frequências dos carros segundo a variável transmissão.
+
+Como a variável transmissão é qualitativa nominal, ou seja, não há uma ordem natural em suas categorias, a ordem das linhas da tabela pode ser qualquer uma. É comum a disposição das linhas pela ordem decrescente das frequências das classes.
+
+\begin{tabular}{l>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedleft\arraybackslash}p{2.5cm}}
+\toprule
+Transmissão & Frequência Absoluta & Frequência Relativa (\%)\\
+\midrule
+Automático & 19 & 59.38\\
+Manual & 13 & 40.62\\
+Total & 32 & 100.00\\
+\bottomrule
+\end{tabular}
+
+Quando a variável tabelada for do tipo qualitativa ordinal, as linhas da tabela de frequências devem ser dispostas na ordem existente para as categorias. A tabela abaixo mostra a distribuição de
+frequências das coletas segundo o mês de observação na base de dados \(\texttt{airquality}\), que é uma variável qualitativa ordinal. Nesse caso, podemos acrescentar mais duas colunas com as frequências acumuladas (absoluta e relativa), que mostram, para cada mês, a frequência das coletas até aquele mês. Por exemplo, até o mês de julho, foram coletadas 92 amostras, o que representa 60,13\% do total de amostras coletadas.
+
+\begin{tabular}{l>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}}
+\toprule
+Transmissão & Frequência Absoluta & Frequência Relativa (\%) & Frequência Absoluta Acumulada & Frequência Relativa Acumulada (\%)\\
+\midrule
+5 & 31 & 20.26 & 31 & 20.26\\
+6 & 30 & 19.61 & 61 & 39.87\\
+7 & 31 & 20.26 & 92 & 60.13\\
+8 & 31 & 20.26 & 123 & 80.39\\
+9 & 30 & 19.61 & 153 & 100\\
+\addlinespace
+Total & 153 & 100.00 & - & -\\
+\bottomrule
+\end{tabular}
+
+Note que as frequências acumuladas não fazem sentido em distribuição de frequências de variáveis para as quais não existe uma ordem natural nas categorias, as qualitativas nominais.
+
+A visualização da distribuição de frequências de uma variável fica mais fácil se fizermos um gráfico a partir da tabela de frequências. Existem vários tipos de gráficos, dependendo do tipo de variável a ser representada. Para as variáveis do tipo qualitativas, abordaremos dois tipos de gráficos: os de setores e os de barras.
+
+Os gráficos de setores, mais conhecidos como gráficos de pizza ou torta, são construídos dividindo-se um círculo (pizza) em setores (fatias), um para cada categoria, que serão proporcionais à frequência daquela categoria.
+
+A Figura a seguir mostra um gráfico de setores para a variável transmissão, construído a partir da primeira tabela de frequências. Através desse gráfico, fica mais fácil perceber que os carros automáticos são a grande maioria dos carros. Como esse gráfico contém todas as informações da tabela, pode substituí-la com a vantagem de tornar análise dessa variável mais agradável.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{table}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{am))}
+\FunctionTok{levels}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Var1) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"Automático"}\NormalTok{,}\StringTok{"Manual"}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\StringTok{""}\NormalTok{, }\AttributeTok{y=}\NormalTok{Freq, }\AttributeTok{fill=}\NormalTok{Var1)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_polar}\NormalTok{(}\StringTok{"y"}\NormalTok{, }\AttributeTok{start=}\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_void}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-23-1} \end{center}
+
+Quando houver mais de duas categorias de uma variável nominal, a disposição no gráfico de setores deve ser pela ordem decrescente das frequências, no sentido horário. A categoria ``outros'', quando existir, deve ser sempre a última, mesmo não seja a de menor frequência.
+
+As vantagens da representação gráfica das distribuições de frequências ficam ainda mais evidentes quando há a necessidade de comparar vários grupos com relação à variáveis que possuem muitas categorias, como veremos mais adiante.
+
+Uma alternativa ao gráfico de setores é o gráfico de barras (colunas) como o da figura a seguir. Ao invés de dividirmos um círculo, dividimos uma barra. Note que, em ambos os gráficos, as frequências relativas das categorias devem somar 100\%. Aliás, esse é a idéia dos gráficos: mostrar como se dá a divisão (distribuição) do total de elementos (100\%) em partes (fatias).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{table}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{am))}
+\FunctionTok{levels}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Var1) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"Automático"}\NormalTok{,}\StringTok{"Manual"}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Var1, }\AttributeTok{y=}\NormalTok{Freq, }\AttributeTok{fill=}\NormalTok{Var1)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Freq),}\AttributeTok{position=}\FunctionTok{position\_stack}\NormalTok{(}\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.ticks.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-24-1} \end{center}
+
+Uma situação diferente ocorre quando desejamos comparar a distribuição de frequências de uma mesma variável em vários grupos, como por exemplo, a frequência de estudantes com olhos azuis entre todas as cores de cabelo na base de dados \(\texttt{HairEyeColor}\). Se quisermos usar o gráfico de setores para fazer essa comparação, devemos fazer quatro gráficos, um para cada cor de cabelo, com duas fatias cada um (olhos azuis e olhos não azuis). Uma alternativa é a construção de um gráfico de colunas (barras) como os gráficos das figuras a seguir, onde há uma barra para cada cor de cabelo representando a frequência de estudantes com olhos azuis e aquela cor de cabelo. Além de economizar espaço na apresentação, permite que as comparações sejam feitas de maneira mais rápida.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(HairEyeColor[,,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ HairEyeColor[,,}\DecValTok{2}\NormalTok{])}
+\NormalTok{df }\OtherTok{=}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Eye }\SpecialCharTok{==} \StringTok{"Blue"}\NormalTok{)}
+\NormalTok{p1 }\OtherTok{=}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{name =} \FunctionTok{fct\_reorder}\NormalTok{(Hair, }\FunctionTok{desc}\NormalTok{(Freq))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{name, }\AttributeTok{y=}\NormalTok{Freq, }\AttributeTok{fill=}\NormalTok{name)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position=}\StringTok{"dodge"}\NormalTok{, }\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Freq),}\AttributeTok{position=}\FunctionTok{position\_stack}\NormalTok{(}\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+        \AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.ticks.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{())}
+\NormalTok{p2 }\OtherTok{=}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{name =} \FunctionTok{fct\_reorder}\NormalTok{(Hair, Freq)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{name, }\AttributeTok{y=}\NormalTok{Freq, }\AttributeTok{fill=}\NormalTok{name)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position=}\StringTok{"dodge"}\NormalTok{, }\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Freq),}\AttributeTok{position=}\FunctionTok{position\_stack}\NormalTok{(}\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+        \AttributeTok{axis.title.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.ticks.x =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{axis.title.y =} \FunctionTok{element\_blank}\NormalTok{())}
+\NormalTok{gridExtra}\SpecialCharTok{::}\FunctionTok{grid.arrange}\NormalTok{(p1,p2,}\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-25-1} \end{center}
+
+A ordem dos grupos pode ser qualquer, ou aquela mais adequada para a presente análise. Frequentemente, encontramos as barras em ordem decrescente, já antecipando nossa intuição de ordenar os grupos de acordo com sua frequência para facilitar as comparações. Caso a variável fosse do tipo ordinal, a ordem das barras seria a ordem natural das categorias, como na tabela de frequências.
+
+A figura abaixo mostra um gráfico de barras que pode ser usado da comparação da distribuição de frequências de uma mesma variável em vários grupos. É também uma alternativa ao uso de vários gráficos de setores, sendo, na verdade, a junção de dois gráficos com os das figuras acima num só gráfico. Porém, esse tipo de gráfico só deve ser usado quando não houver muitos grupos a serem comparados e a variável em estudo não tiver muitas categorias.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(HairEyeColor[,,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ HairEyeColor[,,}\DecValTok{2}\NormalTok{])}
+\FunctionTok{ggplot}\NormalTok{(df,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Hair, }\AttributeTok{y=}\NormalTok{Freq, }\AttributeTok{fill=}\NormalTok{Eye)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Freq),}\AttributeTok{position=}\FunctionTok{position\_stack}\NormalTok{(}\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-26-1} \end{center}
+
+Frequentemente, é necessário fazer comparações da distribuição de frequências de uma variável em vários grupos simultaneamente. Nesse caso, o uso de gráficos bem escolhidos e construídos torna a tarefa muito mais fácil. Na figura abaixo, está representada a distribuição de frequências da cor dos olhos segundo a variável cor do cabelo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(HairEyeColor[,,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ HairEyeColor[,,}\DecValTok{2}\NormalTok{])}
+\FunctionTok{ggplot}\NormalTok{(df,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Hair, }\AttributeTok{y=}\NormalTok{Freq, }\AttributeTok{fill=}\NormalTok{Eye)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position=}\StringTok{"dodge"}\NormalTok{,}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ Freq),}\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-27-1} \end{center}
+
+\hypertarget{variuxe1veis-quantitativas-discretas}{%
+\section{Variáveis Quantitativas Discretas}\label{variuxe1veis-quantitativas-discretas}}
+
+Quando estamos trabalhando com uma variável discreta que assume poucos valores, podemos dar a ela o mesmo tratamento dado às variáveis qualitativas ordinais, assumindo que cada valor é uma classe e que existe uma ordem natural nessas classes.
+
+Quando trabalhamos com uma variável discreta que pode assumir um grande número de valores distintos como, por exemplo, parte inteira da temperatura máxima, a construção da tabela de frequências e de gráficos considerando cada valor como uma categoria fica inviável. A solução é agrupar os valores em classes ao montar a tabela, como mostra a tabela abaixo.
+
+\begin{tabular}{l>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}}
+\toprule
+Temperatura & Frequência Absoluta & Frequência Relativa (\%) & Frequência Absoluta Acumulada & Frequência Relativa Acumulada (\%)\\
+\midrule
+56 a 67 & 21 & 15.67 & 21 & 15.67\\
+67 a 78 & 47 & 35.07 & 68 & 50.75\\
+78 a 89 & 66 & 49.25 & 134 & 100\\
+Total & 134 & 99.99 & - & -\\
+\bottomrule
+\end{tabular}
+
+A Figura abaixo mostra o gráfico da distribuição de frequências da temperatura medida por 236 dias consecutivos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(dt}\SpecialCharTok{$}\NormalTok{Variavel }\SpecialCharTok{!=} \StringTok{"Total"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Variavel, }\AttributeTok{y=}\NormalTok{Freq\_rel)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position=}\StringTok{"dodge"}\NormalTok{,}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Temperatura"}\NormalTok{,}\AttributeTok{y=}\StringTok{"Frequência Relativa (\%)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-29-1} \end{center}
+
+\hypertarget{variuxe1veis-quantitativas-contuxednuas}{%
+\section{Variáveis Quantitativas Contínuas}\label{variuxe1veis-quantitativas-contuxednuas}}
+
+Quando a variável em estudo é do tipo contínua, que assume muitos valores distintos, o agrupamento dos dados em classes será sempre necessário na construção das tabelas de frequências. A tabela abaixo apresenta a distribuição de frequências para o peso dos carros.
+
+\begin{tabular}{l>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}}
+\toprule
+Temperatura & Frequência Absoluta & Frequência Relativa (\%) & Frequência Absoluta Acumulada & Frequência Relativa Acumulada (\%)\\
+\midrule
+1.5 |- 2 & 0 & 0.00 & 0 & 0\\
+2 |- 2.5 & 0 & 0.00 & 0 & 0\\
+2.5 |- 3 & 3 & 9.38 & 3 & 9.38\\
+3 |- 3.5 & 10 & 31.25 & 13 & 40.62\\
+3.5 |- 4 & 12 & 37.50 & 25 & 78.12\\
+\addlinespace
+4 |- 4.5 & 6 & 18.75 & 31 & 96.88\\
+4.5 |- 5 & 1 & 3.12 & 32 & 100\\
+5 |- 5.5 & 0 & 0.00 & 32 & 100\\
+Total & 32 & 100.00 & - & -\\
+\bottomrule
+\end{tabular}
+
+\hypertarget{histograma}{%
+\section{Histograma}\label{histograma}}
+
+A representação gráfica da distribuição de frequências de uma variável contínua é feita através de um gráfico chamado histograma, mostrado nas figuras abaixo com o peso de diamantes (\(\texttt{diamonds}\)). O histograma nada mais é do que o gráfico de barras verticais, porém construído com as barras unidas, devido ao caráter contínuo dos valores da variável.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{p1}\OtherTok{=}\FunctionTok{ggplot}\NormalTok{(diamonds,}\FunctionTok{aes}\NormalTok{(carat)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Frequência Absoluta"}\NormalTok{)}
+\NormalTok{p2}\OtherTok{=}\FunctionTok{ggplot}\NormalTok{(diamonds,}\FunctionTok{aes}\NormalTok{(carat)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ (..count..)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(..count..)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{),}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Frequência Relativa (\%)"}\NormalTok{)}
+\NormalTok{gridExtra}\SpecialCharTok{::}\FunctionTok{grid.arrange}\NormalTok{(p1,p2,}\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-31-1} \end{center}
+
+Os histogramas das figuras acima têm exatamente a mesma forma, apesar de serem construídos usando as frequências absolutas e relativas, respectivamente. O objetivo dessas figuras é mostrar que a escolha do tipo de frequência a ser usada não muda a forma da distribuição. Entretanto, o uso da frequência relativa torna o histograma comparável a outros histogramas, mesmo que os conjuntos de dados tenham tamanhos diferentes (desde a mesma escala seja usada!)
+
+Para o desenvolvimento do histograma:
+
+\begin{itemize}
+\tightlist
+\item
+  Calcule a amplitude dos dados
+\item
+  Defina a quantidade de classes (as barras verticais). Não existe uma regra, porém uma boa aproximação seria calcular a raiz quadrada da quantidade de dados (\(\sqrt n\))
+\item
+  Calcule o intervalo das classes dividindo a amplitude pela quantidade de classes
+\item
+  Determine os limites das classes. Selecione o valor mínimo dos dados (se for mais viável, ele pode ser arredondado para baixo) e soma o valor do intervalo de classe para obter o limite superior
+\item
+  Faça o passo anterior para todas as classes
+\item
+  Calcule a frequência dos dados que pertence a cada intervalo
+\end{itemize}
+
+Este é o passo a passo básico para a elaboração de um Histograma, que seja capaz de lhe trazer informações precisas sobre a frequência com que algo acontece em um determinado contexto.
+
+Ao estudarmos a distribuição de frequências de uma variável quantitativa, seja em um grupo apenas ou comparando vários grupos, devemos verificar basicamente três características:
+
+\begin{itemize}
+\tightlist
+\item
+  Tendência Central;
+\item
+  Variabilidade;
+\item
+  Forma.
+\end{itemize}
+
+Tais características podem ser quantificadas através das medidas de síntese numérica ou visualizadas a partir do histograma.
+
+\hypertarget{tenduxeancia-central}{%
+\subsection{Tendência Central}\label{tenduxeancia-central}}
+
+A tendência central da distribuição de frequências de uma variável é caracterizada pelo valor (ou faixa de valores) ``típico'' da variável.
+
+Uma das maneiras de representar o que é ``típico'' é através do valor mais frequente da variável, chamado de moda. Ou, no caso da tabela de frequências, a classe de maior frequência, chamada de classe modal. No histograma, esta classe corresponde àquela com barra mais alta (``pico'').
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-32-1} \end{center}
+
+No exemplo acima, a classe modal é a que vai de 96.4 até 101.9. Assim, os dados repousam, tipicamente entre esses valores. Entretanto, temos dois picos.
+
+Geralmente, um histograma bimodal indica a existência de dois grupos, com valores centrados em dois pontos diferentes do eixo de valores. Uma distribuição de frequências pode também ser amodal, ou seja, todos os valores são igualmente frequentes. Ou também unimodal, quando os valores estão concentrados somente em um ponto/classe.
+
+\hypertarget{variabilidade}{%
+\subsection{Variabilidade}\label{variabilidade}}
+
+Para descrever adequadamente a distribuição de frequências de uma variável quantitativa, além da informação do valor representativo da variável (tendência central), é necessário dizer também o quanto estes valores variam, ou seja, o quão dispersos eles são.
+
+De fato, somente a informação sobre a tendência central de um conjunto de dados não consegue representá-lo adequadamente. A Figura abaixo mostra um histograma para os tempos de espera de 1000 clientes de dois bancos, um com fila única e outro com fila múltipla, com o mesmo número de atendentes. Os tempos de espera nos dois bancos têm a mesma tendência central de 7 minutos. Entretanto, os dois conjuntos de dados são claramente diferentes, pois os valores são muito mais dispersos no banco com fila múltipla. Assim, quando entramos num fila única, esperamos ser atendidos em cerca de 7 minutos, com uma variação de, no máximo, meio minuto a mais ou a menos. Na fila múltipla, a variação é maior, indicando-se que tanto pode-se esperar muito mais ou muito menos que o valor típico de 7 minutos.
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-33-1} \end{center}
+
+\hypertarget{forma}{%
+\subsection{Forma}\label{forma}}
+
+A distribuição de frequências de uma variável pode ter várias formas, mas existem três formas básicas, apresentadas na figura abaixo através de histogramas.
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-34-1} \end{center}
+
+Quando uma distribuição é simétrica em torno de um valor (o mais frequente), significa que as observações estão igualmente distribuídas em torno desse valor (metade acima e metade abaixo).
+
+A assimetria de uma distribuição pode ocorrer de duas formas:
+
+\begin{itemize}
+\tightlist
+\item
+  quando os valores concentram-se à esquerda (assimetria com concentração à esquerda ou assimetria com cauda à direita);
+\item
+  quando os valores concentram-se à direita (assimetria com concentração à direita ou com assimetria cauda à esquerda);
+\end{itemize}
+
+Ao definir a assimetria de uma distribuição, algumas pessoas preferem se referir ao lado onde está a concentração dos dados. Porém, outras pessoas preferem se referir ao lado onde está ``faltando'' dados (cauda). As duas denominações são alternativas.
+
+Em alguns casos, apenas o conhecimento da forma da distribuição de frequências de uma variável já nos fornece uma boa informação sobre o comportamento dessa variável. Por exemplo, o que você acharia se soubesse que a distribuição de frequências das notas da primeira prova da disciplina de Estatística que você está cursando é, geralmente, assimétrica com concentração à direita? Como você acha que é a forma da distribuição de frequências da renda no Brasil?
+
+\hypertarget{boxplot}{%
+\section{Boxplot}\label{boxplot}}
+
+O Boxplot é um gráfico proposto para a detecção de valores discrepantes (outliers), que são aqueles valores muito diferentes do restante do conjunto de dados.
+
+Esses valores discrepantes podem representar erros no processo de coleta ou de processamento dos dados, e, nesse caso, devem ser corrigidos ou excluídos do banco de dados. No entanto, os outliers podem ser valores corretos, que, por alguma razão, são muito diferentes dos demais valores. Nesse caso, a análise desses dados deve ser cuidadosa, pois, como sabemos, algumas estatísticas descritivas, como a média e o desvio-padrão, são influenciadas por valores extremos.
+
+Na construção do Boxplot, utilizamos alguns percentis (mediana, primeiro e terceiro quartis), que são pouco influenciados por valores extremos. Além disso, precisamos saber quais são os valores mínimo e máximo do conjunto de dados.
+
+O Boxplot é constituído por uma caixa atravessada por uma linha, construído usando um eixo com uma escala de valores, como mostra a figura abaixo. Como sabemos, entre o primeiro e o terceiro quartis, temos 50\% dos dados. Podemos pensar, então, que essa caixa contém metade dos dados do conjunto.
+
+\includegraphics{Boxplot exemplo.png}
+
+Como um gráfico tem que representar todos os valores do conjunto de dados, precisamos representar os outros 50\%, sendo 25\% abaixo do Q1 e 25\% acima do Q3. Esses valores serão representados pelas duas linhas que saem das extremidades da caixa. Cada uma das linhas é traçada, a partir das extremidades da caixa, até que encontre o valor máximo ou mínimo; ou atinja o comprimento máximo de 1,5 vezes a altura da caixa (IQR). O que acontecer primeiro.
+
+No exemplo da imagem acima o segundo caso aconteceu, assim os valores que ainda não foram representados devem ser devidamente marcados em suas respectivas posições na escala de valores. Esses valores são considerados outliers pelo critério do boxplot. Obviamente, o limite superior do boxplot não coincidiu com o valor máximo do conjunto de dados, que foi considerado um valor discrepante (outlier).
+
+Além da detecção de valores discrepantes, o boxplot pode ser muito útil na análise da distribuição dos valores de um conjunto de dados. Através do boxplot, podemos:
+
+\begin{itemize}
+\tightlist
+\item
+  identificar a forma da distribuição (simétrica ou assimétrica);
+\item
+  avaliar e comparar a tendência central (mediana) de dois ou mais conjuntos de dados;
+\item
+  comparar a variabilidade de dois ou mais conjuntos de dados
+\end{itemize}
+
+Para avaliar a forma da distribuição, devemos observar o deslocamento da caixa em relação a linha do boxplot. Lembrando que a caixa do boxplot contém 50\% dos dados, o seu deslocamento na linha nos informa onde estão concentrados os dados.
+
+Se a caixa está mais deslocada para um dos lados da linha, significa que metade dos dados estão concentrados naquele lado da escala de valores e, assim, a distribuição é assimétrica. Se a caixa está praticamente no meio da linha, dividindo-a em duas partes iguais, é distribuição será considerada simétrica.
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-36-1} \end{center}
+
+\hypertarget{diagrama-de-dispersuxe3o}{%
+\section{Diagrama de Dispersão}\label{diagrama-de-dispersuxe3o}}
+
+O diagrama de dispersão é um gráfico onde pontos no espaço cartesiano XY são usados para representar simultaneamente os valores de duas variáveis quantitativas medidas em cada indivíduo do conjunto de dados.
+
+O Quadro e a Figura abaixo mostram um esquema do desenho do diagrama de dispersão. Neste exemplo, foram medidos os valores de duas variáveis quantitativas, X e Y, em quatro indivíduos. O eixo horizontal do gráfico representa a variável X e o eixo vertical representa a variável Y.
+
+\begin{tabular}{l>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedleft\arraybackslash}p{2.5cm}>{}p{2.5cm}>{}p{2.5cm}}
+\toprule
+Indivíduos & Variável X & Variável Y\\
+\midrule
+A & 2 & 3\\
+B & 4 & 3\\
+C & 4 & 5\\
+D & 8 & 7\\
+\bottomrule
+\end{tabular}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-37-1} \end{center}
+
+O diagrama de dispersão é usado principalmente para visualizar a relação/associação entre duas variáveis, mas também para é muito útil para:
+
+\begin{itemize}
+\tightlist
+\item
+  Comparar o efeito de dois tratamentos no mesmo indivíduo
+\item
+  Verificar o efeito tipo antes/depois de um tratamento
+\end{itemize}
+
+A seguir, veremos dois exemplos da utilização do diagrama de dispersão. O primeiro refere-se ao estudo da associação entre duas variáveis. O segundo utiliza o diagrama de dispersão para comparar o efeito da aplicação de um tratamento, comparando as medidas antes e depois da medicação.
+
+\hypertarget{exemplo-1}{%
+\subsection{Exemplo 1}\label{exemplo-1}}
+
+Um produtor de morangos para exportação deseja produzir frutos grandes, pois frutos pequenos têm pouco valor mesmo no mercado interno. Além disso, os frutos, mesmo grandes, não devem ter tamanhos muito diferentes entre si. O produtor suspeita que uma dos fatores que altera o tamanho dos frutos é o número de frutos por árvore.
+
+Para investigar a relação entre o número de frutos que uma planta produz e o peso destes frutos, ele observou dados de 10 morangueiros na primeira safra (Quadro abaixo) e gerou o Diagrama de Dispersão apresentado abaixo.
+
+\begin{table}
+\centering\begingroup\fontsize{5}{7}\selectfont
+
+\begin{tabular}{>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}>{\raggedleft\arraybackslash}p{0.7cm}}
+\toprule
+Planta & Quantidade &  &  &  &  &  &  &  &  &  &  &  &  &  & \\
+\midrule
+1001 & 5 & 15.15 & 15.45 & 15.63 & 15.65 & 16.38 & NA & NA & NA & NA & NA & NA & NA & NA & NA\\
+1002 & 6 & 14.00 & 14.50 & 15.35 & 15.86 & 15.94 & 16.13 & NA & NA & NA & NA & NA & NA & NA & NA\\
+1003 & 7 & 13.67 & 13.76 & 14.06 & 14.11 & 14.54 & 14.89 & 15.50 & NA & NA & NA & NA & NA & NA & NA\\
+1004 & 8 & 11.00 & 11.50 & 12.39 & 12.39 & 12.90 & 14.50 & 15.50 & 16.56 & NA & NA & NA & NA & NA & NA\\
+1005 & 9 & 10.24 & 11.12 & 12.05 & 12.37 & 13.48 & 13.80 & 14.04 & 15.39 & 16.00 & NA & NA & NA & NA & NA\\
+\addlinespace
+1006 & 10 & 9.00 & 9.32 & 10.67 & 11.56 & 11.67 & 12.56 & 12.83 & 12.84 & 13.43 & 15.09 & NA & NA & NA & NA\\
+1007 & 11 & 7.82 & 8.56 & 8.74 & 9.57 & 11.08 & 11.92 & 12.13 & 12.50 & 14.14 & 14.20 & 14.00 & NA & NA & NA\\
+1008 & 12 & 7.25 & 9.41 & 10.15 & 10.33 & 10.80 & 10.95 & 11.13 & 11.48 & 11.49 & 12.86 & 13.37 & 15.04 & NA & NA\\
+1009 & 13 & 6.95 & 7.61 & 8.53 & 10.00 & 10.94 & 11.04 & 11.43 & 11.63 & 11.97 & 12.02 & 12.74 & 13.53 & 14.00 & NA\\
+1010 & 14 & 7.00 & 8.00 & 9.00 & 10.00 & 10.00 & 10.50 & 11.00 & 11.16 & 11.17 & 11.70 & 12.45 & 12.89 & 13.47 & 13.54\\
+\bottomrule
+\end{tabular}
+\endgroup{}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\NormalTok{aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{15.15}\NormalTok{,}\FloatTok{15.45}\NormalTok{,}\FloatTok{15.63}\NormalTok{,}\FloatTok{15.65}\NormalTok{,}\FloatTok{16.38}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \DecValTok{14}\NormalTok{,}\FloatTok{14.5}\NormalTok{,}\FloatTok{15.35}\NormalTok{,}\FloatTok{15.86}\NormalTok{,}\FloatTok{15.94}\NormalTok{,}\FloatTok{16.13}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \FloatTok{13.67}\NormalTok{,}\FloatTok{13.76}\NormalTok{,}\FloatTok{14.06}\NormalTok{,}\FloatTok{14.11}\NormalTok{,}\FloatTok{14.54}\NormalTok{,}\FloatTok{14.89}\NormalTok{,}\FloatTok{15.5}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \DecValTok{11}\NormalTok{,}\FloatTok{11.5}\NormalTok{,}\FloatTok{12.39}\NormalTok{,}\FloatTok{12.39}\NormalTok{,}\FloatTok{12.9}\NormalTok{,}\FloatTok{14.5}\NormalTok{,}\FloatTok{15.5}\NormalTok{,}\FloatTok{16.56}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \FloatTok{10.24}\NormalTok{,}\FloatTok{11.12}\NormalTok{,}\FloatTok{12.05}\NormalTok{,}\FloatTok{12.37}\NormalTok{,}\FloatTok{13.48}\NormalTok{,}\FloatTok{13.8}\NormalTok{,}\FloatTok{14.04}\NormalTok{,}\FloatTok{15.39}\NormalTok{,}\DecValTok{16}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \DecValTok{9}\NormalTok{,}\FloatTok{9.32}\NormalTok{,}\FloatTok{10.67}\NormalTok{,}\FloatTok{11.56}\NormalTok{,}\FloatTok{11.67}\NormalTok{,}\FloatTok{12.56}\NormalTok{,}\FloatTok{12.83}\NormalTok{,}\FloatTok{12.84}\NormalTok{,}\FloatTok{13.43}\NormalTok{,}\FloatTok{15.09}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \FloatTok{7.82}\NormalTok{,}\FloatTok{8.56}\NormalTok{,}\FloatTok{8.74}\NormalTok{,}\FloatTok{9.57}\NormalTok{,}\FloatTok{11.08}\NormalTok{,}\FloatTok{11.92}\NormalTok{,}\FloatTok{12.13}\NormalTok{,}\FloatTok{12.5}\NormalTok{,}\FloatTok{14.14}\NormalTok{,}\FloatTok{14.2}\NormalTok{,}\DecValTok{14}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \FloatTok{7.25}\NormalTok{,}\FloatTok{9.41}\NormalTok{,}\FloatTok{10.15}\NormalTok{,}\FloatTok{10.33}\NormalTok{,}\FloatTok{10.8}\NormalTok{,}\FloatTok{10.95}\NormalTok{,}\FloatTok{11.13}\NormalTok{,}\FloatTok{11.48}\NormalTok{,}\FloatTok{11.49}\NormalTok{,}\FloatTok{12.86}\NormalTok{,}\FloatTok{13.37}\NormalTok{,}\FloatTok{15.04}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \FloatTok{6.95}\NormalTok{,}\FloatTok{7.61}\NormalTok{,}\FloatTok{8.53}\NormalTok{,}\DecValTok{10}\NormalTok{,}\FloatTok{10.94}\NormalTok{,}\FloatTok{11.04}\NormalTok{,}\FloatTok{11.43}\NormalTok{,}\FloatTok{11.63}\NormalTok{,}\FloatTok{11.97}\NormalTok{,}\FloatTok{12.02}\NormalTok{,}\FloatTok{12.74}\NormalTok{,}\FloatTok{13.53}\NormalTok{,}\DecValTok{14}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}
+               \DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{,}\FloatTok{10.5}\NormalTok{,}\DecValTok{11}\NormalTok{,}\FloatTok{11.16}\NormalTok{,}\FloatTok{11.17}\NormalTok{,}\FloatTok{11.7}\NormalTok{,}\FloatTok{12.45}\NormalTok{,}\FloatTok{12.89}\NormalTok{,}\FloatTok{13.47}\NormalTok{,}\FloatTok{13.54}\NormalTok{),}
+             \AttributeTok{nrow=}\DecValTok{10}\NormalTok{,}\AttributeTok{ncol =} \DecValTok{14}\NormalTok{,}\AttributeTok{byrow =}\NormalTok{ T)}
+\NormalTok{dados }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{ID\_Morangueiro =} \DecValTok{1001}\SpecialCharTok{:}\DecValTok{1010}\NormalTok{,}
+                   \AttributeTok{Qtd\_Frutos =} \DecValTok{5}\SpecialCharTok{:}\DecValTok{14}\NormalTok{,aux)}
+\NormalTok{dados }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"X"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Qtd\_Frutos, }\AttributeTok{y =}\NormalTok{ value)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{limits=}\DecValTok{5}\SpecialCharTok{:}\DecValTok{14}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Quantidade de Frutos"}\NormalTok{,}\AttributeTok{y =} \StringTok{"Peso do Fruto (g)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-40-1} \end{center}
+
+O diagrama de dispersão mostra-nos dois fatos. O primeiro, que há um decréscimo no valor médio do peso do fruto por árvore à medida que cresce o número de frutos na árvore. Ou seja, não é vantagem uma árvore produzir muitos frutos, pois eles tenderão a ser muito pequenos.
+
+O segundo fato que percebemos é que, com o aumento no número de frutos na árvore, cresce também a variabilidade no peso, gerando tanto frutos muito grandes, como muito pequenos.
+
+Assim, conclui-se que não é vantagem ter poucas plantas produzindo muito frutos, mas sim muitas plantas produzindo poucos frutos, mas grandes e uniformes. Uma análise mais detalhada poderá determinar o número ideal de frutos por árvore, aquele que maximiza o peso médio e, ao mesmo tempo, minimiza a variabilidade do peso.
+
+\hypertarget{exemplo-2}{%
+\subsection{Exemplo 2}\label{exemplo-2}}
+
+Captopril é um remédio destinado a baixar a pressão sistólica. Para testar seu efeito, ele foi ministrado a 12 pacientes, tendo sido medida a pressão sistólica antes e depois da medicação.
+
+\begin{tabular}{l>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedleft\arraybackslash}p{2.5cm}>{}p{2.5cm}>{}p{2.5cm}}
+\toprule
+Paciente & Antes & Depois\\
+\midrule
+A & 200 & 191\\
+B & 174 & 170\\
+C & 198 & 177\\
+D & 170 & 167\\
+E & 179 & 159\\
+\addlinespace
+F & 182 & 151\\
+G & 193 & 176\\
+H & 209 & 183\\
+I & 185 & 159\\
+J & 155 & 145\\
+\addlinespace
+K & 169 & 146\\
+L & 210 & 177\\
+\bottomrule
+\end{tabular}
+
+Os mesmos indivíduos foram utilizados nas duas amostras (Antes/depois). Assim, é natural compararmos a pressão sistólica para cada indivíduo, comparando a pressão sistólica depois e antes. Para todos os pacientes, a pressão sistólica depois do Captopril é menor do que antes da medicação. Mas como podemos ``ver'' se estas diferenças são grandes? Com a ajuda do diagrama de dispersão mostrado na figura abaixo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Paciente =}\NormalTok{ LETTERS[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{12}\NormalTok{],}
+                   \AttributeTok{Antes =} \FunctionTok{c}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{174}\NormalTok{, }\DecValTok{198}\NormalTok{, }\DecValTok{170}\NormalTok{, }\DecValTok{179}\NormalTok{, }\DecValTok{182}\NormalTok{, }\DecValTok{193}\NormalTok{, }\DecValTok{209}\NormalTok{, }\DecValTok{185}\NormalTok{, }\DecValTok{155}\NormalTok{, }\DecValTok{169}\NormalTok{, }\DecValTok{210}\NormalTok{),}
+                   \AttributeTok{Depois =} \FunctionTok{c}\NormalTok{(}\DecValTok{191}\NormalTok{, }\DecValTok{170}\NormalTok{, }\DecValTok{177}\NormalTok{, }\DecValTok{167}\NormalTok{, }\DecValTok{159}\NormalTok{, }\DecValTok{151}\NormalTok{, }\DecValTok{176}\NormalTok{, }\DecValTok{183}\NormalTok{, }\DecValTok{159}\NormalTok{, }\DecValTok{145}\NormalTok{, }\DecValTok{146}\NormalTok{, }\DecValTok{177}\NormalTok{))}
+
+\NormalTok{dados }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Antes, }\AttributeTok{y =}\NormalTok{ Depois)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\DecValTok{140}\NormalTok{,}\DecValTok{220}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlim}\NormalTok{(}\DecValTok{140}\NormalTok{,}\DecValTok{220}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{intercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{200}\NormalTok{, }\AttributeTok{y =} \DecValTok{160}\NormalTok{), }\AttributeTok{label =} \StringTok{"Depois \textless{} Antes"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{160}\NormalTok{, }\AttributeTok{y =} \DecValTok{200}\NormalTok{), }\AttributeTok{label =} \StringTok{"Depois \textgreater{} Antes"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{210}\NormalTok{, }\AttributeTok{y =} \DecValTok{210}\NormalTok{), }\AttributeTok{label =} \StringTok{"Depois = Antes"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-42-1} \end{center}
+
+Cada ponto no diagrama de dispersão corresponde às medidas de pressão sistólica de um paciente, medida antes e depois da medicação. A linha marcada no diagrama corresponde à situação onde a pressão sistólica não se alterou depois do paciente tomar o Captopril. Veja que todos os pontos estão abaixo desta linha, ou seja para todos os pacientes o Captopril fez efeito. Grande parte destes pontos está bem distante da linha, mostrando que a redução na pressão sistólica depois do uso do medicamento não foi pequena.
+
+\hypertarget{suxe9ries-temporais}{%
+\section{Séries Temporais}\label{suxe9ries-temporais}}
+
+Séries temporais (ou séries históricas) são um conjunto de observações de uma mesma variável quantitativa (discreta ou contínua) feitas ao longo do tempo. O conjunto de novos casos da COVID-19 é um exemplo de série temporal.
+
+Um dos objetivos do estudo de séries temporais é conhecer o comportamento da série ao longo do tempo (aumento, estabilidade ou declínio dos valores). Em alguns estudos, esse conhecimento pode ser usado para se fazer previsões de valores futuros com base no comportamento dos valores passados.
+
+A representação gráfica de uma série temporal é feita através do gráfico de linha, como exemplificado nas figuras abaixo. No eixo horizontal do gráfico de linha, está o indicador de tempo e, no eixo vertical, a variável a ser representada.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tsibble)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\NormalTok{dados }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/wcota/covid19br/master/cases{-}brazil{-}states.csv"}\NormalTok{)}
+
+\NormalTok{dados }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{date =} \FunctionTok{as\_date}\NormalTok{(date)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{as\_tsibble}\NormalTok{(}\AttributeTok{key =}\NormalTok{ state, }\AttributeTok{index =}\NormalTok{ date) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(state }\SpecialCharTok{==} \StringTok{"TOTAL"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(date, newCases) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date, }\AttributeTok{y =}\NormalTok{ newCases)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Evolução dos casos de COVID{-}19 no Brasil"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Novos Casos"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Data"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-43-1} \end{center}
+
+De maneira geral, um gráfico de linhas deve ser construído de modo que:
+
+\begin{itemize}
+\tightlist
+\item
+  O início do eixo vertical seja o valor mínimo possível para a variável que está sendo representada, para evitar as distorções
+\item
+  O final do eixo vertical seja tal que a série fica centrada em relação ao eixo vertical
+\item
+  Os tamanhos dos eixos sejam o mais parecidos possível
+\end{itemize}
+
+\hypertarget{gruxe1fico-de-radar}{%
+\section{Gráfico de Radar}\label{gruxe1fico-de-radar}}
+
+O gráfico de radar é um diagrama e/ou gráfico que consiste de uma sequência de raios equi-angulares, com cada raio representando uma das variáveis. O comprimento de cada raio é proporcional à magnitude da variável para o ponto de dados em relação à máxima magnitude da variável em todos os pontos. Uma linha é desenhada ligando os valores de cada raio. Isso dá ao diagrama uma aparência de estrela, o que deu origem a um dos nomes mais populares para este gráfico. O gráfico de estrela pode ser usado para responder as seguintes questões:
+
+\begin{itemize}
+\tightlist
+\item
+  Que observações são mais semelhantes, por exemplo, existem clusters de observações?
+\item
+  Existem exceções?
+\end{itemize}
+
+Gráficos de radar oferecem uma maneira útil de exibir observações multivariáveis com um número arbitrário de variáveis. Cada estrela representa uma única observação. Normalmente, os gráficos de radar são gerados em um formato multi-diagrama com muitas estrelas em cada página, cada estrela representando uma observação. É um pouco mais fácil de ver padrões em dados se as observações forem organizadas em alguma ordem não-arbitrária (se as variáveis forem atribuídas aos raios da estrela em uma ordem significativa).
+
+Uma aplicação de gráficos de radar é o controle de melhoria de qualidade para apresentar as métricas de desempenho de qualquer programa em curso. Eles também são usados em esportes para representar os pontos fortes e fracos de jogadores, onde eles são geralmente chamados de gráficos de aranha. No exemplo abaixo vemos a performance de três alunos (a,b,c) em relação as dimensões matemática, inglês, biologia, música e R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(fmsb)}
+
+\NormalTok{dados }\OtherTok{=} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{sample}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{20}\NormalTok{, }\DecValTok{15}\NormalTok{, }\AttributeTok{replace=}\NormalTok{F), }\AttributeTok{ncol=}\DecValTok{5}\NormalTok{))}
+\FunctionTok{colnames}\NormalTok{(dados) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"matemática"}\NormalTok{, }\StringTok{"inglês"}\NormalTok{, }\StringTok{"biologia"}\NormalTok{, }\StringTok{"música"}\NormalTok{ ,}\StringTok{"R"}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(dados) }\OtherTok{=} \FunctionTok{paste}\NormalTok{(}\StringTok{"aluno"}\NormalTok{, letters[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{])}
+
+\NormalTok{dados }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{), dados)}
+ 
+\FunctionTok{radarchart}\NormalTok{(dados)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
   \bibliography{book.bib,packages.bib}
 
