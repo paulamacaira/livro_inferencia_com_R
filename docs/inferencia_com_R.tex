@@ -210,7 +210,7 @@ Fevereiro 2022
 Para citar a versão online deste livro, use o seguinte:
 
 \begin{quote}
-Maçaira, P.; Bastos, L.; Aguilar, S. \& Peres, I. (2022) Inferência Estatística com R, 1ª edição, OTexts: Melbourne, Australia. OTexts.com/fpp3. Acessado em 2022-02-03.
+Maçaira, P.; Bastos, L.; Aguilar, S. \& Peres, I. (2022) Inferência Estatística com R, 1ª edição, OTexts: Melbourne, Australia. OTexts.com/fpp3. Acessado em 2022-02-04.
 \end{quote}
 
 \hypertarget{analise_descritiva}{%
@@ -259,61 +259,61 @@ Para exemplificação, iremos extrair do \href{https://github.com/wcota/covid19b
 \hline
 Estado & Casos & Mortes\\
 \hline
-TOTAL & 25820745 & 629301\\
+TOTAL & 26107894 & 630301\\
 \hline
-AC & 102866 & 1877\\
+AC & 105014 & 1881\\
 \hline
-AL & 262163 & 6451\\
+AL & 262735 & 6456\\
 \hline
-AM & 537441 & 13981\\
+AM & 541668 & 13991\\
 \hline
-AP & 154329 & 2054\\
+AP & 155288 & 2055\\
 \hline
-BA & 1374028 & 28026\\
+BA & 1389564 & 28077\\
 \hline
-CE & 1131297 & 25332\\
+CE & 1160180 & 25450\\
 \hline
-DF & 617945 & 11197\\
+DF & 625031 & 11208\\
 \hline
-ES & 881190 & 13585\\
+ES & 897437 & 13607\\
 \hline
-GO & 1050619 & 25101\\
+GO & 1057811 & 25117\\
 \hline
-MA & 389276 & 10501\\
+MA & 390765 & 10510\\
 \hline
-MG & 2777186 & 57440\\
+MG & 2805771 & 57575\\
 \hline
-MS & 431152 & 9912\\
+MS & 433787 & 9930\\
 \hline
-MT & 639332 & 14342\\
+MT & 643879 & 14363\\
 \hline
-PA & 656272 & 17382\\
+PA & 658777 & 17400\\
 \hline
-PB & 504194 & 9738\\
+PB & 504216 & 9755\\
 \hline
-PE & 712083 & 20682\\
+PE & 716733 & 20701\\
 \hline
-PI & 347924 & 7405\\
+PI & 349140 & 7419\\
 \hline
-PR & 2015500 & 41320\\
+PR & 2042294 & 41334\\
 \hline
-RJ & 1790994 & 69970\\
+RJ & 1819607 & 70026\\
 \hline
-RN & 431134 & 7758\\
+RN & 434608 & 7768\\
 \hline
-RO & 323699 & 6844\\
+RO & 326272 & 6846\\
 \hline
-RR & 143511 & 2099\\
+RR & 144582 & 2101\\
 \hline
-RS & 1850106 & 37000\\
+RS & 1885128 & 37041\\
 \hline
-SC & 1458544 & 20664\\
+SC & 1477548 & 20690\\
 \hline
-SE & 297332 & 6109\\
+SE & 299127 & 6115\\
 \hline
-SP & 4666941 & 158523\\
+SP & 4704552 & 158872\\
 \hline
-TO & 273687 & 4008\\
+TO & 276380 & 4013\\
 \hline
 \end{tabular}
 
@@ -1144,7 +1144,7 @@ Uma das maneiras de representar o que é ``típico'' é através do valor mais f
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
-No exemplo acima, a classe modal é a que vai de 96.4 até 101.9. Assim, os dados repousam, tipicamente entre esses valores. Entretanto, temos dois picos.
+No exemplo acima, a classe modal é a que vai de 92.3 até 97.9. Assim, os dados repousam, tipicamente entre esses valores. Entretanto, temos dois picos.
 
 Geralmente, um histograma bimodal indica a existência de dois grupos, com valores centrados em dois pontos diferentes do eixo de valores. Uma distribuição de frequências pode também ser amodal, ou seja, todos os valores são igualmente frequentes. Ou também unimodal, quando os valores estão concentrados somente em um ponto/classe.
 
@@ -1435,6 +1435,820 @@ Uma aplicação de gráficos de radar é o controle de melhoria de qualidade par
 \end{Shaded}
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-44-1} \end{center}
+
+\hypertarget{conceitos-buxe1sicos}{%
+\chapter{Conceitos Básicos}\label{conceitos-buxe1sicos}}
+
+\hypertarget{introduuxe7uxe3o-2}{%
+\section{Introdução}\label{introduuxe7uxe3o-2}}
+
+No estudo da inferência estatística, o objetivo principal é obter informações sobre uma população a partir das informações de uma amostra e aqui vamos precisar de definições mais formais de população e amostra. Para facilitar a compreensão destes conceitos, apresentamos o exemplo abaixo a título de ilustração
+
+Em um estudo antropométrico em nível nacional, uma amostra de 5000 adultos é selecionada dentre os adultos brasileiros e uma das variáveis de estudo é a altura.
+
+Neste exemplo, a população é o conjunto de todos os brasileiros adultos. No entanto, o interesse (um deles, pelo menos) está na altura dos brasileiros. Assim, nesse estudo, a cada sujeito da população associamos um número correspondente à sua altura. Se determinado sujeito é sorteado para entrar na amostra, o que nos interessa é esse número, ou seja, sua altura.
+
+Como sabemos, essa é a definição de variável aleatória: uma função que associa a cada ponto do espaço amostral um número real. Dessa forma, a nossa população pode ser representada pela variável aleatória \(X\) = ``altura do adulto brasileiro''. Como essa é uma v.a. contínua, a ela está associada uma função de densidade de probabilidade \(f\) e da literatura, sabemos que é razoável supor que essa densidade seja a densidade normal. Assim, nossa população, nesse caso, é representada por uma v.a. \(X\sim N(\mu; \sigma^2)\). Conhecendo os valores de \(\mu\) e \(\sigma\) teremos informações completas sobre a nossa população.
+
+Uma forma de obtermos os valores de \(\mu\) e \(\sigma\) é medindo as alturas de todos os brasileiros adultos. Mas esse seria um procedimento caro e demorado. Uma solução, então, é retirar uma amostra (subonjunto) da população e estudar essa amostra. Suponhamos que essa amostra seja retirada com reposição e que os sorteios sejam feitos de forma independente, isto é, o resultado de cada extração não altera o resultado das demais extrações. Ao sortearmos o primeiro elemento, estamos realizando um experimento que dá origem à v.a. \(X_1=\) altura do primeiro elemento; o segundo elemento dá origem à v.a. \(X_2=\) ``altura do segundo elemento'' e assim por diante. Como as extrações são feitas com reposição, todas as v.a. \(X_1, X_2, \ldots\) têm a mesma distribuição, que reflete a distribuição da altura de todos os brasileiros adultos. Para uma amostra específica, temos os valores observados \(x_1, x_2, \ldots\) dessas variáveis aleatórias.
+
+\hypertarget{populauxe7uxe3o}{%
+\section{População}\label{populauxe7uxe3o}}
+
+A inferência estatística trata do problema de se obter informação sobre uma população a partir de uma amostra. Embora a população real possa ser constituída de pessoas, empresas, animais etc., as pesquisas estatísticas buscam informações sobre determinadas características dos sujeitos, características essas que podem ser representadas por números. Sendo assim, a cada sujeito da população está associado um número, o que nos permite apresentar a seguinte definição.
+
+\textbf{População:} \emph{A população de uma pesquisa estatística pode ser representada por uma variável aleatória $X$ que descreve a característica de interesse.}
+
+Os métodos de inferência nos permitirão obter estimativas dos parâmetros (característica de interesse) de tal variável aleatória, que pode ser contínua ou discreta.
+
+\hypertarget{amostra}{%
+\section{Amostra}\label{amostra}}
+
+Embora existam vários métodos de seleção de amostras, nosso foco é a amostragem aleatória simples. Segundo tal método, toda amostra de mesmo tamanho \(n\) tem igual chance (probabilidade) de ser sorteada. É possível extrair amostras aleatórias simples com e sem reposição. No entanto, para populações grandes - ou infinitas - extrações com e sem reposição não levam a resultados muito diferentes. Assim, no estudo da Inferência Estatística, estaremos lidando sempre com amostragem aleatória simples com reposição. Este método de seleção atribui a cada elemento da população a mesma probabilidade de ser selecionado e esta probabilidade se mantém constante ao longo do processo de seleção da amostra (se as extrações fossem sem reposição isso não aconteceria). No restante desse curso omitiremos a expressão ``com reposição'', ou seja, o termo amostragem (ou amostra) aleatória simples sempre se referirá à amostragem com reposição. Por simplicidade, muitas vezes abreviaremos o termo amostra aleatória simples por aas.
+
+Uma forma de se obter uma amostra aleatória simples é escrever os números ou nomes dos elementos da população em cartões iguais, colocar estes cartões em uma urna misturando-os bem e fazer os sorteios necessários, tendo o cuidado de colocar cada cartão sorteado na urna antes do próximo sorteio. Na prática, em geral são usados programas de computador, uma vez que as populações tendem a ser muito grandes.
+
+Agora vamos formalizar o processo de seleção de uma amostra aleatória simples, de forma a relacioná-lo com os problemas de inferência estatística que iremos estudar. Seja uma população representada por uma variável aleatória \(X\). De tal população será sorteada uma amostra aleatória simples com reposição de tamanho \(n\). Como visto nos exemplos anteriores, cada sorteio dá origem a uma variável aleatória \(X_i\) e, como os sorteios são com reposição, todas essas variáveis têm a mesma distribuição de \(X\). Isso nos leva à seguinte definição.
+
+\textbf{Amostra:} \emph{Uma amostra aleatória simples (aas) de tamanho $n$ de uma v.a. $X$ (população) é um conjunto de $n$ v.a. $X_1, X_2, \ldots, X_n$ independentes e identicamente
+distribuídas (i.i.d.).}
+
+É interessante notar a convenção usual: o valor observado de uma v.a. \(X\) é representado pela letra minúscula correspondente. Assim, depois do sorteio de uma aas de tamanho \(n\), temos valores observados \(x_1, x_2, \ldots, x_n\) das respectivas variáveis aleatórias.
+
+\hypertarget{estatuxedsticas-e-paruxe2metros}{%
+\section{Estatísticas e Parâmetros}\label{estatuxedsticas-e-paruxe2metros}}
+
+Obtida uma aas, é possível calcular diversas características desta amostra, como, por exemplo, a média, a mediana, a variância, etc. Qualquer uma destas características é uma função de \(X_1, X_2, \ldots, X_n\) e, portanto, o seu valor depende da amostra sorteada. Sendo assim, cada uma dessas características ou funções é também uma v.a.. Por exemplo, a média amostral é a v.a. definida por \[\bar X = \frac{X_1+X_2+\ldots+X_n}{n}.\]
+
+Temos, então, a seguinte definição:
+
+\textbf{Estatística:} \emph{Uma estatística amostral ou estimador $T$ é qualquer função da
+amostra $X_1, X_2, \ldots, X_n$, isto é, $T = g(X_1, X_2, \ldots, X_n)$ onde $g$ é uma função qualquer.}
+
+As estatísticas amostrais que estaremos considerando neste curso são:
+
+\begin{itemize}
+\tightlist
+\item
+  média amostral: \(\bar X = \frac{1}{n}\sum_{i=1}^n X_i\)
+\item
+  variância amostral: \(S^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2\)
+\end{itemize}
+
+Para uma amostra específica, o valor obido para o estimador será denominado estimativa e, em geral, serão representadas por letras minúsculas. Por exemplo, temos as seguintes notações correspondentes à média amostral e à variância: \(\bar x\) e \(s^2\).
+
+Outras estatísticas possíveis são o mínimo amostral, o máximo amostral, a amplitude amostral, etc.
+
+De forma análoga, temos as características de interesse da população. No entanto, para diferenciar entre as duas situações (população e amostra), atribuimos nomes diferentes.
+
+\textbf{Parâmetro:} \emph{Um parâmetro é uma característica da população.}
+
+Assim, se a população é representada pela v.a. \(X\), alguns parâmetros são a esperança \(E(X)\) e a variância \(V(X)\). Com relação às características mais usuais, vamos usar a seguinte notação:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Característica & Parâmetro (população) & Estatística (amostra) \\
+\midrule
+\endhead
+Média & \(\mu\) & \(\bar X\) \\
+Variância & \(\sigma^2\) & \(S^2\) \\
+Número de elementos & \(N\) & \(n\) \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{distribuiuxe7uxf5es-amostrais}{%
+\section{Distribuições Amostrais}\label{distribuiuxe7uxf5es-amostrais}}
+
+Nos problemas de inferência, estamos interessados em estimar um parâmetro \(\theta\) da população (por exemplo, a média populacional) através de uma aas \(X_1, X_2, \ldots, X_n\). Para isso, usamos uma estatística \(T\) (por exemplo, a média amostral) e, com base no valor obtido para \(T\) a partir de uma particular amostra, iremos tomar as decisões que o problema exige. Já foi dito que \(T\) é uma v.a., uma vez que depende da amostra sorteada; amostras diferentes fornecerão diferentes valores para \(T\).
+
+Consideremos o seguinte exemplo, onde nossa população é o conjunto \(\{1,3,6,8\}\), isto é, este é o conjunto dos valores da característica de interesse da população em estudo. Assim, para esta população, ou seja, para essa v.a. \(X\) temos \(E(X)=\) 4.5 e \(V(X)=\) 7.25.
+
+Suponha que dessa população iremos extrair uma aas de tamanho 2 e a estatística que iremos calcular é a média amostral. Algumas possibilidades de amostra são \(\{1,1\}\), \(\{1,3\}\), \(\{6,8\}\), para as quais os valores da média amostral são \(1\), \(2\) e \(7\), respectivamente. Podemos ver, então, que há uma variabilidade nos valores da estatística e, assim, seria interessante que conhecêssemos tal variabilidade. Conhecendo tal variabilidade, temos condições de saber ``quão infelizes'' podemos ser no sorteio da amostra. No exemplo acima, as amostras \(\{1,1\}\) e \(\{8,8\}\) são as que têm média amostral mais afastada da verdadeira média populacional. Se esses valores tiverem chance muito mais alta do que os valores mais próximos de \(E(X)\), podemos ter sérios problemas.
+
+Para conhecer o comportamento (distribuição) da média amostral, teríamos que conhecer todos os possíveis valores de \(X\), o que equivaleria a conhecer todas as possíveis amostras de tamanho 2 de tal população. Nesse exemplo, como só temos 4 elementos na população, a obtenção de todas as aas de tamanho 2 não é difícil. No entanto, para um número um pouco maior dele elementos, ou quando não conhecemos todo o espaço amostral, essa tarefa se torna complexa.
+
+\textbf{Distribuição de Probabilidade:}\emph{A função de distribuição amostral de uma estatística $T$ é a função de distribuição de probabilidades de $T$ ao longo de todas as possíveis amostras de tamanho $n$.}
+
+Em outras palavras, uma distribuição amostral é a distribuição de probabilidades de uma medida estatística baseada em uma amostra aleatória. Ao retirar uma amostra aleatória de uma população estaremos considerando cada valor da amostra como um valor de uma variável aleatória cuja distribuição de probabilidade é a mesma da população no instante da retirada desse elemento para a amostra. Em consequência do fato de os valores de amostra serem aleatórios, decorre que qualquer quantidade calculada em função dos elementos da amostra também será uma variável aleatória.
+
+Podemos ver que a obtenção da distribuição amostral de qualquer estatística \(T\) é um processo tão ou mais complicado do que trabalhar com a população inteira. Na prática, o que temos é uma única amostra e com esse resultado é que temos que tomar as decisões pertinentes ao problema em estudo. Esta tomada de decisão, no entanto, será facilitada se conhecermos resultados teóricos sobre o comportamento da distribuição amostral.
+
+\hypertarget{propriedades-dos-estimadores}{%
+\section{Propriedades dos Estimadores}\label{propriedades-dos-estimadores}}
+
+Vimos anteriormente que, dada uma população, existem muitas e muitas aas de tamanho \(n\) que podem ser sorteadas. Cada uma dessas amostras resulta em um valor diferente da estatística de interesse (\(\bar X\) e \(S^2\), por exemplo). O que esses resultados estão mostrando é como esses diferentes valores se comportam em relação ao verdadeiro (mas desconhecido) valor do parâmetro.
+
+Considere a Figura abaixo, onde o alvo representa o valor do parâmetro e os ``tiros'', indicados pelos símbolo x, representam os diferentes valores amostrais da estatística de interesse.
+
+\includegraphics{Estimadores_exemplo.png}
+
+Nas partes (a) e (b) da figura, os tiros estão em torno do alvo, enquanto nas partes (c) e (d) isso não acontece. Comparando as partes (a) e (b), podemos ver que na parte (a) os tiros estão mais concentrados em torno do alvo, isto é, têm menor dispersão. Isso reflete uma pontaria mais certeira do atirador em (a). Analogamente, nas partes (c) e (d), embora ambos os atiradores estejam com a mira deslocada, os tiros do atirador (c) estão mais concentrados em torno de um alvo; o deslocamento poderia até ser resultado de um desalinhamento da arma. Já o atirador (d), além de estar com o alvo deslocado, ele tem os tiros mais espalhados, o que reflete menor precisão.
+
+Traduzindo esta situação para o contexto de estimadores e suas propriedades, temos o seguinte: nas partes (a) e (b), temos dois estimadores que fornecem estimativas centradas em torno do verdadeiro valor do parâmetro, ou seja, as diferentes amostras fornecem valores distribuídos em torno do verdadeiro valor do parâmetro. A diferença é que em (b) esses valores estão mais dispersos e, assim, temos mais chance de obter uma amostra ``infeliz'', ou seja, uma amostra que forneça um resultado muito afastado do valor do parâmetro. Essas duas propriedades estão associadas à esperança e à variância do estimador, que são medidas de centro e dispersão, respectivamente. Nas partes (c) e (d), as estimativas estão centradas em torno de um valor diferente do parâmetro de interesse e na parte (d), a dispersão é maior.
+
+Temos, assim, ilustrados os seguintes conceitos:
+
+\textbf{Viés:}\emph{Um estimador $T$ é dito um estimador não-viesado do parâmetro $\theta$ se $E(T)=\theta$.}
+
+Essa esperança é calculada ao longo de todas as possíveis amostras, ou seja, é a esperança da distribuição amostral de \(T\). Nas partes (a) e (b) da Figura os estimadores são não-viesados e nas partes (c) e (d), os estimadores são viesados.
+
+Com relação aos estimadores \(bar X\), \(S^2\) e \(\hat \sigma^2\), veremos formalmente que os dois primeiros são não-viesados para estimar a média e a variância populacionais, respectivamente, enquanto \(\hat \sigma^2\) é viesado para estimar a variância populacional. Essa é a razão para se usar \(S^2\), e não \(\hat \sigma^2\).
+
+\textbf{Eficiência:}\emph{Se $T_1$ e $T_2$ são dois estimadores não-viesados do parâmetro $\theta$, diz-se que $T_1$ é mais eficiente que $T_2$ se $V(T_1)<V(T_2)$.}
+
+Na Figura, o estimador da parte (a) é mais eficiente que o estimador da parte (b). Uma outra propriedade dos estimadores está relacionada à idéia bastante intuitiva de que à medida que se aumenta o tamanho da amostra, mais perto devemos ficar do verdadeiro valor do parâmetro.
+
+\textbf{Consistência:}\emph{Um estimador $T$ de um parâmetro $\theta$ é consistente se:}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\lim_{n\to\infty} E(\hat\theta)=\theta\)
+\item
+  \(\lim_{n\to\infty} V(\hat\theta)=0\)
+\end{itemize}
+
+\hypertarget{distribuiuxe7uxf5es-amostrais-1}{%
+\chapter{Distribuições Amostrais}\label{distribuiuxe7uxf5es-amostrais-1}}
+
+\hypertarget{introduuxe7uxe3o-3}{%
+\section{Introdução}\label{introduuxe7uxe3o-3}}
+
+Uma distribuição amostral é a distribuição de probabilidades de uma medida estatística baseada em uma amostra aleatória. Ao retirar uma amostra aleatória de uma população estaremos considerando cada valor da amostra como um valor de uma variável aleatória cuja distribuição de probabilidade é a mesma da população no instante da retirada desse elemento para a amostra. Em consequência do fato de os valores de amostra serem aleatórios, decorre que qualquer quantidade calculada em função dos elementos da amostra também será uma variável aleatória
+
+\hypertarget{distribuiuxe7uxe3o-amostral-da-muxe9dia-amostral}{%
+\section{Distribuição Amostral da Média Amostral}\label{distribuiuxe7uxe3o-amostral-da-muxe9dia-amostral}}
+
+Considere \(X_1,\ldots,X_n\) uma amostra aleatória de uma distribuição normal com média \(\mu\) e variância \(\sigma^2\).
+
+Tomamos, por exemplo, o problema de estimar quantas horas adicionais de sono são garantidas a um indivíduo após ingerir uma determinada droga. Além disso, suponha que a droga é testada em 20 indivíduos de modo que a média amostral seja \(\bar X=0,8\) horas. Porém, se o estudo for repetido com outros 20 participantes podemos ter outros resultados para a média amostral. Por exemplo, podemos ter \(\bar X=1,3\). E, repetindo o estudo novamente, poderíamos ter \(\bar X=-0,2\). Em termos estatísticos, haverá variação entre as médias amostrais.
+
+Este problema poderia ser resolvido se repetíssemos o estudo infinitas vezes, porém isto é inviável.
+
+Quando as observações são amostradas aleatoriamente de uma distribuição normal, a média amostral também tem uma distribuição normal. Isto é, quando \(n\) observações são amostradas aleatoriamente de uma distribuição normal com média \(\mu\) e variância \(\sigma^2\), a média amostral tem distribuição normal com média \(\mu\) e variância \(\frac{\sigma^2}{n}\). Ou seja, se
+
+\[X\sim N(\mu,\sigma^2)\text{, então} \bar X \sim N\left(\mu,\frac{\sigma^2}{n}\right).\]
+
+\hypertarget{visualizando}{%
+\subsection{Visualizando}\label{visualizando}}
+
+Considere uma população normal com média \(\mu=10\) e variância \(\sigma^2=4\). Vamos realizar um estudo de simulação para a distribuição da média amostral considerando amostras de tamanho 20 dessa população.
+
+Primeiramente, considere que são retiradas 15 amostras de tamanho 20 dessa população.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{n }\OtherTok{=} \DecValTok{15}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{,}\AttributeTok{mean=}\DecValTok{10}\NormalTok{,}\AttributeTok{sd=}\DecValTok{2}\NormalTok{)\}}
+\NormalTok{medias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux))}
+\FunctionTok{ggplot}\NormalTok{(medias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-47-1} \end{center}
+
+Nessa simulação obtivemos \(\bar x =\) 9.99 e \(s =\) 0.3.
+
+Suponha agora que façamos o mesmo processo, porém ao invés de considerarmos 15 amostras de tamanho 20, consideramos 200 amostras.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \DecValTok{200}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{,}\AttributeTok{mean=}\DecValTok{10}\NormalTok{,}\AttributeTok{sd=}\DecValTok{2}\NormalTok{)\}}
+\NormalTok{medias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux))}
+\FunctionTok{ggplot}\NormalTok{(medias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-48-1} \end{center}
+
+Agora, obtivemos \(\bar x =\) 10.05 e \(s =\) 0.46.
+
+Realizando o mesmo experimento, porém agora considerando 10000 amostras de tamanho 20, a distribuição da média amostral pode ser vista segundo o histograma abaixo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \DecValTok{10000}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{,}\AttributeTok{mean=}\DecValTok{10}\NormalTok{,}\AttributeTok{sd=}\DecValTok{2}\NormalTok{)\}}
+\NormalTok{medias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux))}
+\FunctionTok{ggplot}\NormalTok{(medias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-49-1} \end{center}
+
+Para este caso, a média das médias amostrais foi \(\bar x=\) 10 e o desvio padrão foi \(s =\) 0.44. Então, empiricamente, podemos perceber que a distribuição da média amostral se aproxima de uma distribuição normal com média \(\mu=10\) e desvio padrão \(\frac{\sigma}{\sqrt{n}}=\frac{2}{\sqrt{20}}=0,4472\).
+
+\hypertarget{prova}{%
+\subsection{Prova}\label{prova}}
+
+Para provar que se \(X\sim N(\mu,\sigma^2)\), então \(\bar X \sim N(\mu,\frac{\sigma^2}{n})\), vamos precisar de somente três passos.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Dado que \(\bar X = \frac{1}{n}\sum_{i=1}^{n}X_i\), onde \(X_1,\ldots,X_n\) é uma amostra aleatória de tamanho \(n\) de uma população Normal sabemos que combinação linear de Normais resulta em também uma distribuição Normal, portanto daqui temos que \(\bar X \sim Normal\);
+\item
+  Se \(\bar X = \frac{1}{n}\sum_{i=1}^{n}X_i\), então \[E\left[\bar X\right] = E\left[\frac{1}{n}\sum_{i=1}^{n}X_i\right]=\frac{1}{n}\sum_{i=1}^{n}E\left[X_i\right]=\frac{n\mu}{n}=\mu\]
+\item
+  Por fim, se \(\bar X = \frac{1}{n}\sum_{i=1}^{n}X_i\), então como os \(X_i\)'s são independentes \[V \left[\bar X\right] = V\left[\frac{1}{n}\sum_{i=1}^{n}X_i\right]=\frac{1}{n^2}\sum_{i=1}^{n}V\left[X_i\right]=\frac{n\sigma^2}{n^2}=\frac{\sigma^2}{n}\]
+\end{enumerate}
+
+\hypertarget{teorema-central-do-limite}{%
+\section{Teorema Central do Limite}\label{teorema-central-do-limite}}
+
+Os resultados vistos anteriormente são válidos para populações normais, isto é, se uma população é normal com média \(\mu\) e variância \(\sigma^2\), então a distribuição amostral de \(\bar X\) é também normal com média \(\mu\) e variância \(\frac{\sigma^2}{n}\), onde \(n\) é o tamanho da amostra. O Teorema Central do Limite (TCL) nos fornece um resultado análogo para qualquer distribuição populacional, desde que o tamanho da amostra seja suficientemente grande.
+
+Seja \(X_1,\ldots,X_n\) uma amostra aleatória simples de uma população \(X\) tal que \(E(X)=\mu\) e \(V(X)=\sigma^2\). Então, a distribuição de \(\bar X\) converge para a distribuição Normal com média \(\mu\) e variância \(\frac{\sigma^2}{n}\) quando \(n\rightarrow \infty\). Equivalentemente, \[\frac{\bar X-\mu}{\frac{\sigma}{\sqrt{n}}}\rightarrow N(0,1)\]
+
+A interpretação prática do TCL é a seguinte: para amostras ``grandes'' de qualquer população, podemos aproximar a distribuição amostral de \(\bar X\) por uma distribuição normal com a mesma média populacional e variância igual à variância populacional dividida pelo tamanho da amostra.
+
+Quão grande deve ser a amostra para se obter uma boa aproximação depende das características da distribuição populacional. Se a distribuição populacional não se afastar muito de uma distribuição normal, a aproximação será boa, mesmo para tamanhos pequenos de amostra. Em termos práticos, esse teorema é de extrema importância, daí ser chamado de Teorema Central e, em geral, amostras de tamanho \(n>30\) já fornecem uma aproximação razoável.
+
+\hypertarget{visualizando-1}{%
+\subsection{Visualizando}\label{visualizando-1}}
+
+Considere uma população exponencial com média \(\mu=1\), ou seja, uma população distribuída segundo uma exponencial com parâmetro \(\lambda=1\).
+
+O gráfico superior representa a distribuição populacional e os histogramas representam a distribuição amostral de \(\bar X\) ao longo de 5000 amostras de tamanhos 10, 50, 100 e 250. Assim, podemos ver que, embora a população seja completamente diferente da normal, a distribuição amostral de \(\bar X\) vai se tornando cada vez mais próxima da normal à medida que \(n\) aumenta.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{matriz\_aux\_10 }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{5000}\NormalTok{,}\AttributeTok{ncol=}\DecValTok{10}\NormalTok{)}
+\NormalTok{matriz\_aux\_50 }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{5000}\NormalTok{,}\AttributeTok{ncol=}\DecValTok{50}\NormalTok{)}
+\NormalTok{matriz\_aux\_100 }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{5000}\NormalTok{,}\AttributeTok{ncol=}\DecValTok{100}\NormalTok{)}
+\NormalTok{matriz\_aux\_250 }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{5000}\NormalTok{,}\AttributeTok{ncol=}\DecValTok{250}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux\_10))\{matriz\_aux\_10[,j]}\OtherTok{=}\FunctionTok{rexp}\NormalTok{(}\DecValTok{5000}\NormalTok{,}\AttributeTok{rate=}\DecValTok{1}\NormalTok{)\}}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux\_50))\{matriz\_aux\_50[,j]}\OtherTok{=}\FunctionTok{rexp}\NormalTok{(}\DecValTok{5000}\NormalTok{,}\AttributeTok{rate=}\DecValTok{1}\NormalTok{)\}}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux\_100))\{matriz\_aux\_100[,j]}\OtherTok{=}\FunctionTok{rexp}\NormalTok{(}\DecValTok{5000}\NormalTok{,}\AttributeTok{rate=}\DecValTok{1}\NormalTok{)\}}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux\_250))\{matriz\_aux\_250[,j]}\OtherTok{=}\FunctionTok{rexp}\NormalTok{(}\DecValTok{5000}\NormalTok{,}\AttributeTok{rate=}\DecValTok{1}\NormalTok{)\}}
+\NormalTok{medias\_10 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux\_10),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux\_10),}\AttributeTok{label=}\StringTok{"id\_10"}\NormalTok{)}
+\NormalTok{medias\_50 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux\_50),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux\_50),}\AttributeTok{label=}\StringTok{"id\_50"}\NormalTok{)}
+\NormalTok{medias\_100 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux\_100),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux\_100),}\AttributeTok{label=}\StringTok{"id\_100"}\NormalTok{)}
+\NormalTok{medias\_250 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux\_250),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux\_250),}\AttributeTok{label=}\StringTok{"id\_250"}\NormalTok{)}
+\NormalTok{tudo }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(medias\_10,medias\_50,medias\_100,medias\_250)}
+\NormalTok{tudo}\SpecialCharTok{$}\NormalTok{label }\OtherTok{=} \FunctionTok{factor}\NormalTok{(tudo}\SpecialCharTok{$}\NormalTok{label, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"id\_10"}\NormalTok{, }\StringTok{"id\_50"}\NormalTok{, }\StringTok{"id\_100"}\NormalTok{, }\StringTok{"id\_250"}\NormalTok{))}
+\FunctionTok{ggplot}\NormalTok{(tudo,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{..density..),}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{label, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-50-1} \end{center}
+
+\hypertarget{distribuiuxe7uxe3o-amostral-da-variuxe2ncia-amostral}{%
+\section{Distribuição Amostral da Variância Amostral}\label{distribuiuxe7uxe3o-amostral-da-variuxe2ncia-amostral}}
+
+Já vimos que a estatística \[S^2=\frac{1}{n-1}\sum_{i=1}^{n}\left(X_i-\bar X\right)^2\] é um estimador não viciado da variância \(\sigma^2\), portanto \[E(S^2)=\sigma^2\]. Vamos estudar agora a distribuição amostral de \(S^2\) e para isso precisamos estudar a distribuição qui-quadrado.
+
+\hypertarget{distribuiuxe7uxe3o-qui-quadrado}{%
+\subsection{Distribuição Qui-quadrado}\label{distribuiuxe7uxe3o-qui-quadrado}}
+
+Se \(X\) é uma variável aleatória com densidade
+
+\[f_X(x)=\frac{1}{\Gamma\big({\frac{k}{2}}\big)}\big(\frac{1}{2}\big)^{\frac{k}{2}}x^{\frac{k}{2}-1}e^{-\frac{x}{2}},k>0,x>0,\]
+
+onde \(\Gamma(w)=\int_0^\infty x^{w-1}e^{-x}dx, w>0\). Então, \(X\) tem uma distribuição qui-quadrado com \(k\) graus de liberdade, onde o parâmetro \(k\) é um número inteiro.
+
+Para entender a ideia de graus de liberdade, consideremos um conjunto de dados qualquer. Graus de liberdade é o número de valores deste conjunto de dados que podem variar após terem sido impostas certas restrições a todos os valores. Por exemplo, consideremos que 10 estudantes obtiveram em um teste média 8. Assim, a soma das 10 notas deve ser 80 (restrição). Portanto, neste caso, temos um grau de liberdade de \(10-1=9\), pois 9 notas podem variar livremente desde que a soma seja 80, no entanto 1 nota sempre será {[}80-(soma das 9 outras notas){]}.
+
+Temos também que se as variáveis aleatórias \(X_i\), \(i=1,2,\ldots,n\) são independentes e normalmente distribuídas com médias \(\mu_i\) e variâncias \(\sigma^2_i\), isto é \(X_i\sim N(\mu_i,\sigma^2_i)\), então
+
+\[U=\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma^2}\right)^2\]
+
+tem uma distribuição qui-quadrado com \(n\) graus de liberdade.
+
+Além disso, se \(X_1,\ldots,X_n\) é uma a.a. de uma distribuição normal padrão, então, valem as seguintes propriedades:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \(\bar X\) e \(\sum_{i=1}^{n}(X_i-\bar X)^2\) são independentes;
+\item
+  \(\sum_{i=1}^{n}(X_i-\bar X)^2\) tem uma distribuição qui-quadrado com \(n-1\) graus de liberdade.
+\end{enumerate}
+
+Assim, chegamos que se \(S^2\) é a variância amostral de uma amostra aleatória \(X_1,\ldots,X_n\) de uma distribuição normal com média \(\mu\) e variância \(\sigma^2\), então
+
+\[U=\frac{(n-1)S^2}{\sigma^2}\sim \chi^2_{n-1},\]
+
+ou seja, \(U\) tem uma distribuição qui-quadrado com \(n-1\) graus de liberdade.
+
+\hypertarget{visualizando-2}{%
+\subsection{Visualizando}\label{visualizando-2}}
+
+Analogamente ao estudo de simulação realizado no caso da média amostral, considere uma população normal com média \(\mu=10\) e variância \(\sigma^2=4\).
+
+Primeiramente, considere que são retiradas 15 amostras de tamanho 20 dessa população.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \DecValTok{15}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{,}\AttributeTok{mean=}\DecValTok{10}\NormalTok{,}\AttributeTok{sd=}\DecValTok{2}\NormalTok{)\}}
+\NormalTok{variancias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{apply}\NormalTok{(matriz\_aux,}\DecValTok{2}\NormalTok{,var))}
+\FunctionTok{ggplot}\NormalTok{(variancias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-51-1} \end{center}
+
+Nessa simulação obtivemos a média das variâncias igual a 4.17 e a variância das variâncias igual a 1.33.
+
+Suponha agora que façamos o mesmo processo, porém ao invés de considerarmos 15 amostras de tamanho 20, consideramos 1000 amostras.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \DecValTok{1000}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{,}\AttributeTok{mean=}\DecValTok{10}\NormalTok{,}\AttributeTok{sd=}\DecValTok{2}\NormalTok{)\}}
+\NormalTok{variancias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{apply}\NormalTok{(matriz\_aux,}\DecValTok{2}\NormalTok{,var))}
+\FunctionTok{ggplot}\NormalTok{(variancias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-52-1} \end{center}
+
+Neste caso a média das variâncias foi igual a 3.99 e a variância das variâncias igual a 1.69.
+
+Realizando o mesmo experimento, porém agora considerando 10000 amostras de tamanho 20, a distribuição da variância amostral pode ser vista segundo o histograma abaixo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \DecValTok{10000}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{,}\AttributeTok{mean=}\DecValTok{10}\NormalTok{,}\AttributeTok{sd=}\DecValTok{2}\NormalTok{)\}}
+\NormalTok{variancias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{apply}\NormalTok{(matriz\_aux,}\DecValTok{2}\NormalTok{,var))}
+\FunctionTok{ggplot}\NormalTok{(variancias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-53-1} \end{center}
+
+Neste caso, a média das variâncias é 3.98 e a variância é 1.73. Então, realmente, podemos perceber que a distribuição da variância amostral se aproxima de uma distribuição qui-quadrado com média \(\mu=4\) e variância \(\frac{2\sigma^4}{n-1}=\frac{2\times 16}{19}=1,684\).
+
+Destas propriedades temos que \[V(S^2)=\frac{2\sigma^4}{n-1}.\]
+
+\hypertarget{distribuiuxe7uxe3o-amostral-da-proporuxe7uxe3o}{%
+\section{Distribuição Amostral da Proporção}\label{distribuiuxe7uxe3o-amostral-da-proporuxe7uxe3o}}
+
+Considere uma população em que cada elemento é classificado de acordo com a presença ou ausência de determinada característica. Por exemplo, podemos pensar em eleitores escolhendo entre 2 candidatos, pessoas classificadas de acordo com o sexo, trabalhadores classificados como trabalhador com carteira assinada ou não, e assim por diante. Em termos de variável aleatória, essa população é representada por uma v.a. de Bernoulli, isto é:
+
+\[
+X=\begin{cases}
+1,~\text{se elemento possui a característica de interesse}\\
+0,~\text{se elemento não possui a caracaterística de interesse}
+\end{cases}
+\]
+
+Vamos denotar por \(p\) a proporção de elementos da população que possuem a característica de interesse. Então, \(P(X = 1) = p\), \(E(X) = p\) e \(V(X) = p(1 -p)\). Em geral, esse parâmetro é desconhecido e precisamos estimá-lo a partir de uma amostra.
+
+Suponha, então, que dessa população seja extraída uma amostra aleatória simples \(X_1, X_2, \ldots , X_n\) com reposição. Essas \(n\) extrações correspondem a \(n\) variáveis aleatórias de Bernoulli independentes e, como sabemos, \(S_n =\sum_{i=1}^n X_i\) tem distribuição binomial com parâmetros \(n\) e \(p\).
+
+Note que \(S_n\) dá o número total de ``sucessos'' nas \(n\) repetições, onde ``sucesso'', neste caso, representa a presença da característica de interesse. Os valores possíveis de \(S_n\) são \(0, 1, 2,\ldots , n\). Com relação à proporção \(\hat P\) de elementos na amostra que possuem a característica de interesse, temos que
+
+\[\hat P = \frac{S_n}{n}=\frac{X_1+X_2+\ldots+X_n}{n}\]
+
+e os valores possíveis de \(\hat P\) são \(0,\frac{1}{n},\frac{2}{n},\ldots,\frac{n-1}{n},1\) com
+
+\[P\left(\hat P = \frac{k}{n}\right)=P(S_n=k).\]
+Como a proporção amostral é uma média de uma amostra aleatória simples de uma população com distribuição de Bernoulli com parâmetro \(p\), o Teorema Limite Central nos diz, então, que a distribuição da proporção amostral se aproxima de uma normal com média \(p\) e variância \(\frac{p(1-p)}{n}\). Isto é,
+
+\[\hat p \sim N\left(p,\frac{p(1-p)}{n}\right).\]
+
+Como essa aproximação é uma conseqüência direta da aproximação normal da binomial, as mesmas regras continuam valendo: a aproximação deve ser feita se \(np \geq 5\) e \(n(1 - p) \geq 5\).
+
+\hypertarget{visualizando-3}{%
+\subsection{Visualizando}\label{visualizando-3}}
+
+Considere uma população bernoulli com \(p=0,3\). Vamos realizar um estudo de simulação para a distribuição da proporção amostral considerando amostras de tamanho 20 dessa população.
+
+Primeiramente, considere que são retiradas 15 amostras de tamanho 20 dessa população.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{n }\OtherTok{=} \DecValTok{15}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rbinom}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{1}\NormalTok{,}\AttributeTok{prob=}\FloatTok{0.3}\NormalTok{)\}}
+\NormalTok{medias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux))}
+\FunctionTok{ggplot}\NormalTok{(medias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{bins =} \DecValTok{15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-54-1} \end{center}
+
+Nessa simulação obtivemos \(\hat p =\) 0.32.
+
+Suponha agora que façamos o mesmo processo, porém ao invés de considerarmos 15 amostras de tamanho 20, consideramos 200 amostras.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \DecValTok{200}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rbinom}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{1}\NormalTok{,}\AttributeTok{prob=}\FloatTok{0.3}\NormalTok{)\}}
+\NormalTok{medias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux))}
+\FunctionTok{ggplot}\NormalTok{(medias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{bins =} \DecValTok{15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-55-1} \end{center}
+
+Agora, obtivemos \(\hat p =\) 0.3.
+
+Realizando o mesmo experimento, porém agora considerando 10000 amostras de tamanho 20, a distribuição da média amostral pode ser vista segundo o histograma abaixo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \DecValTok{10000}
+\NormalTok{matriz\_aux }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{20}\NormalTok{,}\AttributeTok{ncol=}\NormalTok{n)}
+\ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux))\{matriz\_aux[,j]}\OtherTok{=}\FunctionTok{rbinom}\NormalTok{(}\DecValTok{20}\NormalTok{,}\DecValTok{1}\NormalTok{,}\AttributeTok{prob=}\FloatTok{0.3}\NormalTok{)\}}
+\NormalTok{medias }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(matriz\_aux),}\AttributeTok{y=}\FunctionTok{colMeans}\NormalTok{(matriz\_aux))}
+\FunctionTok{ggplot}\NormalTok{(medias,}\FunctionTok{aes}\NormalTok{(y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"white"}\NormalTok{, }\AttributeTok{bins =} \DecValTok{15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-56-1} \end{center}
+
+Para este caso, a média das proporções amostrais foi \(\hat p=\) 0.3. Então, empiricamente, podemos perceber que a distribuição da média amostral se aproxima de uma distribuição normal com média \(\mu=0,3\) e desvio padrão \(\frac{p(1-p)}{\sqrt{n}}=\frac{0.21}{\sqrt{20}}=0,0105\).
+
+\hypertarget{intervalo-de-confianuxe7a}{%
+\chapter{Intervalo de Confiança}\label{intervalo-de-confianuxe7a}}
+
+\hypertarget{introduuxe7uxe3o-4}{%
+\section{Introdução}\label{introduuxe7uxe3o-4}}
+
+Neste capítulo você aprenderá um método muito importante de estimação de parâmetros. Vimos anteriormente que a média amostral \(\bar X\) é um bom estimador da média populacional \(\mu\). Mas vimos, também, que existe uma variabilidade nos valores de \(\bar X\), ou seja, cada amostra dá origem a um valor diferente do estimador. Uma maneira de informar sobre esta variabilidade é através da estimação por intervalos.
+
+\hypertarget{ideias-buxe1sicas}{%
+\section{Ideias Básicas}\label{ideias-buxe1sicas}}
+
+O objetivo central da Inferência Estatística é obter informações para uma população a partir do conhecimento de uma única amostra. Em geral, a população é representada por uma variável aleatória \(X\), com função de distribuição ou densidade de probabilidade \(f_X\) . Dessa população, então, extrai-se uma amostra aleatória simples com reposição, que dá origem a um conjunto \(X_1, X_2, \ldots, X_n\) de \(n\) variáveis aleatórias independentes e identicamente distribuídas, todas com a mesma distribuição \(f_X\).
+
+Se \(f_X\) depende de um ou mais parâmetros, temos que usar a informação obtida a partir da amostra para estimar esses parâmetros, de forma a conhecermos a distribuição. Vimos, por exemplo, que a média amostral \(\bar X\) é um bom estimador da média populacional \(\mu\), no sentido de que ela tende a ``acertar o alvo'' da verdadeira média populacional, isto é, a média amostral é um estimador não-viesado da média populacional. Mas vimos, também, que existe uma variabilidade nos valores de \(\bar X\), ou seja, cada amostra dá origem a um valor diferente do estimador. Para algumas amostras, \(\bar X\) será maior que \(\mu\), para outras será menor e para outras será igual.
+
+Na prática, temos apenas uma amostra e, assim, é importante que se dê alguma informação sobre essa possível variabilidade do estimador. Ou seja, é importante informar o valor do estimador \(\hat \theta\) obtido com uma amostra específica, mas é importante informar também que o verdadeiro valor do parâmetro \(\theta\) poderia estar num determinado intervalo, digamos, no intervalo \(\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]\). Dessa forma, estamos informando a nossa margem de erro no processo de estimação; essa margem de erro é consequência do processo de seleção aleatória da amostra.
+
+O que vamos estudar agora é como obter esse intervalo, de modo a ``acertar na maioria das vezes'', isto é, queremos um procedimento que garanta que, na maioria das vezes (ou das amostras possíveis), o intervalo obtido conterá o verdadeiro valor do parâmetro. A expressão ``na maioria das vezes'' será traduzida como ``probabilidade alta''. Dessa forma, estaremos lidando com afirmativas do seguinte tipo:
+
+\textbf{Com probabilidade alta (em geral, indicada por $1-\alpha$), o intervalo $\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]$ conterá o verdadeiro valor do parâmetro $\theta$.}
+
+A interpretação correta de tal afirmativa é a seguinte: se \(1-\alpha=0,95\), por exemplo, então isso significa que o procedimento de construção do intervalo é tal que, em 95\% das possíveis amostras, o intervalo \(\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]\) obtido conterá o verdadeiro valor do parâmetro.
+
+Note, no exemplo abaixo, que cada amostra resulta em um intervalo diferente, mas em média, em 95\% das amostras, o intervalo contém o verdadeiro valor do parâmetro (em vermelho).
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-57-1} \end{center}
+
+O valor \(1 - \alpha\) é chamado nível de confiança, enquanto o valor \(\alpha\) é conhecido como nível de significância. O intervalo \(\left[\hat\theta-\varepsilon;\hat\theta + \varepsilon\right]\) é chamado de intervalo de confiança de nível de confiança \(1 - \alpha\).
+
+Tendo clara a interpretação do intervalo de confiança, podemos resumir a frase acima da seguinte forma:
+
+\[P\left(\theta\in[\hat\theta-\varepsilon;\hat\theta+\varepsilon]\right)=1-\alpha\]
+
+Mais uma vez, a probabilidade se refere à probabilidade dentre as diversas possíveis amostras, ou seja, a probabilidade está associada à distribuição amostral de \(\hat \theta\). Note que os limites do intervalo dependem de \(\hat theta\), que depende da amostra sorteada, ou seja, os limites do intervalo de confiança são variáveis aleatórias. Cada amostra dá origem a um intervalo diferente, mas o procedimento de obtenção dos intervalos garante probabilidade \(1 - \alpha\) de acerto.
+
+\hypertarget{muxe9dia-da-nmusigma2-sigma2-conhecido}{%
+\section{\texorpdfstring{Média da \(N(\mu,\sigma^2)\), \(\sigma^2\) conhecido}{Média da N(\textbackslash mu,\textbackslash sigma\^{}2), \textbackslash sigma\^{}2 conhecido}}\label{muxe9dia-da-nmusigma2-sigma2-conhecido}}
+
+Vamos agora introduzir os métodos para obtenção do intervalo de confiança para a média de uma população. Como visto, a média populacional é um parâmetro importante que pode ser muito bem estimado pela média amostral \(\bar X\). Para apresentar as idéias básicas, vamos considerar um contexto que é pouco frequente na prática. O motivo para isso é que, em termos didáticos, a apresentação é bastante simples. Como o fundamento é o mesmo para contextos mais gerais, essa abordagem se justifica.
+
+Consideremos uma população descrita por uma variável aleatória normal com média \(\mu\) e variância \(\sigma^2\): \(X\sim N(\mu,\sigma^2)\). Vamos supor que o valor de \(\sigma^2\) seja conhecido e que nosso interesse seja estimar a média \(\mu\) a partir de uma amostra aleatória simples \(X_1,\ldots,X_n\). Como visto anteriormente, a distribuição amostral de \(\bar X\) é normal com média \(\mu\) e variância \(\frac{\sigma^2}{n}\), ou seja
+
+\[X\sim N(\mu,\sigma^2)\rightarrow \bar X \sim N\left(\mu,\frac{\sigma^2}{n}\right)\]
+
+Da definição de distribuição amostral, isso significa que os diferentes valores de \(\bar X\) obtidos a partir das diferentes possíveis amostras se distribuem normalmente em torno de \(\mu\) com variância \(\frac{\sigma^2}{n}\).
+
+Das propriedades da distribuição normal, resulta que
+
+\[Z=\frac{\bar X-\mu}{\sqrt{\frac{\sigma^2}{n}}}\sim N(0,1),\]
+
+ou equivalentemente,
+
+\[Z=\sqrt{n}\frac{\bar X-\mu}{\sigma}\sim N(0,1).\]
+
+\hypertarget{notauxe7uxe3o}{%
+\subsection{Notação}\label{notauxe7uxe3o}}
+
+Vamos estabelecer a seguinte notação: vamos indicar por \(z_\alpha\) a abscissa da curva normal padrão que deixa probabilidade (área) igual a \(\alpha\) acima dela. Veja a Figura abaixo. Temos, então, que \(P(Z > z_\alpha)= \alpha\). Essa abscissa \(z_\alpha\) é normalmente chamada de valor crítico.
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-58-1} \end{center}
+
+Consideremos, agora, o valor crítico \(z_\frac{\alpha}{2}\), veja a Figura abaixo. Daí podemos ver que, se \(Z\sim N(0,1)\), então
+
+\[P\left(-z_\frac{\alpha}{2}\leq Z \leq z_\frac{\alpha}{2}\right)=1-\alpha\]
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-59-1} \end{center}
+
+Note que isso vale para a distribuição normal padrão, em geral. Então, usando os resultados anteriories obtemos que
+
+\[P\left(-z_\frac{\alpha}{2}\leq \sqrt{n}\frac{\bar X-\mu}{\sigma} \leq z_\frac{\alpha}{2}\right)=1-\alpha\]
+
+Mas isso é equivalente a
+
+\[P\left(-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\leq \bar X-\mu \leq z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right)= 1-\alpha\]
+
+\[P\left(-\bar X-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\leq -\mu \leq -\bar X + z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right)= 1-\alpha\]
+
+\[P\left(\bar X - z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \leq \mu \leq \bar X+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right) = 1-\alpha\]
+
+Note que a última expressão nos diz que
+
+\[P\left(\mu \in \left[\bar X-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}};\bar X+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right]\right)=1-\alpha\]
+
+Mas essa é exatamente a forma geral de um intervalo de confiança, conforme explicitado. Temos, então, a seguinte conclusão:
+
+Seja \(X\sim N(\mu, \sigma^2)\) uma população normal com variância \(\sigma^2\) conhecida. Se \(X_1, X_2,\ldots , X_n\) é uma amostra aleatória dessa população, então o intervalo de confiança de nível de confiança \(1-\alpha\) para a média populacional \(\mu\) é dado por
+
+\[\left[\bar X-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}};\bar X+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right],\]
+
+onde \(z_{\frac{\alpha}{2}}\) é a abcissa da curva normal padrão que deixa a área \(\frac{\alpha}{2}\) acima dela.
+
+\hypertarget{margem-de-erro}{%
+\section{Margem de Erro}\label{margem-de-erro}}
+
+O intervalo de confiança para \(\mu\) pode ser escrito na forma \(\left[\bar X - \varepsilon;\bar X + \varepsilon \right]\) onde \(\varepsilon=z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\) é a margem de erro.
+
+Analisando a margem de erro, podemos ver que ela depende diretamente do valor crítico e do desvio padrão populacional e é inversamente proporcional ao tamanho da amostra.
+
+Na Figura abaixo ilustra-se a relação de dependência da margem de erro em relação ao desvio padrão populacional \(\sigma\). Temos aí duas distribuições amostrais centradas na mesma média e baseadas em amostras de mesmo tamanho. Nas duas distribuições a área total das caudas sombreadas é \(\alpha\), de modo que o intervalo limitado pelas linhas verticais é o intervalo de confiança de nível de confiança \(1-\alpha\). Para a distribuição mais dispersa, isto é, com \(\sigma\) maior, o comprimento do intervalo é maior. Esse resultado deve ser intuitivo: se há mais variabilidade na população, a nossa margem de erro tem que ser maior, mantidas fixas as outras condições (tamanho de amostra e nível de confiança).
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-60-1} \end{center}
+
+Por outro lado, se mantivermos fixos o tamanho da amostra e o desvio padrão populacional, é razoável também esperar que a margem de erro seja maior para um nível de confiança maior. Ou seja, se queremos aumentar a probabilidade de acerto, é razoável que o intervalo seja maior. Aumentar a probabilidade de acerto significa aumentar o nível de confiança, o que acarreta em um valor crítico \(z_{\frac{\alpha}{2}}\) maior.
+
+Finalmente, mantidos o mesmo desvio padrão populacional e o mesmo nível de confiança, quanto maior o tamanho da amostra, mais perto vamos ficando da população e, assim, vai diminuindo a nossa margem de erro.
+
+\hypertarget{introduuxe7uxe3o-5}{%
+\section{Introdução}\label{introduuxe7uxe3o-5}}
+
+Neste capítulo você completará seu estudo básico sobre intervalos de confiança para a média de uma população, analisando o problema de estimação da média de uma população normal quando não se conhece a variância desta população. Você verá que, neste caso, é necessário estimar essa variância e isso introduz mais uma fonte de variabilidade nas nossas estimativas: com uma única amostra, temos que estimar a média e a variância da população. O procedimento é simples e análogo aos casos anteriores vistos nos capítulos amteriores; o que muda é a distribuição amostral do estimador \(\bar X\). Em vez de usarmos a distribuição normal para determinar os valores críticos, usaremos a distribuição \(t\) de Student.
+
+\hypertarget{ideias-buxe1sicas-1}{%
+\section{Ideias Básicas}\label{ideias-buxe1sicas-1}}
+
+Considere uma população descrita por uma variável aleatória normal com média \(\mu\) e variância \(\sigma^2\): \(X\sim N(\mu,\sigma^2)\). Nosso interesse é estimar a média \(\mu\) a partir de uma amostra aleatória simples \(X_1,X_2,\ldots,X_n\). Como visto anteriormente, a distribuição amostral de \(\bar X\) é normal com média \(\mu\) e variância \(\frac{\sigma^2}{n}\), ou seja
+
+\[X\sim N(\mu,\sigma^2)\rightarrow \bar X \sim N\left(\mu,\frac{\sigma^2}{n}\right)\]
+Asso, se o valor de \(\sigma\) é conhecido, resulta que
+
+\[Z=\sqrt{n}\frac{\bar X-\mu}{\sigma}\sim N(0,1)\]
+
+e esse resultado foi utilizado na construção do intervalo de confiança para a média de uma população normal com variância conhecida, fornecendo o seguinte intervalo:
+
+\[\left[\bar X-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}};\bar X+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right].\]
+
+Suponhamos, agora, que a variância \(\sigma^2\) não seja conhecida. Neste caso, temos que estimá-la (\(S^2\)) com os dados amostrais. Foi demostrado que
+
+\[S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2=\frac{1}{n-1}\left[\sum_{i=1}^{n}X_i^2-n\bar X^2\right]\]
+
+é um estimador não viesado para \(\sigma^2\). Isso significa que, se calculássemos o valor de \(S^2\) para cada uma das possíveis amostras aleatórias simples de tamanho \(n\), a média desses valores seria igual a \(\sigma^2\). Dessa forma, \(S^2\) é um ``bom'' estimador de \(\sigma^2\) e podemos usá-lo como uma estimativa pontual de \(\sigma^2\). Como o desvio padrão é a raiz quadrada da variância, é natural perguntar: \(S\) é um ``bom'' estimador de \(\sigma\), ou seja, \(S\) é um estimador não-viesado de \(\sigma\)? A resposta é NÃO, mas, para grandes amostras, o viés é pequeno, de modo que, em geral, usa-se \(S\) como estimador de \(\sigma\). Sendo assim, é natural pensarmos em substituir o valor de \(\sigma\) por \(S\) na expressão da Normal \(Z\) e utilizarmos a estatística
+
+\[T=\sqrt{n}\frac{\bar X-\mu}{S}\]
+
+na construção de intervalos de confiança para \(\mu\). Isso é exatamente o que faremos, mas, ao introduzirmos \(S\) no lugar de \(\sigma\), a distribuição amostral de \(T\) deixa de ser normal e passa a ser uma distribuição \(t\) de Student.
+
+\hypertarget{muxe9dia-da-nmusigma2-sigma2-desconhecido}{%
+\subsection{\texorpdfstring{Média da \(N(\mu,\sigma^2)\), \(\sigma^2\) desconhecido}{Média da N(\textbackslash mu,\textbackslash sigma\^{}2), \textbackslash sigma\^{}2 desconhecido}}\label{muxe9dia-da-nmusigma2-sigma2-desconhecido}}
+
+O intervalo de confiança para a média de uma população normal com variância desconhecida é obtido com base no seguinte resultado:
+
+\[T=\sqrt{n}\frac{\bar X-\mu}{S}\sim t_{n-1},\]
+
+onde \(S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2=\frac{1}{n-1}\left[\sum_{i=1}^{n}X_i^2-n\bar X^2\right].\)
+
+O número de graus de liberdade \(gl=n-1\) resulta do fato de que, na soma que define \(S^2\), há apenas \(n-1\) parcelas independentes, ou seja, dados \(S^2\) e \(n-1\) das parcelas \((X_i - \bar X)^2\), a \(n\)-ésima parcela fica automaticamente determinada.
+
+Usando a simetria da densidade \(t\), temos o seguinte resultado:
+
+\[P\left(-t_{n,\alpha/2}\leq t_{n} \leq t_{n,\alpha/2}\right)=1-\alpha\]
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-61-1} \end{center}
+
+Note que isso vale para a distribuição \(t\) de student, em geral. Então, usando os resultados anteriories obtemos que
+
+\[P\left(-t_{n-1,\alpha/2}\leq \sqrt{n}\frac{\bar X-\mu}{S} \leq t_{n-1,\alpha/2}\right)=1-\alpha\]
+
+Mas isso é equivalente a
+
+\[P\left(-t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\leq \bar X-\mu \leq t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\right)=1-\alpha\]
+\[P\left(\bar X-t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\leq \mu \leq \bar X + t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\right)=1-\alpha\]
+
+Note que a última expressão nos diz que
+
+\[P\left(\mu \in \left[\bar X-t_{n-1,\alpha/2}\frac{S}{\sqrt{n}};\bar X+t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\right]\right)=1-\alpha\]
+
+Mas essa é exatamente a forma geral de um intervalo de confiança, conforme explicitado. Temos, então, a seguinte conclusão:
+
+Seja \(X\sim N(\mu, \sigma^2)\) uma população normal com variância \(\sigma^2\) desconhecida. Se \(X_1, X_2,\ldots , X_n\) é uma amostra aleatória dessa população, então o intervalo de confiança de nível de confiança \(1-\alpha\) para a média populacional \(\mu\) é dado por
+
+\[\left[\bar X-t_{n-1,\alpha/2}\frac{S}{\sqrt{n}};\bar X+t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\right],\]
+
+onde \(t_{n-1,\alpha/2}\) é o valor crítico da distribuição \(t\) de student com \(n-1\) graus de liberdade que deixa a área \(\frac{\alpha}{2}\) acima dela.
+
+\hypertarget{margem-de-erro-1}{%
+\section{Margem de Erro}\label{margem-de-erro-1}}
+
+Note, mais uma vez, a forma do intervalo de confiança:
+
+\[\bar X \pm\varepsilon,\]
+
+onde a margem de erro \(\varepsilon\), agora é definida em termos do valor crítico da distribuição \(t\) e do erro padrão estimado de \(\bar X\):
+
+\[\varepsilon=t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\].
+
+\hypertarget{introduuxe7uxe3o-6}{%
+\section{Introdução}\label{introduuxe7uxe3o-6}}
+
+Anteriormente, foram apresentadas as idéias básicas da estimação por intervalos de confiança. Para ilustrar o princípio utilizado na construção de tais intervalos, consideramos a situação especial de estimação da média de uma população normal com variância conhecida. Neste caso, a distribuição amostral da média amostral é normal e foi com base nessa distribuição amostral normal que obtivemos o intervalo de confiança.
+
+No primeiro momento desta aula usaremos o teorema limite central, que garante que a distribuição amostral da proporção amostral pode ser aproximada por uma distribuição normal, desde que utilizemos amostras grandes.
+
+\hypertarget{intervalo-de-confianuxe7a-para-a-proporuxe7uxe3o-populacional}{%
+\section{Intervalo de confiança para a proporção populacional}\label{intervalo-de-confianuxe7a-para-a-proporuxe7uxe3o-populacional}}
+
+\hypertarget{ideias-buxe1sicas-2}{%
+\subsection{Ideias Básicas}\label{ideias-buxe1sicas-2}}
+
+O contexto de interesse é o seguinte: temos uma população em que cada elemento é classificado de acordo com a presença ou ausência de determinada característica. Em termos de variável aleatória, essa população é representada por uma v.a. de Bernoulli, isto é:
+
+\[
+X=\begin{cases}
+1,~\text{se elemento possui a característica de interesse}\\
+0,~\text{se elemento não possui a caracaterística de interesse}
+\end{cases}
+\]
+
+Então, \(P(X = 1) = p\), \(E(X) = p\) e \(V(X) = p(1 - p)\). O parâmetro \(p\) é também a proporção de elementos da população que possuem a caracterísitca de interesse. Em geral, esse parâmetro é desconhecido e precisamos estimá-lo a partir de uma amostra.
+
+Suponha, então, que dessa população seja extraída uma amostra aleatória simples \(X_1, X_2, \ldots, X_n com reposição\). Vimos que a proporção \(\hat P\) de elementos na amostra que possuem a característica de interesse, definida por
+
+\[\hat P = \frac{S_n}{n}=\frac{X_1+X_2+\ldots+X_n}{n}\]
+
+é um estimador não-viesado para \(p\) com variância \(\frac{p(1-p)}{n}\). Mais precisamente,
+
+\[E(\hat P)=p\]
+
+\[V(\hat P)=\frac{p(1-p)}{n}\]
+
+Como a proporção amostral é uma média de uma amostra aleatória simples de uma população com distribuição de Bernoulli com parâmetro \(p\), o Teorema Limite Central nos diz que a distribuição de \(\hat P\) se aproxima de uma nornal com média \(p\) e variância \(\frac{p(1-p)}{n}\).
+
+Resumindo, temos o seguinte resultado:
+
+\[\hat p \sim N\left(p,\frac{p(1-p)}{n}\right).\]
+
+Usando as propriedades da distribuição normal, temos que
+
+\[\frac{\hat P - p}{\sqrt{\frac{p(1-p)}{n}}}\sim N(0,1)\]
+
+ou equivalentemente
+
+\[\sqrt{n}\frac{\hat P - p}{\sqrt{p(1-p)}}\sim N(0,1)\]
+
+Vamos ver, agora, como usar esse resultado para obter um intervalo de confiança para a verdadeira proporção populacional \(p\).
+
+\hypertarget{construuxe7uxe3o-do-ic}{%
+\subsection{Construção do IC}\label{construuxe7uxe3o-do-ic}}
+
+O procedimento de construção do intervalo de confiança para a proporção populacional é totalmente análogo ao do intervalo de confiança para a média de uma população normal com variância conhecida, visto anteriormente. Assim, iremos usar a mesma notação, a saber: vamos representar por \(z_\alpha\) a abscissa da curva normal padrão que deixa probabilidade (área) \(\alpha\) acima dela. Como visto, temos o seguinte resultado, onde \(Z\sim N(0,1)\):
+
+\[P\left(-z_\frac{\alpha}{2}\leq Z \leq z_\frac{\alpha}{2}\right)=1-\alpha\]
+
+Como o resultado acima vale para qualquer variável aleatória \(N(0,1)\), podemos usar para obter
+
+\[P\left(-z_{\frac{\alpha}{2}}\leq \frac{\hat P - p}{\sqrt{\frac{p(1-p)}{n}}} \leq z_{\frac{\alpha}{2}}\right)=1-\alpha\]
+
+e, portanto
+
+\[P\left(-z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq \hat P - p \leq z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha\]
+
+\[P\left(-\hat P -z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq - p \leq -\hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha\]
+
+\[P\left(\hat P - z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq p \leq \hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha\]
+Como no caso da média, chegamos a uma expressão do seguinte tipo:
+
+\[P(\hat P -\varepsilon\leq p\leq\hat P + \varepsilon)=1-\alpha\]
+
+onde \(\varepsilon=z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\)
+
+Analisando a margem de erro, podemos ver uma diferença fundamental entre o IC para a proporção e para a média: a margem de erro da proporção amostral depende do parâmetro desconhecido \(p\). Na prática, para construir o intervalo de confiança, temos que substituir esse valor por alguma estimativa.
+
+Existem 3 abordagens possíveis:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Usar a própria proporção amostral observada; nesse caso, o intervalo de confiança seria: \[\hat p \pm z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p(1-\hat p)}{n}}\]
+\item
+  Usar o intervalo de confiança conservador, ou seja, usar o maior valor possível para \(z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p(1-\hat p)}{n}}\) para um dado \(n\), o que equivale a obter o intervalo de confiança com o maior comprimento possível. Como o comprimento do intervalo é diretamente proporcional a \(\sqrt{p(1-p)}\) ou equivalentemente a \(p(1-p)\), \(p=0.5\) maxima esta função.
+\end{enumerate}
+
+Neste caso, o o intervalo de confiança se torna:
+
+\[\hat p \pm z_{\frac{\alpha}{2}}\sqrt{\frac{0.5\times 0.5}{n}} = \hat p \pm z_{\frac{\alpha}{2}}\frac{0.5}{\sqrt{n}}\]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Usar algum valor auxiliar \(\hat p_0\) ou estimativa prévia, obtida de outras fontes ou de uma amostra piloto:
+\end{enumerate}
+
+\[\hat p \pm z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}}\]
+
+Seja \(X\sim Bernoulli(p)\). Se \(X_1,X_2,\ldots,X_n\) é uma amostra aleatória dessa população, então o intervalo de confiança de nível de confiança \(1-\alpha\) para a proporção populacional \(p\) é dado por
+
+\[\left[\hat P - z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}};\hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}}\right],\]
+
+onde \(z_{\frac{\alpha}{2}}\) é a abcissa da curva normal padrão que deixa a área \(\frac{\alpha}{2}\) acima dela e \(\hat p_0\) é alguma estimativa para o verdadeiro valor de \(p\).
+
+\hypertarget{determinauxe7uxe3o-do-tamanho-da-amostra}{%
+\subsection{Determinação do tamanho da amostra}\label{determinauxe7uxe3o-do-tamanho-da-amostra}}
+
+Uma questão que se coloca freqüentemente é: qual o tamanho da amostra necessário para se estimar uma proporção \(p\) com uma margem de erro \(\varepsilon\) e nível de confiança \(1-\alpha\)? Vamos analisar a expressão da margem de erro:
+
+\[\varepsilon=z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\]
+
+Resolvendo para \(n\), obtemos que
+
+\[\sqrt{n}=z_{\frac{\alpha}{2}}\frac{\sqrt{p(1-p)}}{\varepsilon}\]
+
+ou
+
+\[n=p(1-p)\left(\frac{z_{\frac{\alpha}{2}}}{\varepsilon}\right)^2\]
+
+Vemos, então, que \(n\) é diretamente proporcional a \(p(1-p)\), ou seja, quanto maior \(p(1-p)\), maior será o tamanho da amostra \(n\). Na prática, não conhecemos \(p\) (na verdade, estamos querendo estimar esse parâmetro). Então, para determinar o tamanho de amostra necessário para uma margem de erro e um nível de confiança dados, podemos considerar o pior caso, ou seja, podemos tomar o maior valor possível de \(p(1 - p)\) e calcular o tamanho da amostra com base nesse pior caso, que ocorre quando \(p = 0,5\). É claro que essa é uma escolha conservadora, que em alguns casos pode levar a um tamanho de amostra desnecessariamente grande. Usando esta estimativa para \(p\), obtemos que
+
+\[n=\left(0,5\times \frac{z_{\frac{\alpha}{2}}}{\varepsilon}\right)^2\]
+
+\hypertarget{intervalo-de-confianuxe7a-para-a-variuxe2ncia-da-nmusigma2}{%
+\section{\texorpdfstring{Intervalo de confiança para a variância da \(N(\mu,\sigma^2)\)}{Intervalo de confiança para a variância da N(\textbackslash mu,\textbackslash sigma\^{}2)}}\label{intervalo-de-confianuxe7a-para-a-variuxe2ncia-da-nmusigma2}}
+
+Nesta parte você completará seu estudo básico sobre intervalos de confiança, analisando o problema de estimação da variância de uma população normal. Como antes, este intervalo se baseará na distribuição amostral de um estimador não-viesado para \(\sigma^2\), a saber, \(S^2\). Como a variância é um número não negativo, essa distribuição não é simétrica e está definida apenas para valores não-negativos.
+
+\hypertarget{ideias-buxe1sicas-3}{%
+\subsection{Ideias básicas}\label{ideias-buxe1sicas-3}}
+
+O contexto subjacente é o seguinte: a partir de uma amostra aleatória simples \(X_1,X_2,\ldots,X_n\) retirada de uma população normal com média \(\mu\) e variância \(\sigma^2\) queremos construir um intervalo de confiança para \(\sigma^2\). A hipótese de normalidade da população é fundamental aqui. Assim como no caso da média, temos que usar a distribuição amostral de algum estimador. Neste caso, o estimador é \(S^2\) e o resultado importate é o seguinte: \(\frac{(n-1)S^2}{\sigma^2}\) tem distribuição qui-quadrado com \(n-1\) graus de liberdade:
+
+\[\frac{(n-1)S^2}{\sigma^2}\sim\chi^2_{n-1}\]
+
+\hypertarget{construuxe7uxe3o-do-ic-1}{%
+\subsection{Construção do IC}\label{construuxe7uxe3o-do-ic-1}}
+
+Como no caso da distribuição \(t\)-Student e também da distribuição Normal, vamos definir o valor crítico \(\chi^2_{n;\alpha}\) como a abscissa da distribuição qui-quadrado com \(n\) graus de liberdade que deixa probabilidade \(\alpha\) acima dela.
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-62-1} \end{center}
+
+Com essa definição, podemos ver que a abscissa \(\chi^2_{n;\alpha/2}\) deixa probabilidade \(\alpha/2\) acima dela e a abcissa \(\chi^2_{n;1-\alpha/2}\) deixa probabilidade \(\alpha/2\) abaixo dela.
+
+\begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-63-1} \end{center}
+
+Logo,
+
+\[P\left(\chi^2_{n;\frac{\alpha}{2}}\leq \chi^2_{n} \leq \chi^2_{n;1-\frac{\alpha}{2}}\right)=1-\alpha\]
+
+Como o resultado acima vale para qualquer distribuição qui-quadrado, podemos usar o resultado anterior para escrever
+
+\[P\left(\chi^2_{n-1;\frac{\alpha}{2}}\leq \frac{(n-1)S^2}{\sigma^2} \leq \chi^2_{n-1;1-\frac{\alpha}{2}}\right)=1-\alpha\]
+
+Daí resulta que
+
+\[P\left(\frac{\chi^2_{n-1;\frac{\alpha}{2}}}{(n-1)S^2}\leq \frac{1}{\sigma^2} \leq \frac{\chi^2_{n-1;1-\frac{\alpha}{2}}}{(n-1)S^2}\right)=1-\alpha\]
+
+\[P\left(\frac{(n-1)S^2}{\chi^2_{n-1;1-\frac{\alpha}{2}}}\leq \sigma^2 \leq \frac{(n-1)S^2}{\chi^2_{n-1;\frac{\alpha}{2}}}\right)=1-\alpha\]
+
+e esse é o intervalo de confiança para a variância de uma população normal.
+
+Seja \(X\sim N(\mu,\sigma^2)\) uma população normal. Se \(X_1,X_2,\ldots,X_n\) é uma amostra aleatória dessa população, então o intervalo de confiança de nível de confiança \(1-\alpha\) para a variância populacional \(\sigma^2\) é dado por
+
+\[\left[\frac{(n-1)S^2}{\chi^2_{n-1;1-\frac{\alpha}{2}}};\frac{(n-1)S^2}{\chi^2_{n-1;\frac{\alpha}{2}}}\right],\]
+
+onde \(\chi^2_{n-1;\frac{\alpha}{2}}\) é o valor crítico da distribuição qui-quadrado com \(n-1\) graus de liberdade que deixa a área \(\frac{\alpha}{2}\) abaixo dela e \(\chi^2_{n-1;1-\frac{\alpha}{2}}\) é o valor crítico da distribuição qui-quadrado com \(n-1\) graus de liberdade que deixa a área \(\frac{\alpha}{2}\) acima dela.
 
   \bibliography{book.bib,packages.bib}
 
