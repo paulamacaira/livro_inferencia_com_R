@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Appendix | Inferência Estatística com R</title>
+  <meta name="description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Appendix | Inferência Estatística com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://paulamacaira.github.io/livro_inferencia_com_R/" />
+  <meta property="og:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+  <meta property="og:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Appendix | Inferência Estatística com R" />
+  
+  <meta name="twitter:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="twitter:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+
+<meta name="author" content="P. Maçaira, L. Bastos, S. Aguilar &amp; I. Peres" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regressão-linear.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Inferência Estatística com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefácio</a></li>
+<li class="chapter" data-level="1" data-path="analise_descritiva.html"><a href="analise_descritiva.html"><i class="fa fa-check"></i><b>1</b> Análise Descritiva</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coleta-e-armazenamento-de-dados"><i class="fa fa-check"></i><b>1.1</b> Coleta e Armazenamento de Dados</a></li>
+<li class="chapter" data-level="1.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>1.2</b> Tipos de Variáveis</a></li>
+<li class="chapter" data-level="1.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-quantitativas"><i class="fa fa-check"></i><b>1.3</b> Variáveis Quantitativas</a></li>
+<li class="chapter" data-level="1.4" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-qualitativas-ou-categóricas"><i class="fa fa-check"></i><b>1.4</b> Variáveis Qualitativas (ou categóricas)</a></li>
+<li class="chapter" data-level="1.5" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>1.5</b> Medidas de Tendência Central</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#média-aritmética-simples"><i class="fa fa-check"></i><b>1.5.1</b> Média Aritmética Simples</a></li>
+<li class="chapter" data-level="1.5.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#mediana"><i class="fa fa-check"></i><b>1.5.2</b> Mediana</a></li>
+<li class="chapter" data-level="1.5.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#moda"><i class="fa fa-check"></i><b>1.5.3</b> Moda</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-variabilidade"><i class="fa fa-check"></i><b>1.6</b> Medidas de Variabilidade</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#amplitude-total"><i class="fa fa-check"></i><b>1.6.1</b> Amplitude Total</a></li>
+<li class="chapter" data-level="1.6.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#desvio-padrão"><i class="fa fa-check"></i><b>1.6.2</b> Desvio Padrão</a></li>
+<li class="chapter" data-level="1.6.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coeficiente-de-variação"><i class="fa fa-check"></i><b>1.6.3</b> Coeficiente de Variação</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-posição"><i class="fa fa-check"></i><b>1.7</b> Medidas de Posição</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#percentis"><i class="fa fa-check"></i><b>1.7.1</b> Percentis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="analise_descritiva.html"><a href="analise_descritiva.html#referências"><i class="fa fa-check"></i><b>1.8</b> Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-gráfica.html"><a href="análise-gráfica.html"><i class="fa fa-check"></i><b>2</b> Análise Gráfica</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-qualitativas---nominais-e-ordinais"><i class="fa fa-check"></i><b>2.1</b> Variáveis Qualitativas - Nominais e Ordinais</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-discretas"><i class="fa fa-check"></i><b>2.2</b> Variáveis Quantitativas Discretas</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-contínuas"><i class="fa fa-check"></i><b>2.3</b> Variáveis Quantitativas Contínuas</a></li>
+<li class="chapter" data-level="2.4" data-path="análise-gráfica.html"><a href="análise-gráfica.html#histograma"><i class="fa fa-check"></i><b>2.4</b> Histograma</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#tendência-central"><i class="fa fa-check"></i><b>2.4.1</b> Tendência Central</a></li>
+<li class="chapter" data-level="2.4.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variabilidade"><i class="fa fa-check"></i><b>2.4.2</b> Variabilidade</a></li>
+<li class="chapter" data-level="2.4.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#forma"><i class="fa fa-check"></i><b>2.4.3</b> Forma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="análise-gráfica.html"><a href="análise-gráfica.html#boxplot"><i class="fa fa-check"></i><b>2.5</b> Boxplot</a></li>
+<li class="chapter" data-level="2.6" data-path="análise-gráfica.html"><a href="análise-gráfica.html#diagrama-de-dispersão"><i class="fa fa-check"></i><b>2.6</b> Diagrama de Dispersão</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-1"><i class="fa fa-check"></i><b>2.6.1</b> Exemplo 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-2"><i class="fa fa-check"></i><b>2.6.2</b> Exemplo 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="análise-gráfica.html"><a href="análise-gráfica.html#séries-temporais"><i class="fa fa-check"></i><b>2.7</b> Séries Temporais</a></li>
+<li class="chapter" data-level="2.8" data-path="análise-gráfica.html"><a href="análise-gráfica.html#gráfico-de-radar"><i class="fa fa-check"></i><b>2.8</b> Gráfico de Radar</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html"><i class="fa fa-check"></i><b>3</b> Conceitos Básicos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#população"><i class="fa fa-check"></i><b>3.1</b> População</a></li>
+<li class="chapter" data-level="3.2" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#amostra"><i class="fa fa-check"></i><b>3.2</b> Amostra</a></li>
+<li class="chapter" data-level="3.3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#estatísticas-e-parâmetros"><i class="fa fa-check"></i><b>3.3</b> Estatísticas e Parâmetros</a></li>
+<li class="chapter" data-level="3.4" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#distribuições-amostrais"><i class="fa fa-check"></i><b>3.4</b> Distribuições Amostrais</a></li>
+<li class="chapter" data-level="3.5" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#propriedades-dos-estimadores"><i class="fa fa-check"></i><b>3.5</b> Propriedades dos Estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html"><i class="fa fa-check"></i><b>4</b> Distribuições Amostrais</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-média-amostral"><i class="fa fa-check"></i><b>4.1</b> Distribuição da Média Amostral</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando"><i class="fa fa-check"></i><b>4.1.1</b> Visualizando</a></li>
+<li class="chapter" data-level="4.1.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#prova"><i class="fa fa-check"></i><b>4.1.2</b> Prova</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#teorema-central-do-limite"><i class="fa fa-check"></i><b>4.2</b> Teorema Central do Limite</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-1"><i class="fa fa-check"></i><b>4.2.1</b> Visualizando</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-variância-amostral"><i class="fa fa-check"></i><b>4.3</b> Distribuição da Variância Amostral</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-qui-quadrado"><i class="fa fa-check"></i><b>4.3.1</b> Distribuição Qui-quadrado</a></li>
+<li class="chapter" data-level="4.3.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-2"><i class="fa fa-check"></i><b>4.3.2</b> Visualizando</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-proporção-amostral"><i class="fa fa-check"></i><b>4.4</b> Distribuição da Proporção Amostral</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-3"><i class="fa fa-check"></i><b>4.4.1</b> Visualizando</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html"><i class="fa fa-check"></i><b>5</b> Intervalo de Confiança</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideia-geral"><i class="fa fa-check"></i><b>5.1</b> Ideia Geral</a></li>
+<li class="chapter" data-level="5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-média-de-uma-normal-com-variância-conhecida"><i class="fa fa-check"></i><b>5.2</b> I.C. para a média de uma Normal com variância conhecida</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança"><i class="fa fa-check"></i><b>5.2.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.2.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro"><i class="fa fa-check"></i><b>5.2.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.2.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra"><i class="fa fa-check"></i><b>5.2.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-média-de-uma-normal-com-variância-desconhecida"><i class="fa fa-check"></i><b>5.3</b> I.C. para a média de uma Normal com variância desconhecida</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-1"><i class="fa fa-check"></i><b>5.3.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.3.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-1"><i class="fa fa-check"></i><b>5.3.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.3.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-1"><i class="fa fa-check"></i><b>5.3.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-proporção-populacional"><i class="fa fa-check"></i><b>5.4</b> I.C. para a proporção populacional</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-2"><i class="fa fa-check"></i><b>5.4.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.4.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-2"><i class="fa fa-check"></i><b>5.4.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.4.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-2"><i class="fa fa-check"></i><b>5.4.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#intervalo-de-confiança-para-a-variância-de-uma-normal"><i class="fa fa-check"></i><b>5.5</b> Intervalo de confiança para a variância de uma Normal</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-3"><i class="fa fa-check"></i><b>5.5.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-3"><i class="fa fa-check"></i><b>5.5.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-3"><i class="fa fa-check"></i><b>5.5.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html"><i class="fa fa-check"></i><b>6</b> Teste de Hipóteses</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#ideia-geral-1"><i class="fa fa-check"></i><b>6.1</b> Ideia Geral</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-nula"><i class="fa fa-check"></i><b>6.1.1</b> Hipótese nula</a></li>
+<li class="chapter" data-level="6.1.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-alternativa"><i class="fa fa-check"></i><b>6.1.2</b> Hipótese alternativa</a></li>
+<li class="chapter" data-level="6.1.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#estatística-de-teste"><i class="fa fa-check"></i><b>6.1.3</b> Estatística de teste</a></li>
+<li class="chapter" data-level="6.1.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#tipos-de-erro"><i class="fa fa-check"></i><b>6.1.4</b> Tipos de erro</a></li>
+<li class="chapter" data-level="6.1.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#regra-de-decisão"><i class="fa fa-check"></i><b>6.1.5</b> Regra de decisão</a></li>
+<li class="chapter" data-level="6.1.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#região-crítica"><i class="fa fa-check"></i><b>6.1.6</b> Região crítica</a></li>
+<li class="chapter" data-level="6.1.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#cco-e-poder-do-teste"><i class="fa fa-check"></i><b>6.1.7</b> CCO e Poder do Teste</a></li>
+<li class="chapter" data-level="6.1.8" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo"><i class="fa fa-check"></i><b>6.1.8</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-média-de-uma-normal-com-variância-conhecida"><i class="fa fa-check"></i><b>6.2</b> T.H. para a média de uma Normal com variância conhecida</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses"><i class="fa fa-check"></i><b>6.2.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.2.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#teste-de-hipóteses-vs-intervalo-de-confiança"><i class="fa fa-check"></i><b>6.2.2</b> Teste de Hipóteses vs Intervalo de Confiança</a></li>
+<li class="chapter" data-level="6.2.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor"><i class="fa fa-check"></i><b>6.2.3</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.2.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-3"><i class="fa fa-check"></i><b>6.2.4</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-média-de-uma-normal-com-variância-desconhecida"><i class="fa fa-check"></i><b>6.3</b> T.H. para a média de uma Normal com variância desconhecida</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-1"><i class="fa fa-check"></i><b>6.3.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.3.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor-1"><i class="fa fa-check"></i><b>6.3.2</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.3.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-4"><i class="fa fa-check"></i><b>6.3.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-proporção-populacional"><i class="fa fa-check"></i><b>6.4</b> T.H. para a proporção populacional</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-2"><i class="fa fa-check"></i><b>6.4.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.4.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor-2"><i class="fa fa-check"></i><b>6.4.2</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-5"><i class="fa fa-check"></i><b>6.4.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-variância-de-uma-normal"><i class="fa fa-check"></i><b>6.5</b> T.H. para a variância de uma Normal</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-3"><i class="fa fa-check"></i><b>6.5.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.5.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p"><i class="fa fa-check"></i><b>6.5.2</b> Valor P</a></li>
+<li class="chapter" data-level="6.5.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-6"><i class="fa fa-check"></i><b>6.5.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-adequação-de-ajuste-goodness-of-fit"><i class="fa fa-check"></i><b>6.6</b> T.H. Adequação de Ajuste (Goodness of Fit)</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-4"><i class="fa fa-check"></i><b>6.6.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.6.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-7"><i class="fa fa-check"></i><b>6.6.2</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-tabela-de-contingência"><i class="fa fa-check"></i><b>6.7</b> T.H. para a Tabela de Contingência</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-5"><i class="fa fa-check"></i><b>6.7.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.7.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-8"><i class="fa fa-check"></i><b>6.7.2</b> Exemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html"><i class="fa fa-check"></i><b>7</b> Inferência Estatística para Duas Populações</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-médias-de-distribuições-normais"><i class="fa fa-check"></i><b>7.1</b> Comparação das médias de distribuições Normais</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#variâncias-conhecidas"><i class="fa fa-check"></i><b>7.1.1</b> Variâncias Conhecidas</a></li>
+<li class="chapter" data-level="7.1.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#variâncias-desconhecidas"><i class="fa fa-check"></i><b>7.1.2</b> Variâncias Desconhecidas</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-variâncias-de-distribuições-normais"><i class="fa fa-check"></i><b>7.2</b> Comparação das variâncias de distribuições Normais</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#teste-de-hipóteses-2"><i class="fa fa-check"></i><b>7.2.1</b> Teste de hipóteses</a></li>
+<li class="chapter" data-level="7.2.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#intervalo-de-confiança-2"><i class="fa fa-check"></i><b>7.2.2</b> Intervalo de Confiança</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-proporções-populacionais"><i class="fa fa-check"></i><b>7.3</b> Comparação das proporções populacionais</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#teste-de-hipóteses-3"><i class="fa fa-check"></i><b>7.3.1</b> Teste de hipóteses</a></li>
+<li class="chapter" data-level="7.3.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#intervalo-de-confiança-3"><i class="fa fa-check"></i><b>7.3.2</b> Intervalo de Confiança</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html"><i class="fa fa-check"></i><b>8</b> Análise de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#anova-para-um-único-fator"><i class="fa fa-check"></i><b>8.1</b> ANOVA para um único fator</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#partição-da-variabilidade-total"><i class="fa fa-check"></i><b>8.1.1</b> Partição da variabilidade total</a></li>
+<li class="chapter" data-level="8.1.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#construção-do-teste-de-hipóteses"><i class="fa fa-check"></i><b>8.1.2</b> Construção do teste de hipóteses</a></li>
+<li class="chapter" data-level="8.1.3" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#exemplo-19"><i class="fa fa-check"></i><b>8.1.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#anova-para-dois-fatores"><i class="fa fa-check"></i><b>8.2</b> ANOVA para dois fatores</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#partição-da-variabilidade-total-1"><i class="fa fa-check"></i><b>8.2.1</b> Partição da variabilidade total</a></li>
+<li class="chapter" data-level="8.2.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#construção-do-teste-de-hipóteses-1"><i class="fa fa-check"></i><b>8.2.2</b> Construção do teste de hipóteses</a></li>
+<li class="chapter" data-level="8.2.3" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#exemplo-continuação"><i class="fa fa-check"></i><b>8.2.3</b> Exemplo (continuação)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regressão-linear.html"><a href="regressão-linear.html"><i class="fa fa-check"></i><b>9</b> Regressão Linear</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="regressão-linear.html"><a href="regressão-linear.html#gráficos-úteis"><i class="fa fa-check"></i><b>9.1</b> Gráficos úteis</a></li>
+<li class="chapter" data-level="9.2" data-path="regressão-linear.html"><a href="regressão-linear.html#modelo-estatístico"><i class="fa fa-check"></i><b>9.2</b> Modelo estatístico</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="regressão-linear.html"><a href="regressão-linear.html#efeito-das-interações"><i class="fa fa-check"></i><b>9.2.1</b> Efeito das interações</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regressão-linear.html"><a href="regressão-linear.html#suposições-para-o-modelo"><i class="fa fa-check"></i><b>9.2.2</b> Suposições para o modelo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regressão-linear.html"><a href="regressão-linear.html#representação-matricial"><i class="fa fa-check"></i><b>9.3</b> Representação Matricial</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="regressão-linear.html"><a href="regressão-linear.html#estimação-dos-parâmetros-do-modelo"><i class="fa fa-check"></i><b>9.3.1</b> Estimação dos parâmetros do modelo</a></li>
+<li class="chapter" data-level="9.3.2" data-path="regressão-linear.html"><a href="regressão-linear.html#propriedades-dos-estimadores-1"><i class="fa fa-check"></i><b>9.3.2</b> Propriedades dos estimadores</a></li>
+<li class="chapter" data-level="9.3.3" data-path="regressão-linear.html"><a href="regressão-linear.html#exemplo-20"><i class="fa fa-check"></i><b>9.3.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-variância-anova-1"><i class="fa fa-check"></i><b>9.4</b> Análise de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="regressão-linear.html"><a href="regressão-linear.html#exemplo-continuação-1"><i class="fa fa-check"></i><b>9.4.1</b> Exemplo (continuação)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="regressão-linear.html"><a href="regressão-linear.html#medidas-de-associação"><i class="fa fa-check"></i><b>9.5</b> Medidas de Associação</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="regressão-linear.html"><a href="regressão-linear.html#coeficiente-de-determinação-múltiplo-r2"><i class="fa fa-check"></i><b>9.5.1</b> Coeficiente de Determinação Múltiplo (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="regressão-linear.html"><a href="regressão-linear.html#coeficiente-de-determinação-ajustado-r2_a"><i class="fa fa-check"></i><b>9.5.2</b> Coeficiente de Determinação Ajustado (<span class="math inline">\(R^2_a\)</span>)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="regressão-linear.html"><a href="regressão-linear.html#testes-de-hipóteses-para-os-coeficientes-da-regressão"><i class="fa fa-check"></i><b>9.6</b> Testes de hipóteses para os coeficientes da regressão</a></li>
+<li class="chapter" data-level="9.7" data-path="regressão-linear.html"><a href="regressão-linear.html#intervalo-de-confiança-para-os-coeficientes-da-regressão"><i class="fa fa-check"></i><b>9.7</b> Intervalo de confiança para os coeficientes da regressão</a></li>
+<li class="chapter" data-level="9.8" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-de-variáveis-regressão-linear-múltipla"><i class="fa fa-check"></i><b>9.8</b> Seleção de Variáveis (Regressão Linear Múltipla)</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-de-todos-os-modelos-possíveis"><i class="fa fa-check"></i><b>9.8.1</b> Seleção de todos os modelos possíveis</a></li>
+<li class="chapter" data-level="9.8.2" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-automática"><i class="fa fa-check"></i><b>9.8.2</b> Seleção automática</a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="regressão-linear.html"><a href="regressão-linear.html#variáveis-dummy"><i class="fa fa-check"></i><b>9.9</b> Variáveis Dummy</a></li>
+<li class="chapter" data-level="9.10" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-resíduos"><i class="fa fa-check"></i><b>9.10</b> Análise de Resíduos</a>
+<ul>
+<li class="chapter" data-level="9.10.1" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-normalidade"><i class="fa fa-check"></i><b>9.10.1</b> Diagnóstico de normalidade</a></li>
+<li class="chapter" data-level="9.10.2" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-homocedasticidade"><i class="fa fa-check"></i><b>9.10.2</b> Diagnóstico de homocedasticidade</a></li>
+<li class="chapter" data-level="9.10.3" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-independência"><i class="fa fa-check"></i><b>9.10.3</b> Diagnóstico de independência</a></li>
+<li class="chapter" data-level="9.10.4" data-path="regressão-linear.html"><a href="regressão-linear.html#valores-extremos"><i class="fa fa-check"></i><b>9.10.4</b> Valores extremos</a></li>
+<li class="chapter" data-level="9.10.5" data-path="regressão-linear.html"><a href="regressão-linear.html#teste-da-falta-de-ajuste-lack-of-fit"><i class="fa fa-check"></i><b>9.10.5</b> Teste da falta de ajuste (<em>lack of fit</em>)</a></li>
+<li class="chapter" data-level="9.10.6" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-colinearidade-e-multicolinearidade"><i class="fa fa-check"></i><b>9.10.6</b> Análise de Colinearidade e Multicolinearidade</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i>Appendix</a>
+<ul>
+<li class="chapter" data-level="9.11" data-path="appendix.html"><a href="appendix.html#software-r"><i class="fa fa-check"></i><b>9.11</b> Software R</a>
+<ul>
+<li class="chapter" data-level="9.11.1" data-path="appendix.html"><a href="appendix.html#download"><i class="fa fa-check"></i><b>9.11.1</b> Download</a></li>
+<li class="chapter" data-level="9.11.2" data-path="appendix.html"><a href="appendix.html#interface-r"><i class="fa fa-check"></i><b>9.11.2</b> Interface R</a></li>
+<li class="chapter" data-level="9.11.3" data-path="appendix.html"><a href="appendix.html#manipulação-simples-no-console"><i class="fa fa-check"></i><b>9.11.3</b> Manipulação simples no console</a></li>
+</ul></li>
+<li class="chapter" data-level="9.12" data-path="appendix.html"><a href="appendix.html#ide-rstudio"><i class="fa fa-check"></i><b>9.12</b> IDE RStudio</a>
+<ul>
+<li class="chapter" data-level="9.12.1" data-path="appendix.html"><a href="appendix.html#download-1"><i class="fa fa-check"></i><b>9.12.1</b> Download</a></li>
+<li class="chapter" data-level="9.12.2" data-path="appendix.html"><a href="appendix.html#interface-rstudio"><i class="fa fa-check"></i><b>9.12.2</b> Interface RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="9.13" data-path="appendix.html"><a href="appendix.html#pacotes"><i class="fa fa-check"></i><b>9.13</b> Pacotes</a>
+<ul>
+<li class="chapter" data-level="9.13.1" data-path="appendix.html"><a href="appendix.html#instalando-e-carregando-pacotes"><i class="fa fa-check"></i><b>9.13.1</b> Instalando e carregando pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.14" data-path="appendix.html"><a href="appendix.html#help"><i class="fa fa-check"></i><b>9.14</b> Help?</a></li>
+<li class="chapter" data-level="9.15" data-path="appendix.html"><a href="appendix.html#criando-objetosvariáveis"><i class="fa fa-check"></i><b>9.15</b> Criando objetos/variáveis</a>
+<ul>
+<li class="chapter" data-level="9.15.1" data-path="appendix.html"><a href="appendix.html#case-sensitive"><i class="fa fa-check"></i><b>9.15.1</b> Case-sensitive</a></li>
+</ul></li>
+<li class="chapter" data-level="9.16" data-path="appendix.html"><a href="appendix.html#como-fazer-comentários"><i class="fa fa-check"></i><b>9.16</b> Como fazer comentários</a></li>
+<li class="chapter" data-level="9.17" data-path="appendix.html"><a href="appendix.html#constantes-armazenadas-no"><i class="fa fa-check"></i><b>9.17</b> Constantes armazenadas no </a></li>
+<li class="chapter" data-level="9.18" data-path="appendix.html"><a href="appendix.html#diretório-de-trabalho"><i class="fa fa-check"></i><b>9.18</b> Diretório de trabalho</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://paulamacaira.github.io/livro_inferencia_com_R" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Inferência Estatística com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appendix" class="section level1 unnumbered">
+<h1>Appendix</h1>
+<div id="software-r" class="section level2" number="9.11">
+<h2><span class="header-section-number">9.11</span> Software R</h2>
+<ul>
+<li>O <span class="math inline">\(\texttt{R}\)</span> é uma linguagem para manipular objetos</li>
+<li>Uma linguagem interativa, orientada a objetos e funções</li>
+<li>Os objetos podem ser conjuntos de dados, vetores, funções, matrizes etc.</li>
+<li>As manipulações podem ser cálculos, entradas e saídas de dados, análises estatísticas e gráficos</li>
+<li>Suas principais características:
+<ul>
+<li>É gratuito</li>
+<li>Possui grande variedade de pacotes com funções específicas disponíveis</li>
+<li>É um <em>software</em> livre</li>
+</ul></li>
+<li>Link para o site oficial do <span class="math inline">\(\texttt{R}\)</span>: <a href="http://www.r-project.org/" class="uri">http://www.r-project.org/</a></li>
+</ul>
+<div id="download" class="section level3" number="9.11.1">
+<h3><span class="header-section-number">9.11.1</span> Download</h3>
+<ul>
+<li>Clique no link CRAN na seção <em>Download, Packages</em></li>
+<li>Escolha um repositório, por exemplo, Oswaldo Cruz Foundation, Rio de Janeiro</li>
+<li>Escolha o link de acordo com o sistema operacional do seu computador</li>
+<li>Escolha a opção <span class="math inline">\(\texttt{base}\)</span></li>
+<li>Finalmente, clique para baixar o <span class="math inline">\(\texttt{R}\)</span></li>
+<li>Siga a instalação padrão</li>
+</ul>
+</div>
+<div id="interface-r" class="section level3" number="9.11.2">
+<h3><span class="header-section-number">9.11.2</span> Interface R</h3>
+<p></p>
+</div>
+<div id="manipulação-simples-no-console" class="section level3" number="9.11.3">
+<h3><span class="header-section-number">9.11.3</span> Manipulação simples no console</h3>
+<p>A forma mais direta de interagir com o <span class="math inline">\(\texttt{R}\)</span> é através das linhas de comandos</p>
+<ul>
+<li>Os comandos são digitados no prompt </li>
+<li>Continuação da linha é indicado por </li>
+<li>Para submeter os comandos pressione </li>
+<li>Para inserir vários comandos na mesma linha, utilize </li>
+</ul>
+<p></p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="appendix.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">4</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="appendix.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5-8</span></span></code></pre></div>
+<pre><code>## [1] -3</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="appendix.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">*</span><span class="dv">9</span></span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="appendix.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Use os parênteses para calcular expressões, por exemplo, </p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="appendix.html#cb151-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">20</span> <span class="sc">+</span> <span class="dv">7</span>)<span class="sc">/</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 81</code></pre>
+<ul>
+<li>O <span class="math inline">\(\texttt{R}\)</span> ignora os espaços em brancos excessivos</li>
+</ul>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="appendix.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span>               <span class="sc">/</span>              <span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<ul>
+<li>String/caracteres devem ser inseridos entre aspas simples ou dupla:  ou </li>
+</ul>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="appendix.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Exemplo de string/caracter&quot;</span></span></code></pre></div>
+<pre><code>## [1] &quot;Exemplo de string/caracter&quot;</code></pre>
+</div>
+</div>
+<div id="ide-rstudio" class="section level2" number="9.12">
+<h2><span class="header-section-number">9.12</span> IDE RStudio</h2>
+<ul>
+<li>O <span class="math inline">\(\texttt{RStudio}\)</span> é um ambiente de desenvolvimento integrado (IDE) para o <em>software</em> R</li>
+<li>Seu principal objetivo é facilitar a integração entre o <span class="math inline">\(\texttt{R}\)</span> e o usuário, sendo uma interface <em>user-friendly</em></li>
+<li>Link para o site oficial do <span class="math inline">\(\texttt{RStudio}\)</span>: <a href="http://www.rstudio.org" class="uri">http://www.rstudio.org</a></li>
+</ul>
+<div id="download-1" class="section level3" number="9.12.1">
+<h3><span class="header-section-number">9.12.1</span> Download</h3>
+<ul>
+<li>Clique no menu <em>Products</em> <span class="math inline">\(\rightarrow\)</span> RStudio</li>
+<li>Selecione RStudio Desktop</li>
+<li>Escolha o link de acordo com o seu sistema operacional</li>
+<li>Instale o programa a partir do arquivo salvo</li>
+<li><strong>Dica: Instale o <span class="math inline">\(\texttt{RStudio}\)</span> após instalar o software <span class="math inline">\(\texttt{R}\)</span> no mesmo diretório</strong></li>
+</ul>
+</div>
+<div id="interface-rstudio" class="section level3" number="9.12.2">
+<h3><span class="header-section-number">9.12.2</span> Interface RStudio</h3>
+<p></p>
+</div>
+</div>
+<div id="pacotes" class="section level2" number="9.13">
+<h2><span class="header-section-number">9.13</span> Pacotes</h2>
+<ul>
+<li>A versão  do <span class="math inline">\(\texttt{R}\)</span> possui uma coleção enorme de funções, como por exemplo:
+<ul>
+<li>modelos estatísticos</li>
+<li>algoritmos computacionais</li>
+<li>métodos computacionais</li>
+<li>visualização de dados</li>
+<li>e MUITAS outras funções</li>
+</ul></li>
+<li>No entanto, às vezes precisamos acessar outros módulos que contenham funções mais específicas como por exemplo:
+<ul>
+<li>Análise multivariada</li>
+<li>Análise Bayesiana</li>
+<li>Manipulação de dados</li>
+<li>Gráficos a nível de publicação</li>
+<li>Big Data, Deep Learning</li>
+<li>Processamento de imagens</li>
+<li>Modelos Econométricos</li>
+<li>etc.</li>
+</ul></li>
+<li>Esses módulos são chamados de ,  ou  no <span class="math inline">\(\texttt{R}\)</span></li>
+<li>Qualquer pessoa pode desenvolver seus pacotes e então submeter ao CRAN, disponibilizar através do GitHub ou standalone.</li>
+<li>Uma coleção de funções que são chamadas diretamente de dentro do <span class="math inline">\(\texttt{R}\)</span></li>
+<li>Inclue: funções, funções, dados para exemplificar as funcionalidades do pacote, arquivo com ajuda (help) para cada função, e uma descrição do pacote</li>
+</ul>
+<div id="instalando-e-carregando-pacotes" class="section level3" number="9.13.1">
+<h3><span class="header-section-number">9.13.1</span> Instalando e carregando pacotes</h3>
+<ul>
+<li>Para instalar um pacote do <span class="math inline">\(\texttt{R}\)</span> que já esteja no CRAN basta usar o comando:</li>
+</ul>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="appendix.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;ggplot2&#39;</span>)</span></code></pre></div>
+<ul>
+<li><p>Além da opção de comando, também podemos instalar pacotes utilizando os menus do <span class="math inline">\(\texttt{R}\)</span> , ou do <span class="math inline">\(\texttt{RStudio}\)</span> </p></li>
+<li><p>Uma vez que o pacote foi instalado não há mais a necessidade de instalar sempre que for utilizar as suas funcionalidades, basta carregar o pacote com os comandos:  ou </p></li>
+</ul>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="appendix.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="appendix.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span></code></pre></div>
+</div>
+</div>
+<div id="help" class="section level2" number="9.14">
+<h2><span class="header-section-number">9.14</span> Help?</h2>
+<ul>
+<li>Para conhecer quais as funções disponíveis no pacote, faça:</li>
+</ul>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="appendix.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="at">package =</span> <span class="st">&quot;survey&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Para pedir ajuda de uma determinada função:</li>
+</ul>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="appendix.html#cb161-1" aria-hidden="true" tabindex="-1"></a>?glm</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="appendix.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">&quot;glm&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Obtendo ajuda na internet:</li>
+</ul>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="appendix.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">&quot;t.test&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Procurando por alguma função, mas esqueci o nome:</li>
+</ul>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="appendix.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apropos</span>(<span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="appendix.html#cb165-1" aria-hidden="true" tabindex="-1"></a>??lm </span></code></pre></div>
+<ul>
+<li>Para todas as outras coisas existe o !</li>
+<li>Para algumas demonstrações da capacidade gráfica do <span class="math inline">\(\texttt{R}\)</span>:</li>
+</ul>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="appendix.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">demo</span>(graphics)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="appendix.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">demo</span>(persp)</span></code></pre></div>
+</div>
+<div id="criando-objetosvariáveis" class="section level2" number="9.15">
+<h2><span class="header-section-number">9.15</span> Criando objetos/variáveis</h2>
+<p>: Tudo que existe no <span class="math inline">\(\texttt{R}\)</span> é um </p>
+<ul>
+<li>Para atribuir valores a objetos, basta usar o operador </li>
+</ul>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="appendix.html#cb168-1" aria-hidden="true" tabindex="-1"></a>objeto1 <span class="ot">=</span> <span class="dv">3</span><span class="sc">*</span><span class="dv">9</span></span></code></pre></div>
+<ul>
+<li>Para visualizar o valor armazenado em um objeto, basta digitar o nome do objeto no prompt então apertar </li>
+</ul>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="appendix.html#cb169-1" aria-hidden="true" tabindex="-1"></a>objeto1</span></code></pre></div>
+<pre><code>## [1] 27</code></pre>
+<ul>
+<li>Ou usar a função , ou ainda entre parênteses </li>
+</ul>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="appendix.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(objeto1)</span></code></pre></div>
+<pre><code>## [1] 27</code></pre>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="appendix.html#cb173-1" aria-hidden="true" tabindex="-1"></a>(objeto1)</span></code></pre></div>
+<pre><code>## [1] 27</code></pre>
+<div id="case-sensitive" class="section level3" number="9.15.1">
+<h3><span class="header-section-number">9.15.1</span> Case-sensitive</h3>
+<ul>
+<li>Assim como a maioria das linguagens de programação o <span class="math inline">\(\texttt{R}\)</span> também é sensível à letras minúsculas e maiúsculas</li>
+</ul>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="appendix.html#cb175-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">foo =</span> <span class="st">&quot;todas as letras sao minusculas&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;todas as letras sao minusculas&quot;</code></pre>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="appendix.html#cb177-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">FOO =</span> <span class="st">&quot;todas as letras sao maiusculas&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;todas as letras sao maiusculas&quot;</code></pre>
+</div>
+</div>
+<div id="como-fazer-comentários" class="section level2" number="9.16">
+<h2><span class="header-section-number">9.16</span> Como fazer comentários</h2>
+<ul>
+<li>Comentários em <span class="math inline">\(\texttt{R}\)</span> podem ser inseridos depois do caractere </li>
+<li>Desta forma, qualquer comando após o caractere  não será executado</li>
+</ul>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="appendix.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="dv">8</span></span></code></pre></div>
+<pre><code>## [1] 16</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="appendix.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2*8</span></span></code></pre></div>
+</div>
+<div id="constantes-armazenadas-no" class="section level2" number="9.17">
+<h2><span class="header-section-number">9.17</span> Constantes armazenadas no </h2>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="appendix.html#cb182-1" aria-hidden="true" tabindex="-1"></a>pi</span></code></pre></div>
+<pre><code>## [1] 3.141593</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="appendix.html#cb184-1" aria-hidden="true" tabindex="-1"></a>letters</span></code></pre></div>
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;
+## [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="appendix.html#cb186-1" aria-hidden="true" tabindex="-1"></a>LETTERS</span></code></pre></div>
+<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot; &quot;R&quot; &quot;S&quot;
+## [20] &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="appendix.html#cb188-1" aria-hidden="true" tabindex="-1"></a>month.abb</span></code></pre></div>
+<pre><code>##  [1] &quot;Jan&quot; &quot;Feb&quot; &quot;Mar&quot; &quot;Apr&quot; &quot;May&quot; &quot;Jun&quot; &quot;Jul&quot; &quot;Aug&quot; &quot;Sep&quot; &quot;Oct&quot; &quot;Nov&quot; &quot;Dec&quot;</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="appendix.html#cb190-1" aria-hidden="true" tabindex="-1"></a>month.name</span></code></pre></div>
+<pre><code>##  [1] &quot;January&quot;   &quot;February&quot;  &quot;March&quot;     &quot;April&quot;     &quot;May&quot;       &quot;June&quot;     
+##  [7] &quot;July&quot;      &quot;August&quot;    &quot;September&quot; &quot;October&quot;   &quot;November&quot;  &quot;December&quot;</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="appendix.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="cn">Inf</span></span></code></pre></div>
+<pre><code>## [1] Inf</code></pre>
+</div>
+<div id="diretório-de-trabalho" class="section level2" number="9.18">
+<h2><span class="header-section-number">9.18</span> Diretório de trabalho</h2>
+<ul>
+<li>O comando  te diz qual a pasta/diretório de trabalho atual do <span class="math inline">\(\texttt{R}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="appendix.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;/cloud/project&quot;</code></pre>
+<ul>
+<li>Já o comando  redireciona a pasta/diretório de trabalho do <span class="math inline">\(\texttt{R}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="appendix.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">paulamacaira</span><span class="sc">\\</span><span class="st">Desktop&quot;</span>)</span></code></pre></div>
+<p> Os caminhos devem estar separados por duas barras ou uma contra-barra</p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Cota, Wesley. 2020. <span>“Monitoring the Number of <span>COVID</span>-19 Cases and Deaths in Brazil at Municipal and Federative Units Level.”</span> <em><span>SciELOPreprints:362</span></em>, May. <a href="https://doi.org/10.1590/scielopreprints.362">https://doi.org/10.1590/scielopreprints.362</a>.
+</div>
+<div class="csl-entry">
+R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regressão-linear.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/10-appendix.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["inferencia_com_R.pdf", "inferencia_com_R.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

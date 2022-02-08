@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 8 Teste de Hipótese: Proporções | Inferência Estatística com R</title>
+  <meta name="description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 8 Teste de Hipótese: Proporções | Inferência Estatística com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://paulamacaira.github.io/livro_inferencia_com_R/" />
+  <meta property="og:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+  <meta property="og:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 8 Teste de Hipótese: Proporções | Inferência Estatística com R" />
+  
+  <meta name="twitter:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="twitter:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+
+<meta name="author" content="P. Maçaira, L. Bastos, S. Aguilar &amp; I. Peres" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Inferência Estatística com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefácio</a></li>
+<li class="chapter" data-level="1" data-path="analise_descritiva.html"><a href="analise_descritiva.html"><i class="fa fa-check"></i><b>1</b> Análise Descritiva</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#introdução"><i class="fa fa-check"></i><b>1.1</b> Introdução</a></li>
+<li class="chapter" data-level="1.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coleta-e-armazenamento-de-dados"><i class="fa fa-check"></i><b>1.2</b> Coleta e Armazenamento de Dados</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#exemplo-inicial"><i class="fa fa-check"></i><b>1.2.1</b> Exemplo inicial</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>1.3</b> Tipos de Variáveis</a></li>
+<li class="chapter" data-level="1.4" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-quantitativas"><i class="fa fa-check"></i><b>1.4</b> Variáveis Quantitativas</a></li>
+<li class="chapter" data-level="1.5" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-qualitativas-ou-categóricas"><i class="fa fa-check"></i><b>1.5</b> Variáveis Qualitativas (ou categóricas)</a></li>
+<li class="chapter" data-level="1.6" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>1.6</b> Medidas de Tendência Central</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#média-aritmética-simples"><i class="fa fa-check"></i><b>1.6.1</b> Média Aritmética Simples</a></li>
+<li class="chapter" data-level="1.6.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#mediana"><i class="fa fa-check"></i><b>1.6.2</b> Mediana</a></li>
+<li class="chapter" data-level="1.6.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#moda"><i class="fa fa-check"></i><b>1.6.3</b> Moda</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-variabilidade"><i class="fa fa-check"></i><b>1.7</b> Medidas de Variabilidade</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#amplitude-total"><i class="fa fa-check"></i><b>1.7.1</b> Amplitude Total</a></li>
+<li class="chapter" data-level="1.7.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#desvio-padrão"><i class="fa fa-check"></i><b>1.7.2</b> Desvio Padrão</a></li>
+<li class="chapter" data-level="1.7.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coeficiente-de-variação"><i class="fa fa-check"></i><b>1.7.3</b> Coeficiente de Variação</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-posição"><i class="fa fa-check"></i><b>1.8</b> Medidas de Posição</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#percentis"><i class="fa fa-check"></i><b>1.8.1</b> Percentis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="analise_descritiva.html"><a href="analise_descritiva.html#referências"><i class="fa fa-check"></i><b>1.9</b> Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-gráfica.html"><a href="análise-gráfica.html"><i class="fa fa-check"></i><b>2</b> Análise Gráfica</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#introdução-1"><i class="fa fa-check"></i><b>2.1</b> Introdução</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-qualitativas---nominais-e-ordinais"><i class="fa fa-check"></i><b>2.2</b> Variáveis Qualitativas - Nominais e Ordinais</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-discretas"><i class="fa fa-check"></i><b>2.3</b> Variáveis Quantitativas Discretas</a></li>
+<li class="chapter" data-level="2.4" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-contínuas"><i class="fa fa-check"></i><b>2.4</b> Variáveis Quantitativas Contínuas</a></li>
+<li class="chapter" data-level="2.5" data-path="análise-gráfica.html"><a href="análise-gráfica.html#histograma"><i class="fa fa-check"></i><b>2.5</b> Histograma</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#tendência-central"><i class="fa fa-check"></i><b>2.5.1</b> Tendência Central</a></li>
+<li class="chapter" data-level="2.5.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variabilidade"><i class="fa fa-check"></i><b>2.5.2</b> Variabilidade</a></li>
+<li class="chapter" data-level="2.5.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#forma"><i class="fa fa-check"></i><b>2.5.3</b> Forma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="análise-gráfica.html"><a href="análise-gráfica.html#boxplot"><i class="fa fa-check"></i><b>2.6</b> Boxplot</a></li>
+<li class="chapter" data-level="2.7" data-path="análise-gráfica.html"><a href="análise-gráfica.html#diagrama-de-dispersão"><i class="fa fa-check"></i><b>2.7</b> Diagrama de Dispersão</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-1"><i class="fa fa-check"></i><b>2.7.1</b> Exemplo 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-2"><i class="fa fa-check"></i><b>2.7.2</b> Exemplo 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="análise-gráfica.html"><a href="análise-gráfica.html#séries-temporais"><i class="fa fa-check"></i><b>2.8</b> Séries Temporais</a></li>
+<li class="chapter" data-level="2.9" data-path="análise-gráfica.html"><a href="análise-gráfica.html#gráfico-de-radar"><i class="fa fa-check"></i><b>2.9</b> Gráfico de Radar</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html"><i class="fa fa-check"></i><b>3</b> Conceitos Básicos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#introdução-2"><i class="fa fa-check"></i><b>3.1</b> Introdução</a></li>
+<li class="chapter" data-level="3.2" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#população"><i class="fa fa-check"></i><b>3.2</b> População</a></li>
+<li class="chapter" data-level="3.3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#amostra"><i class="fa fa-check"></i><b>3.3</b> Amostra</a></li>
+<li class="chapter" data-level="3.4" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#estatísticas-e-parâmetros"><i class="fa fa-check"></i><b>3.4</b> Estatísticas e Parâmetros</a></li>
+<li class="chapter" data-level="3.5" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#distribuições-amostrais"><i class="fa fa-check"></i><b>3.5</b> Distribuições Amostrais</a></li>
+<li class="chapter" data-level="3.6" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#propriedades-dos-estimadores"><i class="fa fa-check"></i><b>3.6</b> Propriedades dos Estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html"><i class="fa fa-check"></i><b>4</b> Distribuições Amostrais</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#introdução-3"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-amostral-da-média-amostral"><i class="fa fa-check"></i><b>4.2</b> Distribuição Amostral da Média Amostral</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando"><i class="fa fa-check"></i><b>4.2.1</b> Visualizando</a></li>
+<li class="chapter" data-level="4.2.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#prova"><i class="fa fa-check"></i><b>4.2.2</b> Prova</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#teorema-central-do-limite"><i class="fa fa-check"></i><b>4.3</b> Teorema Central do Limite</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-1"><i class="fa fa-check"></i><b>4.3.1</b> Visualizando</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-amostral-da-variância-amostral"><i class="fa fa-check"></i><b>4.4</b> Distribuição Amostral da Variância Amostral</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-qui-quadrado"><i class="fa fa-check"></i><b>4.4.1</b> Distribuição Qui-quadrado</a></li>
+<li class="chapter" data-level="4.4.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-2"><i class="fa fa-check"></i><b>4.4.2</b> Visualizando</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-amostral-da-proporção"><i class="fa fa-check"></i><b>4.5</b> Distribuição Amostral da Proporção</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-3"><i class="fa fa-check"></i><b>4.5.1</b> Visualizando</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html"><i class="fa fa-check"></i><b>5</b> Intervalo de Confiança</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#introdução-4"><i class="fa fa-check"></i><b>5.1</b> Introdução</a></li>
+<li class="chapter" data-level="5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideias-básicas"><i class="fa fa-check"></i><b>5.2</b> Ideias Básicas</a></li>
+<li class="chapter" data-level="5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#média-da-nmusigma2-sigma2-conhecido"><i class="fa fa-check"></i><b>5.3</b> Média da <span class="math inline">\(N(\mu,\sigma^2)\)</span>, <span class="math inline">\(\sigma^2\)</span> conhecido</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#notação"><i class="fa fa-check"></i><b>5.3.1</b> Notação</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro"><i class="fa fa-check"></i><b>5.4</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#introdução-5"><i class="fa fa-check"></i><b>5.5</b> Introdução</a></li>
+<li class="chapter" data-level="5.6" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideias-básicas-1"><i class="fa fa-check"></i><b>5.6</b> Ideias Básicas</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#média-da-nmusigma2-sigma2-desconhecido"><i class="fa fa-check"></i><b>5.6.1</b> Média da <span class="math inline">\(N(\mu,\sigma^2)\)</span>, <span class="math inline">\(\sigma^2\)</span> desconhecido</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-1"><i class="fa fa-check"></i><b>5.7</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.8" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#introdução-6"><i class="fa fa-check"></i><b>5.8</b> Introdução</a></li>
+<li class="chapter" data-level="5.9" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#intervalo-de-confiança-para-a-proporção-populacional"><i class="fa fa-check"></i><b>5.9</b> Intervalo de confiança para a proporção populacional</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideias-básicas-2"><i class="fa fa-check"></i><b>5.9.1</b> Ideias Básicas</a></li>
+<li class="chapter" data-level="5.9.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construção-do-ic"><i class="fa fa-check"></i><b>5.9.2</b> Construção do IC</a></li>
+<li class="chapter" data-level="5.9.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra"><i class="fa fa-check"></i><b>5.9.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#intervalo-de-confiança-para-a-variância-da-nmusigma2"><i class="fa fa-check"></i><b>5.10</b> Intervalo de confiança para a variância da <span class="math inline">\(N(\mu,\sigma^2)\)</span></a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideias-básicas-3"><i class="fa fa-check"></i><b>5.10.1</b> Ideias básicas</a></li>
+<li class="chapter" data-level="5.10.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construção-do-ic-1"><i class="fa fa-check"></i><b>5.10.2</b> Construção do IC</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html"><i class="fa fa-check"></i><b>6</b> Teste de Hipótese</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#introdução-7"><i class="fa fa-check"></i><b>6.1</b> Introdução</a></li>
+<li class="chapter" data-level="6.2" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#conceitos-básicos-1"><i class="fa fa-check"></i><b>6.2</b> Conceitos básicos</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#hipótese-nula"><i class="fa fa-check"></i><b>6.2.1</b> Hipótese nula</a></li>
+<li class="chapter" data-level="6.2.2" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#hipótese-alternativa"><i class="fa fa-check"></i><b>6.2.2</b> Hipótese alternativa</a></li>
+<li class="chapter" data-level="6.2.3" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#estatística-de-teste-erros-e-regra-de-decisão"><i class="fa fa-check"></i><b>6.2.3</b> Estatística de teste, erros e regra de decisão</a></li>
+<li class="chapter" data-level="6.2.4" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#região-crítica-e-nível-de-significância"><i class="fa fa-check"></i><b>6.2.4</b> Região crítica e nível de significância</a></li>
+<li class="chapter" data-level="6.2.5" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#curva-característica-de-operação-e-poder-do-teste"><i class="fa fa-check"></i><b>6.2.5</b> Curva característica de operação e poder do teste</a></li>
+<li class="chapter" data-level="6.2.6" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#exemplo-1-1"><i class="fa fa-check"></i><b>6.2.6</b> Exemplo 1</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#introdução-8"><i class="fa fa-check"></i><b>6.3</b> Introdução</a></li>
+<li class="chapter" data-level="6.4" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#exemplo-1-2"><i class="fa fa-check"></i><b>6.4</b> Exemplo 1</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#hipóteses-nula-e-alternativa"><i class="fa fa-check"></i><b>6.4.1</b> Hipóteses nula e alternativa</a></li>
+<li class="chapter" data-level="6.4.2" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#estatística-de-teste"><i class="fa fa-check"></i><b>6.4.2</b> Estatística de teste</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#nível-de-significância-e-regiaõ-crítica"><i class="fa fa-check"></i><b>6.5</b> Nível de significância e regiaõ crítica</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#poder"><i class="fa fa-check"></i><b>6.5.1</b> Poder</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#procedimento-geral-para-construção-do-teste-de-hipótese-sobre-a-média-de-uma-nmusigma2---sigma2-conhecida"><i class="fa fa-check"></i><b>6.6</b> Procedimento geral para construção do teste de hipótese sobre a média de uma <span class="math inline">\(N(\mu,\sigma^2)\)</span> - <span class="math inline">\(\sigma^2\)</span> conhecida</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#teste-bilateral"><i class="fa fa-check"></i><b>6.6.1</b> Teste bilateral</a></li>
+<li class="chapter" data-level="6.6.2" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#teste-unilateral-à-direita"><i class="fa fa-check"></i><b>6.6.2</b> Teste unilateral à direita</a></li>
+<li class="chapter" data-level="6.6.3" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#teste-unilateral-à-esquerda"><i class="fa fa-check"></i><b>6.6.3</b> Teste unilateral à esquerda</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#teste-de-hipótese-vs-intervalo-de-confiança"><i class="fa fa-check"></i><b>6.7</b> Teste de hipótese vs intervalo de confiança</a></li>
+<li class="chapter" data-level="6.8" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#valor-p-ou-p-valor"><i class="fa fa-check"></i><b>6.8</b> Valor P (ou p-valor)</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="teste-de-hipótese.html"><a href="teste-de-hipótese.html#exemplo-1-continuação"><i class="fa fa-check"></i><b>6.8.1</b> Exemplo 1 (continuação)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"><a href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"><i class="fa fa-check"></i><b>7</b> Teste de Hipótese: Média de uma <span class="math inline">\(N(\mu,\sigma^2)\)</span> - <span class="math inline">\(\sigma^2\)</span> desconhecida</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"><a href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html#contexto-básico"><i class="fa fa-check"></i><b>7.1</b> Contexto básico</a></li>
+<li class="chapter" data-level="7.2" data-path="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"><a href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html#procedimento-geral-para-construção-do-teste-de-hipótese-sobre-a-média-de-uma-nmusigma2---sigma2-desconhecida"><i class="fa fa-check"></i><b>7.2</b> Procedimento geral para construção do teste de hipótese sobre a média de uma <span class="math inline">\(N(\mu,\sigma^2)\)</span> - <span class="math inline">\(\sigma^2\)</span> desconhecida</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"><a href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html#hipótese-nula-e-hipótese-alternativa"><i class="fa fa-check"></i><b>7.2.1</b> Hipótese nula e hipótese alternativa</a></li>
+<li class="chapter" data-level="7.2.2" data-path="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"><a href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html#estatística-de-teste-erros-regra-de-decisão"><i class="fa fa-check"></i><b>7.2.2</b> Estatística de teste, erros, regra de decisão</a></li>
+<li class="chapter" data-level="7.2.3" data-path="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"><a href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html#nível-de-significância-e-região-crítica"><i class="fa fa-check"></i><b>7.2.3</b> Nível de significância e região crítica</a></li>
+<li class="chapter" data-level="7.2.4" data-path="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html"><a href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html#exemplo-1-3"><i class="fa fa-check"></i><b>7.2.4</b> Exemplo 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html"><i class="fa fa-check"></i><b>8</b> Teste de Hipótese: Proporções</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#contexto-básico-1"><i class="fa fa-check"></i><b>8.1</b> Contexto básico</a></li>
+<li class="chapter" data-level="8.2" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#teste-de-hipóteses-sobre-proporções"><i class="fa fa-check"></i><b>8.2</b> Teste de hipóteses sobre proporções</a></li>
+<li class="chapter" data-level="8.3" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#valor-p"><i class="fa fa-check"></i><b>8.3</b> Valor p</a></li>
+<li class="chapter" data-level="8.4" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#exemplo-2-1"><i class="fa fa-check"></i><b>8.4</b> Exemplo 2</a></li>
+<li class="chapter" data-level="8.5" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#teste-de-hipótese-variância-da-nmusigma2"><i class="fa fa-check"></i><b>8.5</b> Teste de Hipótese: variância da <span class="math inline">\(N(\mu,\sigma^2)\)</span></a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#contexto-básico-2"><i class="fa fa-check"></i><b>8.5.1</b> Contexto básico</a></li>
+<li class="chapter" data-level="8.5.2" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#procedimento-geral-para-construção-do-teste-de-hipótese-sobre-a-variância-de-uma-nmusigma2"><i class="fa fa-check"></i><b>8.5.2</b> Procedimento geral para construção do teste de hipótese sobre a variância de uma <span class="math inline">\(N(\mu,\sigma^2)\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#teste-de-adequação-de-ajuste-goodness-of-fit"><i class="fa fa-check"></i><b>8.6</b> Teste de Adequação de Ajuste (Goodness of Fit)</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#exemplo-1-4"><i class="fa fa-check"></i><b>8.6.1</b> Exemplo 1</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#testes-para-a-tabela-de-contingência"><i class="fa fa-check"></i><b>8.7</b> Testes para a Tabela de Contingência</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="teste-de-hipótese-proporções.html"><a href="teste-de-hipótese-proporções.html#exemplo-2-2"><i class="fa fa-check"></i><b>8.7.1</b> Exemplo 2</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://paulamacaira.github.io/livro_inferencia_com_R" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Inferência Estatística com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="teste-de-hipótese-proporções" class="section level1" number="8">
+<h1><span class="header-section-number">Capítulo 8</span> Teste de Hipótese: Proporções</h1>
+<p>Já aprendemos a construir testes de hipóteses sobre a média de uma população normal com variância <span class="math inline">\(\sigma^2\)</span> conhecida. O procedimento baseou-se na distribuição amostral da média amostral que, com as hipóteses de normalidade e conhecimento da variância populacional, sabemos ser normal com a mesma média e variância <span class="math inline">\(\frac{\sigma^2}{n}\)</span>. Agora, iremos fazer uso do Teorema Limite Central para construir testes de hipóteses sobre proporções com base em amostras grandes. Vimos que, para amostras grandes, a distribuição amostral da proporção amostral pode ser aproximada por uma distribuição normal e, assim, o procedimento de teste de hipótese será idêntico ao estudado sobre a média de uma população normal com variância <span class="math inline">\(\sigma^2\)</span> conhecida.</p>
+<div id="contexto-básico-1" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Contexto básico</h2>
+<p>O contexto de interesse é o seguinte: temos uma população em que cada elemento é classificado de acordo com a presença ou ausência de determinada característica. Em termos de variável aleatória, essa população é representada por uma v.a. de Bernoulli, isto é:</p>
+<p><span class="math display">\[
+X=\begin{cases}
+1,\text{  se elemento possui característica de interesse}\\
+0,\text{  se elemento não possui característica de interesse}
+\end{cases}
+\]</span></p>
+<p>Então, <span class="math inline">\(P(X = 1) = p\)</span>, <span class="math inline">\(E(X) = p\)</span> e <span class="math inline">\(V(X) = p(1-p)\)</span>. O parâmetro <span class="math inline">\(p\)</span> é também a proporção de elementos da população que possuem a caracterísitca de interesse. Em geral, esse parâmetro é desconhecido e queremos testar hipóteses feitas sobre seu possível valor.</p>
+<p>Suponha, então, que dessa população seja extraída uma amostra aleatória simples <span class="math inline">\(X_1,\ldots,X_n\)</span> com reposição. Vimos que a proporção <span class="math inline">\(\hat P\)</span> de elementos na amostra que possuem a característica de interesse, definida por</p>
+<p><span class="math display">\[\hat P = \frac{S_n}{n} = \frac{X_1+X_2+\ldots+X_n}{n}\]</span></p>
+<p>é um estimador não-viesado para <span class="math inline">\(p\)</span> com variância <span class="math inline">\(\frac{p(1-p)}{n}\)</span>. Mais precisamente,</p>
+<p><span class="math display">\[E(\hat P)=p\]</span></p>
+<p><span class="math display">\[V(\hat P)=\frac{p(1-p)}{n}\]</span></p>
+<p>Como a proporção amostral é uma média de uma amostra aleatória simples de uma população com distribuição de Bernoulli com parâmetro <span class="math inline">\(p\)</span>, o Teorema Central do Limite nos diz, então, que a distribuição de <span class="math inline">\(\hat P\)</span> se aproxima de uma nornal com média <span class="math inline">\(p\)</span> e variância <span class="math inline">\(\frac{p(1-p)}{n}\)</span>.</p>
+<p>Resumindo, temos o seguinte resultado:</p>
+<p><span class="math display">\[\hat P \approx N\left(p,\frac{p(1-p)}{n}\right)\]</span></p>
+<p>ou, equivalentemente,</p>
+<p><span class="math display">\[\frac{\hat P-p}{\sqrt{\frac{p(1-p)}{n}}}\approx N(0,1)\]</span></p>
+<p>Vamos ver, agora, como usar esse resultado para construir testes de hipóteses sobre a verdadeira proporção populacional <span class="math inline">\(p\)</span>.</p>
+</div>
+<div id="teste-de-hipóteses-sobre-proporções" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Teste de hipóteses sobre proporções</h2>
+<p>A hipótese nula que consideraremos será uma hipótese simples:</p>
+<p><span class="math display">\[H_0:p=p_0\]</span></p>
+<p>As hipóteses alternativas possíveis são</p>
+<ul>
+<li>Bilateral: <span class="math inline">\(H_1:p\neq p_0\)</span></li>
+<li>Unilateral à direita: <span class="math inline">\(H_1:p &gt; p_0\)</span></li>
+<li>Unilateral à esquerda: <span class="math inline">\(H_1:p &lt; p_0\)</span></li>
+</ul>
+<p>Como no caso da média, a escolha das hipóteses nula e alternativa deve ser feita levando-se em conta que a hipótese nula deve ser uma hipótese simples. Assim, você deve “traduzir” a situação de interesse do problema em desigualdades envolvendo a proporção <span class="math inline">\(p\)</span>. A hipótese alternativa é a desigualdade que não inclui o sinal de <span class="math inline">\(=\)</span>. A estatística de teste é</p>
+<p><span class="math display">\[Z=\frac{\hat P-p}{\sqrt{\frac{p(1-p)}{n}}}\approx N(0,1)\]</span>
+Dado um nível de significância <span class="math inline">\(\alpha\)</span>, a região crítica é definida como o conjunto de valores da estatísttca de teste que têm probabilidade pequena de ocorrerem sob a veracidade da hipótese nula. Assim, a região crítica é definida como o conjunto de valores de</p>
+<p><span class="math display">\[Z_0=\frac{\hat P-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}\approx N(0,1)\]</span></p>
+<p>com pequena probabilidade de ocorrência. Como estamos exatamente no mesmo procedimento de teste de hipótese será idêntico ao estudado sobre a média de uma população normal com variância <span class="math inline">\(\sigma^2\)</span> conhecida,</p>
+<ul>
+<li><span class="math inline">\(Z_0 &lt; -Z_\frac{\alpha}{2}\)</span> ou <span class="math inline">\(Z_0&gt;Z_\frac{\alpha}{2}\)</span> (teste bilateral)</li>
+<li><span class="math inline">\(Z_0 &gt; z_\alpha\)</span> (teste unilateral à direita)</li>
+<li><span class="math inline">\(Z_0 &lt; -z_\alpha\)</span> (teste unilateral à esquerda)</li>
+</ul>
+<p>ou</p>
+<ul>
+<li><span class="math inline">\(\hat P &lt; p_0-Z_\frac{\alpha}{2}\sqrt{\frac{p_0(1-p_0)}{n}}\)</span> ou <span class="math inline">\(\hat P &gt; p_0+Z_\frac{\alpha}{2}\sqrt{\frac{p_0(1-p_0)}{n}}\)</span> (teste bilateral)</li>
+<li><span class="math inline">\(\hat P &gt; p_0+Z_\alpha\sqrt{\frac{p_0(1-p_0)}{n}}\)</span> (teste unilateral à direita)</li>
+<li><span class="math inline">\(\hat P &lt; p_0-Z_\alpha\sqrt{\frac{p_0(1-p_0)}{n}}\)</span> (teste unilateral à direita)</li>
+</ul>
+</div>
+<div id="valor-p" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Valor p</h2>
+<p>Como já visto, o valor P é a probabilidade de se obter um valor tão ou mais extremo (na direção da hipótese alternativa) que o valor observado da estatística de teste. Denotando por <span class="math inline">\(Z_0\)</span> o valor observado da estatística de teste, temos as seguintes possibilidades:</p>
+<ul>
+<li><span class="math inline">\(\text{p-valor}=2\times P(Z&gt;|Z_0|)\)</span> (teste bilateral)</li>
+<li><span class="math inline">\(\text{p-valor}= P(Z&gt;|Z_0|)\)</span> (teste unilateral à direita ou à esquerda)</li>
+</ul>
+<p>Valores pequenos de <span class="math inline">\(\text{p-valor}\)</span> indicam que o valor observado é pouco provável de ocorrer sob a hipótese nula; logo, valores pequenos de <span class="math inline">\(\text{p-valor}\)</span> levam à rejeição da hipótese nula. A hipótese nula é rejeitada a qualquer nível de significância <span class="math inline">\(\alpha \geq \text{p-valor}\)</span>.</p>
+</div>
+<div id="exemplo-2-1" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Exemplo 2</h2>
+<p>Uma amostra de 64 elementos é usada para testar</p>
+<p><span class="math display">\[
+\begin{cases}
+H_0:p=0,35 \\
+H_1:p\neq 0,35
+\end{cases}
+\]</span></p>
+<p>Estabeleça a região crítica para o nível de significância de 1%. Se a proporção amostral para esta amostra é <span class="math inline">\(\hat P = 0,26\)</span>, calcule o <span class="math inline">\(\text{p-valor}\)</span>.</p>
+<p>Com <span class="math inline">\(\alpha=0,01\)</span> e um teste bilateral, resulta que <span class="math inline">\(z_{0,005}=2,59\)</span>. A estatística de teste é</p>
+<p><span class="math display">\[Z_0=\frac{0,26-0,35}{\sqrt{\frac{0,35\times 0,65}{64}}}=-1,51\]</span></p>
+<p>e a região crítica é</p>
+<p><span class="math display">\[Z_0&lt;-2,59~~~~\text{ou}~~~~Z_0&gt;2,59\]</span></p>
+<p>Como o teste é bilateral, o <span class="math inline">\(\text{p-valor}\)</span> é calculado como</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{p-valor} &amp;= 2\times P(Z&gt;|-1,51|) \\
+&amp;= 2\times 0,0655\\
+&amp;= 0,131
+\end{aligned}
+\]</span></p>
+<p>Como o <span class="math inline">\(\text{p-valor}\)</span> é grande, não se rejeita a hipótese nula, ou seja, a probabilidade de se obter um valor tão extremo quanto o observado é alta, se <span class="math inline">\(H_0\)</span> for verdadeira. A hipótese nula só seria rejeitada para níveis de significância maiores que 13,1%.</p>
+</div>
+<div id="teste-de-hipótese-variância-da-nmusigma2" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Teste de Hipótese: variância da <span class="math inline">\(N(\mu,\sigma^2)\)</span></h2>
+<p>Agora completaremos o estudo de teste de hipótese sobre parâmetros de uma população, analisando o caso da variância de uma população normal. Assim como na construção de intervalos de confiança, nossa estatística de teste tem distribuição qui-quadrado e a região crítica, como antes, será formada pelos valores pouco prováveis desta estatística de teste sob a hipótese nula.</p>
+<div id="contexto-básico-2" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Contexto básico</h3>
+<p>Considere uma população descrita por uma variável aleatória normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\sigma^2: X\sim N(\mu; \sigma^2)\)</span>. Nosso interesse é testar hipóteses sobre a a variância <span class="math inline">\(\sigma^2\)</span> a partir de uma amostra aleatória simples <span class="math inline">\(X_1, X_2,\ldots, X_n\)</span>. Como visto anteriormente, a estatística</p>
+<p><span class="math display">\[\chi^2=\frac{(n-1)S^2}{\sigma^2}\]</span></p>
+<p>tem distribuição qui-quadrado com <span class="math inline">\(n-1\)</span> graus de liberdade.</p>
+<p>De posse desta estatística de teste, o procedimento de construção do teste é idêntico ao visto nos últimos capítulos: identificadas a hipótese nula (sempre na forma de uma hipótese simples <span class="math inline">\(\sigma^2=\sigma^2_0\)</span>) e a hipótese alternativa, a região crítica é formada pelos valores da estatística de teste pouco prováveis sob <span class="math inline">\(H_0\)</span>. O nível de significância e o tipo de hipótese alternativa permitem a identificação precisa do que são “valores pouco prováveis”: são valores na(s) cauda(s) da distribuição de <span class="math inline">\(\chi^2\)</span> quando a hipótese nula é verdadeira.</p>
+<p>Vamos formalizar o procedimento geral e em seguida apresentaremos alguns exemplos de aplicação.</p>
+</div>
+<div id="procedimento-geral-para-construção-do-teste-de-hipótese-sobre-a-variância-de-uma-nmusigma2" class="section level3" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> Procedimento geral para construção do teste de hipótese sobre a variância de uma <span class="math inline">\(N(\mu,\sigma^2)\)</span></h3>
+<p>Seja <span class="math inline">\(X_1, X_2,\ldots, X_n\)</span> uma amostra aleatória simples de uma população <span class="math inline">\(X\)</span> cuja distribuição é <span class="math inline">\(N(\mu,\sigma^2)\)</span>. Nosso interesse é testar alguma hipótese sobre a variância <span class="math inline">\(\sigma^2\)</span>, que é estimada por</p>
+<p><span class="math display">\[S^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X)^2\]</span></p>
+<p>Lembre-se que <span class="math inline">\(S^2\)</span> é um estimador não-viesado de <span class="math inline">\(\sigma^2\)</span>.</p>
+<div id="hipótese-nula-e-hipótese-alternativa-1" class="section level4" number="8.5.2.1">
+<h4><span class="header-section-number">8.5.2.1</span> Hipótese nula e hipótese alternativa</h4>
+<p>A hipótese nula que iremos considerar será</p>
+<p><span class="math display">\[H_0:\sigma^2=\sigma^2_0\]</span></p>
+<p>As possíveis formas da hipótese alternativa são:</p>
+<ul>
+<li>Bilateral: <span class="math inline">\(H_1:\sigma^2\neq \sigma^2_0\)</span></li>
+<li>Unilateral à direita: <span class="math inline">\(H_1:\sigma^2 &gt; \sigma^2_0\)</span></li>
+<li>Unilateral à esquerda: <span class="math inline">\(H_1:\sigma^2 &lt; \sigma^2_0\)</span></li>
+</ul>
+</div>
+<div id="estatística-de-teste-erros-regra-de-decisão-1" class="section level4" number="8.5.2.2">
+<h4><span class="header-section-number">8.5.2.2</span> Estatística de teste, erros, regra de decisão</h4>
+<p>Como o teste é sobre a variância de uma população normal, a estatística amostral a ser utilizada é</p>
+<p><span class="math display">\[\frac{(n-1)S^2}{\sigma^2}\sim \chi^2_{n-1}\]</span></p>
+<p>O procedimento de decisão é definido em termos da hipótese nula <span class="math inline">\(H_0\)</span> e as decisões possíveis são (i) rejeitar ou (ii) não rejeitar <span class="math inline">\(H_0\)</span>. Conforme já visto, existem duas possibilidades de erro:</p>
+<ul>
+<li>Erro tipo I: rejeitar <span class="math inline">\(H_0\)</span> quando <span class="math inline">\(H_0\)</span> é verdadeira</li>
+<li>Erro tipo II: não rejeitar <span class="math inline">\(H_0\)</span> quando <span class="math inline">\(H_0\)</span> é falsa</li>
+</ul>
+<p>A regra de decisão consiste em definir a região crítica RC como o conjunto de valores cuja probabilidade de ocorrência é pequena sob a hipótese de veracidade de <span class="math inline">\(H_0\)</span>. Logo, nossa regra de decisão se baseia na estatística de teste</p>
+<p><span class="math display">\[X_0=\frac{(n-1)S^2}{\sigma^2_0}\sim \chi^2_{n-1}\]</span></p>
+<p>Os valores com pequena probabilidade de ocorrência estão nas caudas da distribuição. Assim, a região crítica para cada tipo de hipótese alternativa é definida como segue:</p>
+<ul>
+<li><span class="math inline">\(X_0&lt;k_I\)</span> ou <span class="math inline">\(X^2_0&gt;k_S\)</span> (teste bilateral)</li>
+<li><span class="math inline">\(X_0&gt;k_S\)</span> (teste unilateral à direita)</li>
+<li><span class="math inline">\(X_0&lt;k_I\)</span> (teste unilateral à esquerda)</li>
+</ul>
+</div>
+<div id="nível-de-significância-e-região-crítica-1" class="section level4" number="8.5.2.3">
+<h4><span class="header-section-number">8.5.2.3</span> Nível de significância e região crítica</h4>
+<p>O procedimento usual de teste de hipótese consiste em se fixar o nível de significância <span class="math inline">\(\alpha\)</span>, que, por definição, é a probabilidade do erro tipo I:</p>
+<p><span class="math display">\[\alpha=P(\text{erro tipo I})=(\text{rejeitar }H_0|H_0~\text{é verdadeira})\]</span></p>
+<p>Assim, para cada tipo de hipótese alternativa a região crítica é identificada impondo-se a condição</p>
+<p><span class="math display">\[P(X_0 \in RC|H_0~\text{é verdadeira})=\alpha\]</span></p>
+<p></p>
+<p>A região crítica é calculada como:</p>
+<p><span class="math display">\[P\left[X_0&lt;k_I|X_0\sim\chi^2_{n-1}\right]+P\left[X_0&gt;k_S|X_0\sim\chi^2_{n-1}\right]=\alpha\]</span></p>
+<p>Mesmo a distribuição qui-quadrado não sendo simétrica, é prática usual dividir a probabilidade de erro em partes iguais, ou seja, os limites da região crítica são definidos de modo que</p>
+<ul>
+<li><span class="math inline">\(P\left[X_0&lt;k_I|X_0\sim\chi^2_{n-1}\right]=\frac{\alpha}{2}\)</span></li>
+<li><span class="math inline">\(P\left[X_0&gt;k_S|X_0\sim\chi^2_{n-1}\right]=\frac{\alpha}{2}\)</span></li>
+</ul>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Usando a notação <span class="math inline">\(\chi^2_{n,\alpha}\)</span> para denotar a abscissa da distribuição qui-quadrado com <span class="math inline">\(n\)</span> graus de liberdade que deixa área (probabilidade) <span class="math inline">\(\alpha\)</span> acima dela, resulta a seguinte região crítica para o teste bilateral:</p>
+<p><span class="math display">\[X_0&lt;\chi^2_{n-1,1-\frac{\alpha}{2}}~~~~\text{ou}~~~~X_0&gt;\chi^2_{n-1,\frac{\alpha}{2}}\]</span></p>
+<p>ou também,</p>
+<p><span class="math display">\[S^2&lt;\frac{n-1}{\sigma^2_0}\chi^2_{n-1,1-\frac{\alpha}{2}}~~~~\text{ou}~~~~S^2&gt;\frac{n-1}{\sigma^2_0}\chi^2_{n-1,\frac{\alpha}{2}}\]</span></p>
+<p></p>
+<p>A região crítica é calculada como:</p>
+<p><span class="math display">\[P\left[X_0&gt;k_S|X_0\sim\chi^2_{n-1}\right]=\alpha\Longrightarrow k_S=\chi^2_{n-1,\alpha}\]</span></p>
+<p>ou seja, a região crítica é</p>
+<p><span class="math display">\[X_0&gt;\chi^2_{n-1,\alpha}\]</span></p>
+<p>ou também,</p>
+<p><span class="math display">\[S^2&gt;\frac{n-1}{\sigma^2_0}\chi^2_{n-1,\alpha}\]</span>.</p>
+<p></p>
+<p>De forma análoga, obtém-se a seguinte região crítica para o teste unilateral à esquerda:</p>
+<p><span class="math display">\[X_0&lt;\chi^2_{n-1,1-\alpha}\]</span></p>
+<p>ou também,</p>
+<p><span class="math display">\[S^2&lt;\frac{n-1}{\sigma^2_0}\chi^2_{n-1,1-\alpha}\]</span>.</p>
+</div>
+<div id="valor-p-1" class="section level4" number="8.5.2.4">
+<h4><span class="header-section-number">8.5.2.4</span> Valor p</h4>
+<p>Como já visto, o valor P é a probabilidade de se obter um valor tão ou mais extremo (na direção da hipótese alternativa) que o valor observado da estatística de teste. Denotando por <span class="math inline">\(X_0\)</span> o valor observado da estatística de teste, temos as seguintes possibilidades:</p>
+<ul>
+<li><span class="math inline">\(\text{p-valor}=2\times \text{mín}\{P(\chi_{n-1}&gt;X_0),P(\chi_{n-1}&lt;X_0)\}\)</span> (teste bilateral)</li>
+<li><span class="math inline">\(\text{p-valor}= P(\chi_{n-1}&gt;X_0)\)</span> (teste unilateral à direita)</li>
+<li><span class="math inline">\(\text{p-valor}= P(\chi_{n-1}&lt;X_0)\)</span> (teste unilateral à esquerda)</li>
+</ul>
+<p>Valores pequenos de <span class="math inline">\(\text{p-valor}\)</span> indicam que o valor observado é pouco provável de ocorrer sob a hipótese nula; logo, valores pequenos de <span class="math inline">\(\text{p-valor}\)</span> levam à rejeição da hipótese nula. A hipótese nula é rejeitada a qualquer nível de significância <span class="math inline">\(\alpha \geq \text{p-valor}\)</span>.</p>
+</div>
+</div>
+</div>
+<div id="teste-de-adequação-de-ajuste-goodness-of-fit" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Teste de Adequação de Ajuste (Goodness of Fit)</h2>
+<p>Os procedimentos de testes de hipóteses que discutimos nas seções prévias são projetados para problemas em que a população ou a distribuição de probabilidades seja conhecida e as hipóteses envolvam os parâmetros da distribuição.</p>
+<p>Outro tipo de hipótese é frequentemente encontrada: <em>Não conhecemos a distribuição sob consideração da população e desejamos testar a hipótese de que uma distribuição particular será satisfatória como um modelo para a população</em></p>
+<p>Por exemplo, podemos desejar testar a hipótese de que a população seja normal. Ou seja, as hipóteses são:</p>
+<p><span class="math display">\[
+\begin{cases}
+H_0:~~\text{a forma da distribuição da população é (Normal, Poisson etc.)}\\
+H_1:~~\text{a forma da distribuição da população não é (Normal, Poisson etc.)}
+\end{cases}
+\]</span></p>
+<p>Utilizaremos aqui o <strong>teste de adequação de ajuste</strong>, baseado na distribuição qui-quadrado.</p>
+<p>O procedimento de teste requer uma amostra de tamanho <span class="math inline">\(n\)</span>, proveniente da população cuja distribuição de probabilidades é desconhecida. Essas <span class="math inline">\(n\)</span> observações são arranjadas em um histograma de frequências, tendo <span class="math inline">\(k\)</span> intervalos de classe onde <span class="math inline">\(O_i\)</span> é a frequência observada no <span class="math inline">\(i\)</span>-ésimo intervalo de classe. A partir da distribuição de probabilidades utilizada na hipótese, calculamos a frequência esperada no <span class="math inline">\(i\)</span>-ésimo intervalo de classe, denotada como <span class="math inline">\(E_i\)</span>.</p>
+<p>A estatística de teste é:</p>
+<p><span class="math display">\[\chi^2_0=\sum_{i=1}^n\frac{(O_i-E_i)^2}{E_i}\]</span></p>
+<p>Se a população seguir a distribuição testada na hipótese nula, a estatística de teste <span class="math inline">\(\chi^2_0\)</span> terá, aproximadamente, uma distribuição qui-quadrado com <span class="math inline">\(k-p-1\)</span> graus de liberdade, em que <span class="math inline">\(p\)</span> representa o número de parâmetros da distribuição utilizada na hipótese, estimados pelas estatísticas amostrais.</p>
+<p>Deve-se rejeitar a hipótese nula de que a distribuição da população é a distribuição utilizada na hipótese, se a estatística de teste for “muito grande.” Isto é, rejeitaríamos a um nível de significância <span class="math inline">\(\alpha\)</span>, se o valor calculado da estatística de teste <span class="math inline">\(\chi^2_0&gt;\chi^2_{k-p-1;\alpha}\)</span>.</p>
+<p>Já o p-valor é calculado como <span class="math inline">\(P(\chi^2_{k-p-1;\alpha}&gt;\chi^2_0)\)</span>.</p>
+<p>Um ponto a ser notado na aplicação desse procedimento de teste se refere à magnitude das <strong>frequências esperadas</strong>. Se essas frequências forem muito pequenas, então a estatística de teste <span class="math inline">\(\chi^2_0\)</span> não refletirá o desvio entre o observado e esperado, mas somente a pequena magnitude das frequências esperadas. Portanto, quando uma classe obtiver frequência esperada menor que 3, deve-se combiná-la a classe anterior (intervalos de classe não necessitam ter a mesma largura)</p>
+<div id="exemplo-1-4" class="section level3" number="8.6.1">
+<h3><span class="header-section-number">8.6.1</span> Exemplo 1</h3>
+<p>Supõe-se que o número de defeito nas placas de circuito impresso siga a distribuição de Poisson. Uma amostra aleatória de <span class="math inline">\(n=60\)</span> placas impressas foi coletada e o número de defeitos, observado.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Número de Defeitos</th>
+<th>Frequência Observada</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>32</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>3 (ou mais)</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>A média da distribuição de Poisson considerada neste exemplo é desconhecida e tem de ser estimada a partir dos dados da amostra. Isto é, a estimativa do número médio de defeitos por placa é a média amostral, ou seja:</p>
+<p><span class="math display">\[\frac{0\times32+1\times15+2\times9+3\times4}{32+15+9+4}=0.75\]</span></p>
+<p>A partir da distribuição de Poisson com parâmetro <span class="math inline">\(0.75\)</span>, podemos calcular <span class="math inline">\(p_i\)</span>, a probabilidade teórica utilizada na hipótese, associada ao <span class="math inline">\(i\)</span>-ésimo intervalo de classe.</p>
+<p>Uma vez que cada intervalo de classe corresponde a um número particular de defeitos, podemos encontrar <span class="math inline">\(p_i\)</span> como segue:</p>
+<ul>
+<li><span class="math inline">\(p_1=P(X=0)=\frac{e^{-0.75}(0.75)^0}{0!}=0.472\)</span></li>
+<li><span class="math inline">\(p_2=P(X=1)=\frac{e^{-0.75}(0.75)^1}{1!}=0.354\)</span></li>
+<li><span class="math inline">\(p_3=P(X=2)=\frac{e^{-0.75}(0.75)^2}{2!}=0.133\)</span></li>
+<li><span class="math inline">\(p_4=P(X\geq3)=1-p_1-p_2-p_3=0.041\)</span></li>
+</ul>
+<p>As frequências esperadas são calculadas pela multiplicação do tamanho da amostra <span class="math inline">\(n=60\)</span> vezes as probabilidades <span class="math inline">\(p_i\)</span> (<span class="math inline">\(E_i=n\times p_i\)</span>):</p>
+<ul>
+<li><span class="math inline">\(E_1=60\times0.472=28.32\)</span></li>
+<li><span class="math inline">\(E_2=60\times0.354=21.24\)</span></li>
+<li><span class="math inline">\(E_3=60\times0.133=7.98\)</span></li>
+<li><span class="math inline">\(E_4=60\times0.041=2.46\)</span></li>
+</ul>
+<p>Já que a frequência esperada em <span class="math inline">\(E_4\)</span> é menor do que 3, combinamos <span class="math inline">\(E_3\)</span> e <span class="math inline">\(E_4\)</span>.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Número de Defeitos</th>
+<th><span class="math inline">\(O_i\)</span></th>
+<th><span class="math inline">\(E_i\)</span></th>
+<th><span class="math inline">\(\frac{(O_i-E_i)^2}{E_i}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>32</td>
+<td>28,32</td>
+<td><span class="math inline">\(\frac{(32-28,32)^2}{28,32}=0.4782\)</span></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>15</td>
+<td>21,24</td>
+<td><span class="math inline">\(\frac{(15-21,24)^2}{21,24}=1.8332\)</span></td>
+</tr>
+<tr class="odd">
+<td>2 (ou mais)</td>
+<td>13</td>
+<td>10,44</td>
+<td><span class="math inline">\(\frac{(13-10,44)^2}{10,44}=0.6277\)</span></td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td>60</td>
+<td>60</td>
+<td>2.9391</td>
+</tr>
+</tbody>
+</table>
+<p>Portanto, usando <span class="math inline">\(\alpha=0.05\)</span>, temos que:</p>
+<ul>
+<li><span class="math inline">\(H_0:\)</span> a forma da distribuição de defeitos é Poisson</li>
+<li><span class="math inline">\(H_1:\)</span> a forma da distribuição de defeitos não é Poisson</li>
+<li><span class="math inline">\(\chi^2_0=2.9391\)</span></li>
+<li><span class="math inline">\(k-p-1=3-1-1=1\)</span> e <span class="math inline">\(\chi^2_{1;0.05}=3.841459\)</span></li>
+</ul>
+<p>Conclusão: como <span class="math inline">\(\chi^2_0(2.9391)&lt;\chi^2_{1;0.05}(3.841459)\)</span>, não podemos rejeitar a hipótese nula de que a distribuição de defeitos nas placas de circuito impresso é Poisson a um nível de significância de 5%.</p>
+<p>Para calcular o p-valor, devemos fazer <span class="math inline">\(P(\chi_1^2&gt;2.9391)=0.087\)</span>, note portanto que <span class="math inline">\(p-valor&gt;0.05\)</span> o que nos faz não rejeitar a um nível de significância de 5%, porém <span class="math inline">\(p-valor&lt;0.1\)</span> o que nos faria rejeitar <span class="math inline">\(H_0\)</span> a um nível de significância de 10%.</p>
+</div>
+</div>
+<div id="testes-para-a-tabela-de-contingência" class="section level2" number="8.7">
+<h2><span class="header-section-number">8.7</span> Testes para a Tabela de Contingência</h2>
+<p>Muitas vezes, os <span class="math inline">\(n\)</span> elementos de uma amostra proveniente de uma população podem ser classificados de acordo com dois critérios diferentes. É então interessante saber se os dois métodos de classificação são estatisticamente independentes; por exemplo, podemos considerar a população de engenheiros se graduando e podemos desejar determinar se o salário inicial é independente das disciplinas acadêmicas.</p>
+<p>Considere que o primeiro método de classificação tenha <span class="math inline">\(r\)</span> níveis e que o segundo método tenha <span class="math inline">\(c\)</span> níveis. Seja <span class="math inline">\(O_{ij}\)</span> a frequência observada para o nível <span class="math inline">\(i\)</span> do primeiro método de classificação e nível <span class="math inline">\(j\)</span> para o segundo método. Os dados, em geral, aparecem como na tabela a seguir, chamada de <strong>tabela de contingência</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th>Colunas</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>…</td>
+<td><span class="math inline">\(c\)</span></td>
+</tr>
+<tr class="even">
+<td>Linhas</td>
+<td>1</td>
+<td><span class="math inline">\(O_{11}\)</span></td>
+<td><span class="math inline">\(O_{12}\)</span></td>
+<td>…</td>
+<td><span class="math inline">\(O_{1c}\)</span></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>2</td>
+<td><span class="math inline">\(O_{21}\)</span></td>
+<td><span class="math inline">\(O_{22}\)</span></td>
+<td>…</td>
+<td><span class="math inline">\(O_{2c}\)</span></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><span class="math inline">\(r\)</span></td>
+<td><span class="math inline">\(O_{r1}\)</span></td>
+<td><span class="math inline">\(O_{r2}\)</span></td>
+<td>…</td>
+<td><span class="math inline">\(O_{rc}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Estamos interessados em testar a hipótese de que os métodos linha-coluna de classificação são independentes. Se rejeitarmos essa hipótese, concluiremos que haverá alguma interação entre os dois critérios de classificação</p>
+<p>Portanto, as hipóteses são:</p>
+<p><span class="math display">\[
+\begin{cases}
+H_0:~~\text{os métodos de classificação são independentes}\\
+H_1:~~\text{há interação entre os métodos de classificação (dependentes)}
+\end{cases}
+\]</span></p>
+<p>Os procedimentos exatos de teste são difíceis de obter, porém uma estatística de teste aproximada é válida para <span class="math inline">\(n\)</span> grande. Seja <span class="math inline">\(p_{ij}\)</span> a probabilidade de um elemento selecionado aleatoriamente cair na <span class="math inline">\(ij\)</span>-ésima célula, dado que as duas classificações são independentes. Então, <span class="math inline">\(p_{ij}=u_{i}v_{j}\)</span> em que <span class="math inline">\(u_{i}\)</span> é a probabilidade de um elemento selecionado cair aleatoriamente na linha classe <span class="math inline">\(i\)</span> e <span class="math inline">\(v_j\)</span> é a probabilidade de um elemento selecionado aleatoriamente cair na coluna classe <span class="math inline">\(j\)</span>. Agora, supondo independência, os estimadores <span class="math inline">\(u_i\)</span> e <span class="math inline">\(v_j\)</span> são:
+<span class="math display">\[\hat u_i=\frac{1}{n}\sum_{j=1}^cO_{ij} \text{ e } \hat v_j=\frac{1}{n}\sum_{i=1}^rO_{ij}\]</span></p>
+<p>Logo, a frequência esperada de cada célula é</p>
+<p><span class="math display">\[E_{ij}=n\hat u_i\hat v_j=\frac{1}{n}\sum_{j=1}^cO_{ij}\sum_{i=1}^rO_{ij}\]</span></p>
+<p>Assim, para <span class="math inline">\(n\)</span> grande, a estatística de teste tem uma distribuição aproximada qui-quadrado com <span class="math inline">\((r-1)(c-1)\)</span> graus de liberdade, se a hipótese nula for verdadeira:</p>
+<p><span class="math display">\[\chi^2_0=\sum_{j=1}^c\sum_{i=1}^r\frac{(O_{ij}-E_{ij})^2}{E_{ij}}\]</span></p>
+<p>Rejeita-se a hipótese de independência, se o valor observado da estatística de teste <span class="math inline">\(\chi^2_0&gt;\chi^2_{(r-1)(c-1);\alpha}\)</span>. Já o p-valor é calculado como <span class="math inline">\(P(\chi^2_{(r-1)(c-1)}&gt;\chi^2_0)\)</span>.</p>
+<div id="exemplo-2-2" class="section level3" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> Exemplo 2</h3>
+<p>Uma companhia tem de escolher entre três planos de saúde. O gerente deseja saber se a preferência para os planos é independente da classificação do trabalho e quer usar <span class="math inline">\(\alpha=0.05\)</span>. As opiniões de uma amostra aleatória de 500 empregados foram coletadas:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th>Plano de saúde</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>Total</td>
+</tr>
+<tr class="even">
+<td>Classificação</td>
+<td>Assalariados</td>
+<td>160</td>
+<td>140</td>
+<td>40</td>
+<td>340</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Diaristas</td>
+<td>40</td>
+<td>60</td>
+<td>60</td>
+<td>160</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Total</td>
+<td>200</td>
+<td>200</td>
+<td>100</td>
+<td>500</td>
+</tr>
+</tbody>
+</table>
+<p>Para calcular as frequências esperadas, temos primeiro que calcular:</p>
+<ul>
+<li><span class="math inline">\(\hat u_1=\frac{340}{500}=0.68\)</span></li>
+<li><span class="math inline">\(\hat u_2=\frac{160}{500}=0.32\)</span></li>
+<li><span class="math inline">\(\hat v_1=\frac{200}{500}=0.40\)</span></li>
+<li><span class="math inline">\(\hat v_2=\frac{200}{500}=0.40\)</span></li>
+<li><span class="math inline">\(\hat v_3=\frac{100}{500}=0.20\)</span></li>
+</ul>
+<p>Agora,</p>
+<ul>
+<li><span class="math inline">\(E_{11} = n \hat u_1 \hat v_1 = 500\times 0.68 \times 0.40 = 136\)</span></li>
+<li><span class="math inline">\(E_{12} = n \hat u_1 \hat v_2 = 500\times 0.68 \times 0.40 = 136\)</span></li>
+<li><span class="math inline">\(E_{13} = n \hat u_1 \hat v_3 = 500\times 0.68 \times 0.20 = 68\)</span></li>
+<li><span class="math inline">\(E_{21} = n \hat u_2 \hat v_1 = 500\times 0.32 \times 0.40 = 64\)</span></li>
+<li><span class="math inline">\(E_{22} = n \hat u_2 \hat v_2 = 500\times 0.32 \times 0.40 = 64\)</span></li>
+<li><span class="math inline">\(E_{23} = n \hat u_2 \hat v_2 = 500\times 0.32 \times 0.20 = 32\)</span></li>
+</ul>
+<p>As frequências esperadas são mostradas na tabela a seguir:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th>Plano de saúde</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>Total</td>
+</tr>
+<tr class="even">
+<td>Classificação</td>
+<td>Assalariados</td>
+<td>136</td>
+<td>136</td>
+<td>68</td>
+<td>340</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Diaristas</td>
+<td>64</td>
+<td>64</td>
+<td>32</td>
+<td>160</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Total</td>
+<td>200</td>
+<td>200</td>
+<td>100</td>
+<td>500</td>
+</tr>
+</tbody>
+</table>
+<p>Portanto, usando <span class="math inline">\(\alpha=0.05\)</span>, temos que:</p>
+<p><span class="math display">\[
+\begin{cases}
+H_0:~~\text{a preferência é independente da classificação de trabalho}\\
+H_1:~~\text{a preferência depende da classificação de trabalho}
+\end{cases}
+\]</span></p>
+<p>Então,</p>
+<p><span class="math inline">\((r-1)(c-1)=(2-1)(3-1)=2\)</span> e <span class="math inline">\(\chi^2_{2;0.05}=5.991465\)</span></p>
+<p>E <span class="math inline">\(\frac{(O_{ij}-E_{ij})^2}{E_{ij}}\)</span>, resultando em:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th>j</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td><span class="math inline">\(\sum\)</span></td>
+</tr>
+<tr class="even">
+<td>i</td>
+<td>1</td>
+<td>4.235294</td>
+<td>0.1176471</td>
+<td>11.52941</td>
+<td>15.88235</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>2</td>
+<td>9</td>
+<td>0.25</td>
+<td>24.5</td>
+<td>33.75</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><span class="math inline">\(\sum\)</span></td>
+<td>13.2352941</td>
+<td>0.3676471</td>
+<td>36.0294118</td>
+<td>49.63235</td>
+</tr>
+</tbody>
+</table>
+<p>Conclusão: como <span class="math inline">\(\chi^2_0(49.63)&gt;\chi^2_{2;0.05}(5.99)\)</span>, rejeita-se a hipótese nula de independência a um nível de significância de 5%.</p>
+<p>Para calcular o p-valor, devemos fazer <span class="math inline">\(P(\chi_2^2&gt;49.63)=1.67\times 10^{-11}\)</span>, note portanto que o p-valor é extremamente pequeno, o que nos faz rejeitar a hipótese nula a um nível de significância de 5% e a níveis menores também.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="teste-de-hipótese-média-de-uma-nmusigma2---sigma2-desconhecida.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-teste_de_hipotese.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["inferencia_com_R.pdf", "inferencia_com_R.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

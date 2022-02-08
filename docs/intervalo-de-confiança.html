@@ -5,27 +5,21 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 5 Intervalo de Confiança | Inferência Estatística com R</title>
-  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 5 Intervalo de Confiança | Inferência Estatística com R" />
   <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta property="og:url" content="https://paulamacaira.github.io/livro_inferencia_com_R/" />
+  <meta property="og:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+  <meta property="og:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Capítulo 5 Intervalo de Confiança | Inferência Estatística com R" />
   
-  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
-  
+  <meta name="twitter:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="twitter:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
 
 <meta name="author" content="P. Maçaira, L. Bastos, S. Aguilar &amp; I. Peres" />
 
@@ -37,7 +31,7 @@ set in the _output.yml file.</p>" />
   
   
 <link rel="prev" href="distribuições-amostrais-1.html"/>
-
+<link rel="next" href="teste-de-hipóteses.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -167,110 +161,226 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefácio</a></li>
 <li class="chapter" data-level="1" data-path="analise_descritiva.html"><a href="analise_descritiva.html"><i class="fa fa-check"></i><b>1</b> Análise Descritiva</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#introdução"><i class="fa fa-check"></i><b>1.1</b> Introdução</a></li>
-<li class="chapter" data-level="1.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coleta-e-armazenamento-de-dados"><i class="fa fa-check"></i><b>1.2</b> Coleta e Armazenamento de Dados</a>
+<li class="chapter" data-level="1.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coleta-e-armazenamento-de-dados"><i class="fa fa-check"></i><b>1.1</b> Coleta e Armazenamento de Dados</a></li>
+<li class="chapter" data-level="1.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>1.2</b> Tipos de Variáveis</a></li>
+<li class="chapter" data-level="1.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-quantitativas"><i class="fa fa-check"></i><b>1.3</b> Variáveis Quantitativas</a></li>
+<li class="chapter" data-level="1.4" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-qualitativas-ou-categóricas"><i class="fa fa-check"></i><b>1.4</b> Variáveis Qualitativas (ou categóricas)</a></li>
+<li class="chapter" data-level="1.5" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>1.5</b> Medidas de Tendência Central</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#exemplo-inicial"><i class="fa fa-check"></i><b>1.2.1</b> Exemplo inicial</a></li>
+<li class="chapter" data-level="1.5.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#média-aritmética-simples"><i class="fa fa-check"></i><b>1.5.1</b> Média Aritmética Simples</a></li>
+<li class="chapter" data-level="1.5.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#mediana"><i class="fa fa-check"></i><b>1.5.2</b> Mediana</a></li>
+<li class="chapter" data-level="1.5.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#moda"><i class="fa fa-check"></i><b>1.5.3</b> Moda</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>1.3</b> Tipos de Variáveis</a></li>
-<li class="chapter" data-level="1.4" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-quantitativas"><i class="fa fa-check"></i><b>1.4</b> Variáveis Quantitativas</a></li>
-<li class="chapter" data-level="1.5" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-qualitativas-ou-categóricas"><i class="fa fa-check"></i><b>1.5</b> Variáveis Qualitativas (ou categóricas)</a></li>
-<li class="chapter" data-level="1.6" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>1.6</b> Medidas de Tendência Central</a>
+<li class="chapter" data-level="1.6" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-variabilidade"><i class="fa fa-check"></i><b>1.6</b> Medidas de Variabilidade</a>
 <ul>
-<li class="chapter" data-level="1.6.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#média-aritmética-simples"><i class="fa fa-check"></i><b>1.6.1</b> Média Aritmética Simples</a></li>
-<li class="chapter" data-level="1.6.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#mediana"><i class="fa fa-check"></i><b>1.6.2</b> Mediana</a></li>
-<li class="chapter" data-level="1.6.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#moda"><i class="fa fa-check"></i><b>1.6.3</b> Moda</a></li>
+<li class="chapter" data-level="1.6.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#amplitude-total"><i class="fa fa-check"></i><b>1.6.1</b> Amplitude Total</a></li>
+<li class="chapter" data-level="1.6.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#desvio-padrão"><i class="fa fa-check"></i><b>1.6.2</b> Desvio Padrão</a></li>
+<li class="chapter" data-level="1.6.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coeficiente-de-variação"><i class="fa fa-check"></i><b>1.6.3</b> Coeficiente de Variação</a></li>
 </ul></li>
-<li class="chapter" data-level="1.7" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-variabilidade"><i class="fa fa-check"></i><b>1.7</b> Medidas de Variabilidade</a>
+<li class="chapter" data-level="1.7" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-posição"><i class="fa fa-check"></i><b>1.7</b> Medidas de Posição</a>
 <ul>
-<li class="chapter" data-level="1.7.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#amplitude-total"><i class="fa fa-check"></i><b>1.7.1</b> Amplitude Total</a></li>
-<li class="chapter" data-level="1.7.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#desvio-padrão"><i class="fa fa-check"></i><b>1.7.2</b> Desvio Padrão</a></li>
-<li class="chapter" data-level="1.7.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coeficiente-de-variação"><i class="fa fa-check"></i><b>1.7.3</b> Coeficiente de Variação</a></li>
+<li class="chapter" data-level="1.7.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#percentis"><i class="fa fa-check"></i><b>1.7.1</b> Percentis</a></li>
 </ul></li>
-<li class="chapter" data-level="1.8" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-posição"><i class="fa fa-check"></i><b>1.8</b> Medidas de Posição</a>
-<ul>
-<li class="chapter" data-level="1.8.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#percentis"><i class="fa fa-check"></i><b>1.8.1</b> Percentis</a></li>
-</ul></li>
-<li class="chapter" data-level="1.9" data-path="analise_descritiva.html"><a href="analise_descritiva.html#referências"><i class="fa fa-check"></i><b>1.9</b> Referências</a></li>
+<li class="chapter" data-level="1.8" data-path="analise_descritiva.html"><a href="analise_descritiva.html#referências"><i class="fa fa-check"></i><b>1.8</b> Referências</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="análise-gráfica.html"><a href="análise-gráfica.html"><i class="fa fa-check"></i><b>2</b> Análise Gráfica</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#introdução-1"><i class="fa fa-check"></i><b>2.1</b> Introdução</a></li>
-<li class="chapter" data-level="2.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-qualitativas---nominais-e-ordinais"><i class="fa fa-check"></i><b>2.2</b> Variáveis Qualitativas - Nominais e Ordinais</a></li>
-<li class="chapter" data-level="2.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-discretas"><i class="fa fa-check"></i><b>2.3</b> Variáveis Quantitativas Discretas</a></li>
-<li class="chapter" data-level="2.4" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-contínuas"><i class="fa fa-check"></i><b>2.4</b> Variáveis Quantitativas Contínuas</a></li>
-<li class="chapter" data-level="2.5" data-path="análise-gráfica.html"><a href="análise-gráfica.html#histograma"><i class="fa fa-check"></i><b>2.5</b> Histograma</a>
+<li class="chapter" data-level="2.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-qualitativas---nominais-e-ordinais"><i class="fa fa-check"></i><b>2.1</b> Variáveis Qualitativas - Nominais e Ordinais</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-discretas"><i class="fa fa-check"></i><b>2.2</b> Variáveis Quantitativas Discretas</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-contínuas"><i class="fa fa-check"></i><b>2.3</b> Variáveis Quantitativas Contínuas</a></li>
+<li class="chapter" data-level="2.4" data-path="análise-gráfica.html"><a href="análise-gráfica.html#histograma"><i class="fa fa-check"></i><b>2.4</b> Histograma</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#tendência-central"><i class="fa fa-check"></i><b>2.5.1</b> Tendência Central</a></li>
-<li class="chapter" data-level="2.5.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variabilidade"><i class="fa fa-check"></i><b>2.5.2</b> Variabilidade</a></li>
-<li class="chapter" data-level="2.5.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#forma"><i class="fa fa-check"></i><b>2.5.3</b> Forma</a></li>
+<li class="chapter" data-level="2.4.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#tendência-central"><i class="fa fa-check"></i><b>2.4.1</b> Tendência Central</a></li>
+<li class="chapter" data-level="2.4.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variabilidade"><i class="fa fa-check"></i><b>2.4.2</b> Variabilidade</a></li>
+<li class="chapter" data-level="2.4.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#forma"><i class="fa fa-check"></i><b>2.4.3</b> Forma</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="análise-gráfica.html"><a href="análise-gráfica.html#boxplot"><i class="fa fa-check"></i><b>2.6</b> Boxplot</a></li>
-<li class="chapter" data-level="2.7" data-path="análise-gráfica.html"><a href="análise-gráfica.html#diagrama-de-dispersão"><i class="fa fa-check"></i><b>2.7</b> Diagrama de Dispersão</a>
+<li class="chapter" data-level="2.5" data-path="análise-gráfica.html"><a href="análise-gráfica.html#boxplot"><i class="fa fa-check"></i><b>2.5</b> Boxplot</a></li>
+<li class="chapter" data-level="2.6" data-path="análise-gráfica.html"><a href="análise-gráfica.html#diagrama-de-dispersão"><i class="fa fa-check"></i><b>2.6</b> Diagrama de Dispersão</a>
 <ul>
-<li class="chapter" data-level="2.7.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-1"><i class="fa fa-check"></i><b>2.7.1</b> Exemplo 1</a></li>
-<li class="chapter" data-level="2.7.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-2"><i class="fa fa-check"></i><b>2.7.2</b> Exemplo 2</a></li>
+<li class="chapter" data-level="2.6.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-1"><i class="fa fa-check"></i><b>2.6.1</b> Exemplo 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-2"><i class="fa fa-check"></i><b>2.6.2</b> Exemplo 2</a></li>
 </ul></li>
-<li class="chapter" data-level="2.8" data-path="análise-gráfica.html"><a href="análise-gráfica.html#séries-temporais"><i class="fa fa-check"></i><b>2.8</b> Séries Temporais</a></li>
-<li class="chapter" data-level="2.9" data-path="análise-gráfica.html"><a href="análise-gráfica.html#gráfico-de-radar"><i class="fa fa-check"></i><b>2.9</b> Gráfico de Radar</a></li>
+<li class="chapter" data-level="2.7" data-path="análise-gráfica.html"><a href="análise-gráfica.html#séries-temporais"><i class="fa fa-check"></i><b>2.7</b> Séries Temporais</a></li>
+<li class="chapter" data-level="2.8" data-path="análise-gráfica.html"><a href="análise-gráfica.html#gráfico-de-radar"><i class="fa fa-check"></i><b>2.8</b> Gráfico de Radar</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html"><i class="fa fa-check"></i><b>3</b> Conceitos Básicos</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#introdução-2"><i class="fa fa-check"></i><b>3.1</b> Introdução</a></li>
-<li class="chapter" data-level="3.2" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#população"><i class="fa fa-check"></i><b>3.2</b> População</a></li>
-<li class="chapter" data-level="3.3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#amostra"><i class="fa fa-check"></i><b>3.3</b> Amostra</a></li>
-<li class="chapter" data-level="3.4" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#estatísticas-e-parâmetros"><i class="fa fa-check"></i><b>3.4</b> Estatísticas e Parâmetros</a></li>
-<li class="chapter" data-level="3.5" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#distribuições-amostrais"><i class="fa fa-check"></i><b>3.5</b> Distribuições Amostrais</a></li>
-<li class="chapter" data-level="3.6" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#propriedades-dos-estimadores"><i class="fa fa-check"></i><b>3.6</b> Propriedades dos Estimadores</a></li>
+<li class="chapter" data-level="3.1" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#população"><i class="fa fa-check"></i><b>3.1</b> População</a></li>
+<li class="chapter" data-level="3.2" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#amostra"><i class="fa fa-check"></i><b>3.2</b> Amostra</a></li>
+<li class="chapter" data-level="3.3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#estatísticas-e-parâmetros"><i class="fa fa-check"></i><b>3.3</b> Estatísticas e Parâmetros</a></li>
+<li class="chapter" data-level="3.4" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#distribuições-amostrais"><i class="fa fa-check"></i><b>3.4</b> Distribuições Amostrais</a></li>
+<li class="chapter" data-level="3.5" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#propriedades-dos-estimadores"><i class="fa fa-check"></i><b>3.5</b> Propriedades dos Estimadores</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html"><i class="fa fa-check"></i><b>4</b> Distribuições Amostrais</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#introdução-3"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
-<li class="chapter" data-level="4.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-amostral-da-média-amostral"><i class="fa fa-check"></i><b>4.2</b> Distribuição Amostral da Média Amostral</a>
+<li class="chapter" data-level="4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-média-amostral"><i class="fa fa-check"></i><b>4.1</b> Distribuição da Média Amostral</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando"><i class="fa fa-check"></i><b>4.2.1</b> Visualizando</a></li>
-<li class="chapter" data-level="4.2.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#prova"><i class="fa fa-check"></i><b>4.2.2</b> Prova</a></li>
+<li class="chapter" data-level="4.1.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando"><i class="fa fa-check"></i><b>4.1.1</b> Visualizando</a></li>
+<li class="chapter" data-level="4.1.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#prova"><i class="fa fa-check"></i><b>4.1.2</b> Prova</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#teorema-central-do-limite"><i class="fa fa-check"></i><b>4.3</b> Teorema Central do Limite</a>
+<li class="chapter" data-level="4.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#teorema-central-do-limite"><i class="fa fa-check"></i><b>4.2</b> Teorema Central do Limite</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-1"><i class="fa fa-check"></i><b>4.3.1</b> Visualizando</a></li>
+<li class="chapter" data-level="4.2.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-1"><i class="fa fa-check"></i><b>4.2.1</b> Visualizando</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-amostral-da-variância-amostral"><i class="fa fa-check"></i><b>4.4</b> Distribuição Amostral da Variância Amostral</a>
+<li class="chapter" data-level="4.3" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-variância-amostral"><i class="fa fa-check"></i><b>4.3</b> Distribuição da Variância Amostral</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-qui-quadrado"><i class="fa fa-check"></i><b>4.4.1</b> Distribuição Qui-quadrado</a></li>
-<li class="chapter" data-level="4.4.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-2"><i class="fa fa-check"></i><b>4.4.2</b> Visualizando</a></li>
+<li class="chapter" data-level="4.3.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-qui-quadrado"><i class="fa fa-check"></i><b>4.3.1</b> Distribuição Qui-quadrado</a></li>
+<li class="chapter" data-level="4.3.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-2"><i class="fa fa-check"></i><b>4.3.2</b> Visualizando</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-amostral-da-proporção"><i class="fa fa-check"></i><b>4.5</b> Distribuição Amostral da Proporção</a>
+<li class="chapter" data-level="4.4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-proporção-amostral"><i class="fa fa-check"></i><b>4.4</b> Distribuição da Proporção Amostral</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-3"><i class="fa fa-check"></i><b>4.5.1</b> Visualizando</a></li>
+<li class="chapter" data-level="4.4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-3"><i class="fa fa-check"></i><b>4.4.1</b> Visualizando</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html"><i class="fa fa-check"></i><b>5</b> Intervalo de Confiança</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#introdução-4"><i class="fa fa-check"></i><b>5.1</b> Introdução</a></li>
-<li class="chapter" data-level="5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideias-básicas"><i class="fa fa-check"></i><b>5.2</b> Ideias Básicas</a></li>
-<li class="chapter" data-level="5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#média-da-nmusigma2-sigma2-conhecido"><i class="fa fa-check"></i><b>5.3</b> Média da <span class="math inline">\(N(\mu,\sigma^2)\)</span>, <span class="math inline">\(\sigma^2\)</span> conhecido</a>
+<li class="chapter" data-level="5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideia-geral"><i class="fa fa-check"></i><b>5.1</b> Ideia Geral</a></li>
+<li class="chapter" data-level="5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-média-de-uma-normal-com-variância-conhecida"><i class="fa fa-check"></i><b>5.2</b> I.C. para a média de uma Normal com variância conhecida</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#notação"><i class="fa fa-check"></i><b>5.3.1</b> Notação</a></li>
+<li class="chapter" data-level="5.2.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança"><i class="fa fa-check"></i><b>5.2.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.2.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro"><i class="fa fa-check"></i><b>5.2.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.2.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra"><i class="fa fa-check"></i><b>5.2.3</b> Determinação do tamanho da amostra</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro"><i class="fa fa-check"></i><b>5.4</b> Margem de Erro</a></li>
-<li class="chapter" data-level="5.5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#introdução-5"><i class="fa fa-check"></i><b>5.5</b> Introdução</a></li>
-<li class="chapter" data-level="5.6" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideias-básicas-1"><i class="fa fa-check"></i><b>5.6</b> Ideias Básicas</a>
+<li class="chapter" data-level="5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-média-de-uma-normal-com-variância-desconhecida"><i class="fa fa-check"></i><b>5.3</b> I.C. para a média de uma Normal com variância desconhecida</a>
 <ul>
-<li class="chapter" data-level="5.6.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#média-da-nmusigma2-sigma2-desconhecido"><i class="fa fa-check"></i><b>5.6.1</b> Média da <span class="math inline">\(N(\mu,\sigma^2)\)</span>, <span class="math inline">\(\sigma^2\)</span> desconhecido</a></li>
+<li class="chapter" data-level="5.3.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-1"><i class="fa fa-check"></i><b>5.3.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.3.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-1"><i class="fa fa-check"></i><b>5.3.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.3.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-1"><i class="fa fa-check"></i><b>5.3.3</b> Determinação do tamanho da amostra</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-1"><i class="fa fa-check"></i><b>5.7</b> Margem de Erro</a></li>
-<li class="chapter" data-level="5.8" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#introdução-6"><i class="fa fa-check"></i><b>5.8</b> Introdução</a></li>
-<li class="chapter" data-level="5.9" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#intervalo-de-confiança-para-a-proporção-populacional"><i class="fa fa-check"></i><b>5.9</b> Intervalo de confiança para a proporção populacional</a>
+<li class="chapter" data-level="5.4" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-proporção-populacional"><i class="fa fa-check"></i><b>5.4</b> I.C. para a proporção populacional</a>
 <ul>
-<li class="chapter" data-level="5.9.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideias-básicas-2"><i class="fa fa-check"></i><b>5.9.1</b> Ideias Básicas</a></li>
-<li class="chapter" data-level="5.9.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construção-do-ic"><i class="fa fa-check"></i><b>5.9.2</b> Construção do IC</a></li>
-<li class="chapter" data-level="5.9.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra"><i class="fa fa-check"></i><b>5.9.3</b> Determinação do tamanho da amostra</a></li>
+<li class="chapter" data-level="5.4.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-2"><i class="fa fa-check"></i><b>5.4.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.4.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-2"><i class="fa fa-check"></i><b>5.4.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.4.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-2"><i class="fa fa-check"></i><b>5.4.3</b> Determinação do tamanho da amostra</a></li>
 </ul></li>
-<li class="chapter" data-level="5.10" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#intervalo-de-confiança-para-a-variância-da-nmusigma2"><i class="fa fa-check"></i><b>5.10</b> Intervalo de confiança para a variância da <span class="math inline">\(N(\mu,\sigma^2)\)</span></a>
+<li class="chapter" data-level="5.5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#intervalo-de-confiança-para-a-variância-de-uma-normal"><i class="fa fa-check"></i><b>5.5</b> Intervalo de confiança para a variância de uma Normal</a>
 <ul>
-<li class="chapter" data-level="5.10.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideias-básicas-3"><i class="fa fa-check"></i><b>5.10.1</b> Ideias básicas</a></li>
-<li class="chapter" data-level="5.10.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construção-do-ic-1"><i class="fa fa-check"></i><b>5.10.2</b> Construção do IC</a></li>
+<li class="chapter" data-level="5.5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-3"><i class="fa fa-check"></i><b>5.5.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-3"><i class="fa fa-check"></i><b>5.5.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-3"><i class="fa fa-check"></i><b>5.5.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html"><i class="fa fa-check"></i><b>6</b> Teste de Hipóteses</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#ideia-geral-1"><i class="fa fa-check"></i><b>6.1</b> Ideia Geral</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-nula"><i class="fa fa-check"></i><b>6.1.1</b> Hipótese nula</a></li>
+<li class="chapter" data-level="6.1.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-alternativa"><i class="fa fa-check"></i><b>6.1.2</b> Hipótese alternativa</a></li>
+<li class="chapter" data-level="6.1.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#estatística-de-teste"><i class="fa fa-check"></i><b>6.1.3</b> Estatística de teste</a></li>
+<li class="chapter" data-level="6.1.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#tipos-de-erro"><i class="fa fa-check"></i><b>6.1.4</b> Tipos de erro</a></li>
+<li class="chapter" data-level="6.1.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#regra-de-decisão"><i class="fa fa-check"></i><b>6.1.5</b> Regra de decisão</a></li>
+<li class="chapter" data-level="6.1.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#região-crítica"><i class="fa fa-check"></i><b>6.1.6</b> Região crítica</a></li>
+<li class="chapter" data-level="6.1.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#cco-e-poder-do-teste"><i class="fa fa-check"></i><b>6.1.7</b> CCO e Poder do Teste</a></li>
+<li class="chapter" data-level="6.1.8" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo"><i class="fa fa-check"></i><b>6.1.8</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-média-de-uma-normal-com-variância-conhecida"><i class="fa fa-check"></i><b>6.2</b> T.H. para a média de uma Normal com variância conhecida</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses"><i class="fa fa-check"></i><b>6.2.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.2.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#teste-de-hipóteses-vs-intervalo-de-confiança"><i class="fa fa-check"></i><b>6.2.2</b> Teste de Hipóteses vs Intervalo de Confiança</a></li>
+<li class="chapter" data-level="6.2.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor"><i class="fa fa-check"></i><b>6.2.3</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.2.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-3"><i class="fa fa-check"></i><b>6.2.4</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-média-de-uma-normal-com-variância-desconhecida"><i class="fa fa-check"></i><b>6.3</b> T.H. para a média de uma Normal com variância desconhecida</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-1"><i class="fa fa-check"></i><b>6.3.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.3.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor-1"><i class="fa fa-check"></i><b>6.3.2</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.3.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-4"><i class="fa fa-check"></i><b>6.3.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-proporção-populacional"><i class="fa fa-check"></i><b>6.4</b> T.H. para a proporção populacional</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-2"><i class="fa fa-check"></i><b>6.4.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.4.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor-2"><i class="fa fa-check"></i><b>6.4.2</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-5"><i class="fa fa-check"></i><b>6.4.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-variância-de-uma-normal"><i class="fa fa-check"></i><b>6.5</b> T.H. para a variância de uma Normal</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-3"><i class="fa fa-check"></i><b>6.5.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.5.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p"><i class="fa fa-check"></i><b>6.5.2</b> Valor P</a></li>
+<li class="chapter" data-level="6.5.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-6"><i class="fa fa-check"></i><b>6.5.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-adequação-de-ajuste-goodness-of-fit"><i class="fa fa-check"></i><b>6.6</b> T.H. Adequação de Ajuste (Goodness of Fit)</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-4"><i class="fa fa-check"></i><b>6.6.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.6.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-7"><i class="fa fa-check"></i><b>6.6.2</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-tabela-de-contingência"><i class="fa fa-check"></i><b>6.7</b> T.H. para a Tabela de Contingência</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-5"><i class="fa fa-check"></i><b>6.7.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.7.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-8"><i class="fa fa-check"></i><b>6.7.2</b> Exemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html"><i class="fa fa-check"></i><b>7</b> Inferência Estatística para Duas Populações</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-médias-de-distribuições-normais"><i class="fa fa-check"></i><b>7.1</b> Comparação das médias de distribuições Normais</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#variâncias-conhecidas"><i class="fa fa-check"></i><b>7.1.1</b> Variâncias Conhecidas</a></li>
+<li class="chapter" data-level="7.1.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#variâncias-desconhecidas"><i class="fa fa-check"></i><b>7.1.2</b> Variâncias Desconhecidas</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-variâncias-de-distribuições-normais"><i class="fa fa-check"></i><b>7.2</b> Comparação das variâncias de distribuições Normais</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#teste-de-hipóteses-2"><i class="fa fa-check"></i><b>7.2.1</b> Teste de hipóteses</a></li>
+<li class="chapter" data-level="7.2.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#intervalo-de-confiança-2"><i class="fa fa-check"></i><b>7.2.2</b> Intervalo de Confiança</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-proporções-populacionais"><i class="fa fa-check"></i><b>7.3</b> Comparação das proporções populacionais</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#teste-de-hipóteses-3"><i class="fa fa-check"></i><b>7.3.1</b> Teste de hipóteses</a></li>
+<li class="chapter" data-level="7.3.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#intervalo-de-confiança-3"><i class="fa fa-check"></i><b>7.3.2</b> Intervalo de Confiança</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html"><i class="fa fa-check"></i><b>8</b> Análise de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#anova-para-um-único-fator"><i class="fa fa-check"></i><b>8.1</b> ANOVA para um único fator</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#partição-da-variabilidade-total"><i class="fa fa-check"></i><b>8.1.1</b> Partição da variabilidade total</a></li>
+<li class="chapter" data-level="8.1.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#construção-do-teste-de-hipóteses"><i class="fa fa-check"></i><b>8.1.2</b> Construção do teste de hipóteses</a></li>
+<li class="chapter" data-level="8.1.3" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#exemplo-19"><i class="fa fa-check"></i><b>8.1.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#anova-para-dois-fatores"><i class="fa fa-check"></i><b>8.2</b> ANOVA para dois fatores</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#partição-da-variabilidade-total-1"><i class="fa fa-check"></i><b>8.2.1</b> Partição da variabilidade total</a></li>
+<li class="chapter" data-level="8.2.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#construção-do-teste-de-hipóteses-1"><i class="fa fa-check"></i><b>8.2.2</b> Construção do teste de hipóteses</a></li>
+<li class="chapter" data-level="8.2.3" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#exemplo-continuação"><i class="fa fa-check"></i><b>8.2.3</b> Exemplo (continuação)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regressão-linear.html"><a href="regressão-linear.html"><i class="fa fa-check"></i><b>9</b> Regressão Linear</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="regressão-linear.html"><a href="regressão-linear.html#gráficos-úteis"><i class="fa fa-check"></i><b>9.1</b> Gráficos úteis</a></li>
+<li class="chapter" data-level="9.2" data-path="regressão-linear.html"><a href="regressão-linear.html#modelo-estatístico"><i class="fa fa-check"></i><b>9.2</b> Modelo estatístico</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="regressão-linear.html"><a href="regressão-linear.html#efeito-das-interações"><i class="fa fa-check"></i><b>9.2.1</b> Efeito das interações</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regressão-linear.html"><a href="regressão-linear.html#suposições-para-o-modelo"><i class="fa fa-check"></i><b>9.2.2</b> Suposições para o modelo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regressão-linear.html"><a href="regressão-linear.html#representação-matricial"><i class="fa fa-check"></i><b>9.3</b> Representação Matricial</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="regressão-linear.html"><a href="regressão-linear.html#estimação-dos-parâmetros-do-modelo"><i class="fa fa-check"></i><b>9.3.1</b> Estimação dos parâmetros do modelo</a></li>
+<li class="chapter" data-level="9.3.2" data-path="regressão-linear.html"><a href="regressão-linear.html#propriedades-dos-estimadores-1"><i class="fa fa-check"></i><b>9.3.2</b> Propriedades dos estimadores</a></li>
+<li class="chapter" data-level="9.3.3" data-path="regressão-linear.html"><a href="regressão-linear.html#exemplo-20"><i class="fa fa-check"></i><b>9.3.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-variância-anova-1"><i class="fa fa-check"></i><b>9.4</b> Análise de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="regressão-linear.html"><a href="regressão-linear.html#exemplo-continuação-1"><i class="fa fa-check"></i><b>9.4.1</b> Exemplo (continuação)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="regressão-linear.html"><a href="regressão-linear.html#medidas-de-associação"><i class="fa fa-check"></i><b>9.5</b> Medidas de Associação</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="regressão-linear.html"><a href="regressão-linear.html#coeficiente-de-determinação-múltiplo-r2"><i class="fa fa-check"></i><b>9.5.1</b> Coeficiente de Determinação Múltiplo (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="regressão-linear.html"><a href="regressão-linear.html#coeficiente-de-determinação-ajustado-r2_a"><i class="fa fa-check"></i><b>9.5.2</b> Coeficiente de Determinação Ajustado (<span class="math inline">\(R^2_a\)</span>)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="regressão-linear.html"><a href="regressão-linear.html#testes-de-hipóteses-para-os-coeficientes-da-regressão"><i class="fa fa-check"></i><b>9.6</b> Testes de hipóteses para os coeficientes da regressão</a></li>
+<li class="chapter" data-level="9.7" data-path="regressão-linear.html"><a href="regressão-linear.html#intervalo-de-confiança-para-os-coeficientes-da-regressão"><i class="fa fa-check"></i><b>9.7</b> Intervalo de confiança para os coeficientes da regressão</a></li>
+<li class="chapter" data-level="9.8" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-de-variáveis-regressão-linear-múltipla"><i class="fa fa-check"></i><b>9.8</b> Seleção de Variáveis (Regressão Linear Múltipla)</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-de-todos-os-modelos-possíveis"><i class="fa fa-check"></i><b>9.8.1</b> Seleção de todos os modelos possíveis</a></li>
+<li class="chapter" data-level="9.8.2" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-automática"><i class="fa fa-check"></i><b>9.8.2</b> Seleção automática</a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="regressão-linear.html"><a href="regressão-linear.html#variáveis-dummy"><i class="fa fa-check"></i><b>9.9</b> Variáveis Dummy</a></li>
+<li class="chapter" data-level="9.10" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-resíduos"><i class="fa fa-check"></i><b>9.10</b> Análise de Resíduos</a>
+<ul>
+<li class="chapter" data-level="9.10.1" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-normalidade"><i class="fa fa-check"></i><b>9.10.1</b> Diagnóstico de normalidade</a></li>
+<li class="chapter" data-level="9.10.2" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-homocedasticidade"><i class="fa fa-check"></i><b>9.10.2</b> Diagnóstico de homocedasticidade</a></li>
+<li class="chapter" data-level="9.10.3" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-independência"><i class="fa fa-check"></i><b>9.10.3</b> Diagnóstico de independência</a></li>
+<li class="chapter" data-level="9.10.4" data-path="regressão-linear.html"><a href="regressão-linear.html#valores-extremos"><i class="fa fa-check"></i><b>9.10.4</b> Valores extremos</a></li>
+<li class="chapter" data-level="9.10.5" data-path="regressão-linear.html"><a href="regressão-linear.html#teste-da-falta-de-ajuste-lack-of-fit"><i class="fa fa-check"></i><b>9.10.5</b> Teste da falta de ajuste (<em>lack of fit</em>)</a></li>
+<li class="chapter" data-level="9.10.6" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-colinearidade-e-multicolinearidade"><i class="fa fa-check"></i><b>9.10.6</b> Análise de Colinearidade e Multicolinearidade</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -295,27 +405,24 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="intervalo-de-confiança" class="section level1" number="5">
 <h1><span class="header-section-number">Capítulo 5</span> Intervalo de Confiança</h1>
-<div id="introdução-4" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Introdução</h2>
+<div id="ideia-geral" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Ideia Geral</h2>
 <p>Neste capítulo você aprenderá um método muito importante de estimação de parâmetros. Vimos anteriormente que a média amostral <span class="math inline">\(\bar X\)</span> é um bom estimador da média populacional <span class="math inline">\(\mu\)</span>. Mas vimos, também, que existe uma variabilidade nos valores de <span class="math inline">\(\bar X\)</span>, ou seja, cada amostra dá origem a um valor diferente do estimador. Uma maneira de informar sobre esta variabilidade é através da estimação por intervalos.</p>
-</div>
-<div id="ideias-básicas" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Ideias Básicas</h2>
-<p>O objetivo central da Inferência Estatística é obter informações para uma população a partir do conhecimento de uma única amostra. Em geral, a população é representada por uma variável aleatória <span class="math inline">\(X\)</span>, com função de distribuição ou densidade de probabilidade <span class="math inline">\(f_X\)</span> . Dessa população, então, extrai-se uma amostra aleatória simples com reposição, que dá origem a um conjunto <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> de <span class="math inline">\(n\)</span> variáveis aleatórias independentes e identicamente distribuídas, todas com a mesma distribuição <span class="math inline">\(f_X\)</span>.</p>
+<p>O objetivo central da inferência estatística é obter informações para uma população a partir do conhecimento de uma única amostra. Em geral, a população é representada por uma variável aleatória <span class="math inline">\(X\)</span>, com função de distribuição ou densidade de probabilidade <span class="math inline">\(f_X\)</span> . Dessa população, então, extrai-se uma amostra aleatória simples com reposição, que dá origem a um conjunto <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> de <span class="math inline">\(n\)</span> variáveis aleatórias independentes e identicamente distribuídas, todas com a mesma distribuição <span class="math inline">\(f_X\)</span>.</p>
 <p>Se <span class="math inline">\(f_X\)</span> depende de um ou mais parâmetros, temos que usar a informação obtida a partir da amostra para estimar esses parâmetros, de forma a conhecermos a distribuição. Vimos, por exemplo, que a média amostral <span class="math inline">\(\bar X\)</span> é um bom estimador da média populacional <span class="math inline">\(\mu\)</span>, no sentido de que ela tende a “acertar o alvo” da verdadeira média populacional, isto é, a média amostral é um estimador não-viesado da média populacional. Mas vimos, também, que existe uma variabilidade nos valores de <span class="math inline">\(\bar X\)</span>, ou seja, cada amostra dá origem a um valor diferente do estimador. Para algumas amostras, <span class="math inline">\(\bar X\)</span> será maior que <span class="math inline">\(\mu\)</span>, para outras será menor e para outras será igual.</p>
 <p>Na prática, temos apenas uma amostra e, assim, é importante que se dê alguma informação sobre essa possível variabilidade do estimador. Ou seja, é importante informar o valor do estimador <span class="math inline">\(\hat \theta\)</span> obtido com uma amostra específica, mas é importante informar também que o verdadeiro valor do parâmetro <span class="math inline">\(\theta\)</span> poderia estar num determinado intervalo, digamos, no intervalo <span class="math inline">\(\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]\)</span>. Dessa forma, estamos informando a nossa margem de erro no processo de estimação; essa margem de erro é consequência do processo de seleção aleatória da amostra.</p>
 <p>O que vamos estudar agora é como obter esse intervalo, de modo a “acertar na maioria das vezes,” isto é, queremos um procedimento que garanta que, na maioria das vezes (ou das amostras possíveis), o intervalo obtido conterá o verdadeiro valor do parâmetro. A expressão “na maioria das vezes” será traduzida como “probabilidade alta.” Dessa forma, estaremos lidando com afirmativas do seguinte tipo:</p>
 <p></p>
 <p>A interpretação correta de tal afirmativa é a seguinte: se <span class="math inline">\(1-\alpha=0,95\)</span>, por exemplo, então isso significa que o procedimento de construção do intervalo é tal que, em 95% das possíveis amostras, o intervalo <span class="math inline">\(\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]\)</span> obtido conterá o verdadeiro valor do parâmetro.</p>
 <p>Note, no exemplo abaixo, que cada amostra resulta em um intervalo diferente, mas em média, em 95% das amostras, o intervalo contém o verdadeiro valor do parâmetro (em vermelho).</p>
-<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-57-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-58-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>O valor <span class="math inline">\(1 - \alpha\)</span> é chamado nível de confiança, enquanto o valor <span class="math inline">\(\alpha\)</span> é conhecido como nível de significância. O intervalo <span class="math inline">\(\left[\hat\theta-\varepsilon;\hat\theta + \varepsilon\right]\)</span> é chamado de intervalo de confiança de nível de confiança <span class="math inline">\(1 - \alpha\)</span>.</p>
 <p>Tendo clara a interpretação do intervalo de confiança, podemos resumir a frase acima da seguinte forma:</p>
 <p><span class="math display">\[P\left(\theta\in[\hat\theta-\varepsilon;\hat\theta+\varepsilon]\right)=1-\alpha\]</span></p>
 <p>Mais uma vez, a probabilidade se refere à probabilidade dentre as diversas possíveis amostras, ou seja, a probabilidade está associada à distribuição amostral de <span class="math inline">\(\hat \theta\)</span>. Note que os limites do intervalo dependem de <span class="math inline">\(\hat theta\)</span>, que depende da amostra sorteada, ou seja, os limites do intervalo de confiança são variáveis aleatórias. Cada amostra dá origem a um intervalo diferente, mas o procedimento de obtenção dos intervalos garante probabilidade <span class="math inline">\(1 - \alpha\)</span> de acerto.</p>
 </div>
-<div id="média-da-nmusigma2-sigma2-conhecido" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Média da <span class="math inline">\(N(\mu,\sigma^2)\)</span>, <span class="math inline">\(\sigma^2\)</span> conhecido</h2>
+<div id="i.c.-para-a-média-de-uma-normal-com-variância-conhecida" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> I.C. para a média de uma Normal com variância conhecida</h2>
 <p>Vamos agora introduzir os métodos para obtenção do intervalo de confiança para a média de uma população. Como visto, a média populacional é um parâmetro importante que pode ser muito bem estimado pela média amostral <span class="math inline">\(\bar X\)</span>. Para apresentar as idéias básicas, vamos considerar um contexto que é pouco frequente na prática. O motivo para isso é que, em termos didáticos, a apresentação é bastante simples. Como o fundamento é o mesmo para contextos mais gerais, essa abordagem se justifica.</p>
 <p>Consideremos uma população descrita por uma variável aleatória normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\sigma^2\)</span>: <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span>. Vamos supor que o valor de <span class="math inline">\(\sigma^2\)</span> seja conhecido e que nosso interesse seja estimar a média <span class="math inline">\(\mu\)</span> a partir de uma amostra aleatória simples <span class="math inline">\(X_1,\ldots,X_n\)</span>. Como visto anteriormente, a distribuição amostral de <span class="math inline">\(\bar X\)</span> é normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\frac{\sigma^2}{n}\)</span>, ou seja</p>
 <p><span class="math display">\[X\sim N(\mu,\sigma^2)\rightarrow \bar X \sim N\left(\mu,\frac{\sigma^2}{n}\right)\]</span></p>
@@ -324,13 +431,13 @@ div.csl-indent {
 <p><span class="math display">\[Z=\frac{\bar X-\mu}{\sqrt{\frac{\sigma^2}{n}}}\sim N(0,1),\]</span></p>
 <p>ou equivalentemente,</p>
 <p><span class="math display">\[Z=\sqrt{n}\frac{\bar X-\mu}{\sigma}\sim N(0,1).\]</span></p>
-<div id="notação" class="section level3" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> Notação</h3>
-<p>Vamos estabelecer a seguinte notação: vamos indicar por <span class="math inline">\(z_\alpha\)</span> a abscissa da curva normal padrão que deixa probabilidade (área) igual a <span class="math inline">\(\alpha\)</span> acima dela. Veja a Figura abaixo. Temos, então, que <span class="math inline">\(P(Z &gt; z_\alpha)= \alpha\)</span>. Essa abscissa <span class="math inline">\(z_\alpha\)</span> é normalmente chamada de valor crítico.</p>
-<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-58-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div id="construindo-o-intervalo-de-confiança" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Construindo o intervalo de confiança</h3>
+<p>Vamos indicar por <span class="math inline">\(z_\alpha\)</span> a abscissa da curva normal padrão que deixa probabilidade (área) igual a <span class="math inline">\(\alpha\)</span> acima dela. Veja a Figura abaixo. Temos, então, que <span class="math inline">\(P(Z &gt; z_\alpha)= \alpha\)</span>. Essa abscissa <span class="math inline">\(z_\alpha\)</span> é normalmente chamada de valor crítico.</p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-59-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Consideremos, agora, o valor crítico <span class="math inline">\(z_\frac{\alpha}{2}\)</span>, veja a Figura abaixo. Daí podemos ver que, se <span class="math inline">\(Z\sim N(0,1)\)</span>, então</p>
 <p><span class="math display">\[P\left(-z_\frac{\alpha}{2}\leq Z \leq z_\frac{\alpha}{2}\right)=1-\alpha\]</span></p>
-<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-59-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-60-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Note que isso vale para a distribuição normal padrão, em geral. Então, usando os resultados anteriories obtemos que</p>
 <p><span class="math display">\[P\left(-z_\frac{\alpha}{2}\leq \sqrt{n}\frac{\bar X-\mu}{\sigma} \leq z_\frac{\alpha}{2}\right)=1-\alpha\]</span></p>
 <p>Mas isso é equivalente a</p>
@@ -342,45 +449,43 @@ div.csl-indent {
 <p>Mas essa é exatamente a forma geral de um intervalo de confiança, conforme explicitado. Temos, então, a seguinte conclusão:</p>
 <p>Seja <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> uma população normal com variância <span class="math inline">\(\sigma^2\)</span> conhecida. Se <span class="math inline">\(X_1, X_2,\ldots , X_n\)</span> é uma amostra aleatória dessa população, então o intervalo de confiança de nível de confiança <span class="math inline">\(1-\alpha\)</span> para a média populacional <span class="math inline">\(\mu\)</span> é dado por</p>
 <p><span class="math display">\[\left[\bar X-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}};\bar X+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right],\]</span></p>
-<p>onde <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span> é a abcissa da curva normal padrão que deixa a área <span class="math inline">\(\frac{\alpha}{2}\)</span> acima dela.</p>
+<p>onde <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span> é a abscissa da curva normal padrão que deixa a área <span class="math inline">\(\frac{\alpha}{2}\)</span> acima dela.</p>
 </div>
-</div>
-<div id="margem-de-erro" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> Margem de Erro</h2>
+<div id="margem-de-erro" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Margem de Erro</h3>
 <p>O intervalo de confiança para <span class="math inline">\(\mu\)</span> pode ser escrito na forma <span class="math inline">\(\left[\bar X - \varepsilon;\bar X + \varepsilon \right]\)</span> onde <span class="math inline">\(\varepsilon=z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\)</span> é a margem de erro.</p>
 <p>Analisando a margem de erro, podemos ver que ela depende diretamente do valor crítico e do desvio padrão populacional e é inversamente proporcional ao tamanho da amostra.</p>
 <p>Na Figura abaixo ilustra-se a relação de dependência da margem de erro em relação ao desvio padrão populacional <span class="math inline">\(\sigma\)</span>. Temos aí duas distribuições amostrais centradas na mesma média e baseadas em amostras de mesmo tamanho. Nas duas distribuições a área total das caudas sombreadas é <span class="math inline">\(\alpha\)</span>, de modo que o intervalo limitado pelas linhas verticais é o intervalo de confiança de nível de confiança <span class="math inline">\(1-\alpha\)</span>. Para a distribuição mais dispersa, isto é, com <span class="math inline">\(\sigma\)</span> maior, o comprimento do intervalo é maior. Esse resultado deve ser intuitivo: se há mais variabilidade na população, a nossa margem de erro tem que ser maior, mantidas fixas as outras condições (tamanho de amostra e nível de confiança).</p>
-<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-60-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-61-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Por outro lado, se mantivermos fixos o tamanho da amostra e o desvio padrão populacional, é razoável também esperar que a margem de erro seja maior para um nível de confiança maior. Ou seja, se queremos aumentar a probabilidade de acerto, é razoável que o intervalo seja maior. Aumentar a probabilidade de acerto significa aumentar o nível de confiança, o que acarreta em um valor crítico <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span> maior.</p>
 <p>Finalmente, mantidos o mesmo desvio padrão populacional e o mesmo nível de confiança, quanto maior o tamanho da amostra, mais perto vamos ficando da população e, assim, vai diminuindo a nossa margem de erro.</p>
 </div>
-<div id="introdução-5" class="section level2" number="5.5">
-<h2><span class="header-section-number">5.5</span> Introdução</h2>
-<p>Neste capítulo você completará seu estudo básico sobre intervalos de confiança para a média de uma população, analisando o problema de estimação da média de uma população normal quando não se conhece a variância desta população. Você verá que, neste caso, é necessário estimar essa variância e isso introduz mais uma fonte de variabilidade nas nossas estimativas: com uma única amostra, temos que estimar a média e a variância da população. O procedimento é simples e análogo aos casos anteriores vistos nos capítulos amteriores; o que muda é a distribuição amostral do estimador <span class="math inline">\(\bar X\)</span>. Em vez de usarmos a distribuição normal para determinar os valores críticos, usaremos a distribuição <span class="math inline">\(t\)</span> de Student.</p>
+<div id="determinação-do-tamanho-da-amostra" class="section level3" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Determinação do tamanho da amostra</h3>
+<p>XXX</p>
 </div>
-<div id="ideias-básicas-1" class="section level2" number="5.6">
-<h2><span class="header-section-number">5.6</span> Ideias Básicas</h2>
+</div>
+<div id="i.c.-para-a-média-de-uma-normal-com-variância-desconhecida" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> I.C. para a média de uma Normal com variância desconhecida</h2>
+<p>Nesta seção você completará seu estudo básico sobre intervalos de confiança para a média de uma população, analisando o problema de estimação da média de uma população normal quando não se conhece a variância desta população. Você verá que, neste caso, é necessário estimar essa variância e isso introduz mais uma fonte de variabilidade nas nossas estimativas: com uma única amostra, temos que estimar a média e a variância da população. O procedimento é simples e análogo aos casos anteriores vistos nos capítulos amteriores; o que muda é a distribuição amostral do estimador <span class="math inline">\(\bar X\)</span>. Em vez de usarmos a distribuição normal para determinar os valores críticos, usaremos a distribuição <span class="math inline">\(t\)</span> de Student.</p>
 <p>Considere uma população descrita por uma variável aleatória normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\sigma^2\)</span>: <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span>. Nosso interesse é estimar a média <span class="math inline">\(\mu\)</span> a partir de uma amostra aleatória simples <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span>. Como visto anteriormente, a distribuição amostral de <span class="math inline">\(\bar X\)</span> é normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\frac{\sigma^2}{n}\)</span>, ou seja</p>
 <p><span class="math display">\[X\sim N(\mu,\sigma^2)\rightarrow \bar X \sim N\left(\mu,\frac{\sigma^2}{n}\right)\]</span>
-Asso, se o valor de <span class="math inline">\(\sigma\)</span> é conhecido, resulta que</p>
-<p><span class="math display">\[Z=\sqrt{n}\frac{\bar X-\mu}{\sigma}\sim N(0,1)\]</span></p>
-<p>e esse resultado foi utilizado na construção do intervalo de confiança para a média de uma população normal com variância conhecida, fornecendo o seguinte intervalo:</p>
-<p><span class="math display">\[\left[\bar X-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}};\bar X+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right].\]</span></p>
-<p>Suponhamos, agora, que a variância <span class="math inline">\(\sigma^2\)</span> não seja conhecida. Neste caso, temos que estimá-la (<span class="math inline">\(S^2\)</span>) com os dados amostrais. Foi demostrado que</p>
+No entanto, agora, a variância <span class="math inline">\(\sigma^2\)</span> não é conhecida. Neste caso, temos que estimá-la (<span class="math inline">\(S^2\)</span>) com os dados amostrais. Foi demostrado que</p>
 <p><span class="math display">\[S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2=\frac{1}{n-1}\left[\sum_{i=1}^{n}X_i^2-n\bar X^2\right]\]</span></p>
 <p>é um estimador não viesado para <span class="math inline">\(\sigma^2\)</span>. Isso significa que, se calculássemos o valor de <span class="math inline">\(S^2\)</span> para cada uma das possíveis amostras aleatórias simples de tamanho <span class="math inline">\(n\)</span>, a média desses valores seria igual a <span class="math inline">\(\sigma^2\)</span>. Dessa forma, <span class="math inline">\(S^2\)</span> é um “bom” estimador de <span class="math inline">\(\sigma^2\)</span> e podemos usá-lo como uma estimativa pontual de <span class="math inline">\(\sigma^2\)</span>. Como o desvio padrão é a raiz quadrada da variância, é natural perguntar: <span class="math inline">\(S\)</span> é um “bom” estimador de <span class="math inline">\(\sigma\)</span>, ou seja, <span class="math inline">\(S\)</span> é um estimador não-viesado de <span class="math inline">\(\sigma\)</span>? A resposta é NÃO, mas, para grandes amostras, o viés é pequeno, de modo que, em geral, usa-se <span class="math inline">\(S\)</span> como estimador de <span class="math inline">\(\sigma\)</span>. Sendo assim, é natural pensarmos em substituir o valor de <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(S\)</span> na expressão da Normal <span class="math inline">\(Z\)</span> e utilizarmos a estatística</p>
 <p><span class="math display">\[T=\sqrt{n}\frac{\bar X-\mu}{S}\]</span></p>
 <p>na construção de intervalos de confiança para <span class="math inline">\(\mu\)</span>. Isso é exatamente o que faremos, mas, ao introduzirmos <span class="math inline">\(S\)</span> no lugar de <span class="math inline">\(\sigma\)</span>, a distribuição amostral de <span class="math inline">\(T\)</span> deixa de ser normal e passa a ser uma distribuição <span class="math inline">\(t\)</span> de Student.</p>
-<div id="média-da-nmusigma2-sigma2-desconhecido" class="section level3" number="5.6.1">
-<h3><span class="header-section-number">5.6.1</span> Média da <span class="math inline">\(N(\mu,\sigma^2)\)</span>, <span class="math inline">\(\sigma^2\)</span> desconhecido</h3>
 <p>O intervalo de confiança para a média de uma população normal com variância desconhecida é obtido com base no seguinte resultado:</p>
 <p><span class="math display">\[T=\sqrt{n}\frac{\bar X-\mu}{S}\sim t_{n-1},\]</span></p>
 <p>onde <span class="math inline">\(S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2=\frac{1}{n-1}\left[\sum_{i=1}^{n}X_i^2-n\bar X^2\right].\)</span></p>
 <p>O número de graus de liberdade <span class="math inline">\(gl=n-1\)</span> resulta do fato de que, na soma que define <span class="math inline">\(S^2\)</span>, há apenas <span class="math inline">\(n-1\)</span> parcelas independentes, ou seja, dados <span class="math inline">\(S^2\)</span> e <span class="math inline">\(n-1\)</span> das parcelas <span class="math inline">\((X_i - \bar X)^2\)</span>, a <span class="math inline">\(n\)</span>-ésima parcela fica automaticamente determinada.</p>
+<div id="construindo-o-intervalo-de-confiança-1" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Construindo o intervalo de confiança</h3>
+<p>Vamos indicar por <span class="math inline">\(t_\alpha\)</span> a abscissa da curva t-student que deixa probabilidade (área) igual a <span class="math inline">\(\alpha\)</span> acima dela, portanto <span class="math inline">\(t_\frac{\alpha}{2}\)</span> deixa <span class="math inline">\(\frac{\alpha}{2}\)</span> acima. Veja a Figura abaixo. Temos, então, que <span class="math inline">\(P(T &gt; t_\frac{\alpha}{2})= \frac{\alpha}{2}\)</span>. Essa abscissa <span class="math inline">\(t_\frac{\alpha}{2}\)</span> é normalmente chamada de valor crítico.</p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-62-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Usando a simetria da densidade <span class="math inline">\(t\)</span>, temos o seguinte resultado:</p>
 <p><span class="math display">\[P\left(-t_{n,\alpha/2}\leq t_{n} \leq t_{n,\alpha/2}\right)=1-\alpha\]</span></p>
-<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-61-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Note que isso vale para a distribuição <span class="math inline">\(t\)</span> de student, em geral. Então, usando os resultados anteriories obtemos que</p>
+<p>Note que isso vale para a distribuição <span class="math inline">\(t\)</span> de student, em geral. Então, usando os resultados anteriores obtemos que</p>
 <p><span class="math display">\[P\left(-t_{n-1,\alpha/2}\leq \sqrt{n}\frac{\bar X-\mu}{S} \leq t_{n-1,\alpha/2}\right)=1-\alpha\]</span></p>
 <p>Mas isso é equivalente a</p>
 <p><span class="math display">\[P\left(-t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\leq \bar X-\mu \leq t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\right)=1-\alpha\]</span>
@@ -392,23 +497,22 @@ Asso, se o valor de <span class="math inline">\(\sigma\)</span> é conhecido, re
 <p><span class="math display">\[\left[\bar X-t_{n-1,\alpha/2}\frac{S}{\sqrt{n}};\bar X+t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\right],\]</span></p>
 <p>onde <span class="math inline">\(t_{n-1,\alpha/2}\)</span> é o valor crítico da distribuição <span class="math inline">\(t\)</span> de student com <span class="math inline">\(n-1\)</span> graus de liberdade que deixa a área <span class="math inline">\(\frac{\alpha}{2}\)</span> acima dela.</p>
 </div>
-</div>
-<div id="margem-de-erro-1" class="section level2" number="5.7">
-<h2><span class="header-section-number">5.7</span> Margem de Erro</h2>
+<div id="margem-de-erro-1" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Margem de Erro</h3>
 <p>Note, mais uma vez, a forma do intervalo de confiança:</p>
 <p><span class="math display">\[\bar X \pm\varepsilon,\]</span></p>
 <p>onde a margem de erro <span class="math inline">\(\varepsilon\)</span>, agora é definida em termos do valor crítico da distribuição <span class="math inline">\(t\)</span> e do erro padrão estimado de <span class="math inline">\(\bar X\)</span>:</p>
 <p><span class="math display">\[\varepsilon=t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}\]</span>.</p>
 </div>
-<div id="introdução-6" class="section level2" number="5.8">
-<h2><span class="header-section-number">5.8</span> Introdução</h2>
-<p>Anteriormente, foram apresentadas as idéias básicas da estimação por intervalos de confiança. Para ilustrar o princípio utilizado na construção de tais intervalos, consideramos a situação especial de estimação da média de uma população normal com variância conhecida. Neste caso, a distribuição amostral da média amostral é normal e foi com base nessa distribuição amostral normal que obtivemos o intervalo de confiança.</p>
-<p>No primeiro momento desta aula usaremos o teorema limite central, que garante que a distribuição amostral da proporção amostral pode ser aproximada por uma distribuição normal, desde que utilizemos amostras grandes.</p>
+<div id="determinação-do-tamanho-da-amostra-1" class="section level3" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Determinação do tamanho da amostra</h3>
+<p>XXX</p>
 </div>
-<div id="intervalo-de-confiança-para-a-proporção-populacional" class="section level2" number="5.9">
-<h2><span class="header-section-number">5.9</span> Intervalo de confiança para a proporção populacional</h2>
-<div id="ideias-básicas-2" class="section level3" number="5.9.1">
-<h3><span class="header-section-number">5.9.1</span> Ideias Básicas</h3>
+</div>
+<div id="i.c.-para-a-proporção-populacional" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> I.C. para a proporção populacional</h2>
+<p>Anteriormente, foram apresentadas as idéias básicas da estimação por intervalos de confiança. Para ilustrar o princípio utilizado na construção de tais intervalos, consideramos a situação especial de estimação da média de uma população normal com variância conhecida. Neste caso, a distribuição amostral da média amostral é normal e foi com base nessa distribuição amostral normal que obtivemos o intervalo de confiança.</p>
+<p>No primeiro momento desta seção usaremos o Teorema Central do Limite, que garante que a distribuição amostral da proporção amostral pode ser aproximada por uma distribuição normal, desde que utilizemos amostras grandes.</p>
 <p>O contexto de interesse é o seguinte: temos uma população em que cada elemento é classificado de acordo com a presença ou ausência de determinada característica. Em termos de variável aleatória, essa população é representada por uma v.a. de Bernoulli, isto é:</p>
 <p><span class="math display">\[
 X=\begin{cases}
@@ -430,9 +534,8 @@ X=\begin{cases}
 <p>ou equivalentemente</p>
 <p><span class="math display">\[\sqrt{n}\frac{\hat P - p}{\sqrt{p(1-p)}}\sim N(0,1)\]</span></p>
 <p>Vamos ver, agora, como usar esse resultado para obter um intervalo de confiança para a verdadeira proporção populacional <span class="math inline">\(p\)</span>.</p>
-</div>
-<div id="construção-do-ic" class="section level3" number="5.9.2">
-<h3><span class="header-section-number">5.9.2</span> Construção do IC</h3>
+<div id="construindo-o-intervalo-de-confiança-2" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Construindo o intervalo de confiança</h3>
 <p>O procedimento de construção do intervalo de confiança para a proporção populacional é totalmente análogo ao do intervalo de confiança para a média de uma população normal com variância conhecida, visto anteriormente. Assim, iremos usar a mesma notação, a saber: vamos representar por <span class="math inline">\(z_\alpha\)</span> a abscissa da curva normal padrão que deixa probabilidade (área) <span class="math inline">\(\alpha\)</span> acima dela. Como visto, temos o seguinte resultado, onde <span class="math inline">\(Z\sim N(0,1)\)</span>:</p>
 <p><span class="math display">\[P\left(-z_\frac{\alpha}{2}\leq Z \leq z_\frac{\alpha}{2}\right)=1-\alpha\]</span></p>
 <p>Como o resultado acima vale para qualquer variável aleatória <span class="math inline">\(N(0,1)\)</span>, podemos usar para obter</p>
@@ -440,10 +543,13 @@ X=\begin{cases}
 <p>e, portanto</p>
 <p><span class="math display">\[P\left(-z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq \hat P - p \leq z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha\]</span></p>
 <p><span class="math display">\[P\left(-\hat P -z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq - p \leq -\hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha\]</span></p>
-<p><span class="math display">\[P\left(\hat P - z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq p \leq \hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha\]</span>
-Como no caso da média, chegamos a uma expressão do seguinte tipo:</p>
+<p><span class="math display">\[P\left(\hat P - z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq p \leq \hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha\]</span></p>
+<p>Como no caso da média, chegamos a uma expressão do seguinte tipo:</p>
 <p><span class="math display">\[P(\hat P -\varepsilon\leq p\leq\hat P + \varepsilon)=1-\alpha\]</span></p>
 <p>onde <span class="math inline">\(\varepsilon=z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\)</span></p>
+</div>
+<div id="margem-de-erro-2" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Margem de Erro</h3>
 <p>Analisando a margem de erro, podemos ver uma diferença fundamental entre o IC para a proporção e para a média: a margem de erro da proporção amostral depende do parâmetro desconhecido <span class="math inline">\(p\)</span>. Na prática, para construir o intervalo de confiança, temos que substituir esse valor por alguma estimativa.</p>
 <p>Existem 3 abordagens possíveis:</p>
 <ol style="list-style-type: decimal">
@@ -458,10 +564,10 @@ Como no caso da média, chegamos a uma expressão do seguinte tipo:</p>
 <p><span class="math display">\[\hat p \pm z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}}\]</span></p>
 <p>Seja <span class="math inline">\(X\sim Bernoulli(p)\)</span>. Se <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span> é uma amostra aleatória dessa população, então o intervalo de confiança de nível de confiança <span class="math inline">\(1-\alpha\)</span> para a proporção populacional <span class="math inline">\(p\)</span> é dado por</p>
 <p><span class="math display">\[\left[\hat P - z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}};\hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}}\right],\]</span></p>
-<p>onde <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span> é a abcissa da curva normal padrão que deixa a área <span class="math inline">\(\frac{\alpha}{2}\)</span> acima dela e <span class="math inline">\(\hat p_0\)</span> é alguma estimativa para o verdadeiro valor de <span class="math inline">\(p\)</span>.</p>
+<p>onde <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span> é a abscissa da curva normal padrão que deixa a área <span class="math inline">\(\frac{\alpha}{2}\)</span> acima dela e <span class="math inline">\(\hat p_0\)</span> é alguma estimativa para o verdadeiro valor de <span class="math inline">\(p\)</span>.</p>
 </div>
-<div id="determinação-do-tamanho-da-amostra" class="section level3" number="5.9.3">
-<h3><span class="header-section-number">5.9.3</span> Determinação do tamanho da amostra</h3>
+<div id="determinação-do-tamanho-da-amostra-2" class="section level3" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Determinação do tamanho da amostra</h3>
 <p>Uma questão que se coloca freqüentemente é: qual o tamanho da amostra necessário para se estimar uma proporção <span class="math inline">\(p\)</span> com uma margem de erro <span class="math inline">\(\varepsilon\)</span> e nível de confiança <span class="math inline">\(1-\alpha\)</span>? Vamos analisar a expressão da margem de erro:</p>
 <p><span class="math display">\[\varepsilon=z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\]</span></p>
 <p>Resolvendo para <span class="math inline">\(n\)</span>, obtemos que</p>
@@ -472,20 +578,17 @@ Como no caso da média, chegamos a uma expressão do seguinte tipo:</p>
 <p><span class="math display">\[n=\left(0,5\times \frac{z_{\frac{\alpha}{2}}}{\varepsilon}\right)^2\]</span></p>
 </div>
 </div>
-<div id="intervalo-de-confiança-para-a-variância-da-nmusigma2" class="section level2" number="5.10">
-<h2><span class="header-section-number">5.10</span> Intervalo de confiança para a variância da <span class="math inline">\(N(\mu,\sigma^2)\)</span></h2>
+<div id="intervalo-de-confiança-para-a-variância-de-uma-normal" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Intervalo de confiança para a variância de uma Normal</h2>
 <p>Nesta parte você completará seu estudo básico sobre intervalos de confiança, analisando o problema de estimação da variância de uma população normal. Como antes, este intervalo se baseará na distribuição amostral de um estimador não-viesado para <span class="math inline">\(\sigma^2\)</span>, a saber, <span class="math inline">\(S^2\)</span>. Como a variância é um número não negativo, essa distribuição não é simétrica e está definida apenas para valores não-negativos.</p>
-<div id="ideias-básicas-3" class="section level3" number="5.10.1">
-<h3><span class="header-section-number">5.10.1</span> Ideias básicas</h3>
 <p>O contexto subjacente é o seguinte: a partir de uma amostra aleatória simples <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span> retirada de uma população normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\sigma^2\)</span> queremos construir um intervalo de confiança para <span class="math inline">\(\sigma^2\)</span>. A hipótese de normalidade da população é fundamental aqui. Assim como no caso da média, temos que usar a distribuição amostral de algum estimador. Neste caso, o estimador é <span class="math inline">\(S^2\)</span> e o resultado importate é o seguinte: <span class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\)</span> tem distribuição qui-quadrado com <span class="math inline">\(n-1\)</span> graus de liberdade:</p>
 <p><span class="math display">\[\frac{(n-1)S^2}{\sigma^2}\sim\chi^2_{n-1}\]</span></p>
-</div>
-<div id="construção-do-ic-1" class="section level3" number="5.10.2">
-<h3><span class="header-section-number">5.10.2</span> Construção do IC</h3>
+<div id="construindo-o-intervalo-de-confiança-3" class="section level3" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Construindo o intervalo de confiança</h3>
 <p>Como no caso da distribuição <span class="math inline">\(t\)</span>-Student e também da distribuição Normal, vamos definir o valor crítico <span class="math inline">\(\chi^2_{n;\alpha}\)</span> como a abscissa da distribuição qui-quadrado com <span class="math inline">\(n\)</span> graus de liberdade que deixa probabilidade <span class="math inline">\(\alpha\)</span> acima dela.</p>
-<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-62-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Com essa definição, podemos ver que a abscissa <span class="math inline">\(\chi^2_{n;\alpha/2}\)</span> deixa probabilidade <span class="math inline">\(\alpha/2\)</span> acima dela e a abcissa <span class="math inline">\(\chi^2_{n;1-\alpha/2}\)</span> deixa probabilidade <span class="math inline">\(\alpha/2\)</span> abaixo dela.</p>
 <p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-63-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Com essa definição, podemos ver que a abscissa <span class="math inline">\(\chi^2_{n;\alpha/2}\)</span> deixa probabilidade <span class="math inline">\(\alpha/2\)</span> acima dela e a abscissa <span class="math inline">\(\chi^2_{n;1-\alpha/2}\)</span> deixa probabilidade <span class="math inline">\(\alpha/2\)</span> abaixo dela.</p>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-64-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Logo,</p>
 <p><span class="math display">\[P\left(\chi^2_{n;\frac{\alpha}{2}}\leq \chi^2_{n} \leq \chi^2_{n;1-\frac{\alpha}{2}}\right)=1-\alpha\]</span></p>
 <p>Como o resultado acima vale para qualquer distribuição qui-quadrado, podemos usar o resultado anterior para escrever</p>
@@ -497,15 +600,15 @@ Como no caso da média, chegamos a uma expressão do seguinte tipo:</p>
 <p>Seja <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> uma população normal. Se <span class="math inline">\(X_1,X_2,\ldots,X_n\)</span> é uma amostra aleatória dessa população, então o intervalo de confiança de nível de confiança <span class="math inline">\(1-\alpha\)</span> para a variância populacional <span class="math inline">\(\sigma^2\)</span> é dado por</p>
 <p><span class="math display">\[\left[\frac{(n-1)S^2}{\chi^2_{n-1;1-\frac{\alpha}{2}}};\frac{(n-1)S^2}{\chi^2_{n-1;\frac{\alpha}{2}}}\right],\]</span></p>
 <p>onde <span class="math inline">\(\chi^2_{n-1;\frac{\alpha}{2}}\)</span> é o valor crítico da distribuição qui-quadrado com <span class="math inline">\(n-1\)</span> graus de liberdade que deixa a área <span class="math inline">\(\frac{\alpha}{2}\)</span> abaixo dela e <span class="math inline">\(\chi^2_{n-1;1-\frac{\alpha}{2}}\)</span> é o valor crítico da distribuição qui-quadrado com <span class="math inline">\(n-1\)</span> graus de liberdade que deixa a área <span class="math inline">\(\frac{\alpha}{2}\)</span> acima dela.</p>
+</div>
+<div id="margem-de-erro-3" class="section level3" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Margem de Erro</h3>
+<p>XXX</p>
+</div>
+<div id="determinação-do-tamanho-da-amostra-3" class="section level3" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> Determinação do tamanho da amostra</h3>
+<p>XXX</p>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Cota, Wesley. 2020. <span>“Monitoring the Number of <span>COVID</span>-19 Cases and Deaths in Brazil at Municipal and Federative Units Level.”</span> <em><span>SciELOPreprints:362</span></em>, May. <a href="https://doi.org/10.1590/scielopreprints.362">https://doi.org/10.1590/scielopreprints.362</a>.
-</div>
-<div class="csl-entry">
-R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -514,8 +617,8 @@ R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</
           </div>
         </div>
       </div>
-<a href="distribuições-amostrais-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="distribuições-amostrais-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="teste-de-hipóteses.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

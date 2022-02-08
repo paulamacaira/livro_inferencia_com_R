@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 7 Inferência Estatística para Duas Populações | Inferência Estatística com R</title>
+  <meta name="description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 7 Inferência Estatística para Duas Populações | Inferência Estatística com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://paulamacaira.github.io/livro_inferencia_com_R/" />
+  <meta property="og:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+  <meta property="og:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 7 Inferência Estatística para Duas Populações | Inferência Estatística com R" />
+  
+  <meta name="twitter:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="twitter:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+
+<meta name="author" content="P. Maçaira, L. Bastos, S. Aguilar &amp; I. Peres" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="teste-de-hipóteses.html"/>
+<link rel="next" href="análise-de-variância-anova.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Inferência Estatística com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefácio</a></li>
+<li class="chapter" data-level="1" data-path="analise_descritiva.html"><a href="analise_descritiva.html"><i class="fa fa-check"></i><b>1</b> Análise Descritiva</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coleta-e-armazenamento-de-dados"><i class="fa fa-check"></i><b>1.1</b> Coleta e Armazenamento de Dados</a></li>
+<li class="chapter" data-level="1.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>1.2</b> Tipos de Variáveis</a></li>
+<li class="chapter" data-level="1.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-quantitativas"><i class="fa fa-check"></i><b>1.3</b> Variáveis Quantitativas</a></li>
+<li class="chapter" data-level="1.4" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-qualitativas-ou-categóricas"><i class="fa fa-check"></i><b>1.4</b> Variáveis Qualitativas (ou categóricas)</a></li>
+<li class="chapter" data-level="1.5" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>1.5</b> Medidas de Tendência Central</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#média-aritmética-simples"><i class="fa fa-check"></i><b>1.5.1</b> Média Aritmética Simples</a></li>
+<li class="chapter" data-level="1.5.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#mediana"><i class="fa fa-check"></i><b>1.5.2</b> Mediana</a></li>
+<li class="chapter" data-level="1.5.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#moda"><i class="fa fa-check"></i><b>1.5.3</b> Moda</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-variabilidade"><i class="fa fa-check"></i><b>1.6</b> Medidas de Variabilidade</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#amplitude-total"><i class="fa fa-check"></i><b>1.6.1</b> Amplitude Total</a></li>
+<li class="chapter" data-level="1.6.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#desvio-padrão"><i class="fa fa-check"></i><b>1.6.2</b> Desvio Padrão</a></li>
+<li class="chapter" data-level="1.6.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coeficiente-de-variação"><i class="fa fa-check"></i><b>1.6.3</b> Coeficiente de Variação</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-posição"><i class="fa fa-check"></i><b>1.7</b> Medidas de Posição</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#percentis"><i class="fa fa-check"></i><b>1.7.1</b> Percentis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="analise_descritiva.html"><a href="analise_descritiva.html#referências"><i class="fa fa-check"></i><b>1.8</b> Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-gráfica.html"><a href="análise-gráfica.html"><i class="fa fa-check"></i><b>2</b> Análise Gráfica</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-qualitativas---nominais-e-ordinais"><i class="fa fa-check"></i><b>2.1</b> Variáveis Qualitativas - Nominais e Ordinais</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-discretas"><i class="fa fa-check"></i><b>2.2</b> Variáveis Quantitativas Discretas</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-contínuas"><i class="fa fa-check"></i><b>2.3</b> Variáveis Quantitativas Contínuas</a></li>
+<li class="chapter" data-level="2.4" data-path="análise-gráfica.html"><a href="análise-gráfica.html#histograma"><i class="fa fa-check"></i><b>2.4</b> Histograma</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#tendência-central"><i class="fa fa-check"></i><b>2.4.1</b> Tendência Central</a></li>
+<li class="chapter" data-level="2.4.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variabilidade"><i class="fa fa-check"></i><b>2.4.2</b> Variabilidade</a></li>
+<li class="chapter" data-level="2.4.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#forma"><i class="fa fa-check"></i><b>2.4.3</b> Forma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="análise-gráfica.html"><a href="análise-gráfica.html#boxplot"><i class="fa fa-check"></i><b>2.5</b> Boxplot</a></li>
+<li class="chapter" data-level="2.6" data-path="análise-gráfica.html"><a href="análise-gráfica.html#diagrama-de-dispersão"><i class="fa fa-check"></i><b>2.6</b> Diagrama de Dispersão</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-1"><i class="fa fa-check"></i><b>2.6.1</b> Exemplo 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-2"><i class="fa fa-check"></i><b>2.6.2</b> Exemplo 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="análise-gráfica.html"><a href="análise-gráfica.html#séries-temporais"><i class="fa fa-check"></i><b>2.7</b> Séries Temporais</a></li>
+<li class="chapter" data-level="2.8" data-path="análise-gráfica.html"><a href="análise-gráfica.html#gráfico-de-radar"><i class="fa fa-check"></i><b>2.8</b> Gráfico de Radar</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html"><i class="fa fa-check"></i><b>3</b> Conceitos Básicos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#população"><i class="fa fa-check"></i><b>3.1</b> População</a></li>
+<li class="chapter" data-level="3.2" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#amostra"><i class="fa fa-check"></i><b>3.2</b> Amostra</a></li>
+<li class="chapter" data-level="3.3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#estatísticas-e-parâmetros"><i class="fa fa-check"></i><b>3.3</b> Estatísticas e Parâmetros</a></li>
+<li class="chapter" data-level="3.4" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#distribuições-amostrais"><i class="fa fa-check"></i><b>3.4</b> Distribuições Amostrais</a></li>
+<li class="chapter" data-level="3.5" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#propriedades-dos-estimadores"><i class="fa fa-check"></i><b>3.5</b> Propriedades dos Estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html"><i class="fa fa-check"></i><b>4</b> Distribuições Amostrais</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-média-amostral"><i class="fa fa-check"></i><b>4.1</b> Distribuição da Média Amostral</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando"><i class="fa fa-check"></i><b>4.1.1</b> Visualizando</a></li>
+<li class="chapter" data-level="4.1.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#prova"><i class="fa fa-check"></i><b>4.1.2</b> Prova</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#teorema-central-do-limite"><i class="fa fa-check"></i><b>4.2</b> Teorema Central do Limite</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-1"><i class="fa fa-check"></i><b>4.2.1</b> Visualizando</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-variância-amostral"><i class="fa fa-check"></i><b>4.3</b> Distribuição da Variância Amostral</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-qui-quadrado"><i class="fa fa-check"></i><b>4.3.1</b> Distribuição Qui-quadrado</a></li>
+<li class="chapter" data-level="4.3.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-2"><i class="fa fa-check"></i><b>4.3.2</b> Visualizando</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-proporção-amostral"><i class="fa fa-check"></i><b>4.4</b> Distribuição da Proporção Amostral</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-3"><i class="fa fa-check"></i><b>4.4.1</b> Visualizando</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html"><i class="fa fa-check"></i><b>5</b> Intervalo de Confiança</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideia-geral"><i class="fa fa-check"></i><b>5.1</b> Ideia Geral</a></li>
+<li class="chapter" data-level="5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-média-de-uma-normal-com-variância-conhecida"><i class="fa fa-check"></i><b>5.2</b> I.C. para a média de uma Normal com variância conhecida</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança"><i class="fa fa-check"></i><b>5.2.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.2.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro"><i class="fa fa-check"></i><b>5.2.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.2.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra"><i class="fa fa-check"></i><b>5.2.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-média-de-uma-normal-com-variância-desconhecida"><i class="fa fa-check"></i><b>5.3</b> I.C. para a média de uma Normal com variância desconhecida</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-1"><i class="fa fa-check"></i><b>5.3.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.3.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-1"><i class="fa fa-check"></i><b>5.3.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.3.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-1"><i class="fa fa-check"></i><b>5.3.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-proporção-populacional"><i class="fa fa-check"></i><b>5.4</b> I.C. para a proporção populacional</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-2"><i class="fa fa-check"></i><b>5.4.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.4.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-2"><i class="fa fa-check"></i><b>5.4.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.4.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-2"><i class="fa fa-check"></i><b>5.4.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#intervalo-de-confiança-para-a-variância-de-uma-normal"><i class="fa fa-check"></i><b>5.5</b> Intervalo de confiança para a variância de uma Normal</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-3"><i class="fa fa-check"></i><b>5.5.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-3"><i class="fa fa-check"></i><b>5.5.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-3"><i class="fa fa-check"></i><b>5.5.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html"><i class="fa fa-check"></i><b>6</b> Teste de Hipóteses</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#ideia-geral-1"><i class="fa fa-check"></i><b>6.1</b> Ideia Geral</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-nula"><i class="fa fa-check"></i><b>6.1.1</b> Hipótese nula</a></li>
+<li class="chapter" data-level="6.1.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-alternativa"><i class="fa fa-check"></i><b>6.1.2</b> Hipótese alternativa</a></li>
+<li class="chapter" data-level="6.1.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#estatística-de-teste"><i class="fa fa-check"></i><b>6.1.3</b> Estatística de teste</a></li>
+<li class="chapter" data-level="6.1.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#tipos-de-erro"><i class="fa fa-check"></i><b>6.1.4</b> Tipos de erro</a></li>
+<li class="chapter" data-level="6.1.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#regra-de-decisão"><i class="fa fa-check"></i><b>6.1.5</b> Regra de decisão</a></li>
+<li class="chapter" data-level="6.1.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#região-crítica"><i class="fa fa-check"></i><b>6.1.6</b> Região crítica</a></li>
+<li class="chapter" data-level="6.1.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#cco-e-poder-do-teste"><i class="fa fa-check"></i><b>6.1.7</b> CCO e Poder do Teste</a></li>
+<li class="chapter" data-level="6.1.8" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo"><i class="fa fa-check"></i><b>6.1.8</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-média-de-uma-normal-com-variância-conhecida"><i class="fa fa-check"></i><b>6.2</b> T.H. para a média de uma Normal com variância conhecida</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses"><i class="fa fa-check"></i><b>6.2.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.2.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#teste-de-hipóteses-vs-intervalo-de-confiança"><i class="fa fa-check"></i><b>6.2.2</b> Teste de Hipóteses vs Intervalo de Confiança</a></li>
+<li class="chapter" data-level="6.2.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor"><i class="fa fa-check"></i><b>6.2.3</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.2.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-3"><i class="fa fa-check"></i><b>6.2.4</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-média-de-uma-normal-com-variância-desconhecida"><i class="fa fa-check"></i><b>6.3</b> T.H. para a média de uma Normal com variância desconhecida</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-1"><i class="fa fa-check"></i><b>6.3.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.3.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor-1"><i class="fa fa-check"></i><b>6.3.2</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.3.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-4"><i class="fa fa-check"></i><b>6.3.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-proporção-populacional"><i class="fa fa-check"></i><b>6.4</b> T.H. para a proporção populacional</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-2"><i class="fa fa-check"></i><b>6.4.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.4.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor-2"><i class="fa fa-check"></i><b>6.4.2</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-5"><i class="fa fa-check"></i><b>6.4.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-variância-de-uma-normal"><i class="fa fa-check"></i><b>6.5</b> T.H. para a variância de uma Normal</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-3"><i class="fa fa-check"></i><b>6.5.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.5.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p"><i class="fa fa-check"></i><b>6.5.2</b> Valor P</a></li>
+<li class="chapter" data-level="6.5.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-6"><i class="fa fa-check"></i><b>6.5.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-adequação-de-ajuste-goodness-of-fit"><i class="fa fa-check"></i><b>6.6</b> T.H. Adequação de Ajuste (Goodness of Fit)</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-4"><i class="fa fa-check"></i><b>6.6.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.6.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-7"><i class="fa fa-check"></i><b>6.6.2</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-tabela-de-contingência"><i class="fa fa-check"></i><b>6.7</b> T.H. para a Tabela de Contingência</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-5"><i class="fa fa-check"></i><b>6.7.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.7.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-8"><i class="fa fa-check"></i><b>6.7.2</b> Exemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html"><i class="fa fa-check"></i><b>7</b> Inferência Estatística para Duas Populações</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-médias-de-distribuições-normais"><i class="fa fa-check"></i><b>7.1</b> Comparação das médias de distribuições Normais</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#variâncias-conhecidas"><i class="fa fa-check"></i><b>7.1.1</b> Variâncias Conhecidas</a></li>
+<li class="chapter" data-level="7.1.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#variâncias-desconhecidas"><i class="fa fa-check"></i><b>7.1.2</b> Variâncias Desconhecidas</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-variâncias-de-distribuições-normais"><i class="fa fa-check"></i><b>7.2</b> Comparação das variâncias de distribuições Normais</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#teste-de-hipóteses-2"><i class="fa fa-check"></i><b>7.2.1</b> Teste de hipóteses</a></li>
+<li class="chapter" data-level="7.2.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#intervalo-de-confiança-2"><i class="fa fa-check"></i><b>7.2.2</b> Intervalo de Confiança</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-proporções-populacionais"><i class="fa fa-check"></i><b>7.3</b> Comparação das proporções populacionais</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#teste-de-hipóteses-3"><i class="fa fa-check"></i><b>7.3.1</b> Teste de hipóteses</a></li>
+<li class="chapter" data-level="7.3.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#intervalo-de-confiança-3"><i class="fa fa-check"></i><b>7.3.2</b> Intervalo de Confiança</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html"><i class="fa fa-check"></i><b>8</b> Análise de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#anova-para-um-único-fator"><i class="fa fa-check"></i><b>8.1</b> ANOVA para um único fator</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#partição-da-variabilidade-total"><i class="fa fa-check"></i><b>8.1.1</b> Partição da variabilidade total</a></li>
+<li class="chapter" data-level="8.1.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#construção-do-teste-de-hipóteses"><i class="fa fa-check"></i><b>8.1.2</b> Construção do teste de hipóteses</a></li>
+<li class="chapter" data-level="8.1.3" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#exemplo-19"><i class="fa fa-check"></i><b>8.1.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#anova-para-dois-fatores"><i class="fa fa-check"></i><b>8.2</b> ANOVA para dois fatores</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#partição-da-variabilidade-total-1"><i class="fa fa-check"></i><b>8.2.1</b> Partição da variabilidade total</a></li>
+<li class="chapter" data-level="8.2.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#construção-do-teste-de-hipóteses-1"><i class="fa fa-check"></i><b>8.2.2</b> Construção do teste de hipóteses</a></li>
+<li class="chapter" data-level="8.2.3" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#exemplo-continuação"><i class="fa fa-check"></i><b>8.2.3</b> Exemplo (continuação)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regressão-linear.html"><a href="regressão-linear.html"><i class="fa fa-check"></i><b>9</b> Regressão Linear</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="regressão-linear.html"><a href="regressão-linear.html#gráficos-úteis"><i class="fa fa-check"></i><b>9.1</b> Gráficos úteis</a></li>
+<li class="chapter" data-level="9.2" data-path="regressão-linear.html"><a href="regressão-linear.html#modelo-estatístico"><i class="fa fa-check"></i><b>9.2</b> Modelo estatístico</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="regressão-linear.html"><a href="regressão-linear.html#efeito-das-interações"><i class="fa fa-check"></i><b>9.2.1</b> Efeito das interações</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regressão-linear.html"><a href="regressão-linear.html#suposições-para-o-modelo"><i class="fa fa-check"></i><b>9.2.2</b> Suposições para o modelo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regressão-linear.html"><a href="regressão-linear.html#representação-matricial"><i class="fa fa-check"></i><b>9.3</b> Representação Matricial</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="regressão-linear.html"><a href="regressão-linear.html#estimação-dos-parâmetros-do-modelo"><i class="fa fa-check"></i><b>9.3.1</b> Estimação dos parâmetros do modelo</a></li>
+<li class="chapter" data-level="9.3.2" data-path="regressão-linear.html"><a href="regressão-linear.html#propriedades-dos-estimadores-1"><i class="fa fa-check"></i><b>9.3.2</b> Propriedades dos estimadores</a></li>
+<li class="chapter" data-level="9.3.3" data-path="regressão-linear.html"><a href="regressão-linear.html#exemplo-20"><i class="fa fa-check"></i><b>9.3.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-variância-anova-1"><i class="fa fa-check"></i><b>9.4</b> Análise de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="regressão-linear.html"><a href="regressão-linear.html#exemplo-continuação-1"><i class="fa fa-check"></i><b>9.4.1</b> Exemplo (continuação)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="regressão-linear.html"><a href="regressão-linear.html#medidas-de-associação"><i class="fa fa-check"></i><b>9.5</b> Medidas de Associação</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="regressão-linear.html"><a href="regressão-linear.html#coeficiente-de-determinação-múltiplo-r2"><i class="fa fa-check"></i><b>9.5.1</b> Coeficiente de Determinação Múltiplo (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="regressão-linear.html"><a href="regressão-linear.html#coeficiente-de-determinação-ajustado-r2_a"><i class="fa fa-check"></i><b>9.5.2</b> Coeficiente de Determinação Ajustado (<span class="math inline">\(R^2_a\)</span>)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="regressão-linear.html"><a href="regressão-linear.html#testes-de-hipóteses-para-os-coeficientes-da-regressão"><i class="fa fa-check"></i><b>9.6</b> Testes de hipóteses para os coeficientes da regressão</a></li>
+<li class="chapter" data-level="9.7" data-path="regressão-linear.html"><a href="regressão-linear.html#intervalo-de-confiança-para-os-coeficientes-da-regressão"><i class="fa fa-check"></i><b>9.7</b> Intervalo de confiança para os coeficientes da regressão</a></li>
+<li class="chapter" data-level="9.8" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-de-variáveis-regressão-linear-múltipla"><i class="fa fa-check"></i><b>9.8</b> Seleção de Variáveis (Regressão Linear Múltipla)</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-de-todos-os-modelos-possíveis"><i class="fa fa-check"></i><b>9.8.1</b> Seleção de todos os modelos possíveis</a></li>
+<li class="chapter" data-level="9.8.2" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-automática"><i class="fa fa-check"></i><b>9.8.2</b> Seleção automática</a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="regressão-linear.html"><a href="regressão-linear.html#variáveis-dummy"><i class="fa fa-check"></i><b>9.9</b> Variáveis Dummy</a></li>
+<li class="chapter" data-level="9.10" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-resíduos"><i class="fa fa-check"></i><b>9.10</b> Análise de Resíduos</a>
+<ul>
+<li class="chapter" data-level="9.10.1" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-normalidade"><i class="fa fa-check"></i><b>9.10.1</b> Diagnóstico de normalidade</a></li>
+<li class="chapter" data-level="9.10.2" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-homocedasticidade"><i class="fa fa-check"></i><b>9.10.2</b> Diagnóstico de homocedasticidade</a></li>
+<li class="chapter" data-level="9.10.3" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-independência"><i class="fa fa-check"></i><b>9.10.3</b> Diagnóstico de independência</a></li>
+<li class="chapter" data-level="9.10.4" data-path="regressão-linear.html"><a href="regressão-linear.html#valores-extremos"><i class="fa fa-check"></i><b>9.10.4</b> Valores extremos</a></li>
+<li class="chapter" data-level="9.10.5" data-path="regressão-linear.html"><a href="regressão-linear.html#teste-da-falta-de-ajuste-lack-of-fit"><i class="fa fa-check"></i><b>9.10.5</b> Teste da falta de ajuste (<em>lack of fit</em>)</a></li>
+<li class="chapter" data-level="9.10.6" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-colinearidade-e-multicolinearidade"><i class="fa fa-check"></i><b>9.10.6</b> Análise de Colinearidade e Multicolinearidade</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://paulamacaira.github.io/livro_inferencia_com_R" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Inferência Estatística com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inferência-estatística-para-duas-populações" class="section level1" number="7">
+<h1><span class="header-section-number">Capítulo 7</span> Inferência Estatística para Duas Populações</h1>
+<p>Até aqui foram apresentados testes de hipóteses e intervalos de confiança para o parâmetro de uma única população (a média <span class="math inline">\(\mu\)</span>, a variância <span class="math inline">\(\sigma^2\)</span> ou uma proporção <span class="math inline">\(p\)</span>). A partir de agora iremos estender aqueles resultados para o caso de duas populações independentes.</p>
+<div id="comparação-das-médias-de-distribuições-normais" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Comparação das médias de distribuições Normais</h2>
+<p>Suponha que queremos comparar duas médias de duas populações independentes e ambas com distribuição Normal. Da população 1 retiramos uma amostra aleatória <span class="math inline">\(X_{11},\ldots,X_{1,n_1}\)</span> de tamanho <span class="math inline">\(n_1\)</span> e da população 2 retiramos uma amostra aleatória <span class="math inline">\(X_{21},\ldots,X_{2,n_2}\)</span> de tamanho <span class="math inline">\(n_2\)</span>.</p>
+<p>Vamos supor que <span class="math inline">\(X_1\sim N\left(\mu_1,\sigma^2_1\right)\)</span> e <span class="math inline">\(X_2\sim N\left(\mu_2,\sigma^2_2\right)\)</span>. Assim temos que</p>
+<p><span class="math display">\[\bar X_1 \sim N\left(\mu_1,\frac{\sigma^2_1}{n_1}\right)~~~~\text{e}~~~~\bar X_2 \sim N\left(\mu_2,\frac{\sigma^2_2}{n_2}\right).\]</span></p>
+<p>Além disso,</p>
+<p><span class="math display">\[\bar X_1 - \bar X_2 \sim N\left(\mu_1-\mu_2,\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}\right)\]</span></p>
+<p>Consideramos três casos distintos para o teste de hipóteses para comparação de duas médias. O primeiro caso em que temos as variâncias das populações conhecidas, o segundo as variâncias são desconhecidas, porém iguais e o terceiro caso em que temos as variâncias desconhecidas e distintas.</p>
+<div id="variâncias-conhecidas" class="section level3" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Variâncias Conhecidas</h3>
+<p>Consideraremos nesta seção as inferências estatísticas para a diferença de médias <span class="math inline">\(\mu_1-\mu_2\)</span> de duas distribuições normais, em que as variâncias são conhecidas. Assim, um estimador lógico de <span class="math inline">\(\mu_1-\mu_2\)</span> é a diferença das médias amostrais <span class="math inline">\(\bar X_1-\bar X_2\)</span>. Baseando-se nas propriedades de valores esperados,</p>
+<p><span class="math display">\[E(\bar X_1-\bar X_2)=\mu_1-\mu_2\]</span>
+<span class="math display">\[V(\bar X_1-\bar X_2)=V(\bar X_1)+V(\bar X_2)=\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}\]</span></p>
+<p>Portanto, podemos estabelecer que:</p>
+<p><span class="math display">\[Z=\frac{\bar X_1-\bar X_2-(\mu_1-\mu_2)}{\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}}\sim N(0,1)\]</span></p>
+<div id="teste-de-hipóteses-1" class="section level4" number="7.1.1.1">
+<h4><span class="header-section-number">7.1.1.1</span> Teste de Hipóteses</h4>
+<p>Estamos interessados em testar a hipótese nula: <span class="math inline">\(H_0: \mu_1-\mu_2=\Delta_0\)</span>, contra as seguintes hipóteses alternativas:</p>
+<ul>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 \ne \Delta_0\)</span></li>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 &gt; \Delta_0\)</span></li>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 &lt; \Delta_0\)</span></li>
+</ul>
+<p>A estatística de teste será</p>
+<p><span class="math display">\[z_0=\frac{\bar X_1-\bar X_2-\Delta_0}{\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}}\]</span></p>
+<p>Portanto, podemos estabelecer para um teste com nível de significância <span class="math inline">\(\alpha\)</span>:</p>
+<table>
+<colgroup>
+<col width="28%" />
+<col width="51%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hipótese Alternativa (<span class="math inline">\(H_1\)</span>)</th>
+<th>Região Crítica</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 \ne \Delta_0\)</span></td>
+<td><span class="math inline">\(z_0&lt;-z_{\frac{\alpha}{2}}\)</span> ou <span class="math inline">\(z_0&gt;z_{\frac{\alpha}{2}}\)</span></td>
+<td><span class="math inline">\(2\times P(Z&gt;|z_0|)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 &gt; \Delta_0\)</span></td>
+<td><span class="math inline">\(z_0&gt;z_{\alpha}\)</span></td>
+<td><span class="math inline">\(P(Z&gt;z_0)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 &lt; \Delta_0\)</span></td>
+<td><span class="math inline">\(z_0&lt;-z_{\alpha}\)</span></td>
+<td><span class="math inline">\(P(Z&lt;z_0)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="exemplo-9" class="section level5" number="7.1.1.1.1">
+<h5><span class="header-section-number">7.1.1.1.1</span> Exemplo</h5>
+<p>Uma pessoa que desenvolve produtos está interessada em reduzir o tempo de secagem do zarcão. Duas formulações de tinta são testadas; a formulação 1 tem uma química padrão e a formulação 2 tem um novo ingrediente para secagem, que deve reduzir o tempo de secagem. Da experiência, sabe-se que o desvio padrão do tempo de secagem é igual a oito minutos, e essa variabilidade inerente não deve ser afetada pela adição do novo ingrediente. Dez espécimes são pintados com a formulação 1 e outros dez espécimes são pintados com a formulação 2. Os vinte espécimes são pintados em uma ordem aleatória. Os tempos médios de secagem das duas amostras são <span class="math inline">\(\bar x_1=121\)</span> minutos e <span class="math inline">\(\bar x_2=112\)</span> minutos, respectivamente. Quais são as conclusões que o idealizador de produtos pode tirar sobre a eficiência do novo ingrediente, usando <span class="math inline">\(\alpha=0.05\)</span>?</p>
+<p>Solução:</p>
+<ul>
+<li><span class="math inline">\(H_0: \mu_1-\mu_2=0\rightarrow H_0: \mu_1=\mu_2\)</span> vs <span class="math inline">\(H_1: \mu_1&gt;\mu_2\)</span></li>
+<li><span class="math inline">\(z_0=\frac{121-112}{\sqrt{\frac{8^2}{10}+\frac{8^2}{10}}}=2.52\)</span></li>
+<li><span class="math inline">\(z_{0.05}=1.645\)</span></li>
+<li>Como <span class="math inline">\(z_0(2.52)&gt;z_{0.05}(1.64)\)</span>, devemos rejeitar <span class="math inline">\(H_0\)</span>, portanto há evidência a um nível de significância de 5% de que a formulação 2 reduz significativamente o tempo de secagem.</li>
+<li><span class="math inline">\(p-valor=P(Z&gt;2.52)=0.0059\)</span></li>
+</ul>
+</div>
+</div>
+<div id="intervalo-de-confiança-1" class="section level4" number="7.1.1.2">
+<h4><span class="header-section-number">7.1.1.2</span> Intervalo de Confiança</h4>
+<p>Se <span class="math inline">\(\bar x_1\)</span> e <span class="math inline">\(\bar x_2\)</span> forem as médias de duas amostras aleatórias independentes de tamanhos <span class="math inline">\(n_1\)</span> e <span class="math inline">\(n_2\)</span>, provenientes de populações com variâncias conhecidas <span class="math inline">\(\sigma_1^2\)</span> e <span class="math inline">\(\sigma_2^2\)</span>, respectivamente, então um intervalo de confiança de <span class="math inline">\(100(1-\alpha)\%\)</span> para <span class="math inline">\(\mu_1-\mu_2\)</span> é:</p>
+<p><span class="math display">\[(\bar x_1-\bar x_2) -z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}\leq \mu_1-\mu_2 \leq (\bar x_1-\bar x_2) +z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}\]</span></p>
+<div id="exemplo-10" class="section level5" number="7.1.1.2.1">
+<h5><span class="header-section-number">7.1.1.2.1</span> Exemplo</h5>
+<p>Testes de resistência à tensão foram feitos em dois tipos diferentes de estruturas de alumínio. Essas estruturas foram usadas na fabricação das asas de um avião comercial. De experiências passadas com o processo de fabricação dessas estruturas e com o procedimento de testes, os desvios-padrão das resistências à tensão são considerados conhecidos. Os dados obtidos são os seguintes: <span class="math inline">\(n_1=10, \bar x_1=87.6, \sigma_1=1, n_2=12, \bar x_2=74.5, \sigma_2=1.5\)</span>. Se <span class="math inline">\(\mu_1\)</span> e <span class="math inline">\(\mu_2\)</span> denotarem as resistências médias verdadeiras à tensão para os dois tipos da estrutura, construa um intervalo de confiança de 90% para a diferença na resistência média <span class="math inline">\(\mu_1-\mu_2\)</span>.</p>
+<p>Solução:</p>
+<ul>
+<li><span class="math inline">\(z_{0.05}=1.645\)</span></li>
+<li><span class="math inline">\((87.6-74.5) -1.645\sqrt{\frac{1^2}{10}+\frac{1.5^2}{12}}\leq \mu_1-\mu_2 \leq (87.6-74.5)+1.645\sqrt{\frac{1^2}{10}+\frac{1.5^2}{12}}\)</span></li>
+<li><span class="math inline">\(12.22 \leq \mu_1-\mu_2 \leq 13.98\)</span></li>
+</ul>
+<p>Note que o intervalo de confiança não inclui o zero, implicando que a resistência média da estrutura 1 (<span class="math inline">\(\mu_1\)</span>) excede a resistência média da estrutura 2 (<span class="math inline">\(\mu_2\)</span>). De fato, podemos estabelecer que estamos 90% confiantes de que a resistência média à tensão da estrutura 1 excede a resistência média da estrutura 2 por um valor entre 12.22 e 13.98 quilogramas por milímetro quadrado</p>
+</div>
+</div>
+</div>
+<div id="variâncias-desconhecidas" class="section level3" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Variâncias Desconhecidas</h3>
+<p>Consideraremos nesta seção as inferências estatísticas para a diferença de médias <span class="math inline">\(\mu_1-\mu_2\)</span> de duas distribuições normais, em que as variâncias são desconhecidas.</p>
+<p>Nesta situação, <strong>dois casos</strong> diferentes tem de ser tratados:</p>
+<ul>
+<li><strong>Caso 1</strong>: as variâncias das duas distribuições são desconhecidas, porém iguais;</li>
+<li><strong>Caso 2</strong>: as variâncias das duas distribuições são desconhecidas e não necessariamente iguais.</li>
+</ul>
+<p>Em ambos os casos, o estimador de <span class="math inline">\(\mu_1-\mu_2\)</span> é a diferença das médias amostrais <span class="math inline">\(\bar X_1-\bar X_2\)</span>.</p>
+<div id="caso-1-sigma2_1sigma2_2sigma2" class="section level4" number="7.1.2.1">
+<h4><span class="header-section-number">7.1.2.1</span> Caso 1: <span class="math inline">\(\sigma^2_1=\sigma^2_2=\sigma^2\)</span></h4>
+<p>Considerando</p>
+<p><span class="math display">\[S^2_p=\frac{(n_1-1)S^2_1+(n_2-1)S^2_2}{n_1+n_2-2}\]</span></p>
+<p>Podemos estabelecer</p>
+<p><span class="math display">\[T=\frac{\bar X_1-\bar X_2-(\mu_1-\mu_2)}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim T(n_1+n_2-2)\]</span></p>
+<p><strong>Teste de hipóteses</strong></p>
+<p>Estamos interessados em testar a hipótese nula:</p>
+<p><span class="math display">\[H_0: \mu_1-\mu_2=\Delta_0,\]</span></p>
+<p>contra as seguintes hipóteses alternativas:</p>
+<ul>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 \ne \Delta_0\)</span></li>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 &gt; \Delta_0\)</span></li>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 &lt; \Delta_0\)</span></li>
+</ul>
+<p>A estatística de teste é</p>
+<p><span class="math display">\[t_0=\frac{\bar X_1-\bar X_2-\Delta_0}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\]</span></p>
+<p>Portanto, podemos estabelecer para um teste com nível de significância <span class="math inline">\(\alpha\)</span>:</p>
+<table>
+<colgroup>
+<col width="24%" />
+<col width="58%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hipótese Alternativa (<span class="math inline">\(H_1\)</span>)</th>
+<th>Região Crítica</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 \ne \Delta_0\)</span></td>
+<td><span class="math inline">\(t_0&lt;-t_{\frac{\alpha}{2};n_1+n_2-2}\)</span> ou <span class="math inline">\(t_0&gt;t_{\frac{\alpha}{2};n_1+n_2-2}\)</span></td>
+<td><span class="math inline">\(2\times P(T&gt;|t_0|)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 &gt; \Delta_0\)</span></td>
+<td><span class="math inline">\(t_0&gt;t_{\alpha;n_1+n_2-2}\)</span></td>
+<td><span class="math inline">\(P(T&gt;t_0)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 &lt; \Delta_0\)</span></td>
+<td><span class="math inline">\(t_0&lt;-t_{\alpha;n_1+n_2-2}\)</span></td>
+<td><span class="math inline">\(P(T&lt;t_0)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="exemplo-11" class="section level5" number="7.1.2.1.1">
+<h5><span class="header-section-number">7.1.2.1.1</span> Exemplo</h5>
+<p>Dois catalisadores estão sendo analisados para determinar como eles afetam o rendimento médio de um processo químico. Especificamente, o catalisador 1 está corretamente em uso, mas o catalisador 2 é aceitável. Uma vez que o catalisador 2 é mais barato, ele deve ser adotado, desde que não mude o rendimento do processo. Um teste é feito em uma planta piloto, resultando em <span class="math inline">\(\bar x_1=92.255, \bar x_2=92.733, n_1=n_2=8, s_1=2.39, s_2=2.98\)</span>. Há alguma diferença entre os rendimentos médios? Use <span class="math inline">\(\alpha=0.05\)</span> e considere variâncias iguais.</p>
+<p><strong>Solução</strong></p>
+<ul>
+<li><span class="math inline">\(H_0: \mu_1=\mu_2\)</span> vs <span class="math inline">\(H_1: \mu_1\ne\mu_2\)</span></li>
+<li><span class="math inline">\(s^2_p=\frac{(8-1)2.39^2+(8-1)2.98^2}{8+8-2}=7.30\)</span></li>
+<li><span class="math inline">\(s_p=\sqrt{7.30}=2.70\)</span></li>
+<li><span class="math inline">\(t_0=\frac{92.255-92.733}{2.70\sqrt{\frac{1}{8}+\frac{1}{8}}}=-0.35\)</span></li>
+<li><span class="math inline">\(t_{0.025;14}=-2.14\)</span></li>
+<li><span class="math inline">\(p-valor=2\times P(T&gt;|-0.35|)=0.7315483\)</span></li>
+</ul>
+<p>Como <span class="math inline">\(t_0(-0.35)&lt;t_{0.025;14}(-2.14)\)</span>, não devemos rejeitar <span class="math inline">\(H_0\)</span>, portanto não há evidência a um nível de significância de 5% para concluir que o catasalidor 2 resulta em um rendimento médio diferente do catalisador 1.</p>
+<p><strong>Intervalo de Confiança</strong></p>
+<p>Se <span class="math inline">\(\bar x_1\)</span>, <span class="math inline">\(\bar x_2\)</span>, <span class="math inline">\(s_1^2\)</span> e <span class="math inline">\(s_2^2\)</span> forem as médias e as variâncias amostrais de duas amostras aleatórias independentes de tamanhos <span class="math inline">\(n_1\)</span> e <span class="math inline">\(n_2\)</span>, respectivamente, provenientes de duas populações normais independentes, com variâncias desconhecidas e iguais, então um intervalo de confiança de <span class="math inline">\(100(1-\alpha)\%\)</span> para <span class="math inline">\(\mu_1-\mu_2\)</span> é:</p>
+<p><span class="math display">\[\left[(\bar x_1-\bar x_2) -t_{\frac{\alpha}{2};n_1+n_2-2}S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\leq \mu_1-\mu_2 \leq (\bar x_1-\bar x_2) +t_{\frac{\alpha}{2};n_1+n_2-2}S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\right]\]</span></p>
+</div>
+<div id="exemplo-12" class="section level5" number="7.1.2.1.2">
+<h5><span class="header-section-number">7.1.2.1.2</span> Exemplo</h5>
+<p>Testes de resistência à tensão foram feitos em dois tipos diferentes de estruturas de alumínio. Essas estruturas foram usadas na fabricação das asas de um avião comercial. Os dados obtidos são os seguintes: <span class="math inline">\(n_1=10, \bar x_1=87.6, s_1=1, n_2=12, \bar x_2=74.5, s_2=1.5\)</span>. Se <span class="math inline">\(\mu_1\)</span> e <span class="math inline">\(\mu_2\)</span> denotarem as resistências médias verdadeiras à tensão para os dois tipos da estrutura, construa um intervalo de confiança de 90% para a diferença na resistência média <span class="math inline">\(\mu_1-\mu_2\)</span>.</p>
+<p><strong>Solução</strong></p>
+<ul>
+<li><span class="math inline">\(t_{0.05;20}=1.72\)</span></li>
+<li><span class="math inline">\(s^2_p=\frac{(10-1)1^2+(12-1)1.5^2}{10+12-2}=1.6875\)</span></li>
+<li><span class="math inline">\((87.6-74.5) -1.72\times 1.30\sqrt{\frac{1}{10}+\frac{1}{12}}\leq \mu_1-\mu_2 \leq (87.6-74.5) +1.72\times 1.30\sqrt{\frac{1}{10}+\frac{1}{12}}\)</span></li>
+<li><span class="math inline">\(12.14 \leq \mu_1-\mu_2 \leq 14.06\)</span></li>
+</ul>
+<p>Note que o intervalo de confiança não inclui o zero, implicando que a resistência média da estrutura 1 (<span class="math inline">\(\mu_1\)</span>) excede a resistência média da estrutura 2 (<span class="math inline">\(\mu_2\)</span>). De fato, podemos estabelecer que estamos 90% confiantes de que a resistência média à tensão da estrutura 1 excede a resistência média da estrutura 2 por um valor entre 12.14 e 14.06 quilogramas por milímetro quadrado</p>
+<p>Note que para o mesmo caso com as variâncias conhecidas, no capítulo anterior, o intervalo obtido é mais estreito, mostrando uma maior precisão.</p>
+</div>
+</div>
+<div id="caso-2-sigma2_1nesigma2_2" class="section level4" number="7.1.2.2">
+<h4><span class="header-section-number">7.1.2.2</span> Caso 2: <span class="math inline">\(\sigma^2_1\ne\sigma^2_2\)</span></h4>
+<p>Podemos estabelecer</p>
+<p><span class="math display">\[T=\frac{\bar X_1-\bar X_2-(\mu_1-\mu_2)}{\sqrt{\frac{S^2_1}{n_1}+\frac{S^2_2}{n_2}}}\sim T(v)\]</span></p>
+<p>Onde,</p>
+<p><span class="math display">\[v=\frac{\Big(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\Big)^2}{\frac{(s_1^2/n_1)^2}{n_1-1}+\frac{(s_2^2/n_2)^2}{n_2-1}}\]</span></p>
+<p>Se <span class="math inline">\(v\)</span> não for um número inteiro, arredonde para o menor inteiro mais próximo.</p>
+<p><strong>Teste de hipóteses</strong></p>
+<p>Estamos interessados em testar a hipótese nula:</p>
+<p><span class="math display">\[H_0: \mu_1-\mu_2=\Delta_0,\]</span></p>
+<p>contra as seguintes hipóteses alternativas:</p>
+<ul>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 \ne \Delta_0\)</span></li>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 &gt; \Delta_0\)</span></li>
+<li><span class="math inline">\(H_1: \mu_1-\mu_2 &lt; \Delta_0\)</span></li>
+</ul>
+<p>A estatística de teste é</p>
+<p><span class="math display">\[t_0=\frac{\bar X_1-\bar X_2-\Delta_0}{\sqrt{\frac{S^2_1}{n_1}+\frac{S^2_2}{n_2}}}\]</span></p>
+<p>Portanto, podemos estabelecer para um teste com nível de significância <span class="math inline">\(\alpha\)</span>:</p>
+<table>
+<colgroup>
+<col width="27%" />
+<col width="53%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hipótese Alternativa (<span class="math inline">\(H_1\)</span>)</th>
+<th>Região Crítica</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 \ne \Delta_0\)</span></td>
+<td><span class="math inline">\(t_0&lt;-t_{\frac{\alpha}{2};v}\)</span> ou <span class="math inline">\(t_0&gt;t_{\frac{\alpha}{2};v}\)</span></td>
+<td><span class="math inline">\(2\times P(T&gt;|t_0|)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 &gt; \Delta_0\)</span></td>
+<td><span class="math inline">\(t_0&gt;t_{\alpha;v}\)</span></td>
+<td><span class="math inline">\(P(T&gt;t_0)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \mu_1-\mu_2 &lt; \Delta_0\)</span></td>
+<td><span class="math inline">\(t_0&lt;-t_{\alpha;v}\)</span></td>
+<td><span class="math inline">\(P(T&lt;t_0)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="exemplo-13" class="section level5" number="7.1.2.2.1">
+<h5><span class="header-section-number">7.1.2.2.1</span> Exemplo</h5>
+<p>Dois catalisadores estão sendo analisados para determinar como eles afetam o rendimento médio de um processo químico. Especificamente, o catalisador 1 está corretamente em uso, mas o catalisador 2 é aceitável. Uma vez que o catalisador 2 é mais barato, ele deve ser adotado, desde que não mude o rendimento do processo. Um teste é feito em uma planta piloto, resultando em <span class="math inline">\(\bar x_1=92.255, \bar x_2=92.733, n_1=n_2=8, s_1=2.39, s_2=2.98\)</span>. Há alguma diferença entre os rendimentos médios? Use <span class="math inline">\(\alpha=0.05\)</span> e considere variâncias diferentes.</p>
+<p><strong>Solução</strong></p>
+<ul>
+<li><span class="math inline">\(H_0: \mu_1=\mu_2\)</span> vs <span class="math inline">\(H_1: \mu_1\ne\mu_2\)</span></li>
+<li><span class="math inline">\(v=\frac{\Big(\frac{2.39^2}{8}+\frac{2.98^2}{8}\Big)^2}{\frac{(2.39^2/8)^2}{8-1}+\frac{(2.98^2/8)^2}{8-1}}=13.34\approx13\)</span></li>
+<li><span class="math inline">\(t_0=\frac{92.255-92.733}{\sqrt{\frac{2.39^2}{8}+\frac{2.98^2}{8}}}=-0.35\)</span></li>
+<li><span class="math inline">\(t_{0.025;13}=-2.16\)</span></li>
+<li><span class="math inline">\(p-valor=2\times P(T&gt;|-0.35|)=0.7319441\)</span></li>
+</ul>
+<p>Como <span class="math inline">\(t_0(-0.35)&lt;t_{0.025;13}(-2.16)\)</span>, não devemos rejeitar <span class="math inline">\(H_0\)</span>, portanto não há evidência a um nível de significância de 5% para concluir que o catasalidor 2 resulta em um rendimento médio diferente do catalisador 1.</p>
+<p><strong>Intervalo de Confiança</strong></p>
+<p>Se <span class="math inline">\(\bar x_1\)</span>, <span class="math inline">\(\bar x_2\)</span>, <span class="math inline">\(s_1^2\)</span> e <span class="math inline">\(s_2^2\)</span> forem as médias e as variâncias amostrais de duas amostras aleatórias independentes de tamanhos <span class="math inline">\(n_1\)</span> e <span class="math inline">\(n_2\)</span>, respectivamente, provenientes de duas populações normais independentes, com variâncias desconhecidas e desiguais, então um intervalo de confiança de <span class="math inline">\(100(1-\alpha)\%\)</span> para <span class="math inline">\(\mu_1-\mu_2\)</span> é:</p>
+<p><span class="math display">\[\left[(\bar x_1-\bar x_2) -t_{\frac{\alpha}{2};v}\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}}\leq \mu_1-\mu_2 \leq (\bar x_1-\bar x_2) +t_{\frac{\alpha}{2};v}\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}}\right]\]</span></p>
+</div>
+<div id="exemplo-14" class="section level5" number="7.1.2.2.2">
+<h5><span class="header-section-number">7.1.2.2.2</span> Exemplo</h5>
+<p>Testes de resistência à tensão foram feitos em dois tipos diferentes de estruturas de alumínio. Essas estruturas foram usadas na fabricação das asas de um avião comercial. Os dados obtidos são os seguintes: <span class="math inline">\(n_1=10, \bar x_1=87.6, s_1=1, n_2=12, \bar x_2=74.5, s_2=1.5\)</span>. Se <span class="math inline">\(\mu_1\)</span> e <span class="math inline">\(\mu_2\)</span> denotarem as resistências médias verdadeiras à tensão para os dois tipos da estrutura, construa um intervalo de confiança de 90% para a diferença na resistência média <span class="math inline">\(\mu_1-\mu_2\)</span>.</p>
+<p><strong>Solução</strong></p>
+<ul>
+<li><span class="math inline">\(v=\frac{\Big(\frac{1^2}{10}+\frac{1.5^2}{12}\Big)^2}{\frac{(1^2/10)^2}{10-1}+\frac{(1.5^2/12)^2}{12-1}}=19.19055\approx19\)</span></li>
+<li><span class="math inline">\(t_{0.05;19}=1.73\)</span></li>
+<li><span class="math inline">\((87.6-74.5) -1.73\times \sqrt{\frac{1^2}{10}+\frac{1.5^2}{12}}\leq \mu_1-\mu_2 \leq (87.6-74.5) +1.73\times \sqrt{\frac{1^2}{10}+\frac{1.5^2}{12}}\)</span></li>
+<li><span class="math inline">\(12.17 \leq \mu_1-\mu_2 \leq 14.03\)</span></li>
+</ul>
+<p>Note que o intervalo de confiança não inclui o zero, implicando que a resistência média da estrutura 1 (<span class="math inline">\(\mu_1\)</span>) excede a resistência média da estrutura 2 (<span class="math inline">\(\mu_2\)</span>). De fato, podemos estabelecer que estamos 90% confiantes de que a resistência média à tensão da estrutura 1 excede a resistência média da estrutura 2 por um valor entre 12.17 e 14.03 quilogramas por milímetro quadrado.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="comparação-das-variâncias-de-distribuições-normais" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Comparação das variâncias de distribuições Normais</h2>
+<p>Suponha que queremos comparar as variâncias <span class="math inline">\(\sigma^2_1\)</span> e <span class="math inline">\(\sigma^2_2\)</span> de duas populações Normais independentes. Para isso, retiramos uma amostra aleatória <span class="math inline">\(X_{11},X_{12},\ldots,X_{1n_1}\)</span> da população 1, com distribuição <span class="math inline">\(N(\mu_1,\sigma^2_1)\)</span>, e uma amostra <span class="math inline">\(X_{21},X_{22},\ldots,X_{2n_2}\)</span> da população 2, com distribuição <span class="math inline">\(N(\mu_2,\sigma^2_2)\)</span>.</p>
+<p>Como vimos anteriormente,</p>
+<p><span class="math display">\[Q_1=\frac{n_1-1}{\sigma^2_1}s^2_1\sim\chi^2_{n_1-1}\]</span></p>
+<p><span class="math display">\[Q_2=\frac{n_2-1}{\sigma^2_2}s^2_2\sim\chi^2_{n_2-1}\]</span></p>
+<p>onde <span class="math inline">\(s^2_1\)</span> é a variância amostral da população 1 e <span class="math inline">\(s^2_2\)</span> a variância amostral da população 2. Neste caso, a expressão <span class="math inline">\(F\)</span></p>
+<p><span class="math display">\[F=\frac{\frac{Q_1}{n_1-1}}{\frac{Q_2}{n_2-1}}=\frac{\frac{s^2_1}{\sigma^2_1}}{\frac{s^2_2}{\sigma^2_2}}=\frac{s^2_1}{s^2_2}\frac{\sigma^2_2}{\sigma^2_1}\sim F(n_1-1;n_2-1)\]</span></p>
+<div id="teste-de-hipóteses-2" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Teste de hipóteses</h3>
+<p>Desejamos testar as hipóteses relativas à igualdade das duas variâncias; isto é, <span class="math inline">\(H_0:\sigma^2_1=\sigma^2_2\)</span>, contra as seguintes hipóteses alternativas:</p>
+<ul>
+<li><span class="math inline">\(H_1: \sigma^2_1\ne\sigma^2_2\)</span></li>
+<li><span class="math inline">\(H_1: \sigma^2_1&gt;\sigma^2_2\)</span></li>
+<li><span class="math inline">\(H_1: \sigma^2_1&lt;\sigma^2_2\)</span></li>
+</ul>
+<p>A estatística de teste é</p>
+<p><span class="math display">\[f_0=\frac{s^2_1}{s^2_2}.\]</span></p>
+<p>Portanto, podemos estabelecer para um teste com nível de significância <span class="math inline">\(\alpha\)</span>:</p>
+<table>
+<colgroup>
+<col width="27%" />
+<col width="72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hipótese Alternativa (<span class="math inline">\(H_1\)</span>)</th>
+<th>Região Crítica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \sigma^2_1\ne\sigma^2_2\)</span></td>
+<td><span class="math inline">\(f_0&lt;f_{1-\frac{\alpha}{2};n_1-1;n_2-1}\)</span> ou <span class="math inline">\(f_0&gt;f_{\frac{\alpha}{2};n_1-1;n_2-1}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_1: \sigma^2_1&gt;\sigma^2_2\)</span></td>
+<td><span class="math inline">\(f_0&gt;f_{\alpha;n_1-1;n_2-1}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \sigma^2_1&lt;\sigma^2_2\)</span></td>
+<td><span class="math inline">\(f_0&lt;f_{1-\alpha;n_1-1;n_2-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Hipótese Alternativa (<span class="math inline">\(H_1\)</span>)</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \sigma^2_1\ne\sigma^2_2\)</span></td>
+<td><span class="math inline">\(2\times \min\{{P(F&lt;f_0),P(F&gt;f_0)}\}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_1: \sigma^2_1&gt;\sigma^2_2\)</span></td>
+<td><span class="math inline">\(P(F&gt;f_0)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_1: \sigma^2_1&lt;\sigma^2_2\)</span></td>
+<td><span class="math inline">\(P(F&lt;f_0)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="exemplo-15" class="section level4" number="7.2.1.1">
+<h4><span class="header-section-number">7.2.1.1</span> Exemplo</h4>
+<p>Duas misturas diferentes de gases estão sendo estudadas para determinar se uma delas é superior na redução da variabilidade de espessura das camadas de óxido. Dezesseis pastilhas são atacadas com cada gás. Os desvios-padrão da espessura de óxido são: <span class="math inline">\(s_1=1.96\)</span> angstroms e <span class="math inline">\(s_2=2.13\)</span> angstroms, respectivamente. Há qualquer evidência que indique ter um gás preferível em relação ao outro? Use um nível de significância de 2%.</p>
+<p><strong>Solução</strong></p>
+<ul>
+<li><span class="math inline">\(H_0: \sigma^2_1=\sigma^2_2\)</span> vs <span class="math inline">\(H_1: \sigma^2_1\ne\sigma^2_2\)</span></li>
+<li><span class="math inline">\(n=16\)</span></li>
+<li><span class="math inline">\(\alpha=0.02 \rightarrow F_{0.99;15;15} = 0.28 \rightarrow F_{0.01;15;15} = 3.52\)</span></li>
+<li><span class="math inline">\(f_0=\frac{1.96^2}{2.13^2}=0.85\)</span></li>
+<li><span class="math inline">\(p-valor=2\times \min\{{P(F&lt;0.85),P(F&gt;0.85)}\}=2\times \min\{{0.3785271,0.6214729}\}=0.7570542\)</span></li>
+</ul>
+<p>Como <span class="math inline">\(F_{0.99;15;15}(0.28)&lt;f_0(0.85)&lt;F_{0.01;15;15}(3.52)\)</span>, não devemos rejeitar <span class="math inline">\(H_0\)</span>, portanto não há evidência a um nível de significância de 2% para indicar um gás que resulte em uma variância menor da espessura de óxido.</p>
+</div>
+</div>
+<div id="intervalo-de-confiança-2" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Intervalo de Confiança</h3>
+<p>Se <span class="math inline">\(s_1^2\)</span> e <span class="math inline">\(s_2^2\)</span> forem variâncias de amostras aleatórias de tamanhos <span class="math inline">\(n_1\)</span> e <span class="math inline">\(n_2\)</span>, respectivamente, provenientes de duas populações normais independentes, com variâncias desconhecidas <span class="math inline">\(\sigma_1^2\)</span> e <span class="math inline">\(\sigma_2^2\)</span>, então um intervalo de confiança de <span class="math inline">\(100(1-\alpha)\%\)</span> para a razão <span class="math inline">\(\frac{\sigma^2_1}{\sigma^2_2}\)</span> é</p>
+<p><span class="math display">\[\frac{s_1^2}{s_2^2\times f_{\frac{\alpha}{2};n_1-1;n_2-1}}\leq \frac{\sigma^2_1}{\sigma^2_2} \leq \frac{s_1^2}{s_2^2\times f_{1-\frac{\alpha}{2};n_1-1;n_2-1}}\]</span></p>
+<div id="exemplo-16" class="section level4" number="7.2.2.1">
+<h4><span class="header-section-number">7.2.2.1</span> Exemplo</h4>
+<p>Dois processos diferentes para esmerilhar podem ser usados, podendo produzir peças com iguais rugosidades médias na superfícies. Uma amostra aleatória de <span class="math inline">\(n_1=11\)</span> peças, proveniente do primeiro processo, resulta em um desvio-padrão de <span class="math inline">\(s_1=5.1\)</span> micropolegadas. Uma amostra aleatória de <span class="math inline">\(n_2=16\)</span> peças, proveniente do segundo processo, resulta em um desvio-padrão de <span class="math inline">\(s_2=4.7\)</span> micropolegadas. Encontre um intervalo de confiança de 90% para a razão <span class="math inline">\(\frac{\sigma^2_1}{\sigma^2_2}\)</span></p>
+<p><strong>Solução</strong></p>
+<ul>
+<li><span class="math inline">\(\frac{s_1^2}{s_2^2}=\frac{5.1^2}{4.7^2}=1.177\)</span></li>
+<li><span class="math inline">\(f_{1-\frac{\alpha}{2};n_1-1;n_2-1}=f_{0.95;10;15}=0.351\)</span></li>
+<li><span class="math inline">\(f_{\frac{\alpha}{2};n_1-1;n_2-1}=f_{0.05;10;15}=2.544\)</span></li>
+<li><span class="math inline">\(\frac{1.177}{2.544} \leq \frac{\sigma^2_1}{\sigma^2_2} \leq \frac{1.177}{0.351}\)</span></li>
+<li><span class="math inline">\(0.4626572 \leq \frac{\sigma^2_1}{\sigma^2_2} \leq 3.353276\)</span></li>
+</ul>
+<p>Note que o intervalo de confiança inclui o valor 1, portanto, não podemos afirmar que as razões da rugosidade da superfície para os dois processos sejam diferentes com um nível de confiança de 90%.</p>
+</div>
+</div>
+</div>
+<div id="comparação-das-proporções-populacionais" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Comparação das proporções populacionais</h2>
+<p>Consideremos <span class="math inline">\(X_1\)</span> e <span class="math inline">\(X_2\)</span> variáveis aleatórias que representam determinada característica de duas populações com distribuição de Bernoulli com parâmetros <span class="math inline">\(p_1\)</span> e <span class="math inline">\(p_2\)</span> respectivamente.</p>
+<p>Retiremos duas amostras aleatórias independentes, <span class="math inline">\(X_{11},\ldots,X_{1,n1}\)</span> e <span class="math inline">\(X_{21},\ldots,Y_{2,n2}\)</span>, dessas populações. Cada <span class="math inline">\(X_{1i}\)</span>, <span class="math inline">\(i=1,\ldots,n_1\)</span> e cada <span class="math inline">\(X_{2j}, j=1,\ldots,n_2\)</span>, tem distribuição de Bernoulli com parâmetros <span class="math inline">\(p_1\)</span> e <span class="math inline">\(p_2\)</span> respectivamente, com médias <span class="math inline">\(p_1\)</span> e <span class="math inline">\(p_2\)</span> e variâncias <span class="math inline">\(\sigma^2_1=p_1(1-p_1)\)</span> e <span class="math inline">\(\sigma^2_2=p_2(1-p_2)\)</span>, respectivamente.</p>
+<p>As variáveis <span class="math inline">\(\hat p_1=\bar X_1\)</span> e <span class="math inline">\(\hat p_2=\bar X_2\)</span> são os estimadores de <span class="math inline">\(p_1\)</span> e <span class="math inline">\(p_2\)</span>, respectivamente, e tem distribuição amostral aproximadamente normal:</p>
+<p><span class="math display">\[\hat p_1\sim N\left(p_1,\frac{p_1(1-p_1)}{n_1}\right)~~~~\text{e}~~~~\hat p_2\sim N\left(p_2,\frac{p_2(1-p_2)}{n_2}\right).\]</span></p>
+<p>Assim, temos que</p>
+<p><span class="math display">\[\hat p_1-\hat p_2\sim N\left(p_1-p_2,\frac{p_1(1-p_1)}{n_1}+\frac{p_2(1-p_2)}{n_2}\right)\]</span></p>
+<p>ou seja,</p>
+<p><span class="math display">\[Z=\frac{\hat p_1-\hat p_2 - (p_1-p_2)}{\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}}\sim N(0,1).\]</span></p>
+<div id="teste-de-hipóteses-3" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Teste de hipóteses</h3>
+<p>Estamos interessados em testar a hipótese nula: <span class="math inline">\(H_0: p_1=p_2\)</span>, contra as seguintes hipóteses alternativas:</p>
+<ul>
+<li><span class="math inline">\(H_1: p_1\ne p_2\)</span></li>
+<li><span class="math inline">\(H_1: p_1&gt;p_2\)</span></li>
+<li><span class="math inline">\(H_1: p_1&lt;p_2\)</span></li>
+</ul>
+<p>A estatística de teste é</p>
+<p><span class="math display">\[z_0=\frac{\hat p_1-\hat p_2}{\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}}\]</span></p>
+<p>Portanto, podemos estabelecer para um teste com nível de significância <span class="math inline">\(\alpha\)</span>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Hipótese Alternativa (<span class="math inline">\(H_1\)</span>)</th>
+<th>Região Crítica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_1: p_1\ne p_2\)</span></td>
+<td><span class="math inline">\(z_0&lt;-z_{\frac{\alpha}{2}}\)</span> ou <span class="math inline">\(z_0&gt;z_{\frac{\alpha}{2}}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_1: p_1&gt;p_2\)</span></td>
+<td><span class="math inline">\(z_0&gt;z_{\alpha}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_1: p_1&lt;p_2\)</span></td>
+<td><span class="math inline">\(z_0&lt;-z_{\alpha}\)</span></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Hipótese Alternativa (<span class="math inline">\(H_1\)</span>)</th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_1: p_1\ne p_2\)</span></td>
+<td><span class="math inline">\(2\times P(Z&gt;|z_0|)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_1: p_1&gt;p_2\)</span></td>
+<td><span class="math inline">\(P(Z&gt;z_0)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_1: p_1&lt;p_2\)</span></td>
+<td><span class="math inline">\(P(Z&lt;z_0)\)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="exemplo-17" class="section level4" number="7.3.1.1">
+<h4><span class="header-section-number">7.3.1.1</span> Exemplo</h4>
+<p>Um artigo médico comparou a eficácia de um extrato-padrão de erva-de-são-joão com um placebo em 200 pacientes diagnosticados com depressão unipolar. Pacientes foram designados aleatoriamente em dois grupos de 100 pacientes: um grupo recebeu a erva-de-são-joão e o outro recebeu placebo. Depois de 8 semanas, 19 dos pacientes tratados com placebo mostraram melhoria, enquanto 27 daqueles tratados com erva-de-são-joão melhoraram. Há alguma razão para acreditar que a erva-de-são-joão seja efetiva no tratamento de depressão unipolar?</p>
+<p><strong>Solução</strong></p>
+<ul>
+<li>sendo 1 a população que recebeu placebo e 2 a que recebu a erva-de-são-joão</li>
+<li><span class="math inline">\(H_0: p_1=p_2\)</span> vs <span class="math inline">\(H_1: p_1 &lt; p_2\)</span></li>
+<li><span class="math inline">\(\hat p_1=\frac{19}{100}=0.19; \hat p_2=\frac{27}{100}=0.27\)</span></li>
+<li><span class="math inline">\(z_0=\frac{0.19-0.27}{\sqrt{\frac{0.19(1-0.19)}{100}+\frac{0.27(1-0.27)}{100}}}=-1.35\)</span></li>
+<li><span class="math inline">\(z_{0.05}=1.645\)</span></li>
+<li><span class="math inline">\(p-valor= P(Z&gt;|-1.35|)=0.08850799\)</span></li>
+</ul>
+<p>Como <span class="math inline">\(-z_{0.05}(-1.645)\leq z_0 (-1.35)\)</span>, não devemos rejeitar <span class="math inline">\(H_0\)</span> com <span class="math inline">\(\alpha=0.05\)</span>, portanto não há evidência a um nível de significância de 5% para confirmar que a erva-de-são-joão seja efetiva no tratamento de depressão unipolar</p>
+</div>
+</div>
+<div id="intervalo-de-confiança-3" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Intervalo de Confiança</h3>
+<p>Se <span class="math inline">\(\hat p_1\)</span> e <span class="math inline">\(\hat p_2\)</span> forem as proporções amostrais de observações de duas amostras aleatórias e independentes, de tamanhos <span class="math inline">\(n_1\)</span> e <span class="math inline">\(n_2\)</span>, que pertençam a uma classe de interesse, então um intervalo aproximado de confiança de <span class="math inline">\(100(1-\alpha)\%\)</span> nas proporções verdadeiras <span class="math inline">\(p_1-p_2\)</span> é:</p>
+<p><span class="math display">\[\left[(\hat p_1-\hat p_2) \pm z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}\right]\]</span></p>
+<div id="exemplo-18" class="section level4" number="7.3.2.1">
+<h4><span class="header-section-number">7.3.2.1</span> Exemplo</h4>
+<p>Uma vez que <span class="math inline">\(n_1=85,\hat p_1=0.12,n_2=85, \hat p_2=0.09\)</span>, construa um intervalo aproximado de confiança de 95% para a diferença da proporção de mancais defeituosos produzidos pelos dois processos.</p>
+<p><strong>Solução</strong></p>
+<ul>
+<li><span class="math inline">\(z_{0.025}=1.96\)</span></li>
+<li><span class="math inline">\((0.12-0.09) - 1.96\sqrt{\frac{0.12(1-0.12)}{85}+\frac{0.09(1-0.09)}{85}}\leq p_1-p_2 \leq (0.12-0.09) + 1.96\sqrt{\frac{0.12(1-0.12)}{85}+\frac{0.09(1-0.09)}{85}}\)</span></li>
+<li><span class="math inline">\(-0.06205497 \leq p_1-p_2 \leq 0.122055\)</span></li>
+</ul>
+<p>Note que o intervalo de confiança não o zero; assim, com base nos dados das amostras, parece improvável que as proporções sejam diferentes.</p>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="teste-de-hipóteses.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análise-de-variância-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-ie_para_duas_populacoes.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["inferencia_com_R.pdf", "inferencia_com_R.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

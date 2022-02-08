@@ -1,587 +1,1395 @@
-# Teste de Hipótese
+# Teste de Hipóteses
 
-## Introdução
+Vimos que é possível, através de estatísticas amostrais adequadas, estimar parâmetros de uma população, dentro de um certo intervalo de confiança. Nos testes de hipóteses, ao invés de se construir um intervalo de confiança no qual se espera que o parâmetro da população esteja contido, testa-se a validade de uma afirmação sobre um parâmetro da população. Então, num teste de hipóteses, procura-se tomar decisões a respeito de uma população, com base em informações obtidas de amostras desta mesma população.
 
-Já sabemos que as variáveis de um estudo dividem-se em quatro tipos:
+## Ideia Geral
 
-- Qualitativas:
-  + nominais
-  + ordinais
-- Quantitativas:
-  + discretas
-  + contínuas
+O contexto em que se baseia a teoria de teste de hipóteses é basicamente o mesmo da teoria de estimação por intervalo de confiança. Temos uma população representada por uma variável aleatória $X$ cuja distribuição de probabilidade depende de algum parâmetro $\theta$. O interesse agora está em testar a veracidade de alguma afirmativa sobre $\theta$.
 
-Os dados gerados por esses tipos de variáveis são de naturezas diferentes e devem receber tratamentos diferentes. Portanto, vamos estudar as ferramentas mais adequadas para cada tipo de dados, separadamente.
+### Hipótese nula
 
-## Variáveis Qualitativas - Nominais e Ordinais
+A hipótese nula, representada por $H_0$, é a hipótese básica que queremos testar. Em geral, definimos a hipótese nula de modo que o nosso objetivo seja rejeitar $H_0$. Nesse curso consideraremos apenas hipóteses nulas simples, isto é, hipóteses que estabelecem que o parâmetro de interesse é igual a um determinado valor. A forma geral é 
 
-Na base de dados $\texttt{mtcars}$, uma das duas variáveis qualitativas presentes é a categoria da transmissão (automática ou manual). Para organizar os dados provenientes de uma variável qualitativa, é usual fazer uma tabela de frequências, como a tabela abaixo, onde estão apresentadas as frequências com que ocorre cada um dos tipos de transmissão no total dos 32 carros observados. Cada categoria da variável transmissão (automática, manual) é representada numa linha da tabela. Há uma coluna com as contagens de carros em cada categoria (frequência absoluta) e outra com os percentuais que essas contagens representam no total de carros (frequência relativa). Esse tipo de tabela representa a distribuição de frequências dos carros segundo a variável transmissão.
+$$H_0: \theta=\theta_0$$
 
-Como a variável transmissão é qualitativa nominal, ou seja, não há uma ordem natural em suas categorias, a ordem das linhas da tabela pode ser qualquer uma. É comum a disposição das linhas pela ordem decrescente das frequências das classes.
+Alguns exemplos são:
 
-```{r echo=F, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
-library(kableExtra)
-library(tidyverse)
-dt = tibble(
-   Variavel = c("Automático","Manual", "Total"),
-   Freq_abs = c(as.vector(table(mtcars$am)),sum(as.vector(table(mtcars$am)))),
-   Freq_rel = c(round(as.vector(table(mtcars$am))/nrow(mtcars)*100,2),sum(round(as.vector(table(mtcars$am))/nrow(mtcars)*100,2)))
-)
-kable(dt, "latex", booktabs = T,
-      col.names = c("Transmissão", "Frequência Absoluta","Frequência Relativa (%)")) %>%
-  column_spec(2:3, width = "2.5cm")
-```
+$$H_0: \mu=6 ~~~~~~ H_0: p=0.5 ~~~~~~ H_0: \sigma^2=25$$
 
-Quando a variável tabelada for do tipo qualitativa ordinal, as linhas da tabela de frequências devem ser dispostas na ordem existente para as categorias. A tabela abaixo mostra a distribuição de
-frequências das coletas segundo o mês de observação na base de dados $\texttt{airquality}$, que é uma variável qualitativa ordinal. Nesse caso, podemos acrescentar mais duas colunas com as frequências acumuladas (absoluta e relativa), que mostram, para cada mês, a frequência das coletas até aquele mês. Por exemplo, até o mês de julho, foram coletadas 92 amostras, o que representa 60,13% do total de amostras coletadas.
+O procedimento de teste de hipóteses resultará em uma *regra de decisão* que nos permitirá *rejeitar* ou *não rejeitar* $H_0$.
 
-```{r echo=F, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
-dt = tibble(
-   Variavel = c(unique(airquality$Month), "Total"),
-   Freq_abs = c(as.vector(table(airquality$Month)),sum(as.vector(table(airquality$Month)))),
-   Freq_rel = c(round(as.vector(table(airquality$Month))/nrow(airquality)*100,2),sum(round(as.vector(table(airquality$Month))/nrow(airquality)*100,2))),
-   Freq_abs_acum = c(cumsum(as.vector(table(airquality$Month))),"-"),
-   Freq_rel_acum = c(round(cumsum(as.vector(table(airquality$Month))/nrow(airquality)*100),2),"-")
-)
-kable(dt, "latex", booktabs = T,
-      col.names = c("Transmissão", "Frequência Absoluta","Frequência Relativa (%)",
-                    "Frequência Absoluta Acumulada","Frequência Relativa Acumulada (%)")) %>%
-  column_spec(2:5, width = "2.5cm")
-```
+### Hipótese alternativa
 
-Note que as frequências acumuladas não fazem sentido em distribuição de frequências de variáveis para as quais não existe uma ordem natural nas categorias, as qualitativas nominais.
+A hipótese alternativa, representada por $H_1$, é a hipótese que devemos considerar no caso de rejeição da hipótese nula. A forma mais geral de $H_1$ é a hipótese bilateral
 
-A visualização da distribuição de frequências de uma variável fica mais fácil se fizermos um gráfico a partir da tabela de frequências. Existem vários tipos de gráficos, dependendo do tipo de variável a ser representada. Para as variáveis do tipo qualitativas, abordaremos dois tipos de gráficos: os de setores e os de barras.
+$$H_1:\theta\ne\theta_0.$$
 
-Os gráficos de setores, mais conhecidos como gráficos de pizza ou torta, são construídos dividindo-se um círculo (pizza) em setores (fatias), um para cada categoria, que serão proporcionais à frequência daquela categoria.
+Porém, em algumas situações, podemos ter informação que nos permita restringir o domínio da hiótese alternativa. Temos, então, hipóteses unilaterais à esquerda 
 
-A Figura a seguir mostra um gráfico de setores para a variável transmissão, construído a partir da primeira tabela de frequências. Através desse gráfico, fica mais fácil perceber que os carros automáticos são a grande maioria dos carros. Como esse gráfico contém todas as informações da tabela, pode substituí-la com a vantagem de tornar análise dessa variável mais agradável.
+$$H_1:\theta<\theta_0$$
 
-```{r, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
+e hipóteses unilaterais à direita
+
+$$H_1:\theta>\theta_0.$$
+
+A escolha entre essas formas de hipótese alternativa se faz com base no conhecimento sobre o problema sendo considerado.
+
+### Estatística de teste
+
+Assim como na construção dos intervalos de confiança, iremos usar uma estatística amostral apropriada para construir o nosso teste de hipóteses e nesse contexto, essa estatística é chamada *estatística de teste*. As estatísticas de teste usuais são a média amostral $\bar X$ e a proporção amostral $\hat P$, que serão usadas na construção de testes sobre a média e a proporção populacionais, respectivamente.
+
+### Tipos de erro
+
+O procedimento de decisão é definido em termos da hipótese nula $H_0$ e as decisões possíveis são (i) rejeitar ou (ii) não rejeitar $H_0$. Existem duas possibilidades de erro:
+
+  + Erro tipo I: rejeitar $H_0$ quando $H_0$ é verdadeira
+  + Erro tipo II: não rejeitar $H_0$ quando $H_0$ é falsa
+  
+### Regra de decisão
+  
+A decisão sobre a hipótese nula é tomada com base em uma regra que estabelece um conjunto de valores, chamado *região crítica* (RC) ou *região de rejeição*, de modo que se, o valor observado da estatística amostral cair nesse região, rejeitaremos $H_0$; caso contrário, não rejeitaremos $H_0$.
+
+### Região crítica
+
+Em geral, a definição da região crítica é feita da seguinte forma: RC é o conjunto de valores cuja probabilidade de ocorrência é pequena sob a hipótese de veracidade de $H_0$.
+
+A definição de "probabilidade pequena" se faz através da escolha do **nível de significância** $\alpha$ do teste, que é a **probabilidade do erro tipo I**, isto é, 
+
+$$\alpha=P(\text{erro tipo I})=P(\text{rejeitar } H_0 | H_0 \text{ verdadeira})$$
+
+Em geral, o valor de $\alpha$ é pequeno e as escolhas mais comuns são $\alpha=0.05$ e $\alpha=0.01$.
+
+Definido o nível de significância $\alpha$, podemos estabelecer a região crítica usando a distribuição amostral da estatística de teste.
+
+### CCO e Poder do Teste
+
+No procedimento de teste de hipóteses, as decisões possíveis são rejeitar ou não rejeitar $H_0$. Definem-se, assim, as seguintes funções em termos das probabilidades de cada uma delas. A *Curva Característica da Operação* (CCO) é definida como 
+
+$$\beta(\theta)=P(\text{não rejeitar } H_0|\theta)$$
+
+Define-se a *função Poder de Teste* como
+
+$$Q(\theta)=1-\beta(\theta)=P(\text{rejeitar } H_0|\theta)$$
+
+Estas funções (probabilidades) estão condicionadas ao verdadeiro e desconhecido valor do parâmetro $\theta$. Se este valor estiver no conjunto de valores definidos pela hipótese alternativa, então $Q(\theta)$ corresponde a uma probabilidade de **acerto**: ela mede a probabilidade de se rejeitar $H_0$ quando $H_0$ é falsa. Por outro lado, se a hipótese nula é $H_0: \theta=\theta_0$, então
+
+  + $Q(\theta_0)=1-\beta(\theta_0)$
+  + $Q(\theta_0)=1-P(\text{não rejeitar } H_0|\theta)$
+  + $Q(\theta_0)=1-P(\text{não rejeitar } H_0|H_0 \text{ verdadeira})$
+  + $Q(\theta_0)=P(\text{rejeitar } H_0|H_0 \text{ verdadeira})$
+  + $Q(\theta_0)=\alpha$
+  
+### Exemplo
+
+Consideremos uma população representada por uma variável aleatória normal com média $\mu$ e variância 400. Deseja-se testar: 
+
+$$H_0:\mu=100~~~\text{vs}~~~H_1: \mu \ne 100$$
+
+com base em uma amostra aleatória simples de tamanho $n=16$. Para tal, define-se a seguinte região crítica: 
+
+$$RC: \bar X < 85\text{ ou }\bar X > 115$$
+
+1. Calcule a probabilidade do erro tipo I
+2. Calcule a função poder do teste para os seguintes valores de $\mu: 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125$
+
+**Solução**
+
+Como queremos fazer um teste sobre a média da população, é natural usarmos $\bar X$ como estatística de teste. Como a população é normal com média $\mu$ e variância 400, sabemos que $\bar X\sim N(\mu,\frac{400}{16}=25)$
+
+1. Sob a hipótese nula, $\mu=100$. Então,
+  + $\alpha = P(\text{rejeitar } H_0 | H_0 \text{ verdadeira}\rightarrow \mu=100)$
+  + $\alpha = P\Big(\{\bar X<85\} \cup \{\bar X>115\}|\bar X\sim N(100,25)\Big)$
+  + $\alpha = P\Big(\bar X<85 |\bar X\sim N(\mu,25)\Big) + P\Big(\bar X>115 |\bar X\sim N(\mu,25)\Big)$
+  + $\alpha = P\Big(Z<\frac{85-100}{5}\Big) + P\Big(Z>\frac{115-100}{5}\Big)$
+  + $\alpha = P\Big(Z<-3\Big) + P\Big(Z>3\Big)$
+  + $\alpha = 2\times P\Big(Z>3\Big)$
+  + $\alpha = 0.0027$
+  
+2. A função poder do teste é dada por:
+  + $Q(\mu) = 1-\beta(\mu)$
+  + $Q(\mu)=1-P(\text{não rejeitar } H_0|\mu)$
+  + $Q(\mu)=1-P(85<\bar X<115|\mu)$
+  + $Q(\mu)=1-P(85<\bar X<115|\bar X\sim N(\mu,25))$
+  + $Q(\mu)=1-P(\frac{85-\mu}{5}< Z<\frac{115-\mu}{5}|\bar X\sim N(\mu,25))$
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+library(knitr)
 library(ggplot2)
-df = data.frame(table(mtcars$am))
-levels(df$Var1) = c("Automático","Manual")
-ggplot(df, aes(x="", y=Freq, fill=Var1)) +
-  geom_bar(stat="identity") +
-  coord_polar("y", start=0) +
-  theme_void() +
-  theme(legend.title = element_blank())
-```
-
-Quando houver mais de duas categorias de uma variável nominal, a disposição no gráfico de setores deve ser pela ordem decrescente das frequências, no sentido horário. A categoria "outros", quando existir, deve ser sempre a última, mesmo não seja a de menor frequência.
-
-As vantagens da representação gráfica das distribuições de frequências ficam ainda mais evidentes quando há a necessidade de comparar vários grupos com relação à variáveis que possuem muitas categorias, como veremos mais adiante.
-
-Uma alternativa ao gráfico de setores é o gráfico de barras (colunas) como o da figura a seguir. Ao invés de dividirmos um círculo, dividimos uma barra. Note que, em ambos os gráficos, as frequências relativas das categorias devem somar 100%. Aliás, esse é a idéia dos gráficos: mostrar como se dá a divisão (distribuição) do total de elementos (100%) em partes (fatias).
-
-```{r, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
-df = data.frame(table(mtcars$am))
-levels(df$Var1) = c("Automático","Manual")
-ggplot(df, aes(x=Var1, y=Freq, fill=Var1)) +
-  geom_bar(stat="identity") +
-  geom_text(aes(label = Freq),position=position_stack(vjust = 0.5)) +
-  theme(legend.title = element_blank(),
-        axis.title.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.y = element_blank())
-```
-
-Uma situação diferente ocorre quando desejamos comparar a distribuição de frequências de uma mesma variável em vários grupos, como por exemplo, a frequência de estudantes com olhos azuis entre todas as cores de cabelo na base de dados $\texttt{HairEyeColor}$. Se quisermos usar o gráfico de setores para fazer essa comparação, devemos fazer quatro gráficos, um para cada cor de cabelo, com duas fatias cada um (olhos azuis e olhos não azuis). Uma alternativa é a construção de um gráfico de colunas (barras) como os gráficos das figuras a seguir, onde há uma barra para cada cor de cabelo representando a frequência de estudantes com olhos azuis e aquela cor de cabelo. Além de economizar espaço na apresentação, permite que as comparações sejam feitas de maneira mais rápida.
-
-```{r, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
-df = data.frame(HairEyeColor[,,1] + HairEyeColor[,,2])
-df = df %>% filter(Eye == "Blue")
-p1 = df %>% mutate(name = fct_reorder(Hair, desc(Freq))) %>%
-  ggplot(aes(x=name, y=Freq, fill=name)) +
-  geom_bar(position="dodge", stat="identity") +
-  geom_text(aes(label = Freq),position=position_stack(vjust = 0.5)) +
-  theme(legend.position = "none",
-        axis.title.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.y = element_blank())
-p2 = df %>% mutate(name = fct_reorder(Hair, Freq)) %>%
-  ggplot(aes(x=name, y=Freq, fill=name)) +
-  geom_bar(position="dodge", stat="identity") +
-  geom_text(aes(label = Freq),position=position_stack(vjust = 0.5)) +
-  coord_flip() +
-  theme(legend.position = "none",
-        axis.title.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.y = element_blank())
-gridExtra::grid.arrange(p1,p2,ncol=2)
-```
-
-A ordem dos grupos pode ser qualquer, ou aquela mais adequada para a presente análise. Frequentemente, encontramos as barras em ordem decrescente, já antecipando nossa intuição de ordenar os grupos de acordo com sua frequência para facilitar as comparações. Caso a variável fosse do tipo ordinal, a ordem das barras seria a ordem natural das categorias, como na tabela de frequências.
-
-A figura abaixo mostra um gráfico de barras que pode ser usado da comparação da distribuição de frequências de uma mesma variável em vários grupos. É também uma alternativa ao uso de vários gráficos de setores, sendo, na verdade, a junção de dois gráficos com os das figuras acima num só gráfico. Porém, esse tipo de gráfico só deve ser usado quando não houver muitos grupos a serem comparados e a variável em estudo não tiver muitas categorias.
-
-```{r, warning=F, message=F, fig.width=8, fig.height=4, fig.align='center'}
-df = data.frame(HairEyeColor[,,1] + HairEyeColor[,,2])
-ggplot(df,aes(x=Hair, y=Freq, fill=Eye)) +
-  geom_bar(stat="identity") +
-  geom_text(aes(label = Freq),position=position_stack(vjust = 0.5))
-```
-
-Frequentemente, é necessário fazer comparações da distribuição de frequências de uma variável em vários grupos simultaneamente. Nesse caso, o uso de gráficos bem escolhidos e construídos torna a tarefa muito mais fácil. Na figura abaixo, está representada a distribuição de frequências da cor dos olhos segundo a variável cor do cabelo.
-
-```{r, warning=F, message=F, fig.width=8, fig.height=4, fig.align='center'}
-df = data.frame(HairEyeColor[,,1] + HairEyeColor[,,2])
-ggplot(df,aes(x=Hair, y=Freq, fill=Eye)) +
-  geom_bar(position="dodge",stat="identity") +
-  geom_text(aes(label = Freq),position=position_dodge(width = 1))
-```
-
-## Variáveis Quantitativas Discretas
-
-Quando estamos trabalhando com uma variável discreta que assume poucos valores, podemos dar a ela o mesmo tratamento dado às variáveis qualitativas ordinais, assumindo que cada valor é uma classe e que existe uma ordem natural nessas classes.
-
-Quando trabalhamos com uma variável discreta que pode assumir um grande número de valores distintos como, por exemplo, parte inteira da temperatura máxima, a construção da tabela de frequências e de gráficos considerando cada valor como uma categoria fica inviável. A solução é agrupar os valores em classes ao montar a tabela, como mostra a tabela abaixo.
-
-```{r echo=F, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
-aux1 = seq(range(airquality$Temp)[1],range(airquality$Temp)[2],11)
-aux = c(paste(aux1[1],"a",aux1[2]),
-        paste(aux1[2],"a",aux1[3]),
-        paste(aux1[3],"a",aux1[4]))
-aux_valor = NULL
-for(i in 1:3){
-  aux_valor[i] = length(which(airquality$Temp >= aux1[i] & airquality$Temp < aux1[i+1]))
+mu = seq(75,125,5)
+tabela = data.frame("mu"=rep(NA,length(mu)),"Q(mu)"=rep(NA,length(mu)))
+names(tabela) = c("Mu","Q(mu)")
+tabela[,1] = mu
+for(i in 1:nrow(tabela)){
+  val_sup = (115-mu[i])/5
+  val_inf = (85-mu[i])/5
+  tabela[i,2] = round(1- (pnorm(val_sup)-pnorm(val_inf)),5)
 }
-dt = tibble(
-   Variavel = c(aux, "Total"),
-   Freq_abs = c(aux_valor,sum(aux_valor)),
-   Freq_rel = c(round(aux_valor/sum(aux_valor)*100,2),sum(round(aux_valor/sum(aux_valor)*100,2))),
-   Freq_abs_acum = c(cumsum(aux_valor),"-"),
-   Freq_rel_acum = c(round(cumsum(aux_valor)/sum(aux_valor)*100,2),"-")
-)
-kable(dt, "latex", booktabs = T,
-      col.names = c("Temperatura", "Frequência Absoluta","Frequência Relativa (%)",
-                    "Frequência Absoluta Acumulada","Frequência Relativa Acumulada (%)")) %>%
-  column_spec(2:5, width = "2.5cm")
-```
-
-A Figura abaixo mostra o gráfico da distribuição de frequências da temperatura medida por 236 dias consecutivos.
-
-```{r, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
-dt %>% filter(dt$Variavel != "Total") %>% 
-  ggplot(aes(x=Variavel, y=Freq_rel)) +
-  geom_bar(position="dodge",stat="identity") +
-  labs(x="Temperatura",y="Frequência Relativa (%)") +
-  theme(legend.position = "none")
-```
-
-## Variáveis Quantitativas Contínuas
-
-Quando a variável em estudo é do tipo contínua, que assume muitos valores distintos, o agrupamento dos dados em classes será sempre necessário na construção das tabelas de frequências. A tabela abaixo apresenta a distribuição de frequências para o peso dos carros.
-
-```{r echo=F, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
-aux1 = hist(mtcars$wt,plot=F)$breaks
-aux = c(paste(aux1[1],"|-",aux1[2]),
-        paste(aux1[2],"|-",aux1[3]),
-        paste(aux1[3],"|-",aux1[4]),
-        paste(aux1[4],"|-",aux1[5]),
-        paste(aux1[5],"|-",aux1[6]),
-        paste(aux1[6],"|-",aux1[7]),
-        paste(aux1[7],"|-",aux1[8]),
-        paste(aux1[8],"|-",aux1[9]))
-aux_valor = NULL
-for(i in 1:8){
-  aux_valor[i] = length(which(mtcars$drat >= aux1[i] & mtcars$drat < aux1[i+1]))
-}
-dt = tibble(
-   Variavel = c(aux, "Total"),
-   Freq_abs = c(aux_valor,sum(aux_valor)),
-   Freq_rel = c(round(aux_valor/sum(aux_valor)*100,2),sum(round(aux_valor/sum(aux_valor)*100,2))),
-   Freq_abs_acum = c(cumsum(aux_valor),"-"),
-   Freq_rel_acum = c(round(cumsum(aux_valor)/sum(aux_valor)*100,2),"-")
-)
-kable(dt, "latex", booktabs = T,
-      col.names = c("Temperatura", "Frequência Absoluta","Frequência Relativa (%)",
-                    "Frequência Absoluta Acumulada","Frequência Relativa Acumulada (%)")) %>%
-  column_spec(2:5, width = "2.5cm")
-```
-
-## Histograma
-
-A representação gráfica da distribuição de frequências de uma variável contínua é feita através de um gráfico chamado histograma, mostrado nas figuras abaixo com o peso de diamantes ($\texttt{diamonds}$). O histograma nada mais é do que o gráfico de barras verticais, porém construído com as barras unidas, devido ao caráter contínuo dos valores da variável.
-
-```{r echo=T, warning=F, message=F, fig.width=8, fig.height=4, fig.align='center'}
-library(ggplot2)
-p1=ggplot(diamonds,aes(carat)) +
-  geom_histogram(color = "white") +
-  labs(y = "Frequência Absoluta")
-p2=ggplot(diamonds,aes(carat)) +
-  geom_histogram(aes(y = (..count..)/sum(..count..)*100),color = "white") +
-  labs(y = "Frequência Relativa (%)")
-gridExtra::grid.arrange(p1,p2,ncol=2)
-```
-
-Os histogramas das figuras acima têm exatamente a mesma forma, apesar de serem construídos usando as frequências absolutas e relativas, respectivamente. O objetivo dessas figuras é mostrar que a escolha do tipo de frequência a ser usada não muda a forma da distribuição. Entretanto, o uso da frequência relativa torna o histograma comparável a outros histogramas, mesmo que os conjuntos de dados tenham tamanhos diferentes (desde a mesma escala seja usada!)
-
-Para o desenvolvimento do histograma:
-
-- Calcule a amplitude dos dados
-- Defina a quantidade de classes (as barras verticais). Não existe uma regra, porém uma boa aproximação seria calcular a raiz quadrada da quantidade de dados ($\sqrt n$)
-- Calcule o intervalo das classes dividindo a amplitude pela quantidade de classes
-- Determine os limites das classes. Selecione o valor mínimo dos dados (se for mais viável, ele pode ser arredondado para baixo) e soma o valor do intervalo de classe para obter o limite superior
-- Faça o passo anterior para todas as classes
-- Calcule a frequência dos dados que pertence a cada intervalo
-
-Este é o passo a passo básico para a elaboração de um Histograma, que seja capaz de lhe trazer informações precisas sobre a frequência com que algo acontece em um determinado contexto.
-
-Ao estudarmos a distribuição de frequências de uma variável quantitativa, seja em um grupo apenas ou comparando vários grupos, devemos verificar basicamente três características:
-
-- Tendência Central;
-- Variabilidade;
-- Forma.
-
-Tais características podem ser quantificadas através das medidas de síntese numérica ou visualizadas a partir do histograma.
-
-### Tendência Central
-
-A tendência central da distribuição de frequências de uma variável é caracterizada pelo valor (ou faixa de valores) "típico" da variável. 
-
-Uma das maneiras de representar o que é "típico" é através do valor mais frequente da variável, chamado de moda. Ou, no caso da tabela de frequências, a classe de maior frequência, chamada de classe modal. No histograma, esta classe corresponde àquela com barra mais alta ("pico").
-
-```{r echo=F, warning=F, message=F, fig.width=8, fig.height=4, fig.align='center'}
-y1 = rnorm(1000,mean=10)
-y2 = rnorm(500,mean=15)
-dados = data.frame(x=1:1500,y=c(y1,y2))*10
-p1 = ggplot(dados,aes(y)) + 
-  geom_histogram(aes(y = (..count..)/sum(..count..)*100),bins = 20)
-intervalos = ggplot_build(p1)$data[[1]]$xmin
-min1 = round(ggplot_build(p1)$data[[1]]$xmin[which.max(ggplot_build(p1)$data[[1]]$count)],1)
-max1 = round(ggplot_build(p1)$data[[1]]$xmax[which.max(ggplot_build(p1)$data[[1]]$count)],1)
-ggplot(dados,aes(y)) + 
-  geom_histogram(aes(y = (..count..)/sum(..count..)*100),
-                 color = "white", bins = 20) +
-  labs(y = "Frequência Relativa (%)") +
-  scale_x_continuous(breaks = intervalos,
-                     labels = round(intervalos,1)) +
-  theme(axis.title.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.minor.y = element_blank())
-```
-
-No exemplo acima, a classe modal é a que vai de `r min1` até `r max1`. Assim, os dados repousam, tipicamente entre esses valores. Entretanto, temos dois picos.
-
-Geralmente, um histograma bimodal indica a existência de dois grupos, com valores centrados em dois pontos diferentes do eixo de valores. Uma distribuição de frequências pode também ser amodal, ou seja, todos os valores são igualmente frequentes. Ou também unimodal, quando os valores estão concentrados somente em um ponto/classe.
-
-### Variabilidade
-
-Para descrever adequadamente a distribuição de frequências de uma variável quantitativa, além da informação do valor representativo da variável (tendência central), é necessário dizer também o quanto estes valores variam, ou seja, o quão dispersos eles são.
-
-De fato, somente a informação sobre a tendência central de um conjunto de dados não consegue representá-lo adequadamente. A Figura abaixo mostra um histograma para os tempos de espera de 1000 clientes de dois bancos, um com fila única e outro com fila múltipla, com o mesmo número de atendentes. Os tempos de espera nos dois bancos têm a mesma tendência central de 7 minutos. Entretanto, os dois conjuntos de dados são claramente diferentes, pois os valores são muito mais dispersos no banco com fila múltipla. Assim, quando entramos num fila única, esperamos ser atendidos em cerca de 7 minutos, com uma variação de, no máximo, meio minuto a mais ou a menos. Na fila múltipla, a variação é maior, indicando-se que tanto pode-se esperar muito mais ou muito menos que o valor típico de 7 minutos.
-
-```{r echo=F, warning=F, message=F, fig.width=8, fig.height=4, fig.align='center'}
-y1 = data.frame(x=1:500,y=rnorm(500,mean=7,sd=0.5))
-y2 = data.frame(x=1:500,y=rnorm(500,mean=7,sd=1))
-dados = data.frame(x=1:100,y=c(y1$y,y2$y),var=c(rep("Fila Única",500),rep("Fila Múltipla",500)))
-p1 = ggplot(dados,aes(y)) + 
-  geom_histogram(aes(y = (..count..)/sum(..count..)*100),bins = 20)
-intervalos = ggplot_build(p1)$data[[1]]$xmin
-min1 = round(ggplot_build(p1)$data[[1]]$xmin[which.max(ggplot_build(p1)$data[[1]]$count)],1)
-max1 = round(ggplot_build(p1)$data[[1]]$xmax[which.max(ggplot_build(p1)$data[[1]]$count)],1)
-ggplot(dados,aes(y, fill = var)) + 
-  geom_histogram(aes(y = (..count..)/sum(..count..)*100),
-                 color = "white", bins = 20) +
-  labs(y = "Frequência Relativa (%)") +
-  scale_x_continuous(breaks = intervalos,
-                     labels = round(intervalos,1)) +
-  facet_wrap(~var,nrow=2) +
-  theme(axis.title.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        legend.position = "none")
-```
-
-### Forma
-
-A distribuição de frequências de uma variável pode ter várias formas, mas existem três formas básicas, apresentadas na figura abaixo através de histogramas.
-
-```{r echo=F, warning=F, message=F, fig.width=12, fig.height=4, fig.align='center'}
-assi_esquerda = rbeta(1500,2,8)
-sime = rbeta(1500,5,5)
-assi_direita = rbeta(1500,8,2)
-
-dados = data.frame(x=1:(1500*3),
-                   y=c(assi_esquerda,sime,assi_direita),
-                   var=c(rep("Assimétrica à Esquerda",1500),rep("Simétrica",1500),rep("Assimétrica à Direita",1500)))
-p1 = ggplot(dados,aes(y)) + 
-  geom_histogram(aes(y = (..count..)/sum(..count..)*100),bins = 20)
-intervalos = ggplot_build(p1)$data[[1]]$xmin
-min1 = round(ggplot_build(p1)$data[[1]]$xmin[which.max(ggplot_build(p1)$data[[1]]$count)],1)
-max1 = round(ggplot_build(p1)$data[[1]]$xmax[which.max(ggplot_build(p1)$data[[1]]$count)],1)
-dados$var1 = factor(dados$var,levels = c("Assimétrica à Esquerda","Simétrica","Assimétrica à Direita"))
-ggplot(dados,aes(y, fill = var1)) + 
-  geom_histogram(aes(y = (..count..)/sum(..count..)*100),
-                 color = "white", bins = 20) +
-  scale_x_continuous(breaks = intervalos,
-                     labels = round(intervalos,1)) +
-  facet_wrap(~var1,ncol=3) +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        legend.position = "none")
-```
-
-Quando uma distribuição é simétrica em torno de um valor (o mais frequente), significa que as observações estão igualmente distribuídas em torno desse valor (metade acima e metade abaixo).
-
-A assimetria de uma distribuição pode ocorrer de duas formas:
-
-- quando os valores concentram-se à esquerda (assimetria com concentração à esquerda ou assimetria com cauda à direita);
-- quando os valores concentram-se à direita (assimetria com concentração à direita ou com assimetria cauda à esquerda);
-
-Ao definir a assimetria de uma distribuição, algumas pessoas preferem se referir ao lado onde está a concentração dos dados. Porém, outras pessoas preferem se referir ao lado onde está “faltando” dados (cauda). As duas denominações são alternativas. 
-
-Em alguns casos, apenas o conhecimento da forma da distribuição de frequências de uma variável já nos fornece uma boa informação sobre o comportamento dessa variável. Por exemplo, o que você acharia se soubesse que a distribuição de frequências das notas da primeira prova da disciplina de Estatística que você está cursando é, geralmente, assimétrica com concentração à direita? Como você acha que é a forma da distribuição de frequências da renda no Brasil?
-
-## Boxplot
-
-O Boxplot é um gráfico proposto para a detecção de valores discrepantes (outliers), que são aqueles valores muito diferentes do restante do conjunto de dados.
-
-Esses valores discrepantes podem representar erros no processo de coleta ou de processamento dos dados, e, nesse caso, devem ser corrigidos ou excluídos do banco de dados. No entanto, os outliers podem ser valores corretos, que, por alguma razão, são muito diferentes dos demais valores. Nesse caso, a análise desses dados deve ser cuidadosa, pois, como sabemos, algumas estatísticas descritivas, como a média e o desvio-padrão, são influenciadas por valores extremos.
-
-Na construção do Boxplot, utilizamos alguns percentis (mediana, primeiro e terceiro quartis), que são pouco influenciados por valores extremos. Além disso, precisamos saber quais são os valores mínimo e máximo do conjunto de dados.
-
-O Boxplot é constituído por uma caixa atravessada por uma linha, construído usando um eixo com uma escala de valores, como mostra a figura abaixo. Como sabemos, entre o primeiro e o terceiro quartis, temos 50% dos dados. Podemos pensar, então, que essa caixa contém metade dos dados do conjunto.
-
-```{r echo=F, fig.width=4}
-knitr::include_graphics("Boxplot exemplo.png", dpi=350)
-```
-
-Como um gráfico tem que representar todos os valores do conjunto de dados, precisamos representar os outros 50%, sendo 25% abaixo do Q1 e 25% acima do Q3. Esses valores serão representados pelas duas linhas que saem das extremidades da caixa. Cada uma das linhas é traçada, a partir das extremidades da caixa, até que encontre o valor máximo ou mínimo; ou atinja o comprimento máximo de 1,5 vezes a altura da caixa (IQR). O que acontecer primeiro.
-
-No exemplo da imagem acima o segundo caso aconteceu, assim os valores que ainda não foram representados devem ser devidamente marcados em suas respectivas posições na escala de valores. Esses valores são considerados outliers pelo critério do boxplot. Obviamente, o limite superior do boxplot não coincidiu com o valor máximo do conjunto de dados, que foi considerado um valor discrepante (outlier).
-
-Além da detecção de valores discrepantes, o boxplot pode ser muito útil na análise da distribuição dos valores de um conjunto de dados. Através do boxplot, podemos:
-
-- identificar a forma da distribuição (simétrica ou assimétrica);
-- avaliar e comparar a tendência central (mediana) de dois ou mais conjuntos de dados;
-- comparar a variabilidade de dois ou mais conjuntos de dados
-
-Para avaliar a forma da distribuição, devemos observar o deslocamento da caixa em relação a linha do boxplot. Lembrando que a caixa do boxplot contém 50% dos dados, o seu deslocamento na linha nos informa onde estão concentrados os dados.
-
-Se a caixa está mais deslocada para um dos lados da linha, significa que metade dos dados estão concentrados naquele lado da escala de valores e, assim, a distribuição é assimétrica. Se a caixa está praticamente no meio da linha, dividindo-a em duas partes iguais, é distribuição será considerada simétrica.
-
-```{r echo=F, warning=F, message=F, fig.width=12, fig.height=4, fig.align='center'}
-
-hist_1 = ggplot(dados,aes(y, fill = var1)) + 
-  geom_histogram(color = "white", bins = 20) +
-  scale_x_continuous(breaks = intervalos,
-                     labels = round(intervalos,1)) +
-  facet_wrap(~var1,ncol=3) +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        legend.position = "none")
-
-box_1 = ggplot(dados,aes(y, fill = var1)) + 
-  geom_boxplot() +
-  facet_wrap(~var1,ncol=3) +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        legend.position = "none",
-        strip.background = element_blank(),
-        strip.text = element_blank())
-
-gridExtra::grid.arrange(hist_1,box_1,nrow=2)
-
-```
-
-## Diagrama de Dispersão
-
-O diagrama de dispersão é um gráfico onde pontos no espaço cartesiano XY são usados para representar simultaneamente os valores de duas variáveis quantitativas medidas em cada indivíduo do conjunto de dados.
-
-O Quadro e a Figura abaixo mostram um esquema do desenho do diagrama de dispersão. Neste exemplo, foram medidos os valores de duas variáveis quantitativas, X e Y, em quatro indivíduos. O eixo horizontal do gráfico representa a variável X e o eixo vertical representa a variável Y.
-
-```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
-library(kableExtra)
-library(ggplot2)
-dados = data.frame("Indivíduos" = c("A","B","C","D"),
-                   "Variável X" = c(2,4,4,8),
-                   "Variável Y" = c(3,3,5,7))
-kable(dados, "latex", booktabs = T,
-      col.names = c("Indivíduos", "Variável X","Variável Y")) %>%
-  column_spec(2:5, width = "2.5cm")
-dados %>% 
-  ggplot(aes(x = Variável.X, y = Variável.Y)) +
-  geom_point(size=1) +
-  ylim(0,8) +
-  xlim(0,8) +
-  labs(x = "Variável X",y = "Variável Y") +
-  geom_text(aes(x = Variável.X, y = Variável.Y, label = Indivíduos),nudge_x = -0.15)
-```
-
-O diagrama de dispersão é usado principalmente para visualizar a relação/associação entre duas variáveis, mas também para é muito útil para: 
-
-- Comparar o efeito de dois tratamentos no mesmo indivíduo
-- Verificar o efeito tipo antes/depois de um tratamento
-
-A seguir, veremos dois exemplos da utilização do diagrama de dispersão. O primeiro refere-se ao estudo da associação entre duas variáveis. O segundo utiliza o diagrama de dispersão para comparar o efeito da aplicação de um tratamento, comparando as medidas antes e depois da medicação.
-
-### Exemplo 1
-
-Um produtor de morangos para exportação deseja produzir frutos grandes, pois frutos pequenos têm pouco valor mesmo no mercado interno. Além disso, os frutos, mesmo grandes, não devem ter tamanhos muito diferentes entre si. O produtor suspeita que uma dos fatores que altera o tamanho dos frutos é o número de frutos por árvore.
-
-Para investigar a relação entre o número de frutos que uma planta produz e o peso destes frutos, ele observou dados de 10 morangueiros na primeira safra (Quadro abaixo) e gerou o Diagrama de Dispersão apresentado abaixo.
-
-```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
-library(kableExtra)
-library(ggplot2)
-library(tidyr)
-aux = matrix(c(15.15,15.45,15.63,15.65,16.38,NA,NA,NA,NA,NA,NA,NA,NA,NA,
-               14,14.5,15.35,15.86,15.94,16.13,NA,NA,NA,NA,NA,NA,NA,NA,
-               13.67,13.76,14.06,14.11,14.54,14.89,15.5,NA,NA,NA,NA,NA,NA,NA,
-               11,11.5,12.39,12.39,12.9,14.5,15.5,16.56,NA,NA,NA,NA,NA,NA,
-               10.24,11.12,12.05,12.37,13.48,13.8,14.04,15.39,16,NA,NA,NA,NA,NA,
-               9,9.32,10.67,11.56,11.67,12.56,12.83,12.84,13.43,15.09,NA,NA,NA,NA,
-               7.82,8.56,8.74,9.57,11.08,11.92,12.13,12.5,14.14,14.2,14,NA,NA,NA,
-               7.25,9.41,10.15,10.33,10.8,10.95,11.13,11.48,11.49,12.86,13.37,15.04,NA,NA,
-               6.95,7.61,8.53,10,10.94,11.04,11.43,11.63,11.97,12.02,12.74,13.53,14,NA,
-               7,8,9,10,10,10.5,11,11.16,11.17,11.7,12.45,12.89,13.47,13.54),
-             nrow=10,ncol = 14,byrow = T)
-dados = data.frame(ID_Morangueiro = 1001:1010,
-                   Qtd_Frutos = 5:14,aux)
-kable(dados, "latex", booktabs = T,
-      col.names = c("Planta", "Quantidade",rep("",14))) %>%
-  column_spec(1:16, width = "0.7cm") %>% 
-  kable_styling(font_size = 5)
-```
-
-```{r eval=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
-library(ggplot2)
-library(tidyr)
-aux = matrix(c(15.15,15.45,15.63,15.65,16.38,NA,NA,NA,NA,NA,NA,NA,NA,NA,
-               14,14.5,15.35,15.86,15.94,16.13,NA,NA,NA,NA,NA,NA,NA,NA,
-               13.67,13.76,14.06,14.11,14.54,14.89,15.5,NA,NA,NA,NA,NA,NA,NA,
-               11,11.5,12.39,12.39,12.9,14.5,15.5,16.56,NA,NA,NA,NA,NA,NA,
-               10.24,11.12,12.05,12.37,13.48,13.8,14.04,15.39,16,NA,NA,NA,NA,NA,
-               9,9.32,10.67,11.56,11.67,12.56,12.83,12.84,13.43,15.09,NA,NA,NA,NA,
-               7.82,8.56,8.74,9.57,11.08,11.92,12.13,12.5,14.14,14.2,14,NA,NA,NA,
-               7.25,9.41,10.15,10.33,10.8,10.95,11.13,11.48,11.49,12.86,13.37,15.04,NA,NA,
-               6.95,7.61,8.53,10,10.94,11.04,11.43,11.63,11.97,12.02,12.74,13.53,14,NA,
-               7,8,9,10,10,10.5,11,11.16,11.17,11.7,12.45,12.89,13.47,13.54),
-             nrow=10,ncol = 14,byrow = T)
-dados = data.frame(ID_Morangueiro = 1001:1010,
-                   Qtd_Frutos = 5:14,aux)
-dados %>% 
-  pivot_longer(starts_with("X")) %>% 
-  ggplot(aes(x = Qtd_Frutos, y = value)) +
-  geom_point(size = 1) +
-  scale_x_discrete(limits=5:14) +
-  labs(x = "Quantidade de Frutos",y = "Peso do Fruto (g)")
+kable(tabela)
 ```
 
 ```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
-dados %>% 
-  pivot_longer(starts_with("X")) %>% 
-  ggplot(aes(x = Qtd_Frutos, y = value)) +
-  geom_point(size = 1) +
-  scale_x_discrete(limits=5:14) +
-  labs(x = "Quantidade de Frutos",y = "Peso do Fruto (g)")
-```
-
-O diagrama de dispersão mostra-nos dois fatos. O primeiro, que há um decréscimo no valor médio do peso do fruto por árvore à medida que cresce o número de frutos na árvore. Ou seja, não é vantagem uma árvore produzir muitos frutos, pois eles tenderão a ser muito pequenos. 
-
-O segundo fato que percebemos é que, com o aumento no número de frutos na árvore, cresce também a variabilidade no peso, gerando tanto frutos muito grandes, como muito pequenos. 
-
-Assim, conclui-se que não é vantagem ter poucas plantas produzindo muito frutos, mas sim muitas plantas produzindo poucos frutos, mas grandes e uniformes. Uma análise mais detalhada poderá determinar o número ideal de frutos por árvore, aquele que maximiza o peso médio e, ao mesmo tempo, minimiza a variabilidade do peso.
-
-### Exemplo 2
-
-Captopril é um remédio destinado a baixar a pressão sistólica. Para testar seu efeito, ele foi ministrado a 12 pacientes, tendo sido medida a pressão sistólica antes e depois da medicação.
-
-```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
-library(kableExtra)
-library(ggplot2)
-library(tidyr)
-dados = data.frame(Paciente = LETTERS[1:12],
-                   Antes = c(200, 174, 198, 170, 179, 182, 193, 209, 185, 155, 169, 210),
-                   Depois = c(191, 170, 177, 167, 159, 151, 176, 183, 159, 145, 146, 177))
-kable(dados, "latex", booktabs = T) %>%
-  column_spec(2:5, width = "2.5cm")
-```
-
-Os mesmos indivíduos foram utilizados nas duas amostras (Antes/depois). Assim, é natural compararmos a pressão sistólica para cada indivíduo, comparando a pressão sistólica depois e antes. Para todos os pacientes, a pressão sistólica depois do Captopril é menor do que antes da medicação. Mas como podemos "ver" se estas diferenças são grandes? Com a ajuda do diagrama de dispersão mostrado na figura abaixo.
-
-```{r echo=T, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
-dados = data.frame(Paciente = LETTERS[1:12],
-                   Antes = c(200, 174, 198, 170, 179, 182, 193, 209, 185, 155, 169, 210),
-                   Depois = c(191, 170, 177, 167, 159, 151, 176, 183, 159, 145, 146, 177))
-
-dados %>%
-  ggplot(aes(x = Antes, y = Depois)) +
-  geom_point(size = 1) +
-  ylim(140,220) + xlim(140,220) +
-  geom_abline(slope = 1, intercept = 0) +
-  geom_text(aes(x = 200, y = 160), label = "Depois < Antes") +
-  geom_text(aes(x = 160, y = 200), label = "Depois > Antes") +
-  geom_text(aes(x = 210, y = 210), label = "Depois = Antes")
-```
-
-Cada ponto no diagrama de dispersão corresponde às medidas de pressão sistólica de um paciente, medida antes e depois da medicação. A linha marcada no diagrama corresponde à situação onde a pressão sistólica não se alterou depois do paciente tomar o Captopril. Veja que todos os pontos estão abaixo desta linha, ou seja para todos os pacientes o Captopril fez efeito. Grande parte destes pontos está bem distante da linha, mostrando que a redução na pressão sistólica depois do uso do medicamento não foi pequena.
-
-## Séries Temporais
-
-Séries temporais (ou séries históricas) são um conjunto de observações de uma mesma variável quantitativa (discreta ou contínua) feitas ao longo do tempo. O conjunto de novos casos da COVID-19 é um exemplo de série temporal.
-
-Um dos objetivos do estudo de séries temporais é conhecer o comportamento da série ao longo do tempo (aumento, estabilidade ou declínio dos valores). Em alguns estudos, esse conhecimento pode ser usado para se fazer previsões de valores futuros com base no comportamento dos valores passados.
-
-A representação gráfica de uma série temporal é feita através do gráfico de linha, como exemplificado nas figuras abaixo. No eixo horizontal do gráfico de linha, está o indicador de tempo e, no eixo vertical, a variável a ser representada.
-
-```{r echo=T, warning=F, message=F, fig.width=8, fig.height=3, fig.align='center'}
-library(tsibble)
-library(lubridate)
-library(dplyr)
-
-dados = read.csv("https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv")
-
-dados %>%
-  mutate(date = as_date(date)) %>% 
-  as_tsibble(key = state, index = date) %>% 
-  filter(state == "TOTAL") %>% 
-  select(date, newCases) %>%
-  ggplot(aes(x = date, y = newCases)) +
+names(tabela) = c("x","y")
+ggplot(data = tabela, aes(x = x, y = y)) +
   geom_line() +
-  labs(title = "Evolução dos casos de COVID-19 no Brasil",
-       y = "Novos Casos", x = "Data")
+  geom_point() +
+  xlab("Mu") +
+  ylab("Função Poder do Teste")
 ```
 
-De maneira geral, um gráfico de linhas deve ser construído de modo que:
+Observe que, para $\mu=100$, valor da hipótese nula, a função poder é igual à probabilidade do erro tipo I (nível de significância).
 
-- O início do eixo vertical seja o valor mínimo possível para a variável que está sendo representada, para evitar as distorções
-- O final do eixo vertical seja tal que a série fica centrada em relação ao eixo vertical
-- Os tamanhos dos eixos sejam o mais parecidos possível
+É interessante notar também que quanto mais distante do valor $\mu_0=100$, maior o poder do teste, ou seja, há uma probabilidade mais alta de se rejeitar $H_0$ quando o valor alternativo $\mu$ está bem distante de $\mu_0$.
 
-## Gráfico de Radar
+Agora, considere a situação do exemplo anterior, com as seguintes diferenças: o tamanho da amostra é $n=100$ e a região crítica passa a ser 
 
-O gráfico de radar é um diagrama e/ou gráfico que consiste de uma sequência de raios equi-angulares, com cada raio representando uma das variáveis. O comprimento de cada raio é proporcional à magnitude da variável para o ponto de dados em relação à máxima magnitude da variável em todos os pontos. Uma linha é desenhada ligando os valores de cada raio. Isso dá ao diagrama uma aparência de estrela, o que deu origem a um dos nomes mais populares para este gráfico. O gráfico de estrela pode ser usado para responder as seguintes questões:
+$$RC: \bar X < 94\text{ ou }\bar X > 106$$
 
-- Que observações são mais semelhantes, por exemplo, existem clusters de observações? 
-- Existem exceções?
+Note que é razoável "estreitar" a região crítica, já que a amostra é maior. Nesse caso, $\alpha$ é exatamente igual ao do exemplo anterior, já a função poder do teste para os mesmos valores (em vermelho $n=100$):
 
-Gráficos de radar oferecem uma maneira útil de exibir observações multivariáveis com um número arbitrário de variáveis. Cada estrela representa uma única observação. Normalmente, os gráficos de radar são gerados em um formato multi-diagrama com muitas estrelas em cada página, cada estrela representando uma observação. É um pouco mais fácil de ver padrões em dados se as observações forem organizadas em alguma ordem não-arbitrária (se as variáveis forem atribuídas aos raios da estrela em uma ordem significativa).
-
-Uma aplicação de gráficos de radar é o controle de melhoria de qualidade para apresentar as métricas de desempenho de qualquer programa em curso. Eles também são usados em esportes para representar os pontos fortes e fracos de jogadores, onde eles são geralmente chamados de gráficos de aranha. No exemplo abaixo vemos a performance de três alunos (a,b,c) em relação as dimensões matemática, inglês, biologia, música e R.
-
-```{r echo=T, warning=F, message=F, fig.width=6, fig.height=6, fig.align='center'}
-library(fmsb)
-
-dados = as.data.frame(matrix(sample(0:20, 15, replace=F), ncol=5))
-colnames(dados) = c("matemática", "inglês", "biologia", "música" ,"R")
-rownames(dados) = paste("aluno", letters[1:3])
-
-dados = rbind(rep(20,5), rep(0,5), dados)
- 
-radarchart(dados)
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+library(knitr)
+library(ggplot2)
+mu = seq(75,125,5)
+tabela = data.frame(x=rep(NA,length(mu)),y1=rep(NA,length(mu)),y2=rep(NA,length(mu)))
+tabela[,1] = mu
+for(i in 1:nrow(tabela)){
+  val_sup1 = (115-mu[i])/5
+  val_inf1 = (85-mu[i])/5
+  tabela[i,2] = round(1- (pnorm(val_sup1)-pnorm(val_inf1)),5)
+  
+  val_sup2 = (106-mu[i])/2
+  val_inf2 = (94-mu[i])/2
+  tabela[i,3] = round(1- (pnorm(val_sup2)-pnorm(val_inf2)),5)
+}
+ggplot(data = tabela) +
+  geom_line(aes(x = x, y = y1)) +
+  geom_point(aes(x = x, y = y1)) +
+  geom_line(aes(x = x, y = y2), col = "tomato") +
+  geom_point(aes(x = x, y = y2), col = "tomato") +
+  xlab("Mu") +
+  ylab("Função Poder do Teste")
 ```
+
+Note que o poder do teste baseado em uma amostra de tamanho 100 é sempre maior que o poder do teste baseado em uma amostra de tamanho 16.
+
+## T.H. para a média de uma Normal com variância conhecida
+
+Neste capítulo iremos aplicar os conceitos básicos sobre a teoria de teste de hipóteses a uma situação específica. Nosso interesse estará concentrado na média de uma população normal. Assim como no caso dos intervalos de confiança, iremos iniciar nossos estudos supondo que a variância dessa população seja conhecida. Como já dito, essa situação não é muito comum na prática, mas, em termos didáticos, a apresentação dos conceitos fica simplificada. Entendendo bem a construção de um teste de hipóteses para esse caso particular, a apresentação para as outras situações é bastante semelhante, mudando apenas a distribuição amostral.
+
+**Contextualizando com um exemplo**
+
+Depois de uma pane geral no sistema de informação de uma empresa, o gerente administrativo deseja saber se houve alteração no tempo de processamento de determinada atividade. Antes da pane, o tempo de processamento podia ser aproximado por uma variável aleatória normal com média de 100 minutos e desvio padrão de 10 minutos. O gerente acredita que a pane não tenha alterado a variabilidade do processo. Uma amostra de 16 tempos de processamento após a pane revela uma média de 105,5 minutos. Ao nível de significância de 5%, qual é a conclusão sobre a alteração do tempo médio de processamento?
+
+**Solução**
+
+O interesse do gerente é comparar os tempos antes e depois da pane. Antes da pane, o tempo médio de processamento era de 100 minutos. Como ele não sabe o tipo de alteração que possa ter ocorrido, ele precisa saber se o tempo médio depois da pane é diferente do tempo anterior. Isso nos leva às seguintes hipóteses nula e alternativa:
+
+$$H_0:\mu=100\text{  vs  } H_1:\mu\neq 100$$
+
+Seja $X$ a variável aleatória que representa o tempo de processamento. Então, pelos dados do problema, temos que $X\sim N(\mu; 100)$. Antes da pane, $\mu =100$. Como a população é normal, sabemos que a distribuição da média amostral também é normal e como não deve ter havido alteração na variabilidade do processo, resulta que o desvio padrão é de 10 minutos em qualquer situação. Logo,
+
+$$\bar X \sim N\left(\mu,\frac{100}{16}\right)$$
+
+ou equivalentemente,
+
+$$Z=\frac{\bar X-\mu}{2,5}\sim N(0,1)$$
+
+Pelo enunciado do problema, o nível de significância é de 5%. Isso significa que a probabilidade do erro tipo I é 0,05. Como visto, o erro tipo I consiste em rejeitar a hipótese nula quando ela é verdadeira. Logo,
+
+$$\alpha=P(\text{rejeitar }H_0|H_0\text{ verdadeira})=0,05$$
+
+Quando $H_0$ verdadeira, a estatística de teste tem a seguinte distribuição:
+
+$$H_0\text{ verdadeira} \Rightarrow \bar X \sim N\left(100,\frac{100}{16}\right)$$
+
+ou equivalentemente, 
+
+$$Z=\frac{\bar X-100}{\sqrt{\frac{100}{16}}}\sim N(0,1)$$
+
+A nossa região crítica consiste nos valores de $X$ com probabilidade pequena de ocorrerem sob essa hipótese. Ou seja, a região crítica consiste nos valores de $X$ muito afastados da média suposta de $\mu=100$. Como a hipótese alternativa é bilateral, "muito afastado" significa "muito maior" ou "muito menor" do que $\mu=100$.
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+library(ggplot2)
+percentil = 0.05
+lower_bound = -5
+upper_bound1 = qnorm(percentil/2, lower.tail = F)
+upper_bound2 = qnorm(percentil/2, lower.tail = T)
+x1 = seq(lower_bound, 5, length = 1000)
+y1 = dnorm(x1)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "tomato") +
+  geom_vline(xintercept = c(upper_bound1,0,upper_bound2), linetype = 'dashed', color = 'tomato') +
+  geom_polygon(data = dados2, aes(x1_polygon, y1_polygon), fill="tomato", alpha = 0.1) +
+  geom_polygon(data = dados22, aes(x2_polygon, y2_polygon), fill="tomato", alpha = 0.1) +
+  annotate('text', x = c(upper_bound2*1.2,0,upper_bound1*1.2), y = -0.02, label = c("100-k",100,"100+k"), parse = TRUE) +
+  annotate('text', x = c(upper_bound2*1.15,upper_bound1*1.15), y = 0.015, label = "2.5%") + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank())
+```
+
+Então, nossa região crítica é
+
+$$\bar X < 100-k \text{  ou  } \bar X  > 100+k$$
+
+e isso é equivalente a
+
+$$\bar X -100 < -k \text{  ou  } \bar X -100 > +k$$
+
+Usando a função módulo, podemos escrever:
+
+$$RC: |\bar X -100|>k$$
+
+e o valor da constante $k$ é determinado pelo nível de significância:
+
+$P\left[|\bar X -100|>k\Big|\bar X \sim N\left(100;6,25\right)\right] = 0,05$
+
+$P\left(\bar X < 100-k|\bar X \sim N(100,6,25)\right)+P\left(\bar X > 100+k|\bar X \sim N(100,6,25)\right) = 0,05$
+
+$P\left(Z<\frac{-k}{2,5}\right)+P\left(Z>\frac{k}{2,5}\right) = 0,05$
+
+$P\left(Z>\frac{k}{2,5}\right)+P\left(Z>\frac{k}{2,5}\right) = 0,05$
+
+$P\left(Z>\frac{k}{2,5}\right) = 0,025$
+
+Como, $z_{0,025}=1.96$, então $\frac{k}{2,5}=1,96$, assim $k=4,9$.
+
+A região crítica é
+
+$$RC: \bar X<95,1\text{  ou  }\bar X>104,9$$
+
+Como o valor da estatística de teste para a amostra observada está na região crítica, devemos rejeitar a hipótese nula, ou seja, as evidências amostrais indicam uma alteração do tempo de processamento da tarefa após a pane.
+
+A função poder do teste é definida como
+
+$$\beta(\mu)=P(\text{rejeitar } H_0|\mu)$$
+
+Em termos da nossa região crítica podemos escrever
+
+$$
+\begin{aligned}
+\beta(\mu)&= P\left[\bar X<95,1 |\bar X \sim N(100,6,25)\right] + P\left[\bar X>104,9 |\bar X \sim N(100,6,25)\right] \\
+&=P\left[Z<\frac{95,1-\mu}{2,5}\right]+P\left[Z>\frac{104,9-\mu}{2,5}\right]
+\end{aligned}
+$$
+
+Calculando $\beta(\mu)$ para diferentes valores de $\mu$ obtemos o gráfico exibido na Figura abaixo:
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+mu = 80:120
+tabela = data.frame("mu"=rep(NA,length(mu)),"Q(mu)"=rep(NA,length(mu)))
+names(tabela) = c("Mu","Q(mu)")
+tabela[,1] = mu
+for(i in 1:nrow(tabela)){
+  val_sup = (104.9-mu[i])/2.5
+  val_inf = (95.1-mu[i])/2.5
+  tabela[i,2] = round(1- (pnorm(val_sup)-pnorm(val_inf)),5)
+}
+#kable(tabela)
+names(tabela) = c("x","y")
+ggplot(data = tabela, aes(x = x, y = y)) +
+  geom_line() +
+  geom_point() +
+  xlab("Mu") +
+  ylab("Função Poder do Teste")
+```
+
+### Construindo o teste de hipóteses
+
+De posse de uma amostra aleatória simples $X_1, X_2, \ldots, X_n$ extraída de uma população $X\sim N(\mu; \sigma^2)$, nosso interesse está em testar a hipótese nula 
+
+$$H_0: \mu = \mu_0$$
+
+a um nível de significância $\alpha$.
+
+Dependendo do conhecimento sobre o problema, a hipótese alternativa pode tomar uma das três formas:
+
+$$H_1:\mu\neq\mu_0~~~~~~H_1:\mu>\mu_0~~~~~~H_1:\mu<\mu_0$$
+
+Em qualquer dos casos, a estatística de teste é a média amostral; se a variância $\sigma^2$ é conhecida, sabemos que
+
+$$\bar X \sim N\left(\mu,\frac{\sigma^2}{n}\right)$$
+
+A regra de decisão consiste em rejeitar a hipótese nula se o valor de $\bar X$ estiver "longe" do valor $\mu_0$. No caso da hipótese alternativa bilateral, estar longe significa ser muito maior ou muito menor que $\mu_0$; para a alternativa unilateral à direita, estar longe significa ser muito maior do que $\mu_0$ e para a alternativa unilateral à esquerda, longe significa ser muito menor que $\mu_0$. As expressões "muito menor" e "muito maior" ficam perfeitamente definidas a partir do valor do nível de significância $\alpha$.
+
+Veja as Figuras abaixo, em que ilustra-se a região crítica para as três hipóteses alternativas. Como antes, vamos denotar por $z_\alpha$ a abscissa da curva normal padrão que deixa área (probabilidade) $\alpha$ acima dela.
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+percentil = 0.1
+lower_bound = -5
+upper_bound1 = qnorm(percentil/2, lower.tail = F)
+upper_bound2 = qnorm(percentil/2, lower.tail = T)
+x1 = seq(lower_bound, 5, length = 1000)
+y1 = dnorm(x1)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(upper_bound1,0,upper_bound2), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados2, aes(x1_polygon, y1_polygon), fill="darkgreen", alpha = 0.1) +
+  geom_polygon(data = dados22, aes(x2_polygon, y2_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(upper_bound2*1.2,0,upper_bound1*1.2), y = -0.02, label = c(expression(mu[0]-k),expression(mu[0]),expression(mu[0]+k)), parse = TRUE) +
+  annotate('text', x = c(upper_bound2*1.15,upper_bound1*1.15), y = 0.015, label = expression(alpha/2)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa bilateral")
+```
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+percentil = 0.1
+lower_bound = -5
+upper_bound1 = qnorm(percentil, lower.tail = F)
+x1 = seq(lower_bound, 5, length = 1000)
+y1 = dnorm(x1)
+bounds_filter1 = x1 >= upper_bound1
+x1_within_bounds = x1[bounds_filter1]
+y1_within_bounds = y1[bounds_filter1]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+y1_polygon = c(0, y1_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(upper_bound1,0), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados2, aes(x1_polygon, y1_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(0,upper_bound1*1.2), y = -0.02, label = c(expression(mu[0]),expression(mu[0]+k)), parse = TRUE) +
+  annotate('text', x = c(upper_bound1*1.15), y = 0.015, label = expression(alpha)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa unilateral à direita")
+```
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+percentil = 0.1
+lower_bound = -5
+upper_bound1 = qnorm(percentil, lower.tail = F)
+upper_bound2 = qnorm(percentil, lower.tail = T)
+x1 = seq(lower_bound, 5, length = 1000)
+y1 = dnorm(x1)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(0,upper_bound2), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados22, aes(x2_polygon, y2_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(upper_bound2*1.2,0), y = -0.02, label = c(expression(mu[0]-k),expression(mu[0])), parse = TRUE) +
+  annotate('text', x = c(upper_bound2*1.15), y = 0.015, label = expression(alpha)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa unilateral à esquerda")
+```
+
+#### Bilateral
+
+Consideremos as hipóteses
+
+$$H_0:\mu=\mu_0 \text{  vs  } H_1:\mu\ne\mu_0$$
+
+A região crítica é 
+
+$$\bar X < \mu_0-k\text{ ou }\bar X > \mu_0+k$$
+
+e se a hipótese nula é verdadeira,
+
+$$\bar X \sim N\left(\mu_0,\frac{\sigma^2}{n}\right)$$
+
+Com nível de significância $\alpha=P(\text{erro tipo I})$, temos que ter:
+
+$\alpha=P\left(\text{rejeitar }H_0|H_0\text{ verdadeira}\right)$
+
+$\alpha=P\left(\bar X < \mu_0-k\text{ ou }\bar X > \mu_0+k|\bar X \sim N\left(\mu_0,\frac{\sigma^2}{n}\right)\right)$
+
+$\alpha=P\left(\bar X < \mu_0-k|\bar X \sim N\left(\mu_0,\frac{\sigma^2}{n}\right)\right) + P\left(\bar X > \mu_0+k|\bar X \sim N\left(\mu_0,\frac{\sigma^2}{n}\right)\right)$
+
+$\alpha=P\left(Z<\frac{-k}{\frac{\sigma}{\sqrt n}}\right)+P\left(Z>\frac{k}{\frac{\sigma}{\sqrt n}}\right)$
+
+$\alpha=2\times P\left(Z>\frac{k}{\frac{\sigma}{\sqrt n}}\right)$
+
+$\frac{\alpha}{2}=P\left(Z>\frac{k}{\frac{\sigma}{\sqrt n}}\right)$
+
+$\frac{k}{\frac{\sigma}{\sqrt n}}=z_{\frac{\alpha}{2}}$
+
+$k = z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt n}$
+
+Logo, a região crítica é:
+
+$$\bar X < \mu_0-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt n}\text{ ou }\bar X > \mu_0+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt n}$$
+
+#### Unilateral à direita
+
+Consideremos as hipóteses
+
+$$H_0:\mu=\mu_0 \text{  vs  } H_1:\mu>\mu_0$$
+
+A região crítica é 
+
+$$\bar X > \mu_0+k$$
+
+e se a hipótese nula é verdadeira,
+
+$$\bar X \sim N\left(\mu_0,\frac{\sigma^2}{n}\right)$$
+
+Com nível de significância $\alpha=P(\text{erro tipo I})$, temos que ter:
+
+$\alpha=P\left(\text{rejeitar }H_0|H_0\text{ verdadeira}\right)$
+
+$\alpha=P\left(\bar X > \mu_0+k|\bar X \sim N\left(\mu_0,\frac{\sigma^2}{n}\right)\right)$
+
+$\alpha=P\left(Z>\frac{k}{\frac{\sigma}{\sqrt n}}\right)$
+
+$\frac{k}{\frac{\sigma}{\sqrt n}}=z_{\alpha}$
+
+$k = z_{\alpha}\frac{\sigma}{\sqrt n}$
+
+Logo, a região crítica é:
+
+$$\bar X > \mu_0+z_{\alpha}\frac{\sigma}{\sqrt n}$$
+
+#### Unilateral à esquerda
+
+Consideremos as hipóteses
+
+$$H_0:\mu=\mu_0 \text{  vs  } H_1:\mu<\mu_0$$
+
+A região crítica é 
+
+$$\bar X < \mu_0-k$$
+
+e se a hipótese nula é verdadeira,
+
+$$\bar X \sim N\left(\mu_0,\frac{\sigma^2}{n}\right)$$
+
+Com nível de significância $\alpha=P(\text{erro tipo I})$, temos que ter:
+
+$\alpha=P\left(\text{rejeitar }H_0|H_0\text{ verdadeira}\right)$
+
+$\alpha=P\left(\bar X < \mu_0-k|\bar X \sim N\left(\mu_0,\frac{\sigma^2}{n}\right)\right)$
+
+$\alpha=P\left(Z<-\frac{k}{\frac{\sigma}{\sqrt n}}\right)$
+
+$\alpha=P\left(Z>\frac{k}{\frac{\sigma}{\sqrt n}}\right)$
+
+$\frac{k}{\frac{\sigma}{\sqrt n}}=z_{\alpha}$
+
+$k = z_{\alpha}\frac{\sigma}{\sqrt n}$
+
+Logo, a região crítica é:
+
+$$\bar X < \mu_0-z_{\alpha}\frac{\sigma}{\sqrt n}$$
+
+### Teste de Hipóteses vs Intervalo de Confiança
+
+É interessante notar a expressão que aparece na região crítica para o teste bilateral; ela é a mesma obtida para a margem de erro do intervalo de confiança para a média de uma população normal com variância conhecida:
+
+$$\varepsilon=z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt n}$$
+
+Podemos ver, assim, que existe uma relação entre os dois procedimentos; na verdade, em um teste de hipóteses bilateral, rejeitamos a hipótese nula $H_0$ se o valor observado da estatística de teste não estiver no intervalo de confiança.
+
+### Valor P (ou p-valor)
+
+Nos exemplos acima, a determinação da região crítica foi feita com base no nível de significância, isto é, fixado o nível de significância encontramos o valor $k$ que definia os limites entre valores prováveis (aqueles que levam à não rejeição de $H_0$) e pouco prováveis (aqueles que levam à rejeição de $H_0$). Um outro procedimento bastante usual, especialmente quando são utilizados programas computacionais, consiste em calcular a probabilidade de se obter um valor tão ou mais desfavorável que o valor observado, se $H_0$ for verdadeira. Essa probabilidade é chamada valor P ou p-valor.
+
+Portanto, definimos p-valor como: a probabilidade de obtermos um valor tão ou mais extremo que o valor observado dado que $H_0$ é verdadeira. Devemos rejeitar a hipótese nula $H_0$ ao nível de significância $\alpha$ sempre que o p-valor for menor ou igual a $\alpha$,ou seja: 
+
+$$\text{Rejeitamos } H_0\Leftrightarrow \text{p-valor} \leq \alpha$$
+
+### Exemplo
+
+**Solução**
+
+No exemplo exposto no início da seção, o valor obtido com os dados amostrais para a estatística de teste foi $\bar x = 105,5$. Como o teste é bilateral, valores "longe" de 100 são aqueles muito menores ou muito maiores que 100. O procedimento visto consistiu em dividir a probabilidade do erro tipo I igualmente nas duas caudas da distribuição normal e dessa forma identificamos a região crítica. Vamos, agora, calcular o valor P para o nosso exemplo; ele é a probabilidade de obtermos um valor tão ou mais extremo que o valor observado. Como o valor observado está à direita da média, devemos calcular a seguinte probabilidade:
+
+$$
+\begin{aligned}
+P &= P\left(\bar X \geq 105,5|H_0\text{ verdadeira}\right)\\
+&= P\left[\bar X \geq 105,5|\bar X \sim N\left(100;\frac{100}{16}\right)\right]\\
+&=P\left(Z\geq \frac{105,5-100}{2,5}\right)\\
+&=P(Z\geq 2,2)\\
+&=0,0139
+\end{aligned}
+$$
+
+Vamos analisar a Figura abaixo, onde está ilustrado esse valor. O valor amostral observado para $\bar X$ é $\bar x = 105,5 = 100+5,5$. Como o teste é bilateral, se tivéssemos obtido o valor $\bar x = 100 - 5,5$, esse valor também seria considerado tão afastado de $100$ quanto $105,5$. Assim, para testes bilaterais, temos que considerar a probabilidade nas duas caudas da distribuição. O que esse resultado está nos dizendo é o seguinte: se $H_0$ for verdadeira, a probabilidade de obtermos um valor distante de $100$ por $5,5$ unidades em qualquer direção é $2\times 0,0139 = 0,0278$. Essa probabilidade é chamada valor P.
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+
+lower_bound = -5
+upper_bound1 = qnorm(0.05, lower.tail = F)
+upper_bound2 = qnorm(0.05, lower.tail = T)
+x1 = seq(lower_bound, 5, length = 1000)
+y1 = dnorm(x1)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(upper_bound1,0,upper_bound2), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados2, aes(x1_polygon, y1_polygon), fill="darkgreen", alpha = 0.1) +
+  geom_polygon(data = dados22, aes(x2_polygon, y2_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(upper_bound2*1.2,0,upper_bound1*1.2), y = -0.02, label = c(-2.2,0,2.2), parse = TRUE) +
+  annotate('text', x = c(upper_bound2*1.15,upper_bound1*1.15), y = 0.015, label = 0.0139, color="darkgreen") + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa bilateral")
+```
+
+No exemplo, vemos que o valor P é pequeno, o que significa que é pouco provável obtermos um valor tão extremo quando $H_0$ é verdadeira. Logo, é razoável supormos que a hipótese nula não seja verdadeira, a mesma conclusão obtida ao trabalharmos com o nível de significância de 5%. Na verdade, rejeitaríamos a hipótese nula para qualquer nível de significância maior que $0,0278$.
+
+## T.H. para a média de uma Normal com variância desconhecida
+
+Neste capítulo você completará seu estudo básico de testes de hipóteses sobre a média de uma população, analisando a situação relativa a uma população normal quando não se conhece a variância desta população. Assim como no caso do intervalo de confiança, para testar hipóteses relativas à média de tal população, é necessário estimar essa variância e isso introduz mais uma fonte de variabilidade no procedimento: com uma única amostra, queremos testar hipóteses sobre a média, mas precisamos também estimar a variância da população. O procedimento é simples e análogo aos casos estudados nos caítulos anteriores; o que muda é a distribuição amostral da estatística de teste. Em vez de usarmos a distribuição normal para determinar os valores críticos, usaremos novamente a distribuição t de Student.
+
+Considere uma população descrita por uma variável aleatória normal com média $\mu$ e variância $\sigma^2$: $X\sim N(\mu,\sigma^2)$. Nosso interesse é testar hipóteses sobre a média $\mu$ a partir de uma amostra aleatória simples $X_1, X_2, \ldots, X_n$. Como visto anteriormente, se a variância $\sigma^2$ não é conhecida, então temos que usar a estatística
+
+$$T=\sqrt{n}\frac{\bar X-\mu}{S}$$
+
+cuja distribuição $t$ de Student com $n-1$ graus de liberdade.
+
+### Construindo o teste de hipóteses
+
+De posse desta estatística de teste, o procedimento de construção do teste é idêntico ao visto anteriormente: identificadas a hipótese nula (sempre na forma de uma hipótese simples $\mu=\mu_0$) e a hipótese alternativa, a região crítica é formada pelos valores da estatística de teste pouco prováveis sob $H_0$. O nível de significância e o tipo de hipótese alternativa permitem a identificação precisa do que são "valores pouco prováveis": são valores na(s) cauda(s) da distribuição de $T$ quando a hipótese nula é verdadeira.
+
+Seja $X_1,X_2,\ldots,X_n$ uma amostra amostra aleatória simples de uma população $X$ cuja disribuição é $N(\mu; \sigma^2)$. Nosso interesse é testar alguma hipótese sobre a média $\mu$ desta população. Em geral, a variância $\sigma^2$ não é conhecida e, portanto, vamos estimá-la por
+
+$$S^2=\frac{1}{n-1}\sum_{i=1}^n \left(X_i-\bar X\right)^2$$
+
+Lembre-se que $S^2$ é um estimador não-viesado de $\sigma^2$.
+
+A hipótese nula que iremos considerar será
+
+$$H_0:\mu=\mu_0$$
+
+As possíveis formas da hipótese alternativa são:
+
+- Bilateral: $H_1:\mu\ne\mu_0$
+- Unilateral à direita: $H_1:\mu > \mu_0$
+- Unilateral à esuqerda: $H_1:\mu < \mu_0$
+
+Como antes, a escolha entre essas três possibilidades se faz com base no conhecimento do problema. Se não temos informação alguma sobre a alternativa, temos que usar um teste bilateral.
+
+Como o teste é sobre a média de uma população normal, a estatística amostral que deve ser utilizada é $\bar X$. Como a variância populacional não é conhecida, sabemos que
+
+$$T=\frac{\bar X-\mu}{\frac{S}{\sqrt n}} \sim t(n-1)$$
+
+e é a nossa estatística de teste.
+
+A regra de decisão consiste em definir a região crítica RC como o conjunto de valores cuja probabilidade de ocorrência é pequena sob a hipótese de veracidade de $H_0$. Logo, nossa regra de decisão se baseia na estatística de teste
+
+$$T_0=\frac{\bar X-\mu_0}{\frac{S}{\sqrt n}} \sim t(n-1)$$
+
+Como a estatística de teste segue uma distribuição t de Student, valores com pequena probabilidade de ocorrência estão nas caudas da distribuição. Isso equivale a valores de $\bar X$ "distandes" de $\mu_0$. Assim, a região crítica para cada tipo de hipótese alternativa é definida como segue:
+
+- Bilateral: $T_0 < -k$ ou $T_0 > k$
+- Unilateral à direita: $T_0 > k$
+- Unilateral à esuqerda: $T_0 < -k$
+
+Nas Figuras abaixo ilustram-se as regiões críticas para cada tipo de hipótese alternativa.
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+library(ggplot2)
+percentil = 0.1
+lower_bound = -5
+upper_bound1 = qt(percentil/2,df=10, lower.tail = F)
+upper_bound2 = qt(percentil/2,df=10, lower.tail = T)
+x1 = seq(lower_bound, 5, length = 1000)
+y1 = dt(x1,df=10)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(upper_bound1,0,upper_bound2), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados2, aes(x1_polygon, y1_polygon), fill="darkgreen", alpha = 0.1) +
+  geom_polygon(data = dados22, aes(x2_polygon, y2_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(upper_bound2*1.2,0,upper_bound1*1.2), y = -0.02, label = c(expression(mu[0]-k),expression(mu[0]),expression(mu[0]+k)), parse = TRUE) +
+  annotate('text', x = c(upper_bound2*1.15,upper_bound1*1.15), y = 0.015, label = expression(alpha/2)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa bilateral")
+```
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+percentil = 0.1
+lower_bound = -5
+upper_bound1 = qt(percentil,df=10, lower.tail = F)
+x1 = seq(lower_bound, 5, length = 1000)
+y1 = dt(x1,df=10)
+bounds_filter1 = x1 >= upper_bound1
+x1_within_bounds = x1[bounds_filter1]
+y1_within_bounds = y1[bounds_filter1]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+y1_polygon = c(0, y1_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(upper_bound1,0), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados2, aes(x1_polygon, y1_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(0,upper_bound1*1.2), y = -0.02, label = c(expression(mu[0]),expression(mu[0]+k)), parse = TRUE) +
+  annotate('text', x = c(upper_bound1*1.15), y = 0.015, label = expression(alpha)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa unilateral à direita")
+```
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+percentil = 0.1
+lower_bound = -5
+upper_bound1 = qt(percentil,df=10, lower.tail = F)
+upper_bound2 = qt(percentil,df=10, lower.tail = T)
+x1 = seq(lower_bound, 5, length = 1000)
+y1 = dt(x1,df=10)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(0,upper_bound2), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados22, aes(x2_polygon, y2_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(upper_bound2*1.2,0), y = -0.02, label = c(expression(mu[0]-k),expression(mu[0])), parse = TRUE) +
+  annotate('text', x = c(upper_bound2*1.15), y = 0.015, label = expression(alpha)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa unilateral à esquerda")
+```
+
+O procedimento usual de teste de hipóteses consiste em se fixar o nível de significância $\alpha$, que, por definição, é a probabilidade de se cometer o erro tipo I:
+
+$$\alpha = P(\text{erro tipo I}) = P(\text{rejeitar }H_0|H_0\text{ é verdadeira})$$
+
+Assim, para cada tipo de hipótese alternativa a região crítica é identificada impondo-se a condição $P(T \in RC|H0\text{ é verdadeira}) = \alpha$
+
+#### Bilateral
+
+A região crítica é calculada como:
+
+$$
+\begin{aligned}
+\alpha&=P\left[T_0<-k\right|T_0\sim t(n-1)]+P\left[T_0>k\right|T_0\sim t(n-1)]\\
+\alpha&=2\times P\left[T_0<-k\right|T_0\sim t(n-1)]\\
+\frac{\alpha}{2}&=P\left[T_0>k\right|T_0\sim t(n-1)]
+\end{aligned}
+$$
+
+Usando a notação $t_{n;\alpha}$ para denotar a abcissa da distribuição $t$ de Student com $n$ graus de liberdade que deixa área (probabilidade) $\alpha$ acima dela, resulta a seguinte região crítica para o teste bilateral:
+
+$$T_0<-t_{n-1;\frac{\alpha}{2}}~~~~~~\text{ou}~~~~~~T_0>t_{n-1;\frac{\alpha}{2}}$$
+
+Essa região crítica também pode ser escrita de outra forma usando a seguinte equivalência:
+
+$$T_0<-t_{n-1;\frac{\alpha}{2}}\Longrightarrow \frac{\bar X-\mu_0}{\frac{S}{\sqrt n}}<-t_{n-1;\frac{\alpha}{2}}\Longrightarrow\bar X<\mu_0-t_{n-1;\frac{\alpha}{2}}\frac{S}{\sqrt n}$$
+
+$$T_0>t_{n-1;\frac{\alpha}{2}}\Longrightarrow \frac{\bar X-\mu_0}{\frac{S}{\sqrt n}}>t_{n-1;\frac{\alpha}{2}}\Longrightarrow\bar X>\mu_0+t_{n-1;\frac{\alpha}{2}}\frac{S}{\sqrt n}$$
+
+#### Unilateral à direita
+
+A região crítica é calculada como:
+
+$$
+\begin{aligned}
+\alpha&=P\left[T_0>k\right|T_0\sim t(n-1)]\\
+t_{n-1;\alpha}&=k
+\end{aligned}
+$$
+
+ou seja, a região crítica é
+
+$$T_0 > t_{n-1;\alpha}$$
+
+ou equivalentemente
+
+$$\bar X>\mu_0+t_{n-1;\alpha}\frac{S}{\sqrt n}$$
+
+#### Unilateral à esquerda
+
+De forma análoga, obtém-se a seguinte região crítica para o teste unilateral à esquerda:
+
+$$T_0 <- t_{n-1;\alpha}$$
+
+ou equivalentemente
+
+$$\bar X<\mu_0-t_{n-1;\alpha}\frac{S}{\sqrt n}$$
+### Teste de Hipóteses vs Intervalo de Confiança
+
+xxx
+
+### Valor P (ou p-valor)
+
+XXX
+
+### Exemplo
+
+Depois de uma pane geral no sistema de informação de uma empresa, o gerente administrativo deseja saber se houve alteração no tempo de processamento de determinada atividade. Antes da pane, o tempo de processamento podia ser aproximado por uma variável aleatória normal com média de 100 minutos. Uma amostra de 16 tempos de processamento após a pane revela uma média $\bar x = 105,5$ minutos e um desvio padrão $s = 10$ minutos. Ao nível de significância de 5%, qual é a conclusão sobre a alteração do tempo médio de processamento?
+
+**Solução**
+
+Como visto, as hipóteses do problema são:
+
+$$
+\begin{cases}
+H_0:\mu=\mu_0 \\
+H_1:\mu\ne\mu_0
+\end{cases}
+$$
+
+Como a variância não é conhecida, temos que usar a distribuição $t$ de Student com $n-1=16-1=15$ graus de liberdade. Para um teste bilateral com nível de significância de 5%, a abscissa de interesse é aquela que deixa área de $0,025$ acima. Consultando a Tabela, resulta
+
+$$t_{15;0,025}=2,131$$
+
+A estatística de teste é
+
+$$T_0=\frac{\bar X -100}{\frac{10}{\sqrt{16}}}\sim t(15)$$
+
+e a região crítica é
+
+$$T_0<-2,131~~~~\text{ou}~~~~T_0>2,131$$
+
+O valor observado da estatísitca de teste é
+
+$$T_0=\frac{105,5 -100}{\frac{10}{\sqrt{16}}}=2,2$$
+
+Como esse valor pertence à região crítica, rejeitamos a hipótese nula e concluímos que houve alteração no tempo de processamento após a pane.
+
+Em termos da média amostral, a região crítica é
+
+$$\bar X<100-2,131\times\frac{10}{\sqrt{16}}~~~~\text{ou}~~~~\bar X>100+2,131\times\frac{10}{\sqrt{16}}$$
+
+ou
+
+$$\bar X<105,33~~~~\text{ou}~~~~\bar X>94,673$$
+
+Comparando com a Região Crítica obtida no Exemplo 1 da seção anterior ($\bar X < 95.1\text{ ou }\bar X > 104.9$), note que com o mesmo nível de significância, a região crítica no caso de variância desconhecida é mais extrema, refletindo a maior variabilidade da distribuição t-student.
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+mu = 80:120
+tabela = data.frame(rep(NA,length(mu)),rep(NA,length(mu)),rep(NA,length(mu)))
+tabela[,1] = mu
+for(i in 1:nrow(tabela)){
+  val_sup = (105.33-mu[i])/2.5
+  val_inf = (94.67-mu[i])/2.5
+  tabela[i,2] = round(1- (pt(val_sup,df=15)-pt(val_inf,df=15)),5)
+  val_sup = (104.9-mu[i])/2.5
+  val_inf = (95.1-mu[i])/2.5
+  tabela[i,3] = round(1- (pnorm(val_sup)-pnorm(val_inf)),5)
+}
+names(tabela) = c("x","y","z")
+ggplot(data = tabela) +
+  geom_line(aes(x = x, y = z)) +
+  geom_point(aes(x = x, y = z)) +
+  geom_line(aes(x = x, y = y), color = "red") +
+  geom_point(aes(x = x, y = y), color = "red") +
+  annotate('text', x = 96, y = 0.8, label = expression(paste(sigma^2,conhecido))) +
+  annotate('text', x = 89.5, y = 0.7, label = expression(paste(sigma^2,desconhecido)), color = 'red') +
+  xlab("Mu") +
+  ylab("Função Poder do Teste")
+```
+
+Para calcular o p-valor: 
+
+$$
+\begin{aligned}
+p-valor &= 2\times P\left(\bar X>105,5 \Big| \frac{\bar X-100}{\frac{10}{\sqrt 16}} \sim t(15)\right)\\
+&= 2\times P\left(t(15)>\frac{105,5-100}{\frac{10}{\sqrt 16}}\right)\\
+&= 2\times P\left(t(15)>2,2\right)\\
+&= 2\times 0, 02195 = 0, 0439
+\end{aligned}
+$$
+
+Como $p-valor < 0,05$, rejeitamos $H_0$ ao nível de significância de 5%.
+
+## T.H. para a proporção populacional
+
+Já aprendemos a construir testes de hipóteses sobre a média de uma população normal com variância $\sigma^2$ conhecida. O procedimento baseou-se na distribuição amostral da média amostral que, com as hipóteses de normalidade e conhecimento da variância populacional, sabemos ser normal com a mesma média e variância $\frac{\sigma^2}{n}$. Agora, iremos fazer uso do Teorema Limite Central para construir testes de hipóteses sobre proporções com base em amostras grandes. Vimos que, para amostras grandes, a distribuição amostral da proporção amostral pode ser aproximada por uma distribuição normal e, assim, o procedimento de teste de hipóteses será idêntico ao estudado sobre a média de uma população normal com variância $\sigma^2$ conhecida.
+
+O contexto de interesse é o seguinte: temos uma população em que cada elemento é classificado de acordo com a presença ou ausência de determinada característica. Em termos de variável aleatória, essa população é representada por uma v.a. de Bernoulli, isto é:
+
+$$
+X=\begin{cases}
+1,\text{  se elemento possui característica de interesse}\\
+0,\text{  se elemento não possui característica de interesse}
+\end{cases}
+$$
+
+Então, $P(X = 1) = p$, $E(X) = p$ e $V(X) = p(1-p)$. O parâmetro $p$ é também a proporção de elementos da população que possuem a caracterísitca de interesse. Em geral, esse parâmetro é desconhecido e queremos testar hipóteses feitas sobre seu possível valor.
+
+Suponha, então, que dessa população seja extraída uma amostra aleatória simples $X_1,\ldots,X_n$ com reposição. Vimos que a proporção $\hat P$ de elementos na amostra que possuem a característica de interesse, definida por
+
+$$\hat P = \frac{S_n}{n} = \frac{X_1+X_2+\ldots+X_n}{n}$$
+
+é um estimador não-viesado para $p$ com variância $\frac{p(1-p)}{n}$. Mais precisamente,
+
+$$E(\hat P)=p$$
+
+$$V(\hat P)=\frac{p(1-p)}{n}$$
+
+### Construindo o teste de hipóteses
+
+Como a proporção amostral é uma média de uma amostra aleatória simples de uma população com distribuição de Bernoulli com parâmetro $p$, o Teorema Central do Limite nos diz, então, que a distribuição de $\hat P$ se aproxima de uma nornal com média $p$ e variância $\frac{p(1-p)}{n}$.
+
+Resumindo, temos o seguinte resultado:
+
+$$\hat P \approx N\left(p,\frac{p(1-p)}{n}\right)$$
+
+ou, equivalentemente,
+
+$$\frac{\hat P-p}{\sqrt{\frac{p(1-p)}{n}}}\approx N(0,1)$$
+
+Vamos ver, agora, como usar esse resultado para construir testes de hipóteses sobre a verdadeira proporção populacional $p$.
+
+A hipótese nula que consideraremos será uma hipótese simples:
+
+$$H_0:p=p_0$$
+
+As hipóteses alternativas possíveis são
+
+- Bilateral: $H_1:p\neq p_0$
+- Unilateral à direita: $H_1:p > p_0$
+- Unilateral à esquerda: $H_1:p < p_0$
+
+Como no caso da média, a escolha das hipóteses nula e alternativa deve ser feita levando-se em conta que a hipótese nula deve ser uma hipótese simples. Assim, você deve "traduzir" a situação de interesse do problema em desigualdades envolvendo a proporção $p$. A hipótese alternativa é a desigualdade que não inclui o sinal de $=$. A estatística de teste é
+
+$$Z=\frac{\hat P-p}{\sqrt{\frac{p(1-p)}{n}}}\approx N(0,1)$$
+
+Dado um nível de significância $\alpha$, a região crítica é definida como o conjunto de valores da estatísttca de teste que têm probabilidade pequena de ocorrerem sob a veracidade da hipótese nula. Assim, a região crítica é definida como o conjunto de valores de
+
+$$Z_0=\frac{\hat P-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}\approx N(0,1)$$
+
+com pequena probabilidade de ocorrência. Como estamos exatamente no mesmo procedimento de teste de hipóteses será idêntico ao estudado sobre a média de uma população normal com variância $\sigma^2$ conhecida,
+
+- $Z_0 < -Z_\frac{\alpha}{2}$ ou $Z_0>Z_\frac{\alpha}{2}$ (teste bilateral)
+- $Z_0 > z_\alpha$ (teste unilateral à direita)
+- $Z_0 < -z_\alpha$ (teste unilateral à esquerda)
+
+ou
+
+- $\hat P < p_0-Z_\frac{\alpha}{2}\sqrt{\frac{p_0(1-p_0)}{n}}$ ou $\hat P > p_0+Z_\frac{\alpha}{2}\sqrt{\frac{p_0(1-p_0)}{n}}$ (teste bilateral)
+- $\hat P > p_0+Z_\alpha\sqrt{\frac{p_0(1-p_0)}{n}}$ (teste unilateral à direita)
+- $\hat P < p_0-Z_\alpha\sqrt{\frac{p_0(1-p_0)}{n}}$ (teste unilateral à direita)
+
+### Valor P (ou p-valor)
+
+Como já visto, o valor P é a probabilidade de se obter um valor tão ou mais extremo (na direção da hipótese alternativa) que o valor observado da estatística de teste. Denotando por $Z_0$ o valor observado da estatística de teste, temos as seguintes possibilidades:
+
+- $\text{p-valor}=2\times P(Z>|Z_0|)$ (teste bilateral)
+- $\text{p-valor}= P(Z>|Z_0|)$ (teste unilateral à direita ou à esquerda)
+
+Valores pequenos de $\text{p-valor}$ indicam que o valor observado é pouco provável de ocorrer sob a hipótese nula; logo, valores pequenos de $\text{p-valor}$ levam à rejeição da hipótese nula. A hipótese nula é rejeitada a qualquer nível de significância $\alpha \geq \text{p-valor}$.
+
+### Exemplo
+
+Uma amostra de 64 elementos é usada para testar
+
+$$
+\begin{cases}
+H_0:p=0,35 \\
+H_1:p\neq 0,35
+\end{cases}
+$$
+
+Estabeleça a região crítica para o nível de significância de 1%. Se a proporção amostral para esta amostra é $\hat P = 0,26$, calcule o $\text{p-valor}$.
+
+**Solução**
+
+Com $\alpha=0,01$ e um teste bilateral, resulta que $z_{0,005}=2,59$. A estatística de teste é
+
+$$Z_0=\frac{0,26-0,35}{\sqrt{\frac{0,35\times 0,65}{64}}}=-1,51$$
+
+e a região crítica é 
+
+$$Z_0<-2,59~~~~\text{ou}~~~~Z_0>2,59$$
+
+Como o teste é bilateral, o $\text{p-valor}$ é calculado como
+
+$$
+\begin{aligned}
+\text{p-valor} &= 2\times P(Z>|-1,51|) \\
+&= 2\times 0,0655\\
+&= 0,131
+\end{aligned}
+$$
+
+Como o $\text{p-valor}$ é grande, não se rejeita a hipótese nula, ou seja, a probabilidade de se obter um valor tão extremo quanto o observado é alta, se $H_0$ for verdadeira. A hipótese nula só seria rejeitada para níveis de significância maiores que 13,1%.
+
+## T.H. para a variância de uma Normal
+
+Agora completaremos o estudo de teste de hipóteses sobre parâmetros de uma população, analisando o caso da variância de uma população normal. Assim como na construção de intervalos de confiança, nossa estatística de teste tem distribuição qui-quadrado e a região crítica, como antes, será formada pelos valores pouco prováveis desta estatística de teste sob a hipótese nula.
+
+Considere uma população descrita por uma variável aleatória normal com média $\mu$ e variância $\sigma^2: X\sim N(\mu; \sigma^2)$. Nosso interesse é testar hipóteses sobre a a variância $\sigma^2$ a partir de uma amostra aleatória simples $X_1, X_2,\ldots, X_n$. Como visto anteriormente, a estatística
+
+$$\chi^2=\frac{(n-1)S^2}{\sigma^2}$$
+
+tem distribuição qui-quadrado com $n-1$ graus de liberdade.
+
+De posse desta estatística de teste, o procedimento de construção do teste é idêntico ao visto nos últimos capítulos: identificadas a hipótese nula (sempre na forma de uma hipótese simples $\sigma^2=\sigma^2_0$) e a hipótese alternativa, a região crítica é formada pelos valores da estatística de teste pouco prováveis sob $H_0$. O nível de significância e o tipo de hipótese alternativa permitem a identificação precisa do que são "valores pouco prováveis": são valores na(s) cauda(s) da distribuição de $\chi^2$ quando a hipótese nula é verdadeira.
+
+### Construindo o teste de hipóteses
+
+Seja $X_1, X_2,\ldots, X_n$ uma amostra aleatória simples de uma população $X$ cuja distribuição é $N(\mu,\sigma^2)$. Nosso interesse é testar alguma hipótese sobre a variância $\sigma^2$, que é estimada por
+
+$$S^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar X)^2$$
+
+Lembre-se que $S^2$ é um estimador não-viesado de $\sigma^2$.
+
+A hipótese nula que iremos considerar será
+
+$$H_0:\sigma^2=\sigma^2_0$$
+
+As possíveis formas da hipótese alternativa são:
+
+- Bilateral: $H_1:\sigma^2\neq \sigma^2_0$
+- Unilateral à direita: $H_1:\sigma^2 > \sigma^2_0$
+- Unilateral à esquerda: $H_1:\sigma^2 < \sigma^2_0$
+
+Como o teste é sobre a variância de uma população normal, a estatística amostral a ser utilizada é
+
+$$\frac{(n-1)S^2}{\sigma^2}\sim \chi^2_{n-1}$$
+
+O procedimento de decisão é definido em termos da hipótese nula $H_0$ e as decisões possíveis são (i) rejeitar ou (ii) não rejeitar $H_0$. Conforme já visto, existem duas possibilidades de erro:
+
+- Erro tipo I: rejeitar $H_0$ quando $H_0$ é verdadeira
+- Erro tipo II: não rejeitar $H_0$ quando $H_0$ é falsa
+
+A regra de decisão consiste em definir a região crítica RC como o conjunto de valores cuja probabilidade de ocorrência é pequena sob a hipótese de veracidade de $H_0$. Logo, nossa regra de decisão se baseia na estatística de teste
+
+$$X_0=\frac{(n-1)S^2}{\sigma^2_0}\sim \chi^2_{n-1}$$
+
+Os valores com pequena probabilidade de ocorrência estão nas caudas da distribuição. Assim, a região crítica para cada tipo de hipótese alternativa é definida como segue:
+
+- $X_0<k_I$ ou $X^2_0>k_S$ (teste bilateral)
+- $X_0>k_S$ (teste unilateral à direita)
+- $X_0<k_I$ (teste unilateral à esquerda)
+
+#### Bilateral
+
+O procedimento usual de teste de hipóteses consiste em se fixar o nível de significância $\alpha$, que, por definição, é a probabilidade do erro tipo I:
+
+$$\alpha=P(\text{erro tipo I})=(\text{rejeitar }H_0|H_0~\text{é verdadeira})$$
+
+Assim, para cada tipo de hipótese alternativa a região crítica é identificada impondo-se a condição
+
+$$P(X_0 \in RC|H_0~\text{é verdadeira})=\alpha$$
+
+A região crítica é calculada como:
+
+$$P\left[X_0<k_I|X_0\sim\chi^2_{n-1}\right]+P\left[X_0>k_S|X_0\sim\chi^2_{n-1}\right]=\alpha$$
+
+Mesmo a distribuição qui-quadrado não sendo simétrica, é prática usual dividir a probabilidade de erro em partes iguais, ou seja, os limites da região crítica são definidos de modo que
+
+- $P\left[X_0<k_I|X_0\sim\chi^2_{n-1}\right]=\frac{\alpha}{2}$
+- $P\left[X_0>k_S|X_0\sim\chi^2_{n-1}\right]=\frac{\alpha}{2}$
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+percentil = 0.1
+lower_bound = 0
+upper_bound1 = qchisq(percentil/2,df=10, lower.tail = F)
+upper_bound2 = qchisq(percentil/2,df=10, lower.tail = T)
+x1 = seq(lower_bound, 40, length = 1000)
+y1 = dchisq(x1,df=10)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(upper_bound1,upper_bound2), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados2, aes(x1_polygon, y1_polygon), fill="darkgreen", alpha = 0.1) +
+  geom_polygon(data = dados22, aes(x2_polygon, y2_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(upper_bound2*0.7,upper_bound1*1.08), y = -0.002, label = c(expression(k[I]),expression(k[S])), parse = TRUE) +
+  annotate('text', x = c(upper_bound2*0.75,upper_bound1*1.1), y = 0.005, label = expression(alpha/2)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa bilateral")
+```
+
+Usando a notação $\chi^2_{n,\alpha}$ para denotar a abscissa da distribuição qui-quadrado com $n$ graus de liberdade que deixa área (probabilidade) $\alpha$ acima dela, resulta a seguinte região crítica para o teste bilateral:
+
+$$X_0<\chi^2_{n-1,1-\frac{\alpha}{2}}~~~~\text{ou}~~~~X_0>\chi^2_{n-1,\frac{\alpha}{2}}$$
+
+ou também,
+
+$$S^2<\frac{n-1}{\sigma^2_0}\chi^2_{n-1,1-\frac{\alpha}{2}}~~~~\text{ou}~~~~S^2>\frac{n-1}{\sigma^2_0}\chi^2_{n-1,\frac{\alpha}{2}}$$
+
+#### Unilateral à direita
+
+A região crítica é calculada como:
+
+$$P\left[X_0>k_S|X_0\sim\chi^2_{n-1}\right]=\alpha\Longrightarrow k_S=\chi^2_{n-1,\alpha}$$
+
+
+ou seja, a região crítica é
+
+$$X_0>\chi^2_{n-1,\alpha}$$
+
+ou também,
+
+$$S^2>\frac{n-1}{\sigma^2_0}\chi^2_{n-1,\alpha}$$.
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+percentil = 0.1
+lower_bound = 0
+upper_bound1 = qchisq(percentil,df=10, lower.tail = F)
+upper_bound2 = qchisq(percentil,df=10, lower.tail = T)
+x1 = seq(lower_bound, 40, length = 1000)
+y1 = dchisq(x1,df=10)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(upper_bound1), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados2, aes(x1_polygon, y1_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(upper_bound1*1.08), y = -0.002, label = c(expression(k[S])), parse = TRUE) +
+  annotate('text', x = c(upper_bound1*1.1), y = 0.005, label = expression(alpha)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa unilateral à direita")
+```
+
+#### Unilateral à esquerda
+
+De forma análoga, obtém-se a seguinte região crítica para o teste unilateral à esquerda:
+
+$$X_0<\chi^2_{n-1,1-\alpha}$$
+
+ou também,
+
+$$S^2<\frac{n-1}{\sigma^2_0}\chi^2_{n-1,1-\alpha}$$.
+
+
+
+```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
+percentil = 0.1
+lower_bound = 0
+upper_bound1 = qchisq(percentil,df=10, lower.tail = F)
+upper_bound2 = qchisq(percentil,df=10, lower.tail = T)
+x1 = seq(lower_bound, 40, length = 1000)
+y1 = dchisq(x1,df=10)
+bounds_filter1 = x1 >= upper_bound1
+bounds_filter2 = x1 <= upper_bound2
+x1_within_bounds = x1[bounds_filter1]
+x2_within_bounds = x1[bounds_filter2]
+y1_within_bounds = y1[bounds_filter1]
+y2_within_bounds = y1[bounds_filter2]
+x1_polygon = c(upper_bound1, x1_within_bounds, upper_bound1)
+x2_polygon = c(lower_bound, x2_within_bounds, upper_bound2)
+y1_polygon = c(0, y1_within_bounds, 0)
+y2_polygon = c(0, y2_within_bounds, 0)
+dados1 = data.frame(x=x1,y=y1)
+dados2 = data.frame(x=x1_polygon,y=y1_polygon)
+dados22 = data.frame(x=x2_polygon,y=y2_polygon)
+ggplot(dados1, aes(x1,y1)) +
+  geom_line(size = 1, color = "darkgreen") +
+  geom_vline(xintercept = c(upper_bound2), linetype = 'dashed', color = 'darkgreen') +
+  geom_polygon(data = dados22, aes(x2_polygon, y2_polygon), fill="darkgreen", alpha = 0.1) +
+  annotate('text', x = c(upper_bound2*0.7), y = -0.002, label = c(expression(k[I])), parse = TRUE) +
+  annotate('text', x = c(upper_bound2*0.75), y = 0.005, label = expression(alpha)) + 
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(),
+                      axis.ticks.x=element_blank()) +
+  theme(axis.title.y=element_blank(), axis.text.y=element_blank(),
+                      axis.ticks.y=element_blank()) +
+  ggtitle("Hipótese alternativa unilateral à esquerda")
+```
+
+### Valor P
+
+Como já visto, o valor P é a probabilidade de se obter um valor tão ou mais extremo (na direção da hipótese alternativa) que o valor observado da estatística de teste. Denotando por $X_0$ o valor observado da estatística de teste, temos as seguintes possibilidades:
+
+- $\text{p-valor}=2\times \text{mín}\{P(\chi_{n-1}>X_0),P(\chi_{n-1}<X_0)\}$ (teste bilateral)
+- $\text{p-valor}= P(\chi_{n-1}>X_0)$ (teste unilateral à direita)
+- $\text{p-valor}= P(\chi_{n-1}<X_0)$ (teste unilateral à esquerda)
+
+Valores pequenos de $\text{p-valor}$ indicam que o valor observado é pouco provável de ocorrer sob a hipótese nula; logo, valores pequenos de $\text{p-valor}$ levam à rejeição da hipótese nula. A hipótese nula é rejeitada a qualquer nível de significância $\alpha \geq \text{p-valor}$.
+
+### Exemplo
+
+XXX
+
+## T.H. Adequação de Ajuste (Goodness of Fit)
+
+Os procedimentos de testes de hipóteses que discutimos nas seções prévias são projetados para problemas em que a população ou a distribuição de probabilidades seja conhecida e as hipóteses envolvam os parâmetros da distribuição.
+
+Outro tipo de hipótese é frequentemente encontrada: *Não conhecemos a distribuição sob consideração da população e desejamos testar a hipótese de que uma distribuição particular será satisfatória como um modelo para a população*
+
+Por exemplo, podemos desejar testar a hipótese de que a população seja normal. Ou seja, as hipóteses são:
+
+$$
+\begin{cases}
+H_0:~~\text{a forma da distribuição da população é (Normal, Poisson etc.)}\\
+H_1:~~\text{a forma da distribuição da população não é (Normal, Poisson etc.)}
+\end{cases}
+$$
+
+Utilizaremos aqui o **teste de adequação de ajuste**, baseado na distribuição qui-quadrado.
+
+O procedimento de teste requer uma amostra de tamanho $n$, proveniente da população cuja distribuição de probabilidades é desconhecida. Essas $n$ observações são arranjadas em um histograma de frequências, tendo $k$ intervalos de classe onde $O_i$ é a frequência observada no $i$-ésimo intervalo de classe. A partir da distribuição de probabilidades utilizada na hipótese, calculamos a frequência esperada no $i$-ésimo intervalo de classe, denotada como $E_i$.
+
+### Construindo o teste de hipóteses
+
+A estatística de teste é: 
+
+$$\chi^2_0=\sum_{i=1}^n\frac{(O_i-E_i)^2}{E_i}$$
+
+Se a população seguir a distribuição testada na hipótese nula, a estatística de teste $\chi^2_0$ terá, aproximadamente, uma distribuição qui-quadrado com $k-p-1$ graus de liberdade, em que $p$ representa o número de parâmetros da distribuição utilizada na hipótese, estimados pelas estatísticas amostrais.
+
+Deve-se rejeitar a hipótese nula de que a distribuição da população é a distribuição utilizada na hipótese, se a estatística de teste for "muito grande". Isto é, rejeitaríamos a um nível de significância $\alpha$, se o valor calculado da estatística de teste $\chi^2_0>\chi^2_{k-p-1;\alpha}$.
+
+Já o p-valor é calculado como $P(\chi^2_{k-p-1;\alpha}>\chi^2_0)$.
+
+Um ponto a ser notado na aplicação desse procedimento de teste se refere à magnitude das **frequências esperadas**. Se essas frequências forem muito pequenas, então a estatística de teste $\chi^2_0$ não refletirá o desvio entre o observado e esperado, mas somente a pequena magnitude das frequências esperadas. Portanto, quando uma classe obtiver frequência esperada menor que 3, deve-se combiná-la a classe anterior (intervalos de classe não necessitam ter a mesma largura)
+
+### Exemplo
+
+Supõe-se que o número de defeito nas placas de circuito impresso siga a distribuição de Poisson. Uma amostra aleatória de $n=60$ placas impressas foi coletada e o número de defeitos, observado. Está correta a suposição?
+
+| Número de Defeitos | Frequência Observada |
+|--------------------|----------------------|
+| 0                  | 32                   |
+| 1                  | 15                   |
+| 2                  | 9                    |
+| 3 (ou mais)        | 4                    |
+
+**Solução**
+
+A média da distribuição de Poisson considerada neste exemplo é desconhecida e tem de ser estimada a partir dos dados da amostra. Isto é, a estimativa do número médio de defeitos por placa é a média amostral, ou seja:
+
+$$\frac{0\times32+1\times15+2\times9+3\times4}{32+15+9+4}=0.75$$
+
+A partir da distribuição de Poisson com parâmetro $0.75$, podemos calcular $p_i$, a probabilidade teórica utilizada na hipótese, associada ao $i$-ésimo intervalo de classe.
+
+Uma vez que cada intervalo de classe corresponde a um número particular de defeitos, podemos encontrar $p_i$ como segue:
+
+- $p_1=P(X=0)=\frac{e^{-0.75}(0.75)^0}{0!}=0.472$
+- $p_2=P(X=1)=\frac{e^{-0.75}(0.75)^1}{1!}=0.354$
+- $p_3=P(X=2)=\frac{e^{-0.75}(0.75)^2}{2!}=0.133$
+- $p_4=P(X\geq3)=1-p_1-p_2-p_3=0.041$
+  
+As frequências esperadas são calculadas pela multiplicação do tamanho da amostra $n=60$ vezes as probabilidades $p_i$ ($E_i=n\times p_i$):
+
+- $E_1=60\times0.472=28.32$
+- $E_2=60\times0.354=21.24$
+- $E_3=60\times0.133=7.98$
+- $E_4=60\times0.041=2.46$
+
+Já que a frequência esperada em $E_4$ é menor do que 3, combinamos $E_3$ e $E_4$.
+
+| Número de Defeitos | $O_i$ | $E_i$ | $\frac{(O_i-E_i)^2}{E_i}$           |
+|--------------------|-------|-------|-------------------------------------|
+| 0                  | 32    | 28,32 | $\frac{(32-28,32)^2}{28,32}=0.4782$ |
+| 1                  | 15    | 21,24 | $\frac{(15-21,24)^2}{21,24}=1.8332$ |
+| 2 (ou mais)        | 13    | 10,44 | $\frac{(13-10,44)^2}{10,44}=0.6277$ |
+| Total              | 60    | 60    | 2.9391                              |
+
+Portanto, usando $\alpha=0.05$, temos que:
+
+- $H_0:$ a forma da distribuição de defeitos é Poisson
+- $H_1:$ a forma da distribuição de defeitos não é Poisson
+- $\chi^2_0=2.9391$
+- $k-p-1=3-1-1=1$ e $\chi^2_{1;0.05}=3.841459$
+
+Conclusão: como $\chi^2_0(2.9391)<\chi^2_{1;0.05}(3.841459)$, não podemos rejeitar a hipótese nula de que a distribuição de defeitos nas placas de circuito impresso é Poisson a um nível de significância de 5%.
+
+Para calcular o p-valor, devemos fazer $P(\chi_1^2>2.9391)=0.087$, note portanto que $p-valor>0.05$ o que nos faz não rejeitar a um nível de significância de 5%, porém $p-valor<0.1$ o que nos faria rejeitar $H_0$ a um nível de significância de 10%.
+
+## T.H. para a Tabela de Contingência
+
+Muitas vezes, os $n$ elementos de uma amostra proveniente de uma população podem ser classificados de acordo com dois critérios diferentes. É então interessante saber se os dois métodos de classificação são estatisticamente independentes; por exemplo, podemos considerar a população de engenheiros se graduando e podemos desejar determinar se o salário inicial é independente das disciplinas acadêmicas.
+
+Considere que o primeiro método de classificação tenha $r$ níveis e que o segundo método tenha $c$ níveis. Seja $O_{ij}$ a frequência observada para o nível $i$ do primeiro método de classificação e nível $j$ para o segundo método. Os dados, em geral, aparecem como na tabela a seguir, chamada de **tabela de contingência**
+
+|         |     | Colunas  |          |     |          |
+|---------|-----|----------|----------|-----|----------|
+|         |     | 1        | 2        | ... | $c$      |
+| Linhas  | 1   | $O_{11}$ | $O_{12}$ | ... | $O_{1c}$ |
+|         | 2   | $O_{21}$ | $O_{22}$ | ... | $O_{2c}$ |
+|         | ... | ...      | ...      | ... | ...      |
+|         | $r$ | $O_{r1}$ | $O_{r2}$ | ... | $O_{rc}$ |
+
+Estamos interessados em testar a hipótese de que os métodos linha-coluna de classificação são independentes. Se rejeitarmos essa hipótese, concluiremos que haverá alguma interação entre os dois critérios de classificação
+
+Portanto, as hipóteses são:
+
+$$
+\begin{cases}
+H_0:~~\text{os métodos de classificação são independentes}\\
+H_1:~~\text{há interação entre os métodos de classificação (dependentes)}
+\end{cases}
+$$
+
+Os procedimentos exatos de teste são difíceis de obter, porém uma estatística de teste aproximada é válida para $n$ grande. Seja $p_{ij}$ a probabilidade de um elemento selecionado aleatoriamente cair na $ij$-ésima célula, dado que as duas classificações são independentes. Então, $p_{ij}=u_{i}v_{j}$ em que $u_{i}$ é a probabilidade de um elemento selecionado cair aleatoriamente na linha classe $i$ e $v_j$ é a probabilidade de um elemento selecionado aleatoriamente cair na coluna classe $j$. Agora, supondo independência, os estimadores $u_i$ e $v_j$ são: 
+$$\hat u_i=\frac{1}{n}\sum_{j=1}^cO_{ij} \text{ e } \hat v_j=\frac{1}{n}\sum_{i=1}^rO_{ij}$$
+
+Logo, a frequência esperada de cada célula é 
+
+$$E_{ij}=n\hat u_i\hat v_j=\frac{1}{n}\sum_{j=1}^cO_{ij}\sum_{i=1}^rO_{ij}$$
+
+### Construindo o teste de hipóteses
+
+Assim, para $n$ grande, a estatística de teste tem uma distribuição aproximada qui-quadrado com $(r-1)(c-1)$ graus de liberdade, se a hipótese nula for verdadeira:
+
+$$\chi^2_0=\sum_{j=1}^c\sum_{i=1}^r\frac{(O_{ij}-E_{ij})^2}{E_{ij}}$$
+
+Rejeita-se a hipótese de independência, se o valor observado da estatística de teste $\chi^2_0>\chi^2_{(r-1)(c-1);\alpha}$. Já o p-valor é calculado como $P(\chi^2_{(r-1)(c-1)}>\chi^2_0)$.
+
+### Exemplo
+
+Uma companhia tem de escolher entre três planos de saúde. O gerente deseja saber se a preferência para os planos é independente da classificação do trabalho e quer usar $\alpha=0.05$. As opiniões de uma amostra aleatória de 500 empregados foram coletadas:
+
+|                           |              | Plano de saúde |     |     |       |
+|---------------------------|--------------|----------------|-----|-----|-------|
+|                           |              | 1              | 2   | 3   | Total |
+| Classificação             | Assalariados | 160            | 140 | 40  | 340   |
+|                           | Diaristas    | 40             | 60  | 60  | 160   |
+|                           | Total        | 200            | 200 | 100 | 500   |
+
+**Solução**
+
+Para calcular as frequências esperadas, temos primeiro que calcular:
+
+- $\hat u_1=\frac{340}{500}=0.68$
+- $\hat u_2=\frac{160}{500}=0.32$
+- $\hat v_1=\frac{200}{500}=0.40$
+- $\hat v_2=\frac{200}{500}=0.40$
+- $\hat v_3=\frac{100}{500}=0.20$
+
+Agora,
+
+- $E_{11} = n \hat u_1 \hat v_1 = 500\times 0.68 \times 0.40  = 136$
+- $E_{12} = n \hat u_1 \hat v_2 = 500\times 0.68 \times 0.40  = 136$
+- $E_{13} = n \hat u_1 \hat v_3 = 500\times 0.68 \times 0.20  = 68$
+- $E_{21} = n \hat u_2 \hat v_1 = 500\times 0.32 \times 0.40  = 64$
+- $E_{22} = n \hat u_2 \hat v_2 = 500\times 0.32 \times 0.40  = 64$
+- $E_{23} = n \hat u_2 \hat v_2 = 500\times 0.32 \times 0.20  = 32$
+
+As frequências esperadas são mostradas na tabela a seguir:
+
+|                           |              | Plano de saúde |     |     |       |
+|---------------------------|--------------|----------------|-----|-----|-------|
+|                           |              | 1              | 2   | 3   | Total |
+| Classificação             | Assalariados | 136            | 136 | 68  | 340   |
+|                           | Diaristas    | 64             | 64  | 32  | 160   |
+|                           | Total        | 200            | 200 | 100 | 500   |
+
+Portanto, usando $\alpha=0.05$, temos que:
+
+$$
+\begin{cases}
+H_0:~~\text{a preferência é independente da classificação de trabalho}\\
+H_1:~~\text{a preferência depende da classificação de trabalho}
+\end{cases}
+$$
+
+Então, 
+
+$(r-1)(c-1)=(2-1)(3-1)=2$ e $\chi^2_{2;0.05}=5.991465$
+  
+E $\frac{(O_{ij}-E_{ij})^2}{E_{ij}}$, resultando em:
+
+|   |        | j          |           |             |          |
+|---|--------|------------|-----------|-------------|----------|
+|   |        | 1          | 2         | 3           | $\sum$   |
+| i | 1      | 4.235294   | 0.1176471 | 11.52941    | 15.88235 |
+|   | 2      | 9          | 0.25      | 24.5        | 33.75    |
+|   | $\sum$ | 13.2352941 | 0.3676471 | 36.0294118  | 49.63235 |
+
+Conclusão: como $\chi^2_0(49.63)>\chi^2_{2;0.05}(5.99)$, rejeita-se a hipótese nula de independência a um nível de significância de 5%.
+
+Para calcular o p-valor, devemos fazer $P(\chi_2^2>49.63)=1.67\times 10^{-11}$, note portanto que o p-valor é extremamente pequeno, o que nos faz rejeitar a hipótese nula a um nível de significância de 5% e a níveis menores também.

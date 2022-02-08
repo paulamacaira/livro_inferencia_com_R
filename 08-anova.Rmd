@@ -1,0 +1,290 @@
+# Análise de Variância (ANOVA)
+
+ANOVA é uma coleção de modelos estatísticos no qual a variância amostral é particionada em diversos componentes devido a diferentes fatores (variáveis), que nas aplicações estão associados a um  processo, produto ou serviço. Através desta partição, a ANOVA estuda a influência destes fatores na característica de interesse.
+
+## ANOVA para um único fator
+
+Considere um processo, produto ou serviço no qual queremos avaliar o impacto do fator $A$, tal que $A$ tenha $k$ níveis, sendo que esses níveis são fixos. Suponha que uma amostra de $N$ unidades experimentais é selecionada completamente aleatória de uma população de unidades experimentais. A unidade experimental é a unidade básica para o qual os tratamentos são aplicados. Podemos organizar os dados da seguinte forma:
+
+| Nível    | Fator A  |          |          |            | Somas    | Médias        |
+|----------|----------|----------|----------|------------|----------|---------------|
+| 1        | $y_{11}$ | $y_{12}$ | $\ldots$ | $y_{1n_1}$ | $y_{1.}$ | $\bar y_{1.}$ |
+| 2        | $y_{21}$ | $y_{22}$ | $\ldots$ | $y_{2n_2}$ | $y_{2.}$ | $\bar y_{2.}$ |
+| $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$   | $\vdots$ | $\vdots$      |
+| $k$      | $y_{k1}$ | $y_{k2}$ | $\ldots$ | $y_{kn_k}$ | $y_{k.}$ | $\bar y_{k.}$ |
+
+Para uma boa análise é necessário descrever os dados através de um modelo apropriado. Um dos mais simples é o modelo de efeitos, descrito por:
+
+$$y_{ij}=\mu +\alpha_i+\varepsilon_{ij}$$
+
+Em que:
+
+- $j = 1, \cdots, n_i$ e $i = 1,2, \cdots,k$
+- $\mu$ é um parâmetro comum a todos os tratamentos e representa a média geral dos dados
+- $\alpha_{i}$ é o efeito que o nível $i$ do fator provoca na variável resposta
+- $\varepsilon_{ij}$ é o erro aleatório experimental
+
+O erro experimental $(\varepsilon_{ij})$ pode ser descrito como a variabilidade devido aos outros fatores que influenciam no processo, produto ou serviço e que não foram considerados no experimento. Ele representa as variações não explicadas pelo modelo, que tem como causa as variações presentes em diversas fontes não consideradas no estudo.
+
+A partir dos dados, utilizaremos a seguinte notação:
+
+- $y_{i.}=\displaystyle \sum_{j=1}^{n_{i}} y_{ij}$: soma das observações do nível $i$ do fator A
+- $\overline{y}_{i.}=\cfrac{\displaystyle\sum_{j=1}^{n_{i}} y_{ij}}{\displaystyle n_{i}}$: média das observações do nível $i$ do fator A
+- $y_{..}=\displaystyle\sum_{i=1}^{k} \sum_{j=1}^{n_{i}}y_{ij}$: soma de todas as observações
+- $\overline{y}_{..}=\frac{\displaystyle \sum_{i=1}^{k}\sum_{j=1}^{n_{i}} y_{ij}}{\displaystyle N}$: média geral das observações, sendo $N=\displaystyle\sum^{k}_{i=1}n_{i},$ total de observações
+
+Além disso, faremos a hipótese de que o erro experimental são variáveis aleatórias independentes e identicamente distribuídas com distribuição normal com média zero e variância $\sigma^2$, isto é, assumimos que 
+
+$$\varepsilon_{ij} \sim N(0, \sigma^2)$$
+
+Desta forma, concluímos que $y_{ij}$ também tem distribuição normal com média $\mu + \alpha_i$ e variância $\sigma^2$, para todo $j=1, \cdots, n_i$ e $i=1, \cdots, k$.
+
+Na prática estamos interessado em avaliar o impacto do fator na resposta. Para isto, queremos avaliar o efeito que os diferentes níveis do fator provoca na variável resposta, ou seja, queremos testar as hipóteses:
+
+$$
+\begin{cases} 
+H_0: \alpha_1=\ldots=\alpha_k=0 \\
+H_1:\alpha_i\neq 0~~~~\text{(para algum }i=1,\ldots,k\text{)}
+\end{cases}
+$$
+
+### Partição da variabilidade total
+
+A técnica da ANOVA está associada a partição da variabilidade total dos dados em componentes. A soma de quadrados total é definida como medida da variabilidade total dos dados,
+
+$$SQT=\sum_{i=1}^{k}\sum_{j=1}^{n_{i}}(y_{ij} - \overline{y}_{..})^{2}$$
+
+Intuitivamente isto é razoável, pois se dividirmos SQT pelos seus graus de liberdade (N-1), obtemos a variância amostral dos dados.
+
+A soma de quadrados do fator $A$ é o desvio das médias estimadas em cada tratamento (nível) em torno da média geral dos dados,
+
+$$SQA=\sum_{i=1}^{k}\sum_{j=1}^{n_{i}}(\bar y_{i.} - \overline{y}_{..})^{2}$$
+
+Já a soma de quadrados do erro é o desvio das observações em torno da média estimada do seu nível (tratamento),
+
+$$SQE=\sum_{i=1}^{k}\sum_{j=1}^{n_{i}}(y_{ij} - \overline{y}_{i.})^{2}$$
+
+Uma forma para calcularmos os graus de liberdade consiste em determinarmos o valor esperado das componentes $SQA$ e $SQE$. O termo que multiplica $\sigma^2$ corresponde aos graus de liberdade.
+
+Chegamos que o valor esperado destes quadrados médios são,
+
+- $E[SQA]=(k-1)\sigma^2+\sum_{i=1}^{k} n_i\alpha_i^2$
+- $E[SQE]=(N-k)\sigma^2$
+
+Com isso podemos definir os quadrados médios como,
+
+- $QMA=\frac{SQA}{k-1}\Longrightarrow E[QMA]=\sigma^2+\sum_{i=1}^{k} n_i\alpha_i^2$
+- $QME=\frac{SQE}{N-k}\Longrightarrow E[QME]=\sigma^2$
+
+Portanto, o $QME$ é um bom estimador para a variância. Assim, se não existe diferença entre os níveis (tratamentos) do fator $A$ (isto é, $\alpha_i=0$), $QMA$ também é um bom estimador para a variância. Entretanto, se existe diferença entre as médias dos níveis, o valor esperado do quadrado médio do fator $A$ (devido aos níveis) é maior do que $\sigma^2$. Assim, temos os seguintes graus de liberdade:
+
+| SQ    | Graus de Liberdade   | QM    |
+|-------|----------------------|-------|
+| $SQA$ | $k-1$                | $QMA$ |
+| $SQE$ | $N-k$                | $QME$ |
+| $SQT$ | $N-1$                |       |
+
+Com isso, está claro que para testarmos as hipóteses sobre diferenças entre as médias dos níveis, podemos comparar o quadrado médio do tratamento ($QMA$) com o quadrado médio do erro ($QME$). A seguir, vamos apresentar um método para fazermos essa comparação.
+
+Agora vamos desenvolver um teste para avaliar a hipótese de diferenças ou não entre as médias populacionais dos níveis, isto é, o efeito do fator $A$ com as seguintes hipóteses:
+
+$$
+\begin{cases} 
+H_0: \alpha_1=\ldots=\alpha_k=0 \\
+H_1:\alpha_i\neq 0~~~~\text{(para algum }i=1,\ldots,k\text{)}
+\end{cases}
+$$
+
+Como os erros $\varepsilon_{ij}$ tem distribuição Normal com média $0$ e variância $\sigma^2$ e são independentes, as observações $y_{ij}$ tem distribuição Normal com média $\mu+\alpha_i$ e variância $\sigma^2$ e também são independentes. Desde que $y_{ij}$ tem distribuição Normal e são independentes, obtemos que
+
+$$\frac{SQT}{\sigma^2}\sim \chi^2_{N-1}$$
+
+tem distribuição Qui-quadrado com ($N-1$) graus de liberdade. Da mesma forma,
+
+$$\frac{SQE}{\sigma^2}\sim \chi^2_{N-k}$$
+
+e
+
+$$\frac{SQA}{\sigma^2}\sim \chi^2_{k-1}$$
+
+Como $\frac{SQA}{\sigma^2}$ e $\frac{SQE}{\sigma^2}$ têm distribuição Qui-Quadrado, independentes, obtemos que
+
+$$F_0=\frac{\frac{SQA}{k-1}}{\frac{SQE}{N-k}}=\frac{QMA}{QME}\sim F_{(k-1;N-k)}$$
+
+### Construção do teste de hipóteses
+
+Se $F_0>F_{\alpha;k-1;N-k}$, rejeitamos $H_0$ e concluímos que existe diferença significativa entre as médias dos níveis do fator (tratamentos), no qual $F(\alpha,k-1,N-k)$ corresponde ao quantil da distribuição $F$ de Snedecor com nível de confiança $1-\alpha$. Podemos ainda calcular o $p-valor$ como $P[F(k-1,N-k)>F_0 | H_0]$.
+
+A ANOVA pode ser representada na tabela a seguir:
+
+| FV    | SQ  | GL  | QM                    | $F_0$                 |
+|-------|-----|-----|-----------------------|-----------------------|
+| Fator | SQA | k-1 | $QMA=\frac{SQA}{k-1}$ | $F_0=\frac{QMA}{QME}$ |
+| Erro  | SQE | N-k | $QME=\frac{SQE}{N-k}$ |                       |
+| Total | SQT | N-1 |                       |                       |
+
+### Exemplo
+
+Considere o processo de produção de uma fibra sintética, no qual o experimentador quer conhecer a influência da porcentagem de algodão na resistência da fibra. Para isto, foi realizado um experimento totalmente aleatorizado, no qual diversos níveis de porcentagem de algodão foram avaliados com respeito à resistência da fibra. Um ponto importante no planejamento do experimento é que para cada nível do fator (porcentagem de algodão), os outros fatores que influenciam o processo (como o meio ambiente, máquina, matéria prima, etc) devem apresentar um padrão homogêneo de variabilidade. No experimento, tomamos 5 níveis para a porcentagem de algodão e 5 replicações:
+
+| k        | Algodão  | Resistência  da Fibra|    |    |    |    | Somas        | Médias              |
+|----------|----------|----------------------|----|----|----|----|--------------|---------------------|
+| 1        | 15       | 7                    | 7  | 15 | 11 | 9  | 49           | 9,8                 |
+| 2        | 20       | 12                   | 17 | 12 | 18 | 18 | 77           | 15,4                |
+| 3        | 25       | 14                   | 18 | 18 | 19 | 19 | 88           | 17,6                |
+| 4        | 30       | 19                   | 25 | 22 | 19 | 23 | 108          | 21,6                |
+| 5        | 35       | 7                    | 10 | 11 | 15 | 11 | 54           | 10,8                |
+|          |          |                      |    |    |    |    | $y_{..}$=376 | $\bar y_{..}$=15,04 |
+
+
+**Solução**
+
+As somas de quadrados é dada por:
+
+$$SQT=\sum^k_{i=1}\sum^{n_i}_{j=1}y_{ij}^{2}-\frac{y^{2}_{..}}{N}=636,96$$
+
+$$SQA=\sum^k_{i=1}\cfrac{1}{n_i}y_{i.}^{2} -\frac{y^{2}_{..}}{N}= 475,76$$	
+
+Com isso, temos que
+
+$$SQE=SQT-SQA= 161,20$$
+
+| FV    | SQ     | Graus de Liberdade | Quadrados Médios          | $F_0$    |
+|-------|--------|--------------------|---------------------------|----------|
+| Fator | 475,76 | 5-1=4              | $\frac{475,76}{4}=118,94$ | $14,757$ |
+| Erro  | 161,20 | 25-5=20            | $\frac{161,20}{20}=8,06$  |          |
+| Total | 636,96 | 25-1=24            |                           |          |
+
+O valor aproximado do $p-valor$ é $P[F_{(4,20)}> F_0|H_0]=0,000$ e para $\alpha = 0,05$, obtemos que $F[0,05, 4, 20]=2,87$. Portanto, com 95% de confiança, rejeitamos $H_0$, ou seja, pelo menos um $\alpha_i$ é diferente de zero, para $i=1,\ldots,n$. Isto é, para pelo menos um nível há diferença entre as médias, ou seja, a porcentagem de algodão tem influência na resistência da fibra.
+
+## ANOVA para dois fatores
+
+Muita vezes, ao estudarmos um processo, produto ou serviço, temos diversos fatores que podem influenciar na característica de interesse. A técnica da ANOVA permite avaliar o impacto que estes fatores provocam na característica de interesse.
+
+Para isto, considere um experimento com dois fatores, denominados A e B, no qual o fator A tem $a$ níveis e o fator B tem $b$ níveis. Para cada combinação de níveis, realizamos $r$ réplicas. Na tabela a seguir, apresentamos os dados do experimento.
+
+| Fator A  | Fator B                  |                          |          |                          | Médias         |
+|----------|--------------------------|--------------------------|----------|--------------------------|----------------|
+|          | 1                        | 2                        | $\ldots$ | $b$                      |                |
+| 1        | $y_{111},\ldots,y_{11r}$ | $y_{121},\ldots,y_{12r}$ | $\ldots$ | $y_{1b1},\ldots,y_{1br}$ | $\bar y_{1..}$ |
+| 2        | $y_{211},\ldots,y_{21r}$ | $y_{221},\ldots,y_{22r}$ | $\ldots$ | $y_{2b1},\ldots,y_{2br}$ | $\bar y_{2..}$ |
+| $\vdots$ | $\vdots$                 | $\vdots$                 | $\vdots$ | $\vdots$                 | $\vdots$       |
+| $a$      | $y_{a11},\ldots,y_{a1r}$ | $y_{a21},\ldots,y_{a2r}$ | $\ldots$ | $y_{ab1},\ldots,y_{abr}$ | $\bar y_{a..}$ |
+| Média    | $\bar y_{.1.}$           | $\bar y_{.2.}$           | $\ldots$ | $\bar y_{.b.}$           | $\bar y_{...}$ |
+
+**Contextualizando com um exemplo**
+
+Para exemplificar, uma empresa que produz limpadores de para-brisas para automóveis quer saber como os fatores Tipo de Caixa Redutora e Tipo de Eixo, utilizados na fabricação dos motores que acionam os limpadores, influenciam o ruído produzido, quando da utilização destes. Para isso realizamos um experimento com $54$ motores, com $3$ tipos de Eixo (Rolado, Cortado e Importado) e $2$ tipos de Caixas Redutora (Nacional e Importada). Para cada motor (unidade experimental) medimos o ruído. Neste experimento, temos por interesse encontrar a combinação entre caixa redutora e eixo que minimiza o ruído
+
+| Fator A                | Fator B |      |      |         |      |      |           |      |      |
+|------------------------|---------|------|------|---------|------|------|-----------|------|------|
+|                        | Rolado  |      |      | Cortado |      |      | Importado |      |      |
+| Nacional               | 42.1    | 42   | 40.3 | 38.2    | 37.4 | 37   | 40.9      | 40.7 | 39.4 |
+|                        | 38.9    | 38.9 | 43.7 | 42.3    | 42.3 | 42.1 | 42        | 41.4 | 41.3 |
+|                        | 41      | 40.1 | 40.3 | 40.5    | 41.3 | 40.4 | 40.6      | 41.3 | 41.6 |
+| Importada              | 39.6    | 40.2 | 48.4 | 41.3    | 46.8 | 40.3 | 39.6      | 36.9 | 39.9 |
+|                        | 40.9    | 41   | 41   | 40.5    | 39.9 | 39.3 | 38.1      | 38   | 36.2 |
+|                        | 39.9    | 41   | 42.7 | 41.3    | 40.1 | 40.1 | 36.7      | 37.2 | 36.7 |
+
+Para que possamos analisar os resultados do experimento, precisamos de um modelo que descreva os dados. Para facilitar a notação, apresentamos um modelo de dados balanceados (o número de réplicas ($r$) não depende do tratamento ($ij$)):
+
+$$y_{ij}=\mu +\alpha_i+\beta_j+\tau_{ij}+\varepsilon_{ijk}$$
+
+restrito a
+
+- $\alpha_{.}=\sum_{i=1}^{a}\alpha_i=0~,~\beta_{.}=\sum_{j=1}^{b}\beta_j=0$
+- $\tau_{.j}=\sum_{i=1}^{a}\tau_{ij}=0~,~\tau_{i.}=\sum_{j=1}^{b}\tau_{ij}=0$
+
+Durante o desenvolvimento deste módulo utilizaremos a seguinte notação:
+
+- $y_{i..} = \sum_{j=1}^{b}\sum_{k=1}^{r}y_{ijk}$
+- $y_{.j.}=\sum_{i=1}^{a}\sum_{k=1}^{r}y_{ijk}$
+- $y_{ij.}=\sum_{k=1}^{r}y_{ijk}$
+- $y_{...}=\sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^{r}y_{ijk}$
+- $\overline{y}_{i..}=\frac{1}{b~r}\sum_{j=1}^{b}\sum_{k=1}^{r}y_{ijk}$
+- $\overline{y}_{.j.}=\frac{1}{a~r}\sum_{i=1}^{a}\sum_{k=1}^{r}y_{ijk}$
+- $\overline{y}_{ij.}=\frac{1}{r}\sum_{k=1}^{r}y_{ijk}$
+- $\overline{y}_{...}=\frac{1}{b~a~r}\sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^{r}y_{ijk}$
+- $\varepsilon_{ijk}\sim N(0;~\sigma^2)$
+- $Y_{ijk}\sim N(\mu +\alpha_i+\beta_j+\tau_{ij};~\sigma^2)$
+
+onde,
+
+- $Y_{ijk}$ representa a k-ésima leitura no i-ésimo nível do fator A e j-ésimo nível do fator B;
+- $\mu$ é a média geral dos dados;
+- $\alpha_i$ é o efeito do nível $i$ do fator A;
+- $\beta_j$ é o efeito do nível $j$ do fator B;
+- $\tau_{ij}$ é o efeito da interação $ij$ entre os fatores;
+- $\varepsilon_{ijk}$ é o erro aleatório.
+
+Em um experimento com dois fatores, temos como interesse avaliar se existe interação entre os fatores ao avaliar o efeito da interação através de um teste de hipóteses. Caso o efeito da interação não seja significativo, avaliamos os efeitos principais (individuais), também através de testes de hipóteses apropriados
+
+| Objetivo                          | Hipótese                                                       |
+|-----------------------------------|----------------------------------------------------------------|
+| efeito do fator A	                | $H_0:\alpha_1=\ldots=\alpha_a=0~~\text{vs}~~H_1:\alpha_i\neq0$ |
+| efeito do fator B                	| $H_0:\beta_1=\ldots=\beta_b=0~~\text{vs}~~H_1:\beta_i\neq0$    |
+| efeito da interação ($A\times B$)	| $H_0:\tau_{ij}=0~\forall i,j~~~\text{vs}~~H_1:\tau_{ij}\neq0$  |
+
+### Partição da variabilidade total
+
+Na decomposição da soma de quadrados, vamos "quebrar" a variabilidade total dos dados, denominada soma de quadrados total, em diversos componentes. Neste caso, mostramos que
+
+$$SQ_T = SQ_A + SQ_B + SQ_{AB} + SQ_E$$
+
+- $SQ_T$ é a soma de quadrados total
+- $SQ_A$ é a soma de quadrados do fator A
+- $SQ_B$ é a soma de quadrados do fator B
+- $SQ_{AB}$ é a soma de quadrados da interação $A\times B$
+- $SQ_E$ é a soma de quadrados do erro
+
+onde,
+
+$$SQ_T=\sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^{r}(y_{ijk}-\overline{y}_{...})^2$$	
+$$SQ_A=b~r\sum_{i=1}^{a}(\overline{y}_{i..}-\overline{y}_{...})^2$$	
+$$SQ_B=a~r\sum_{j=1}^{b}(\overline{y}_{.j.}-\overline{y}_{...})^2$$	
+$$SQ_{AB}=r~\sum_{i=1}^{a}\sum_{j=1}^{b}(\overline{y}_{ij.}-\overline{y}_{i..}-\overline{y}_{.j.}+\overline{y}_{...})^2$$	
+$$SQ_E=\sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^{r}(y_{ijk}-\overline{y}_{ij.})^2$$
+
+Cada soma de quadrados dividido por seu grau de liberdade determina o quadrado médio (QM), ou seja
+
+| Quadrado Médio                 | Variação      | Valor esperado                                                                      |
+|--------------------------------|---------------|-------------------------------------------------------------------------------------|
+| $\frac{SQ_A}{a-1}$             | A             | $\sigma^2+\frac{br}{a-1}\sum^{a}_{i=1}\left(\alpha_i\right)^2$                      |
+| $\frac{SQ_B}{b-1}$             | B             | $\sigma^2+\frac{ar}{b-1}\sum^{b}_{j=1}\left(\beta_j\right)^2$                       |
+| $\frac{SQ_{AB}}{(a - 1)(b-1)}$ | ${A\times B}$ | $\sigma^2+\frac{r}{(a-1)(b-1)}\sum^{a}_{i=1}\sum^{b}_{j=1}\left(\tau_{ij}\right)^2$ |
+| $\frac{SQ_E}{ab(r-1)}$         | Erro          | $\sigma^2$                                                                          |
+
+### Construção do teste de hipóteses
+
+- Estatística de Teste para o Fator A: $F_0=\frac{QM_A}{QM_E}$
+  + Rejeita $H_0$ se $F_0>F_{1-\alpha;a-1;ab(n-1)}$
+- Estatística de Teste para o Fator B: $F_0=\frac{QM_B}{QM_E}$
+  + Rejeita $H_0$ se $F_0>F_{1-\alpha;b-1;ab(n-1)}$
+- Estatística de Teste para o Fator $A\times B$: $F_0=\frac{QM_{AB}}{QM_E}$
+  + Rejeita $H_0$ se $F_0>F_{1-\alpha;(a-1)(b-1);ab(n-1)}$
+
+### Exemplo (continuação)
+
+```{r, echo = F, eval = F}
+dados = data.frame(fator_A = c("Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Nacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional","Internacional"),
+                   fator_B = c("Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Rolado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Cortado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado","Importado"),
+                   valor = c(42.1,42,40.3,38.9,38.9,43.7,41,40.1,40.3,39.6,40.2,48.4,40.9,41,41,39.9,41,42.7,38.2,37.4,37,42.3,42.3,42.1,40.5,41.3,40.4,41.3,46.8,40.3,40.5,39.9,39.3,41.3,40.1,40.1,40.9,40.7,39.4,42,41.4,41.3,40.6,41.3,41.6,39.6,36.9,39.9,38.1,38,36.2,36.7,37.2,36.7))
+summary(aov(valor ~ fator_A + fator_B + fator_A*fator_B, data = dados))
+```
+
+**Solução**
+
+| FV          | SQ     | Graus de Liberdade | Quadrados Médios          | $F_0$    | pvalor  |
+|-------------|--------|--------------------|---------------------------|----------|---------|
+| A           | 3,84   | 1                  | 3,84                      | 1,071    | 0,30588 |
+| B           | 32,44  | 2                  | 16,221                    | 4,524    | 0,01584 |
+| $A\times B$ | 52,51  | 2                  | 26,257                    | 7,324    | 0,00168 |
+| Erro        | 172,08 | 48                 | 3,585                     |          |         |
+
+Para $\alpha = 0,05$, portanto, com 95% de confiança
+
+- Fator A (tipo de caixa redutora): não rejeitamos $H_0$
+- Fator B (tipo de eixo): rejeitamos $H_0$
+- Fator $A\times B$ (interação): rejeitamos $H_0$
+
+Conclusão: os efeitos do tipo de eixo e a interação entre os fatores influenciam os ruídos dos motores.

@@ -1,12 +1,10 @@
 # Intervalo de Confiança
 
-## Introdução
+## Ideia Geral
 
 Neste capítulo você aprenderá um método muito importante de estimação de parâmetros. Vimos anteriormente que a média amostral $\bar X$ é um bom estimador da média populacional $\mu$. Mas vimos, também, que existe uma variabilidade nos valores de $\bar X$, ou seja, cada amostra dá origem a um valor diferente do estimador. Uma maneira de informar sobre esta variabilidade é através da estimação por intervalos.
 
-## Ideias Básicas
-
-O objetivo central da Inferência Estatística é obter informações para uma população a partir do conhecimento de uma única amostra. Em geral, a população é representada por uma variável aleatória $X$, com função de distribuição ou densidade de probabilidade $f_X$ . Dessa população, então, extrai-se uma amostra aleatória simples com reposição, que dá origem a um conjunto $X_1, X_2, \ldots, X_n$ de $n$ variáveis aleatórias independentes e identicamente distribuídas, todas com a mesma distribuição $f_X$.
+O objetivo central da inferência estatística é obter informações para uma população a partir do conhecimento de uma única amostra. Em geral, a população é representada por uma variável aleatória $X$, com função de distribuição ou densidade de probabilidade $f_X$ . Dessa população, então, extrai-se uma amostra aleatória simples com reposição, que dá origem a um conjunto $X_1, X_2, \ldots, X_n$ de $n$ variáveis aleatórias independentes e identicamente distribuídas, todas com a mesma distribuição $f_X$.
 
 Se $f_X$ depende de um ou mais parâmetros, temos que usar a informação obtida a partir da amostra para estimar esses parâmetros, de forma a conhecermos a distribuição. Vimos, por exemplo, que a média amostral $\bar X$ é um bom estimador da média populacional $\mu$, no sentido de que ela tende a "acertar o alvo" da verdadeira média populacional, isto é, a média amostral é um estimador não-viesado da média populacional. Mas vimos, também, que existe uma variabilidade nos valores de $\bar X$, ou seja, cada amostra dá origem a um valor diferente do estimador. Para algumas amostras, $\bar X$ será maior que $\mu$, para outras será menor e para outras será igual.
 
@@ -50,7 +48,7 @@ $$P\left(\theta\in[\hat\theta-\varepsilon;\hat\theta+\varepsilon]\right)=1-\alph
 
 Mais uma vez, a probabilidade se refere à probabilidade dentre as diversas possíveis amostras, ou seja, a probabilidade está associada à distribuição amostral de $\hat \theta$. Note que os limites do intervalo dependem de $\hat theta$, que depende da amostra sorteada, ou seja, os limites do intervalo de confiança são variáveis aleatórias. Cada amostra dá origem a um intervalo diferente, mas o procedimento de obtenção dos intervalos garante probabilidade $1 - \alpha$ de acerto.
 
-## Média da $N(\mu,\sigma^2)$, $\sigma^2$ conhecido
+## I.C. para a média de uma Normal com variância conhecida
 
 Vamos agora introduzir os métodos para obtenção do intervalo de confiança para a média de uma população. Como visto, a média populacional é um parâmetro importante que pode ser muito bem estimado pela média amostral $\bar X$. Para apresentar as idéias básicas, vamos considerar um contexto que é pouco frequente na prática. O motivo para isso é que, em termos didáticos, a apresentação é bastante simples. Como o fundamento é o mesmo para contextos mais gerais, essa abordagem se justifica.
 
@@ -68,9 +66,9 @@ ou equivalentemente,
 
 $$Z=\sqrt{n}\frac{\bar X-\mu}{\sigma}\sim N(0,1).$$
 
-### Notação
+### Construindo o intervalo de confiança
 
-Vamos estabelecer a seguinte notação: vamos indicar por $z_\alpha$ a abscissa da curva normal padrão que deixa probabilidade (área) igual a $\alpha$ acima dela. Veja a Figura abaixo. Temos, então, que $P(Z > z_\alpha)= \alpha$. Essa abscissa $z_\alpha$ é normalmente chamada de valor crítico.
+Vamos indicar por $z_\alpha$ a abscissa da curva normal padrão que deixa probabilidade (área) igual a $\alpha$ acima dela. Veja a Figura abaixo. Temos, então, que $P(Z > z_\alpha)= \alpha$. Essa abscissa $z_\alpha$ é normalmente chamada de valor crítico.
 
 ```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
 df = data.frame(x = seq(-5,5,length = 1000), y = dnorm(seq(-5,5,length = 1000)))
@@ -129,9 +127,9 @@ Seja $X\sim N(\mu, \sigma^2)$ uma população normal com variância $\sigma^2$ c
 
 $$\left[\bar X-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}};\bar X+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right],$$
 
-onde $z_{\frac{\alpha}{2}}$ é a abcissa da curva normal padrão que deixa a área $\frac{\alpha}{2}$ acima dela.
+onde $z_{\frac{\alpha}{2}}$ é a abscissa da curva normal padrão que deixa a área $\frac{\alpha}{2}$ acima dela.
 
-## Margem de Erro
+### Margem de Erro
 
 O intervalo de confiança para $\mu$ pode ser escrito na forma $\left[\bar X - \varepsilon;\bar X + \varepsilon \right]$ onde $\varepsilon=z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}$ é a margem de erro.
 
@@ -165,24 +163,18 @@ Por outro lado, se mantivermos fixos o tamanho da amostra e o desvio padrão pop
 
 Finalmente, mantidos o mesmo desvio padrão populacional e o mesmo nível de confiança, quanto maior o tamanho da amostra, mais perto vamos ficando da população e, assim, vai diminuindo a nossa margem de erro.
 
-## Introdução
+### Determinação do tamanho da amostra
 
-Neste capítulo você completará seu estudo básico sobre intervalos de confiança para a média de uma população, analisando o problema de estimação da média de uma população normal quando não se conhece a variância desta população. Você verá que, neste caso, é necessário estimar essa variância e isso introduz mais uma fonte de variabilidade nas nossas estimativas: com uma única amostra, temos que estimar a média e a variância da população. O procedimento é simples e análogo aos casos anteriores vistos nos capítulos amteriores; o que muda é a distribuição amostral do estimador $\bar X$. Em vez de usarmos a distribuição normal para determinar os valores críticos, usaremos a distribuição $t$ de Student.
+XXX
 
-## Ideias Básicas
+## I.C. para a média de uma Normal com variância desconhecida
+
+Nesta seção você completará seu estudo básico sobre intervalos de confiança para a média de uma população, analisando o problema de estimação da média de uma população normal quando não se conhece a variância desta população. Você verá que, neste caso, é necessário estimar essa variância e isso introduz mais uma fonte de variabilidade nas nossas estimativas: com uma única amostra, temos que estimar a média e a variância da população. O procedimento é simples e análogo aos casos anteriores vistos nos capítulos amteriores; o que muda é a distribuição amostral do estimador $\bar X$. Em vez de usarmos a distribuição normal para determinar os valores críticos, usaremos a distribuição $t$ de Student.
 
 Considere uma população descrita por uma variável aleatória normal com média $\mu$ e variância $\sigma^2$: $X\sim N(\mu,\sigma^2)$. Nosso interesse é estimar a média $\mu$ a partir de uma amostra aleatória simples $X_1,X_2,\ldots,X_n$. Como visto anteriormente, a distribuição amostral de $\bar X$ é normal com média $\mu$ e variância $\frac{\sigma^2}{n}$, ou seja
 
 $$X\sim N(\mu,\sigma^2)\rightarrow \bar X \sim N\left(\mu,\frac{\sigma^2}{n}\right)$$
-Asso, se o valor de $\sigma$ é conhecido, resulta que
-
-$$Z=\sqrt{n}\frac{\bar X-\mu}{\sigma}\sim N(0,1)$$
-
-e esse resultado foi utilizado na construção do intervalo de confiança para a média de uma população normal com variância conhecida, fornecendo o seguinte intervalo:
-
-$$\left[\bar X-z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}};\bar X+z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right].$$
-
-Suponhamos, agora, que a variância $\sigma^2$ não seja conhecida. Neste caso, temos que estimá-la ($S^2$) com os dados amostrais. Foi demostrado que
+No entanto, agora, a variância $\sigma^2$ não é conhecida. Neste caso, temos que estimá-la ($S^2$) com os dados amostrais. Foi demostrado que
 
 $$S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2=\frac{1}{n-1}\left[\sum_{i=1}^{n}X_i^2-n\bar X^2\right]$$
 
@@ -192,8 +184,6 @@ $$T=\sqrt{n}\frac{\bar X-\mu}{S}$$
 
 na construção de intervalos de confiança para $\mu$. Isso é exatamente o que faremos, mas, ao introduzirmos $S$ no lugar de $\sigma$, a distribuição amostral de $T$ deixa de ser normal e passa a ser uma distribuição $t$ de Student.
 
-### Média da $N(\mu,\sigma^2)$, $\sigma^2$ desconhecido
-
 O intervalo de confiança para a média de uma população normal com variância desconhecida é obtido com base no seguinte resultado:
 
 $$T=\sqrt{n}\frac{\bar X-\mu}{S}\sim t_{n-1},$$
@@ -202,9 +192,9 @@ onde $S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2=\frac{1}{n-1}\left[\sum_{i=1
 
 O número de graus de liberdade $gl=n-1$ resulta do fato de que, na soma que define $S^2$, há apenas $n-1$ parcelas independentes, ou seja, dados $S^2$ e $n-1$ das parcelas $(X_i - \bar X)^2$, a $n$-ésima parcela fica automaticamente determinada.
 
-Usando a simetria da densidade $t$, temos o seguinte resultado:
+### Construindo o intervalo de confiança
 
-$$P\left(-t_{n,\alpha/2}\leq t_{n} \leq t_{n,\alpha/2}\right)=1-\alpha$$
+Vamos indicar por $t_\alpha$ a abscissa da curva t-student que deixa probabilidade (área) igual a $\alpha$ acima dela, portanto $t_\frac{\alpha}{2}$ deixa $\frac{\alpha}{2}$ acima. Veja a Figura abaixo. Temos, então, que $P(T > t_\frac{\alpha}{2})= \frac{\alpha}{2}$. Essa abscissa $t_\frac{\alpha}{2}$ é normalmente chamada de valor crítico.
 
 ```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
 library(ggplot2)
@@ -224,7 +214,11 @@ ggplot(data = df, aes(x = x, y = y)) +
         axis.text.y = element_blank())
 ```
 
-Note que isso vale para a distribuição $t$ de student, em geral. Então, usando os resultados anteriories obtemos que
+Usando a simetria da densidade $t$, temos o seguinte resultado:
+
+$$P\left(-t_{n,\alpha/2}\leq t_{n} \leq t_{n,\alpha/2}\right)=1-\alpha$$
+
+Note que isso vale para a distribuição $t$ de student, em geral. Então, usando os resultados anteriores obtemos que
 
 $$P\left(-t_{n-1,\alpha/2}\leq \sqrt{n}\frac{\bar X-\mu}{S} \leq t_{n-1,\alpha/2}\right)=1-\alpha$$
 
@@ -245,7 +239,7 @@ $$\left[\bar X-t_{n-1,\alpha/2}\frac{S}{\sqrt{n}};\bar X+t_{n-1,\alpha/2}\frac{S
 
 onde $t_{n-1,\alpha/2}$ é o valor crítico da distribuição $t$ de student com $n-1$ graus de liberdade que deixa a área $\frac{\alpha}{2}$ acima dela.
 
-## Margem de Erro
+### Margem de Erro
 
 Note, mais uma vez, a forma do intervalo de confiança:
 
@@ -255,15 +249,15 @@ onde a margem de erro $\varepsilon$, agora é definida em termos do valor críti
 
 $$\varepsilon=t_{n-1,\alpha/2}\frac{S}{\sqrt{n}}$$.
 
-## Introdução
+### Determinação do tamanho da amostra
+
+XXX
+
+## I.C. para a proporção populacional
 
 Anteriormente, foram apresentadas as idéias básicas da estimação por intervalos de confiança. Para ilustrar o princípio utilizado na construção de tais intervalos, consideramos a situação especial de estimação da média de uma população normal com variância conhecida. Neste caso, a distribuição amostral da média amostral é normal e foi com base nessa distribuição amostral normal que obtivemos o intervalo de confiança.
 
-No primeiro momento desta aula usaremos o teorema limite central, que garante que a distribuição amostral da proporção amostral pode ser aproximada por uma distribuição normal, desde que utilizemos amostras grandes.
-
-## Intervalo de confiança para a proporção populacional
-
-### Ideias Básicas
+No primeiro momento desta seção usaremos o Teorema Central do Limite, que garante que a distribuição amostral da proporção amostral pode ser aproximada por uma distribuição normal, desde que utilizemos amostras grandes.
 
 O contexto de interesse é o seguinte: temos uma população em que cada elemento é classificado de acordo com a presença ou ausência de determinada característica. Em termos de variável aleatória, essa população é representada por uma v.a. de Bernoulli, isto é:
 
@@ -302,7 +296,7 @@ $$\sqrt{n}\frac{\hat P - p}{\sqrt{p(1-p)}}\sim N(0,1)$$
 
 Vamos ver, agora, como usar esse resultado para obter um intervalo de confiança para a verdadeira proporção populacional $p$.
 
-### Construção do IC
+### Construindo o intervalo de confiança
 
 O procedimento de construção do intervalo de confiança para a proporção populacional é totalmente análogo ao do intervalo de confiança para a média de uma população normal com variância conhecida, visto anteriormente. Assim, iremos usar a mesma notação, a saber: vamos representar por $z_\alpha$ a abscissa da curva normal padrão que deixa probabilidade (área) $\alpha$ acima dela. Como visto, temos o seguinte resultado, onde $Z\sim N(0,1)$:
 
@@ -319,11 +313,14 @@ $$P\left(-z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq \hat P - p \leq z_{\f
 $$P\left(-\hat P -z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq - p \leq -\hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha$$
 
 $$P\left(\hat P - z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}} \leq p \leq \hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}\right)=1-\alpha$$
+
 Como no caso da média, chegamos a uma expressão do seguinte tipo:
 
 $$P(\hat P -\varepsilon\leq p\leq\hat P + \varepsilon)=1-\alpha$$
 
 onde $\varepsilon=z_{\frac{\alpha}{2}}\sqrt{\frac{p(1-p)}{n}}$
+
+### Margem de Erro
 
 Analisando a margem de erro, podemos ver uma diferença fundamental entre o IC para a proporção e para a média: a margem de erro da proporção amostral depende do parâmetro desconhecido $p$. Na prática, para construir o intervalo de confiança, temos que substituir esse valor por alguma estimativa.
 
@@ -345,7 +342,7 @@ Seja $X\sim Bernoulli(p)$. Se $X_1,X_2,\ldots,X_n$ é uma amostra aleatória des
 
 $$\left[\hat P - z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}};\hat P + z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}}\right],$$
 
-onde $z_{\frac{\alpha}{2}}$ é a abcissa da curva normal padrão que deixa a área $\frac{\alpha}{2}$ acima dela e $\hat p_0$ é alguma estimativa para o verdadeiro valor de $p$.
+onde $z_{\frac{\alpha}{2}}$ é a abscissa da curva normal padrão que deixa a área $\frac{\alpha}{2}$ acima dela e $\hat p_0$ é alguma estimativa para o verdadeiro valor de $p$.
 
 ### Determinação do tamanho da amostra
 
@@ -365,17 +362,15 @@ Vemos, então, que $n$ é diretamente proporcional a $p(1-p)$, ou seja, quanto m
 
 $$n=\left(0,5\times \frac{z_{\frac{\alpha}{2}}}{\varepsilon}\right)^2$$
 
-## Intervalo de confiança para a variância da $N(\mu,\sigma^2)$
+## Intervalo de confiança para a variância de uma Normal
 
 Nesta parte você completará seu estudo básico sobre intervalos de confiança, analisando o problema de estimação da variância de uma população normal. Como antes, este intervalo se baseará na distribuição amostral de um estimador não-viesado para $\sigma^2$, a saber, $S^2$. Como a variância é um número não negativo, essa distribuição não é simétrica e está definida apenas para valores não-negativos.
-
-### Ideias básicas
 
 O contexto subjacente é o seguinte: a partir de uma amostra aleatória simples $X_1,X_2,\ldots,X_n$ retirada de uma população normal com média $\mu$ e variância $\sigma^2$ queremos construir um intervalo de confiança para $\sigma^2$. A hipótese de normalidade da população é fundamental aqui. Assim como no caso da média, temos que usar a distribuição amostral de algum estimador. Neste caso, o estimador é $S^2$ e o resultado importate é o seguinte: $\frac{(n-1)S^2}{\sigma^2}$ tem distribuição qui-quadrado com $n-1$ graus de liberdade:
 
 $$\frac{(n-1)S^2}{\sigma^2}\sim\chi^2_{n-1}$$
 
-### Construção do IC
+### Construindo o intervalo de confiança
 
 Como no caso da distribuição $t$-Student e também da distribuição Normal, vamos definir o valor crítico $\chi^2_{n;\alpha}$ como a abscissa da distribuição qui-quadrado com $n$ graus de liberdade que deixa probabilidade $\alpha$ acima dela.
 
@@ -394,7 +389,7 @@ ggplot(data = df, aes(x = x, y = y)) +
         axis.text.y = element_blank())
 ```
 
-Com essa definição, podemos ver que a abscissa $\chi^2_{n;\alpha/2}$ deixa probabilidade $\alpha/2$ acima dela e a abcissa $\chi^2_{n;1-\alpha/2}$ deixa probabilidade $\alpha/2$ abaixo dela.
+Com essa definição, podemos ver que a abscissa $\chi^2_{n;\alpha/2}$ deixa probabilidade $\alpha/2$ acima dela e a abscissa $\chi^2_{n;1-\alpha/2}$ deixa probabilidade $\alpha/2$ abaixo dela.
 
 ```{r echo=F, warning=F, message=F, fig.width=6, fig.height=3, fig.align='center'}
 df = data.frame(x = seq(0,15,length = 1000), y = dchisq(seq(0,15,length = 1000),df=3))
@@ -434,3 +429,11 @@ Seja $X\sim N(\mu,\sigma^2)$ uma população normal. Se $X_1,X_2,\ldots,X_n$ é 
 $$\left[\frac{(n-1)S^2}{\chi^2_{n-1;1-\frac{\alpha}{2}}};\frac{(n-1)S^2}{\chi^2_{n-1;\frac{\alpha}{2}}}\right],$$
 
 onde $\chi^2_{n-1;\frac{\alpha}{2}}$ é o valor crítico da distribuição qui-quadrado com $n-1$ graus de liberdade que deixa a área $\frac{\alpha}{2}$ abaixo dela e $\chi^2_{n-1;1-\frac{\alpha}{2}}$ é o valor crítico da distribuição qui-quadrado com $n-1$ graus de liberdade que deixa a área $\frac{\alpha}{2}$ acima dela.
+
+### Margem de Erro
+
+XXX
+
+### Determinação do tamanho da amostra
+
+XXX

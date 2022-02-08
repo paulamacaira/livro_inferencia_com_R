@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 9 Regressão Linear | Inferência Estatística com R</title>
+  <meta name="description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 9 Regressão Linear | Inferência Estatística com R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://paulamacaira.github.io/livro_inferencia_com_R/" />
+  <meta property="og:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+  <meta property="og:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 9 Regressão Linear | Inferência Estatística com R" />
+  
+  <meta name="twitter:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
+  <meta name="twitter:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
+
+<meta name="author" content="P. Maçaira, L. Bastos, S. Aguilar &amp; I. Peres" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análise-de-variância-anova.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Inferência Estatística com R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefácio</a></li>
+<li class="chapter" data-level="1" data-path="analise_descritiva.html"><a href="analise_descritiva.html"><i class="fa fa-check"></i><b>1</b> Análise Descritiva</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coleta-e-armazenamento-de-dados"><i class="fa fa-check"></i><b>1.1</b> Coleta e Armazenamento de Dados</a></li>
+<li class="chapter" data-level="1.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>1.2</b> Tipos de Variáveis</a></li>
+<li class="chapter" data-level="1.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-quantitativas"><i class="fa fa-check"></i><b>1.3</b> Variáveis Quantitativas</a></li>
+<li class="chapter" data-level="1.4" data-path="analise_descritiva.html"><a href="analise_descritiva.html#variáveis-qualitativas-ou-categóricas"><i class="fa fa-check"></i><b>1.4</b> Variáveis Qualitativas (ou categóricas)</a></li>
+<li class="chapter" data-level="1.5" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>1.5</b> Medidas de Tendência Central</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#média-aritmética-simples"><i class="fa fa-check"></i><b>1.5.1</b> Média Aritmética Simples</a></li>
+<li class="chapter" data-level="1.5.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#mediana"><i class="fa fa-check"></i><b>1.5.2</b> Mediana</a></li>
+<li class="chapter" data-level="1.5.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#moda"><i class="fa fa-check"></i><b>1.5.3</b> Moda</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-variabilidade"><i class="fa fa-check"></i><b>1.6</b> Medidas de Variabilidade</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#amplitude-total"><i class="fa fa-check"></i><b>1.6.1</b> Amplitude Total</a></li>
+<li class="chapter" data-level="1.6.2" data-path="analise_descritiva.html"><a href="analise_descritiva.html#desvio-padrão"><i class="fa fa-check"></i><b>1.6.2</b> Desvio Padrão</a></li>
+<li class="chapter" data-level="1.6.3" data-path="analise_descritiva.html"><a href="analise_descritiva.html#coeficiente-de-variação"><i class="fa fa-check"></i><b>1.6.3</b> Coeficiente de Variação</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="analise_descritiva.html"><a href="analise_descritiva.html#medidas-de-posição"><i class="fa fa-check"></i><b>1.7</b> Medidas de Posição</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="analise_descritiva.html"><a href="analise_descritiva.html#percentis"><i class="fa fa-check"></i><b>1.7.1</b> Percentis</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="analise_descritiva.html"><a href="analise_descritiva.html#referências"><i class="fa fa-check"></i><b>1.8</b> Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-gráfica.html"><a href="análise-gráfica.html"><i class="fa fa-check"></i><b>2</b> Análise Gráfica</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-qualitativas---nominais-e-ordinais"><i class="fa fa-check"></i><b>2.1</b> Variáveis Qualitativas - Nominais e Ordinais</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-discretas"><i class="fa fa-check"></i><b>2.2</b> Variáveis Quantitativas Discretas</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variáveis-quantitativas-contínuas"><i class="fa fa-check"></i><b>2.3</b> Variáveis Quantitativas Contínuas</a></li>
+<li class="chapter" data-level="2.4" data-path="análise-gráfica.html"><a href="análise-gráfica.html#histograma"><i class="fa fa-check"></i><b>2.4</b> Histograma</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#tendência-central"><i class="fa fa-check"></i><b>2.4.1</b> Tendência Central</a></li>
+<li class="chapter" data-level="2.4.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#variabilidade"><i class="fa fa-check"></i><b>2.4.2</b> Variabilidade</a></li>
+<li class="chapter" data-level="2.4.3" data-path="análise-gráfica.html"><a href="análise-gráfica.html#forma"><i class="fa fa-check"></i><b>2.4.3</b> Forma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="análise-gráfica.html"><a href="análise-gráfica.html#boxplot"><i class="fa fa-check"></i><b>2.5</b> Boxplot</a></li>
+<li class="chapter" data-level="2.6" data-path="análise-gráfica.html"><a href="análise-gráfica.html#diagrama-de-dispersão"><i class="fa fa-check"></i><b>2.6</b> Diagrama de Dispersão</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-1"><i class="fa fa-check"></i><b>2.6.1</b> Exemplo 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="análise-gráfica.html"><a href="análise-gráfica.html#exemplo-2"><i class="fa fa-check"></i><b>2.6.2</b> Exemplo 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="análise-gráfica.html"><a href="análise-gráfica.html#séries-temporais"><i class="fa fa-check"></i><b>2.7</b> Séries Temporais</a></li>
+<li class="chapter" data-level="2.8" data-path="análise-gráfica.html"><a href="análise-gráfica.html#gráfico-de-radar"><i class="fa fa-check"></i><b>2.8</b> Gráfico de Radar</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html"><i class="fa fa-check"></i><b>3</b> Conceitos Básicos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#população"><i class="fa fa-check"></i><b>3.1</b> População</a></li>
+<li class="chapter" data-level="3.2" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#amostra"><i class="fa fa-check"></i><b>3.2</b> Amostra</a></li>
+<li class="chapter" data-level="3.3" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#estatísticas-e-parâmetros"><i class="fa fa-check"></i><b>3.3</b> Estatísticas e Parâmetros</a></li>
+<li class="chapter" data-level="3.4" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#distribuições-amostrais"><i class="fa fa-check"></i><b>3.4</b> Distribuições Amostrais</a></li>
+<li class="chapter" data-level="3.5" data-path="conceitos-básicos.html"><a href="conceitos-básicos.html#propriedades-dos-estimadores"><i class="fa fa-check"></i><b>3.5</b> Propriedades dos Estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html"><i class="fa fa-check"></i><b>4</b> Distribuições Amostrais</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-média-amostral"><i class="fa fa-check"></i><b>4.1</b> Distribuição da Média Amostral</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando"><i class="fa fa-check"></i><b>4.1.1</b> Visualizando</a></li>
+<li class="chapter" data-level="4.1.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#prova"><i class="fa fa-check"></i><b>4.1.2</b> Prova</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#teorema-central-do-limite"><i class="fa fa-check"></i><b>4.2</b> Teorema Central do Limite</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-1"><i class="fa fa-check"></i><b>4.2.1</b> Visualizando</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-variância-amostral"><i class="fa fa-check"></i><b>4.3</b> Distribuição da Variância Amostral</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-qui-quadrado"><i class="fa fa-check"></i><b>4.3.1</b> Distribuição Qui-quadrado</a></li>
+<li class="chapter" data-level="4.3.2" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-2"><i class="fa fa-check"></i><b>4.3.2</b> Visualizando</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#distribuição-da-proporção-amostral"><i class="fa fa-check"></i><b>4.4</b> Distribuição da Proporção Amostral</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="distribuições-amostrais-1.html"><a href="distribuições-amostrais-1.html#visualizando-3"><i class="fa fa-check"></i><b>4.4.1</b> Visualizando</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html"><i class="fa fa-check"></i><b>5</b> Intervalo de Confiança</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#ideia-geral"><i class="fa fa-check"></i><b>5.1</b> Ideia Geral</a></li>
+<li class="chapter" data-level="5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-média-de-uma-normal-com-variância-conhecida"><i class="fa fa-check"></i><b>5.2</b> I.C. para a média de uma Normal com variância conhecida</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança"><i class="fa fa-check"></i><b>5.2.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.2.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro"><i class="fa fa-check"></i><b>5.2.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.2.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra"><i class="fa fa-check"></i><b>5.2.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-média-de-uma-normal-com-variância-desconhecida"><i class="fa fa-check"></i><b>5.3</b> I.C. para a média de uma Normal com variância desconhecida</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-1"><i class="fa fa-check"></i><b>5.3.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.3.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-1"><i class="fa fa-check"></i><b>5.3.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.3.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-1"><i class="fa fa-check"></i><b>5.3.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#i.c.-para-a-proporção-populacional"><i class="fa fa-check"></i><b>5.4</b> I.C. para a proporção populacional</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-2"><i class="fa fa-check"></i><b>5.4.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.4.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-2"><i class="fa fa-check"></i><b>5.4.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.4.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-2"><i class="fa fa-check"></i><b>5.4.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#intervalo-de-confiança-para-a-variância-de-uma-normal"><i class="fa fa-check"></i><b>5.5</b> Intervalo de confiança para a variância de uma Normal</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#construindo-o-intervalo-de-confiança-3"><i class="fa fa-check"></i><b>5.5.1</b> Construindo o intervalo de confiança</a></li>
+<li class="chapter" data-level="5.5.2" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#margem-de-erro-3"><i class="fa fa-check"></i><b>5.5.2</b> Margem de Erro</a></li>
+<li class="chapter" data-level="5.5.3" data-path="intervalo-de-confiança.html"><a href="intervalo-de-confiança.html#determinação-do-tamanho-da-amostra-3"><i class="fa fa-check"></i><b>5.5.3</b> Determinação do tamanho da amostra</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html"><i class="fa fa-check"></i><b>6</b> Teste de Hipóteses</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#ideia-geral-1"><i class="fa fa-check"></i><b>6.1</b> Ideia Geral</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-nula"><i class="fa fa-check"></i><b>6.1.1</b> Hipótese nula</a></li>
+<li class="chapter" data-level="6.1.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-alternativa"><i class="fa fa-check"></i><b>6.1.2</b> Hipótese alternativa</a></li>
+<li class="chapter" data-level="6.1.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#estatística-de-teste"><i class="fa fa-check"></i><b>6.1.3</b> Estatística de teste</a></li>
+<li class="chapter" data-level="6.1.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#tipos-de-erro"><i class="fa fa-check"></i><b>6.1.4</b> Tipos de erro</a></li>
+<li class="chapter" data-level="6.1.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#regra-de-decisão"><i class="fa fa-check"></i><b>6.1.5</b> Regra de decisão</a></li>
+<li class="chapter" data-level="6.1.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#região-crítica"><i class="fa fa-check"></i><b>6.1.6</b> Região crítica</a></li>
+<li class="chapter" data-level="6.1.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#cco-e-poder-do-teste"><i class="fa fa-check"></i><b>6.1.7</b> CCO e Poder do Teste</a></li>
+<li class="chapter" data-level="6.1.8" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo"><i class="fa fa-check"></i><b>6.1.8</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-média-de-uma-normal-com-variância-conhecida"><i class="fa fa-check"></i><b>6.2</b> T.H. para a média de uma Normal com variância conhecida</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses"><i class="fa fa-check"></i><b>6.2.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.2.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#teste-de-hipóteses-vs-intervalo-de-confiança"><i class="fa fa-check"></i><b>6.2.2</b> Teste de Hipóteses vs Intervalo de Confiança</a></li>
+<li class="chapter" data-level="6.2.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor"><i class="fa fa-check"></i><b>6.2.3</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.2.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-3"><i class="fa fa-check"></i><b>6.2.4</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-média-de-uma-normal-com-variância-desconhecida"><i class="fa fa-check"></i><b>6.3</b> T.H. para a média de uma Normal com variância desconhecida</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-1"><i class="fa fa-check"></i><b>6.3.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.3.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor-1"><i class="fa fa-check"></i><b>6.3.2</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.3.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-4"><i class="fa fa-check"></i><b>6.3.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-proporção-populacional"><i class="fa fa-check"></i><b>6.4</b> T.H. para a proporção populacional</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-2"><i class="fa fa-check"></i><b>6.4.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.4.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p-ou-p-valor-2"><i class="fa fa-check"></i><b>6.4.2</b> Valor P (ou p-valor)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-5"><i class="fa fa-check"></i><b>6.4.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-variância-de-uma-normal"><i class="fa fa-check"></i><b>6.5</b> T.H. para a variância de uma Normal</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-3"><i class="fa fa-check"></i><b>6.5.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.5.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p"><i class="fa fa-check"></i><b>6.5.2</b> Valor P</a></li>
+<li class="chapter" data-level="6.5.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-6"><i class="fa fa-check"></i><b>6.5.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-adequação-de-ajuste-goodness-of-fit"><i class="fa fa-check"></i><b>6.6</b> T.H. Adequação de Ajuste (Goodness of Fit)</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-4"><i class="fa fa-check"></i><b>6.6.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.6.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-7"><i class="fa fa-check"></i><b>6.6.2</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#t.h.-para-a-tabela-de-contingência"><i class="fa fa-check"></i><b>6.7</b> T.H. para a Tabela de Contingência</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#construindo-o-teste-de-hipóteses-5"><i class="fa fa-check"></i><b>6.7.1</b> Construindo o teste de hipóteses</a></li>
+<li class="chapter" data-level="6.7.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo-8"><i class="fa fa-check"></i><b>6.7.2</b> Exemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html"><i class="fa fa-check"></i><b>7</b> Inferência Estatística para Duas Populações</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-médias-de-distribuições-normais"><i class="fa fa-check"></i><b>7.1</b> Comparação das médias de distribuições Normais</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#variâncias-conhecidas"><i class="fa fa-check"></i><b>7.1.1</b> Variâncias Conhecidas</a></li>
+<li class="chapter" data-level="7.1.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#variâncias-desconhecidas"><i class="fa fa-check"></i><b>7.1.2</b> Variâncias Desconhecidas</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-variâncias-de-distribuições-normais"><i class="fa fa-check"></i><b>7.2</b> Comparação das variâncias de distribuições Normais</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#teste-de-hipóteses-2"><i class="fa fa-check"></i><b>7.2.1</b> Teste de hipóteses</a></li>
+<li class="chapter" data-level="7.2.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#intervalo-de-confiança-2"><i class="fa fa-check"></i><b>7.2.2</b> Intervalo de Confiança</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#comparação-das-proporções-populacionais"><i class="fa fa-check"></i><b>7.3</b> Comparação das proporções populacionais</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#teste-de-hipóteses-3"><i class="fa fa-check"></i><b>7.3.1</b> Teste de hipóteses</a></li>
+<li class="chapter" data-level="7.3.2" data-path="inferência-estatística-para-duas-populações.html"><a href="inferência-estatística-para-duas-populações.html#intervalo-de-confiança-3"><i class="fa fa-check"></i><b>7.3.2</b> Intervalo de Confiança</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html"><i class="fa fa-check"></i><b>8</b> Análise de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#anova-para-um-único-fator"><i class="fa fa-check"></i><b>8.1</b> ANOVA para um único fator</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#partição-da-variabilidade-total"><i class="fa fa-check"></i><b>8.1.1</b> Partição da variabilidade total</a></li>
+<li class="chapter" data-level="8.1.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#construção-do-teste-de-hipóteses"><i class="fa fa-check"></i><b>8.1.2</b> Construção do teste de hipóteses</a></li>
+<li class="chapter" data-level="8.1.3" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#exemplo-19"><i class="fa fa-check"></i><b>8.1.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#anova-para-dois-fatores"><i class="fa fa-check"></i><b>8.2</b> ANOVA para dois fatores</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#partição-da-variabilidade-total-1"><i class="fa fa-check"></i><b>8.2.1</b> Partição da variabilidade total</a></li>
+<li class="chapter" data-level="8.2.2" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#construção-do-teste-de-hipóteses-1"><i class="fa fa-check"></i><b>8.2.2</b> Construção do teste de hipóteses</a></li>
+<li class="chapter" data-level="8.2.3" data-path="análise-de-variância-anova.html"><a href="análise-de-variância-anova.html#exemplo-continuação"><i class="fa fa-check"></i><b>8.2.3</b> Exemplo (continuação)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regressão-linear.html"><a href="regressão-linear.html"><i class="fa fa-check"></i><b>9</b> Regressão Linear</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="regressão-linear.html"><a href="regressão-linear.html#gráficos-úteis"><i class="fa fa-check"></i><b>9.1</b> Gráficos úteis</a></li>
+<li class="chapter" data-level="9.2" data-path="regressão-linear.html"><a href="regressão-linear.html#modelo-estatístico"><i class="fa fa-check"></i><b>9.2</b> Modelo estatístico</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="regressão-linear.html"><a href="regressão-linear.html#efeito-das-interações"><i class="fa fa-check"></i><b>9.2.1</b> Efeito das interações</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regressão-linear.html"><a href="regressão-linear.html#suposições-para-o-modelo"><i class="fa fa-check"></i><b>9.2.2</b> Suposições para o modelo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regressão-linear.html"><a href="regressão-linear.html#representação-matricial"><i class="fa fa-check"></i><b>9.3</b> Representação Matricial</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="regressão-linear.html"><a href="regressão-linear.html#estimação-dos-parâmetros-do-modelo"><i class="fa fa-check"></i><b>9.3.1</b> Estimação dos parâmetros do modelo</a></li>
+<li class="chapter" data-level="9.3.2" data-path="regressão-linear.html"><a href="regressão-linear.html#propriedades-dos-estimadores-1"><i class="fa fa-check"></i><b>9.3.2</b> Propriedades dos estimadores</a></li>
+<li class="chapter" data-level="9.3.3" data-path="regressão-linear.html"><a href="regressão-linear.html#exemplo-20"><i class="fa fa-check"></i><b>9.3.3</b> Exemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-variância-anova-1"><i class="fa fa-check"></i><b>9.4</b> Análise de Variância (ANOVA)</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="regressão-linear.html"><a href="regressão-linear.html#exemplo-continuação-1"><i class="fa fa-check"></i><b>9.4.1</b> Exemplo (continuação)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="regressão-linear.html"><a href="regressão-linear.html#medidas-de-associação"><i class="fa fa-check"></i><b>9.5</b> Medidas de Associação</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="regressão-linear.html"><a href="regressão-linear.html#coeficiente-de-determinação-múltiplo-r2"><i class="fa fa-check"></i><b>9.5.1</b> Coeficiente de Determinação Múltiplo (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="9.5.2" data-path="regressão-linear.html"><a href="regressão-linear.html#coeficiente-de-determinação-ajustado-r2_a"><i class="fa fa-check"></i><b>9.5.2</b> Coeficiente de Determinação Ajustado (<span class="math inline">\(R^2_a\)</span>)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="regressão-linear.html"><a href="regressão-linear.html#testes-de-hipóteses-para-os-coeficientes-da-regressão"><i class="fa fa-check"></i><b>9.6</b> Testes de hipóteses para os coeficientes da regressão</a></li>
+<li class="chapter" data-level="9.7" data-path="regressão-linear.html"><a href="regressão-linear.html#intervalo-de-confiança-para-os-coeficientes-da-regressão"><i class="fa fa-check"></i><b>9.7</b> Intervalo de confiança para os coeficientes da regressão</a></li>
+<li class="chapter" data-level="9.8" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-de-variáveis-regressão-linear-múltipla"><i class="fa fa-check"></i><b>9.8</b> Seleção de Variáveis (Regressão Linear Múltipla)</a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-de-todos-os-modelos-possíveis"><i class="fa fa-check"></i><b>9.8.1</b> Seleção de todos os modelos possíveis</a></li>
+<li class="chapter" data-level="9.8.2" data-path="regressão-linear.html"><a href="regressão-linear.html#seleção-automática"><i class="fa fa-check"></i><b>9.8.2</b> Seleção automática</a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="regressão-linear.html"><a href="regressão-linear.html#variáveis-dummy"><i class="fa fa-check"></i><b>9.9</b> Variáveis Dummy</a></li>
+<li class="chapter" data-level="9.10" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-resíduos"><i class="fa fa-check"></i><b>9.10</b> Análise de Resíduos</a>
+<ul>
+<li class="chapter" data-level="9.10.1" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-normalidade"><i class="fa fa-check"></i><b>9.10.1</b> Diagnóstico de normalidade</a></li>
+<li class="chapter" data-level="9.10.2" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-homocedasticidade"><i class="fa fa-check"></i><b>9.10.2</b> Diagnóstico de homocedasticidade</a></li>
+<li class="chapter" data-level="9.10.3" data-path="regressão-linear.html"><a href="regressão-linear.html#diagnóstico-de-independência"><i class="fa fa-check"></i><b>9.10.3</b> Diagnóstico de independência</a></li>
+<li class="chapter" data-level="9.10.4" data-path="regressão-linear.html"><a href="regressão-linear.html#valores-extremos"><i class="fa fa-check"></i><b>9.10.4</b> Valores extremos</a></li>
+<li class="chapter" data-level="9.10.5" data-path="regressão-linear.html"><a href="regressão-linear.html#teste-da-falta-de-ajuste-lack-of-fit"><i class="fa fa-check"></i><b>9.10.5</b> Teste da falta de ajuste (<em>lack of fit</em>)</a></li>
+<li class="chapter" data-level="9.10.6" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-colinearidade-e-multicolinearidade"><i class="fa fa-check"></i><b>9.10.6</b> Análise de Colinearidade e Multicolinearidade</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://paulamacaira.github.io/livro_inferencia_com_R" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Inferência Estatística com R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regressão-linear" class="section level1" number="9">
+<h1><span class="header-section-number">Capítulo 9</span> Regressão Linear</h1>
+<p>Regressão Linear é uma coleção de técnicas estatísticas para construir modelos que descrevem de maneira razoável relações entre várias variáveis explicativas de um determinado processo. Isto é, o principal objetivo da Regressão Linear é modelar uma variável contínua <span class="math inline">\(Y\)</span> como uma função matemática de uma ou mais variávei(s) <span class="math inline">\(X\)</span> para que possamos usar esse modelo de regressão para prever o <span class="math inline">\(Y\)</span> quando apenas o <span class="math inline">\(X\)</span> é conhecido. Usamo a nomenclatura Regressão Linear Simples quando somente uma única variável explicativa será utilizada para explicar <span class="math inline">\(Y\)</span>, enquanto Regressão Linear Múltipla lida com mais de uma variável explicativa.</p>
+<p>A equação matemática pode ser generalizada da forma:</p>
+<p><span class="math display">\[Y=X\beta+\varepsilon,\]</span></p>
+<p>onde,</p>
+<p><span class="math display">\[Y = \left[\begin{array}{r}
+Y_1       \\
+Y_2    \\
+\vdots \\
+Y_n    \end{array}\right], ~ X = \left[\begin{array}{rrrrr}
+1 &amp; x_{11} &amp; x_{12} &amp; \ldots &amp; x_{1p} \\
+1 &amp; x_{21} &amp; x_{22} &amp; \ldots &amp; x_{2p} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \ldots \\
+1 &amp; x_{n1} &amp; x_{n2} &amp; \ldots &amp; x_{np} \\
+\end{array}\right], ~ \beta = \left[\begin{array}{r}
+\beta_0       \\
+\beta_1    \\
+\vdots \\
+\beta_p    \end{array}\right], ~ \varepsilon = \left[\begin{array}{r}
+\varepsilon_1       \\
+\varepsilon_2    \\
+\vdots \\
+\varepsilon_n \end{array}\right],\]</span></p>
+<p>em que</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> é um vetor <span class="math inline">\(n\times 1\)</span> cujos componentes corresponde às <span class="math inline">\(n\)</span> respostas;</li>
+<li><span class="math inline">\(X\)</span> é uma matriz de dimensão <span class="math inline">\(n\times (p+1)\)</span> denominada matriz do modelo;</li>
+<li><span class="math inline">\(\varepsilon\)</span> é um vetor de dimensão <span class="math inline">\(n\times 1\)</span> cujos componentes são os erros, a parte de <span class="math inline">\(Y\)</span> que o modelo de regressão não consegue explicar; e</li>
+<li><span class="math inline">\(\beta\)</span> é um vetor <span class="math inline">\((p+1)\times 1\)</span> cujos elementos são os coeficientes de regressão.</li>
+</ul>
+<p><strong>Contextualizando com um exemplo</strong></p>
+<p>Para exemplificar, vamos usar a base de dados <span class="math inline">\(\texttt{cars}\)</span> que vem com o software <span class="math inline">\(\texttt{R}\)</span>. Você pode acessar essa base de dados simplesmente digitando <span class="math inline">\(\texttt{cars}\)</span> no console do seu <span class="math inline">\(\texttt{R}\)</span>. Esta base consiste em 50 observações (linhas) e 2 variáveis (colunas) - <span class="math inline">\(\texttt{dist}\)</span> e <span class="math inline">\(\texttt{speed}\)</span>. As primeiras seis observações são:</p>
+<pre><code>##   speed dist
+## 1     4    2
+## 2     4   10
+## 3     7    4
+## 4     7   22
+## 5     8   16
+## 6     9   10</code></pre>
+<div id="gráficos-úteis" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Gráficos úteis</h2>
+<p>Antes de começarmos a construir o modelo de regressão, é uma boa prática analisar e entender as variáveis. O objetivo deste exemplo é construir um modelo de regressão simples que possamos usar para prever a Distância (<span class="math inline">\(\texttt{dist}\)</span>) estabelecendo uma relação linear estatisticamente significativa com a Velocidade (<span class="math inline">\(\texttt{speed}\)</span>). Normalmente, para cada uma das variáveis independentes (preditoras), os seguintes gráficos são desenhados para visualizar o comportamento:</p>
+<ul>
+<li><em>Scatter plot</em> (gráfico de dispersão): Os gráficos de dispersão podem ajudar a visualizar quaisquer relações lineares entre a variável dependente (resposta) e as variáveis independentes (preditoras). Idealmente, se você tiver várias variáveis preditoras, um gráfico de dispersão será desenhado para cada uma delas contra a resposta.</li>
+</ul>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-83-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>O gráfico de dispersão sugere uma relação linearmente crescente entre as variáveis <span class="math inline">\(\texttt{dist}\)</span> e <span class="math inline">\(\texttt{speed}\)</span>. Isso é bom, porque, uma das suposições subjacentes à regressão linear é que a relação entre as variáveis de resposta e preditoras é linear e aditiva.</p>
+<ul>
+<li><em>Boxplot</em>: Para identificar quaisquer observações discrepantes na variável. Ter discrepâncias no seu preditor pode afetar drasticamente as previsões, pois elas podem afetar facilmente a direção/inclinação da reta de melhor ajuste.</li>
+</ul>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-84-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Geralmente, qualquer ponto de dados que esteja fora do intervalo interquartílico de <span class="math inline">\(1,5\times(1,5 \times IQR)\)</span> é considerado um outlier, onde, o <span class="math inline">\(IQR\)</span> é calculado como a distância entre os valores do <span class="math inline">\(25º\)</span> e <span class="math inline">\(75º\)</span> percentil dessa variável.</p>
+<ul>
+<li><em>Density plot</em> (gráfico de densidade): Para ver a distribuição da variável preditora. Idealmente, é preferida uma distribuição próxima da normal (uma curva em forma de sino), sem ser inclinada para a esquerda ou direita.</li>
+</ul>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-85-1.png" width="384" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelo-estatístico" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Modelo estatístico</h2>
+<p>Agora, vamos definir o modelo como,</p>
+<p><span class="math display">\[Dist=\beta_0+\beta_1\times Speed+\varepsilon~\text{ou}~Y=\beta X+\varepsilon,~\text{onde}~Y = \left[\begin{array}{r}
+Y_1       \\
+Y_2    \\
+\vdots \\
+Y_{50}    \end{array}\right], ~ X = \left[\begin{array}{rr}
+1 &amp; x_{1,1} \\
+1 &amp; x_{2,1}  \\
+\vdots &amp; \vdots \\
+1 &amp; x_{{50},1} \\
+\end{array}\right], ~ \beta = \left[\begin{array}{r}
+\beta_0       \\
+\beta_1\end{array}\right], ~ \varepsilon = \left[\begin{array}{r}
+\varepsilon_1       \\
+\varepsilon_2  \\
+\vdots \\
+\varepsilon_{50}\end{array}\right],\]</span></p>
+<p>em que <span class="math inline">\(Y\)</span> representa a variável resposta (ditância), <span class="math inline">\(x_1\)</span> representa a variável explicativa (velocidade) e <span class="math inline">\(\varepsilon\)</span> representa o erro experimental. Esse é um modelo de regressão linear simples. O termo linear é usado pois a equação é uma função linear de parâmetros desconhecidos <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> denominados coeficientes da regressão.</p>
+<p>De maneira geral, a variável resposta <span class="math inline">\(Y\)</span> pode ser relacionada a um número <span class="math inline">\(p\)</span> de variáveis de entrada e o modelo de regressão linear com <span class="math inline">\(p\)</span> variáveis explicativas também pode ser escrito como</p>
+<p><span class="math display">\[Y_i=\beta_{0}+\beta_{1}x_{i1}+\beta_{2}x_{i2}+...+\beta_{p}x_{ip}+\varepsilon_i,~~~i=1,...,n,\]</span></p>
+<p>em que,</p>
+<ul>
+<li><span class="math inline">\(x_{i1},x_{i2},...,x_{ip}\)</span> são valores das variáveis explicativas, constantes conhecidas;</li>
+<li><span class="math inline">\(\beta_{0},\beta_{1},\beta_{2},...,\beta_{p}\)</span> são parâmetros ou coeficientes da regressão;</li>
+<li><span class="math inline">\(\varepsilon_i\)</span> são erros aleatórios independentes.</li>
+</ul>
+<p>Este modelo descreve um hiperplano p-dimensional referente às variáveis explicativas. O parâmetro <span class="math inline">\(\beta_0\)</span> corresponde ao intercepto do plano com o eixo <span class="math inline">\(z\)</span>. Se <span class="math inline">\(x=(x_1, x_2,\ldots,x_p)=(0,0,\ldots,0)\)</span> o parâmetro <span class="math inline">\(\beta_0\)</span> fornece a resposta média nesse ponto. Caso contrário, não é possível interpretar o parâmetro <span class="math inline">\(\beta_0\)</span>. Já os coeficientes <span class="math inline">\(\beta_i\)</span> indicam uma mudança na resposta média a cada unidade de mudança em <span class="math inline">\(x_i\)</span>, quando as demais variáveis são mantidas fixas.</p>
+<div id="efeito-das-interações" class="section level3" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Efeito das interações</h3>
+<p>Modelos mais complexos do que o apresentado também são analisados usando técnicas de regressão linear múltipla. Consideremos o modelo de regressão linear com duas variáveis regressoras, <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>, dado por</p>
+<p><span class="math display">\[Y=\beta_0+\beta_1 x_{1}+\beta_2 x_{2}+\beta_{3}\underbrace{x_{1}\,x_{2}}_{\mbox{interação}} + \varepsilon.\]</span></p>
+<p>Neste caso, <span class="math inline">\(x_1x_2\)</span> representa a interação existente entre as variáveis <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>. Se a interação está presente e é significativa, o efeito de <span class="math inline">\(x_{1}\)</span> na resposta média depende do nível de <span class="math inline">\(x_2\)</span> e analogamente o efeito de <span class="math inline">\(x_2\)</span> na resposta média depende do nível de <span class="math inline">\(x_{1}\)</span>.</p>
+<p>Sabendo que <span class="math inline">\(E(\varepsilon)=0\)</span>, tem-se que</p>
+<p><span class="math display">\[E(Y|x)=\beta_0+\beta_1x_1+\beta_2x_2+\beta_3x_1x_2.\]</span></p>
+<p>A interpretação para os parâmetros <span class="math inline">\(\beta_1\)</span> e <span class="math inline">\(\beta_2,\)</span> no modelo com interação, não é o mesmo visto anteriormente.</p>
+</div>
+<div id="suposições-para-o-modelo" class="section level3" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Suposições para o modelo</h3>
+<p>As suposições necessárias para o modelo de regressão linear são:</p>
+<ol style="list-style-type: lower-roman">
+<li><p>O erro tem média zero e variância <span class="math inline">\(\sigma^2\)</span>, desconhecida;</p></li>
+<li><p>Os erros são não correlacionados;</p></li>
+<li><p>Os erros têm distribuição normal;</p></li>
+<li><p>As variáveis regressoras <span class="math inline">\(x_{1}, x_{2}, \ldots, x_{p}\)</span> assumem valores fixos.</p></li>
+</ol>
+<p>As suposições (i)-(iii), simbolicamente, podem ser representadas por</p>
+<p><span class="math display">\[\varepsilon_{i} {\stackrel{\mbox{iid}}{\sim}}N(0, \sigma^2).\]</span></p>
+<p>Se as suposições do modelo se verificam, então a variável <span class="math inline">\(Y\)</span> tem distribuição normal com variância <span class="math inline">\(\sigma^2\)</span> e média</p>
+<p><span class="math display">\[E(Y\mid x)=\beta_0+\beta_1 x_{1}+\beta_2 x_{2}+\ldots+\beta_p x_{p}.\]</span></p>
+<p>Neste caso, os parâmetros <span class="math inline">\(\beta_j,j=1,\dots,p\)</span> representam a variação (média) esperada na variável resposta (<span class="math inline">\(Y\)</span>) quando a variável <span class="math inline">\(x_j\)</span> sofre um acréscimo unitário, enquanto todas as outras variáveis <span class="math inline">\(x_i~~(i\neq j)\)</span> são mantidas constantes. Por esse motivo os <span class="math inline">\(\beta_j\)</span> são chamados de coeficientes parciais.</p>
+<p>Se os valores de <span class="math inline">\(x_j\)</span> incluem os valores <span class="math inline">\(x_j=0,j=1,\dots,p\)</span> então <span class="math inline">\(\beta_0\)</span> é a média de <span class="math inline">\(Y\)</span> quando <span class="math inline">\(x_j=0.\)</span> Em caso contrário não existe interpretação prática.</p>
+</div>
+</div>
+<div id="representação-matricial" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Representação Matricial</h2>
+<p>Lembrando que se temos <span class="math inline">\(n\)</span> observações <span class="math inline">\((n &gt; p)\)</span> da variável resposta e das <span class="math inline">\(p\)</span> variáveis explicativas, onde, <span class="math inline">\(y_i\)</span> é o valor da variável resposta na <span class="math inline">\(i\)</span>-ésima observação enquanto que <span class="math inline">\(x_{ij}\)</span> é o valor da variável <span class="math inline">\(x_j\)</span> na <span class="math inline">\(i\)</span>-ésima observação, podemos representar os dados de um Modelo de Regressão Linear Múltipla da seguinte forma:</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(y\)</span></th>
+<th><span class="math inline">\(x_1\)</span></th>
+<th><span class="math inline">\(x_2\)</span></th>
+<th><span class="math inline">\(\ldots\)</span></th>
+<th><span class="math inline">\(x_p\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(y_1\)</span></td>
+<td><span class="math inline">\(x_{11}\)</span></td>
+<td><span class="math inline">\(x_{12}\)</span></td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td><span class="math inline">\(x_{1p}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y_2\)</span></td>
+<td><span class="math inline">\(x_{21}\)</span></td>
+<td><span class="math inline">\(x_{22}\)</span></td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td><span class="math inline">\(x_{2p}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+<td><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y_n\)</span></td>
+<td><span class="math inline">\(x_{n1}\)</span></td>
+<td><span class="math inline">\(x_{n2}\)</span></td>
+<td><span class="math inline">\(\ldots\)</span></td>
+<td><span class="math inline">\(x_{np}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>onde cada observação satisfaz,</p>
+<p><span class="math display">\[Y_i=\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i, \quad i=1,\ldots, n\]</span></p>
+<p>Considerando que a entrada de dados apresentada na tabela, o modelo pode ser escrito como</p>
+<p><span class="math display">\[Y=X\beta+\varepsilon\]</span></p>
+<p>onde,</p>
+<p><span class="math display">\[Y = \left[\begin{array}{r}
+Y_1       \\
+Y_2    \\
+\vdots \\
+Y_n    \end{array}\right], ~ X = \left[\begin{array}{rrrrr}
+1 &amp; x_{11} &amp; x_{12} &amp; \ldots &amp; x_{1p} \\
+1 &amp; x_{21} &amp; x_{22} &amp; \ldots &amp; x_{2p} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \ldots \\
+1 &amp; x_{n1} &amp; x_{n2} &amp; \ldots &amp; x_{np} \\
+\end{array}\right], ~ \beta = \left[\begin{array}{r}
+\beta_0       \\
+\beta_1    \\
+\vdots \\
+\beta_p    \end{array}\right], ~ \varepsilon = \left[\begin{array}{r}
+\varepsilon_1       \\
+\varepsilon_2    \\
+\vdots \\
+\varepsilon_n \end{array}\right],\]</span></p>
+<p>Em que,</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> é um vetor <span class="math inline">\(n\times 1\)</span> cujos componentes corresponde às <span class="math inline">\(n\)</span> respostas;</li>
+<li><span class="math inline">\(X\)</span> é uma matriz de dimensão <span class="math inline">\(n\times (p+1)\)</span> denominada matriz do modelo;</li>
+<li><span class="math inline">\(\varepsilon\)</span> é um vetor de dimensão <span class="math inline">\(n\times 1\)</span> cujos componentes são os erros, a parte de <span class="math inline">\(Y\)</span> que o modelo de regressão não consegue explicar; e</li>
+<li><span class="math inline">\(\beta\)</span> é um vetor <span class="math inline">\((p+1)\times 1\)</span> cujos elementos são os coeficientes de regressão.</li>
+</ul>
+<div id="estimação-dos-parâmetros-do-modelo" class="section level3" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Estimação dos parâmetros do modelo</h3>
+<p>Os parâmetros de um modelo de regressão são exclusivamente os coeficientes <span class="math inline">\(\beta_j\)</span>. Para estimá-los iremos utilizar o método dos mínimos quadrados que tem como objetivo encontrar o vetor <span class="math inline">\(\widehat{\beta}\)</span> que minimiza os erros ao quadrado (<span class="math inline">\(\varepsilon^2\)</span>):</p>
+<p><span class="math display">\[
+\begin{aligned}
+L&amp;=\sum_{i=1}^n\varepsilon_i^2=\varepsilon^\prime \varepsilon\\
+&amp;= (Y-X\beta)^\prime (Y-X\beta)\\
+&amp;=Y^\prime Y-Y^\prime X\beta-\beta^\prime X^\prime Y+\beta^\prime X^\prime X\beta\\
+&amp;=Y^\prime Y-2\beta^\prime X^\prime Y+\beta^\prime X^\prime X\beta
+\end{aligned}
+\]</span></p>
+<p>Sendo que <span class="math inline">\(Y^\prime X\beta=\beta^\prime X^\prime Y\)</span>, pois o produto resulta em um escalar. A notação <span class="math inline">\(X^\prime\)</span> representa o transposto da matriz <span class="math inline">\(X\)</span> enquanto que <span class="math inline">\(Y^\prime\)</span> e <span class="math inline">\(\beta^\prime\)</span> representam os transpostos dos vetores <span class="math inline">\(Y\)</span> e <span class="math inline">\(\beta\)</span>, respectivamente.</p>
+<p>Usando a técnica de derivação (em termos matriciais) obtemos,</p>
+<p><span class="math display">\[\dfrac{\partial L}{\partial\beta}=-2X^\prime Y+2X^\prime X\beta\]</span></p>
+<p>Igualando a zero e substituindo o vetor <span class="math inline">\(\beta\)</span> pelo vetor <span class="math inline">\(\widehat{\beta}\)</span>, temos <span class="math inline">\((X^\prime X)\widehat{\beta}=X^\prime Y\)</span>. Em geral, a matriz <span class="math inline">\((X^\prime X)\)</span> é não singular, ou seja, tem determinante diferente de zero, e portanto é invertível. Desta forma, conclui-se que os estimadores para os parâmetros <span class="math inline">\(\beta_j,\quad j=0,\dots,p\)</span> são dados pelo vetor</p>
+<p><span class="math display">\[\widehat{\beta}=(X^\prime X)^{-1} X^\prime Y.\]</span></p>
+<p>Portanto, o modelo de regressão linear ajustado e o vetor de resíduos são respectivamente,</p>
+<p><span class="math display">\[\widehat{Y}=X\widehat{\beta}\]</span></p>
+<p>e</p>
+<p><span class="math display">\[\hat\varepsilon=e=Y-\widehat{Y}.\]</span></p>
+</div>
+<div id="propriedades-dos-estimadores-1" class="section level3" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> Propriedades dos estimadores</h3>
+<p>Pelo Teorema de Gauss-Markov temos que o estimador de mínimos quadrados <span class="math inline">\(\widehat{\beta}\)</span> é não viciado e tem variância mínima entre todos os estimadores não viciados que são combinações lineares dos <span class="math inline">\(Y_i\)</span>. Desta propriedade descorremos que,</p>
+<ol style="list-style-type: lower-roman">
+<li><span class="math inline">\(E(\widehat{\beta})=\beta\)</span></li>
+<li><span class="math inline">\(SQE = y^\prime y-\widehat{\beta}^\prime X^\prime y\)</span></li>
+<li><span class="math inline">\(\dfrac{SQE}{\sigma^2}\sim\chi^{2}_{n-(p+1)}\)</span></li>
+<li><span class="math inline">\(\widehat{\sigma}^2=QME=\dfrac{SQE}{n-p-1}\)</span></li>
+<li><span class="math inline">\(\widehat{\sigma}^{2}(\widehat{\beta}_j)=\widehat{\sigma}^2C_{jj}\)</span>, sendo <span class="math inline">\(C\)</span> a diagonal da matriz <span class="math inline">\({(X^\prime X)}^{-1}\)</span></li>
+</ol>
+</div>
+<div id="exemplo-20" class="section level3" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Exemplo</h3>
+<p>O ganho de um transistor consiste na diferença entre o emissor e o coletor. A variável  (em hFE) pode ser controlada no processo de deposição de íons por meio das variáveis  (em minutos) e  (<span class="math inline">\(\times 10^{14}\)</span>).</p>
+<p>As 14 observações coletadas no experimento estão expostas abaixo:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Ganho</th>
+<th>Tempo</th>
+<th>Dose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1004</td>
+<td>195</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>1636</td>
+<td>255</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>852</td>
+<td>195</td>
+<td>4.6</td>
+</tr>
+<tr class="even">
+<td>1506</td>
+<td>255</td>
+<td>4.6</td>
+</tr>
+<tr class="odd">
+<td>1272</td>
+<td>225</td>
+<td>4.2</td>
+</tr>
+<tr class="even">
+<td>1270</td>
+<td>225</td>
+<td>4.1</td>
+</tr>
+<tr class="odd">
+<td>1269</td>
+<td>225</td>
+<td>4.6</td>
+</tr>
+<tr class="even">
+<td>903</td>
+<td>195</td>
+<td>4.3</td>
+</tr>
+<tr class="odd">
+<td>1555</td>
+<td>255</td>
+<td>4.3</td>
+</tr>
+<tr class="even">
+<td>1260</td>
+<td>225</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>1146</td>
+<td>225</td>
+<td>4.7</td>
+</tr>
+<tr class="even">
+<td>1276</td>
+<td>225</td>
+<td>4.3</td>
+</tr>
+<tr class="odd">
+<td>1225</td>
+<td>225</td>
+<td>4.72</td>
+</tr>
+<tr class="even">
+<td>1321</td>
+<td>230</td>
+<td>4.3</td>
+</tr>
+</tbody>
+</table>
+<p>Supor a construção de um modelo para relacionar a variável ganho (em íons) com as variáveis explicativas emissor de tempo e emissor da dose é razoável. Assim, definimos o modelo de regressão linear múltipla dado por,</p>
+<p><span class="math display">\[Y=\beta_0+\beta_1x_1+\beta_2x_2+\varepsilon\]</span></p>
+<p>onde,</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> representa a variável resposta (o ganho em íons)</li>
+<li><span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span> representam as variáveis explicativas (o emissor de tempo e o emissor de dose, respectivamente)</li>
+<li><span class="math inline">\(\varepsilon\)</span> representa o erro experimental</li>
+<li><span class="math inline">\(\beta_0,\beta_1\)</span> e <span class="math inline">\(\beta_2\)</span> são denominados coeficientes da regressão</li>
+</ul>
+<p>Esse é um modelo de regressão linear múltipla com duas variáveis independentes ou explicativas (<span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>).</p>
+<p><strong>Solução</strong></p>
+<p>Podemos estimar os coeficientes <span class="math inline">\(\beta\)</span>’s utilizando Mínimos Quadrados, resultando em</p>
+<p><span class="math display">\[\widehat{\beta}=(X^\prime X)^{-1} X^\prime Y=
+\begin{bmatrix}-520.08 \\ 10.78 \\ -152.15\end{bmatrix}.\]</span></p>
+<p>Isto é,</p>
+<p><span class="math display">\[\text{Ganho}=-520.08+10.78\times\text{Tempo}-152.15\times\text{Dose}\]</span></p>
+<p>Assim,</p>
+<ul>
+<li><span class="math inline">\(\beta_2=-152,15\)</span> indica que a cada acréscimo de uma unidade na <span class="math inline">\(Dose\)</span> a resposta média decrescerá <span class="math inline">\(152,15\)</span> unidades; e</li>
+<li><span class="math inline">\(\beta_1=10,78\)</span> indica um acréscimo na resposta média de <span class="math inline">\(10,78\)</span> unidades para cada acréscimo de uma unidade na variável <span class="math inline">\(Dose\)</span></li>
+</ul>
+<p>Verificando as propriedados dos estimadores, temos que:</p>
+<p><span class="math display">\[\widehat{\sigma}^2= QME = \dfrac{SQE}{n-p-1}=\dfrac{y^\prime y-\widehat{\beta}^\prime X^\prime y}{14-2-1}=1.220,1\]</span></p>
+<p>Assim,</p>
+<p><span class="math display">\[\widehat{\sigma}^{2}(\widehat{\beta}_{0})=\widehat{\sigma}^{2}C_{00}=36905,13\implies \widehat{\sigma}(\widehat{\beta}_{0})=192,1071\]</span></p>
+<p><span class="math display">\[\widehat{\sigma}^{2}(\widehat{\beta}_{1})=\widehat{\sigma}^{2}C_{11}=0,2249791\implies \widehat{\sigma}(\widehat{\beta}_{1})=0,4743196\]</span><br />
+<span class="math display">\[\widehat{\sigma}^{2}(\widehat{\beta}_{2})=\widehat{\sigma}^{2}C_{22}=1345,088\implies \widehat{\sigma}(\widehat{\beta}_{2})=36,67544.\]</span></p>
+</div>
+</div>
+<div id="análise-de-variância-anova-1" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Análise de Variância (ANOVA)</h2>
+<p>A análise de variância é baseada na decomposição da soma de quadrados. Em outras palavras, o desvio de uma observação em relação à média pode ser decomposto como o desvio da observação em relação ao valor ajustado pela regressão mais o desvio do valor ajustado em relação à média, isto é, podemos escrever <span class="math inline">\((Y_i-\bar{Y})\)</span> como</p>
+<p><span class="math display">\[(Y_i-\bar{Y})=(Y_i-\bar{Y}+\widehat{Y}_i-\widehat{Y}_i)=(\widehat{Y}_i-\bar{Y})+(Y_i-\widehat{Y}_i).\]</span></p>
+<p>Elevando cada componente ao quadrado e somando para todo o conjunto de observações, obtemos</p>
+<p><span class="math display">\[\sum_{i=1}^n(Y_i-\bar{Y})^{2} = \sum_{i=1}^n(\widehat{Y}_i - \bar{Y})^2 + \sum_{i=1}^n(Y_i-\widehat{Y}_i)^{2},\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[\sum_{i=1}^n(Y_i-\bar{Y})^{2}=SQT~~~~\mbox(é\ a\ Soma\ de\ Quadrados\ Total);\]</span></p>
+<p><span class="math display">\[\sum_{i=1}^n(\widehat{Y}_i-\bar{Y})^2=SQR~~~~\mbox(é\ a\ Soma\ de\ Quadrados\ da\ Regressão)\ e\]</span></p>
+<p><span class="math display">\[\sum_{i=1}^n(Y_i-\widehat{Y}_i)^2=SQE~~~~\mbox(é\ a\ Soma\ de\ Quadrados\ dos\ Erros\ (dos\ Resíduos)).\]</span></p>
+<p>Desta forma, escrevemos</p>
+<p><span class="math display">\[SQT=SQR+SQE,\]</span></p>
+<p>em que decompomos a Soma de Quadrados Total em Soma de Quadrados da Regressão e Soma de Quadrados dos Erros.</p>
+<p>A soma de quadrados total (SQT), considerando a notação matricial, é dada por</p>
+<p><span class="math display">\[SQT=Y^\prime\left(I-\dfrac{J}{n}\right)Y,\]</span></p>
+<p>em que</p>
+<p><span class="math display">\[J =\left[\begin{array}{cccc}1~~1~~ \ldots~~1\\1~~1~~\ldots~~1\\\vdots~~\vdots~~\ddots~~\vdots\\1~~1~~\ldots~~1\\\end{array}\right]_{n \times n}.\]</span></p>
+<p>Além disso, de “Propriedades dos Estimadores” temos que a soma de quadrados dos erros (dos resíduos) em notação matricial é dada por</p>
+<p><span class="math display">\[SQE=Y^\prime(I-H)Y.\]</span></p>
+<p>A matriz <span class="math inline">\(I\)</span> é a matriz identidade com dimensão <span class="math inline">\(n\times n\)</span> e a matriz <span class="math inline">\(H=X [X^\prime X]^{-1}X^\prime\)</span> é chamada matriz chapéu que transforma o vetor de respostas <span class="math inline">\(Y\)</span> no vetor de valores ajustados <span class="math inline">\(\widehat{Y}\)</span>, pois</p>
+<p><span class="math display">\[\widehat{Y}=X\widehat{\beta}=X[X^\prime X]^{-1}X^\prime Y=HY.\]</span></p>
+<p>Desta forma, obtemos que a soma de quadrados da regressão é dada por</p>
+<p><span class="math display">\[SQR=Y^\prime \left(H-\dfrac{J}{n}\right)Y.\]</span></p>
+<p>Notemos que as somas de quadrados da Análise de Variância são representadas na forma quadrática <span class="math inline">\(Y^\prime AY\)</span>, em que <span class="math inline">\(A\)</span> é uma matriz simétrica.</p>
+<p>Vale ressaltar que</p>
+<ul>
+<li><span class="math inline">\(H\)</span> é quadrada de dimensão <span class="math inline">\(n \times n\)</span> e envolve apenas <span class="math inline">\(X\)</span> (as variáveis independentes assumidas como constantes).</li>
+<li><span class="math inline">\(H\)</span> é idempotente, isto é, <span class="math inline">\(HH=H\)</span>.</li>
+<li>As matrizes <span class="math inline">\(\left(I-\dfrac{J}{n}\right)\)</span>, <span class="math inline">\(\left(H-\dfrac{J}{n}\right)\)</span> e <span class="math inline">\((I-H)\)</span> são idempotentes.</li>
+</ul>
+<p>Em problemas de regressão linear, certos testes de hipóteses sobre os parâmetros do modelo são úteis para verificar a adequabilidade do modelo.</p>
+<p>O teste para significância da regressão é um teste para determinar se há uma relação linear entre a variável resposta <span class="math inline">\(Y\)</span> e algumas das variáveis regressora <span class="math inline">\(x_1,x_2,\dots,x_p\)</span>. Consideremos as hipóteses:</p>
+<p><span class="math display">\[H_0:\beta_1=\beta_2=\ldots=\beta_p=0\]</span></p>
+<p><span class="math display">\[H_1:\beta_j \neq 0 \text{ para qualquer } j=1,\ldots,p\]</span></p>
+<p>Se rejeitamos <span class="math inline">\(H_0\)</span>, temos que ao menos uma variável explicativa <span class="math inline">\(x_1,x_2,\dots,x_p\)</span> contribui significativamente para o modelo.</p>
+<p>Sob <span class="math inline">\(H_0,\)</span> temos que <span class="math inline">\(\dfrac{SQR}{\sigma^2} \sim \chi^2_{(p)}~~~~\mbox{e que}~~~~\dfrac{SQE}{\sigma^2} \sim \chi^2_{(n-p-1)}.\)</span></p>
+<p>Além disso, temos que <span class="math inline">\(SQR\)</span> e <span class="math inline">\(SQE\)</span> são independentes. Logo, concluímos sob <span class="math inline">\(H_0\)</span> que</p>
+<p><span class="math display">\[F_0=\dfrac{\dfrac{SQR}{p}}{\dfrac{SQE}{n-p-1}}= \dfrac{QMR}{QME}~\sim ~F_{(p ; \, n-p-1)}.\]</span></p>
+<p>Portanto, rejeitamos <span class="math inline">\(H_0\)</span> se <span class="math inline">\(F_0 &gt; F_{(1-\alpha ; \, p ; \, n-p-1)}\)</span> e se <span class="math inline">\(p-valor=P[F_{p;n-p-1} &gt; F_0]&lt;\alpha,\)</span> em que <span class="math inline">\(\alpha\)</span> é o nível de significância considerado. Geralmente adotamos <span class="math inline">\(\alpha=5\%.\)</span></p>
+<p>A Tabela Anova com a estatística <span class="math inline">\(F\)</span> é dada por</p>
+<table>
+<thead>
+<tr class="header">
+<th>Fonte</th>
+<th>Soma de Quadrados</th>
+<th>Graus de Liberdade</th>
+<th>Quadrado Médio</th>
+<th><span class="math inline">\(F_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regressão</td>
+<td>SQR</td>
+<td><span class="math inline">\(p\)</span></td>
+<td><span class="math inline">\(\frac{SQR}{p}\)</span></td>
+<td><span class="math inline">\(F_0=\frac{QMR}{QME}\)</span></td>
+</tr>
+<tr class="even">
+<td>Erro (Resíduo)</td>
+<td>SQE</td>
+<td><span class="math inline">\(n-p-1\)</span></td>
+<td><span class="math inline">\(\frac{SQE}{n-p-1}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>SQT</td>
+<td><span class="math inline">\(n-1\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div id="exemplo-continuação-1" class="section level3" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Exemplo (continuação)</h3>
+<p>No nosso exemplo, como <span class="math inline">\(p-valor&lt;\alpha\)</span> rejeitamos <span class="math inline">\(H_0\)</span>, ou seja, temos que ao menos uma variável explicativa que contribui significativamente para o modelo.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="regressão-linear.html#cb59-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1004</span>, <span class="dv">195</span>, <span class="dv">4</span>,</span>
+<span id="cb59-2"><a href="regressão-linear.html#cb59-2" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1636</span>, <span class="dv">255</span>, <span class="dv">4</span>,</span>
+<span id="cb59-3"><a href="regressão-linear.html#cb59-3" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">852</span>, <span class="dv">195</span>, <span class="fl">4.6</span>,</span>
+<span id="cb59-4"><a href="regressão-linear.html#cb59-4" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1506</span>, <span class="dv">255</span>, <span class="fl">4.6</span>,</span>
+<span id="cb59-5"><a href="regressão-linear.html#cb59-5" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1272</span>, <span class="dv">225</span>, <span class="fl">4.2</span>,</span>
+<span id="cb59-6"><a href="regressão-linear.html#cb59-6" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1270</span>, <span class="dv">225</span>, <span class="fl">4.1</span>,</span>
+<span id="cb59-7"><a href="regressão-linear.html#cb59-7" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1269</span>, <span class="dv">225</span>, <span class="fl">4.6</span>,</span>
+<span id="cb59-8"><a href="regressão-linear.html#cb59-8" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">903</span>, <span class="dv">195</span>, <span class="fl">4.3</span>,</span>
+<span id="cb59-9"><a href="regressão-linear.html#cb59-9" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1555</span>, <span class="dv">255</span>, <span class="fl">4.3</span>,</span>
+<span id="cb59-10"><a href="regressão-linear.html#cb59-10" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1260</span>, <span class="dv">225</span>, <span class="dv">4</span>,</span>
+<span id="cb59-11"><a href="regressão-linear.html#cb59-11" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1146</span>, <span class="dv">225</span>, <span class="fl">4.7</span>,</span>
+<span id="cb59-12"><a href="regressão-linear.html#cb59-12" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1276</span>, <span class="dv">225</span>, <span class="fl">4.3</span>,</span>
+<span id="cb59-13"><a href="regressão-linear.html#cb59-13" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1225</span>, <span class="dv">225</span>, <span class="fl">4.72</span>,</span>
+<span id="cb59-14"><a href="regressão-linear.html#cb59-14" aria-hidden="true" tabindex="-1"></a>                 <span class="dv">1321</span>, <span class="dv">230</span>, <span class="fl">4.3</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> T)</span>
+<span id="cb59-15"><a href="regressão-linear.html#cb59-15" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> dados[,<span class="dv">1</span>]</span>
+<span id="cb59-16"><a href="regressão-linear.html#cb59-16" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(dados)),dados[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb59-17"><a href="regressão-linear.html#cb59-17" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(dados)</span>
+<span id="cb59-18"><a href="regressão-linear.html#cb59-18" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">ncol</span>(dados) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb59-19"><a href="regressão-linear.html#cb59-19" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)<span class="sc">%*%</span><span class="fu">t</span>(X)<span class="sc">%*%</span>Y</span>
+<span id="cb59-20"><a href="regressão-linear.html#cb59-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-21"><a href="regressão-linear.html#cb59-21" aria-hidden="true" tabindex="-1"></a>I <span class="ot">=</span> <span class="fu">diag</span>(n)</span>
+<span id="cb59-22"><a href="regressão-linear.html#cb59-22" aria-hidden="true" tabindex="-1"></a>J <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> n)</span>
+<span id="cb59-23"><a href="regressão-linear.html#cb59-23" aria-hidden="true" tabindex="-1"></a>(<span class="at">SQT =</span> <span class="fu">t</span>(Y)<span class="sc">%*%</span>(I<span class="sc">-</span>J<span class="sc">/</span>n)<span class="sc">%*%</span>Y)</span></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 665387.2</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="regressão-linear.html#cb61-1" aria-hidden="true" tabindex="-1"></a>H <span class="ot">=</span> X<span class="sc">%*%</span><span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)<span class="sc">%*%</span><span class="fu">t</span>(X)</span>
+<span id="cb61-2"><a href="regressão-linear.html#cb61-2" aria-hidden="true" tabindex="-1"></a>(<span class="at">SQE =</span> <span class="fu">t</span>(Y)<span class="sc">%*%</span>(I<span class="sc">-</span>H)<span class="sc">%*%</span>Y)</span></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 13421.12</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="regressão-linear.html#cb63-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">SQR =</span> <span class="fu">t</span>(Y)<span class="sc">%*%</span>(H<span class="sc">-</span>J<span class="sc">/</span>n)<span class="sc">%*%</span>Y)</span></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 651966.1</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="regressão-linear.html#cb65-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">QMR =</span> SQR<span class="sc">/</span>p)</span></code></pre></div>
+<pre><code>##        [,1]
+## [1,] 325983</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="regressão-linear.html#cb67-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">QME =</span> SQE<span class="sc">/</span>(n<span class="sc">-</span>p<span class="dv">-1</span>))</span></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 1220.101</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="regressão-linear.html#cb69-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">F_0 =</span> QMR<span class="sc">/</span>QME)</span></code></pre></div>
+<pre><code>##         [,1]
+## [1,] 267.177</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="regressão-linear.html#cb71-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">pvalor =</span> <span class="fu">pf</span>(F_0, <span class="at">df1 =</span> p, <span class="at">df2 =</span> n<span class="sc">-</span>p<span class="dv">-1</span>, <span class="at">lower.tail =</span> F))</span></code></pre></div>
+<pre><code>##              [,1]
+## [1,] 4.741632e-10</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>Fonte</th>
+<th>Soma de Quadrados</th>
+<th>Graus de Liberdade</th>
+<th>Quadrado Médio</th>
+<th><span class="math inline">\(F_0\)</span></th>
+<th>p-valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regressão</td>
+<td>6.519661^{5}</td>
+<td>2</td>
+<td>3.2598305^{5}</td>
+<td>267.1770159</td>
+<td>4.7416322^{-10}</td>
+</tr>
+<tr class="even">
+<td>Erro (Resíduo)</td>
+<td>1.3421115^{4}</td>
+<td>11</td>
+<td>1220.1013938</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>6.6538721^{5}</td>
+<td>13</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="medidas-de-associação" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Medidas de Associação</h2>
+<div id="coeficiente-de-determinação-múltiplo-r2" class="section level3" number="9.5.1">
+<h3><span class="header-section-number">9.5.1</span> Coeficiente de Determinação Múltiplo (<span class="math inline">\(R^2\)</span>)</h3>
+<p>O coeficiente de determinação múltiplo é dado por</p>
+<p><span class="math display">\[R^2 = \frac{SQR}{SQT} = 1-\frac{SQE}{SQT}.\]</span></p>
+<p>Ele representa a proporção da variabilidade de <span class="math inline">\(Y\)</span> explicada pelas variáveis regressoras. Assim, quanto mais próximo <span class="math inline">\(R^2\)</span> estiver de <span class="math inline">\(1\)</span>, maior é a explicação da variável resposta pelo modelo ajustado.</p>
+</div>
+<div id="coeficiente-de-determinação-ajustado-r2_a" class="section level3" number="9.5.2">
+<h3><span class="header-section-number">9.5.2</span> Coeficiente de Determinação Ajustado (<span class="math inline">\(R^2_a\)</span>)</h3>
+<p>O coeficiente de determinação ajustado é definido como</p>
+<p><span class="math display">\[R^2_a=1-\left(\frac{n-1}{n-p}\right)(1-R^2).\]</span></p>
+<p>Este coeficiente ajustado pode ser menor quando outra variável <span class="math inline">\(X\)</span> entra no modelo, pois a diminuição na <span class="math inline">\(SQE\)</span> pode ser compensada pela perda de <span class="math inline">\(1\)</span> grau de liberdade no denominador <span class="math inline">\(n-p\)</span>. Observe que foi exatamente isso que aconteceu no nosso caso exemplo, um indicativo de que alguma variável não é tão significativa.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="regressão-linear.html#cb73-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">R2 =</span> SQR<span class="sc">/</span>SQT)</span></code></pre></div>
+<pre><code>##           [,1]
+## [1,] 0.9798296</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="regressão-linear.html#cb75-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">R2ajustado =</span> <span class="dv">1</span><span class="sc">-</span>(n<span class="dv">-1</span>)<span class="sc">/</span>(n<span class="sc">-</span>p)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>R2))</span></code></pre></div>
+<pre><code>##           [,1]
+## [1,] 0.9781488</code></pre>
+</div>
+</div>
+<div id="testes-de-hipóteses-para-os-coeficientes-da-regressão" class="section level2" number="9.6">
+<h2><span class="header-section-number">9.6</span> Testes de hipóteses para os coeficientes da regressão</h2>
+<p>Testes de hipóteses para os coeficientes da regressão são fundamentais para se determinar se cada variável explicativa é importante para o modelo de regressão. Por exemplo, o modelo pode ser mais eficaz com a inclusão ou com a exclusão de novas variáveis.</p>
+<p>Adicionar uma variável ao modelo de regressão sempre causa um aumento na soma dos quadrados da regressão e um decréscimo na soma dos quadrados do erro. Entretanto, a adição de variáveis regressoras também aumenta a variância do valor ajustado <span class="math inline">\(\widehat{Y}\)</span>. Por isso, devemos ter cuidado para incluir somente variáveis regressoras que realmente explicam a variável resposta.</p>
+<p>As hipóteses para testar a significância de qualquer coeficiente de regressão individualmente são dadas por:</p>
+<p><span class="math display">\[H_0: \beta_j = 0 ~\text{vs}~ H_1: \beta_j \neq 0,~ j=1,\ldots,p\]</span></p>
+<p>Se <span class="math inline">\(H_0\)</span> (<span class="math inline">\(\beta_j=0\)</span>) não é rejeitada, então podemos retirar <span class="math inline">\(x_j\)</span> do modelo já que esta variável não influencia a resposta de forma significativa.</p>
+<p>Supondo que os erros são independentes e identicamente distribuídos temos que <span class="math inline">\(\widehat{\beta}\sim N_p(\beta;\sigma^2C)\)</span>. Assim, sob <span class="math inline">\(H_0\)</span> temos que</p>
+<p><span class="math display">\[N_0=\dfrac{\widehat{\beta}_ j}{\sqrt{\sigma^2 C_{jj}}} \sim N(0,1)\]</span></p>
+<p>Além disso, <span class="math inline">\(\dfrac{(n-p-1)\widehat{\sigma}^2}{\sigma^2} \sim \chi ^2_{(n-p-1)}\)</span> é independente de <span class="math inline">\(N_0\)</span>, portanto segue que a estatística do teste é dada por</p>
+<p><span class="math display">\[t_0=\dfrac{\widehat{\beta}_j}{\sqrt{\widehat{\sigma}^2C_{jj}}} \sim t_{(n-p-1)}\]</span></p>
+<p>A hipótese nula <span class="math inline">\(\beta_j=0\)</span> é rejeitada se</p>
+<p><span class="math display">\[|t_0| &gt; t_{(1-\frac{\alpha}{2},\,n-p-1)}.\]</span></p>
+<p>Considerando o <span class="math inline">\(p-valor\)</span>, dado por meio da expressão</p>
+<p><span class="math display">\[2\times P\left( t_{n-p-1}&gt; |t_0| \right),\]</span></p>
+<p>rejeitamos <span class="math inline">\(H_0\)</span> se <span class="math inline">\(p-valor&lt;\alpha\)</span>.</p>
+<p>O denominador é frequentemente chamado de erro padrão de <span class="math inline">\(\widehat{\beta}_j\)</span> e denotado por</p>
+<p><span class="math display">\[se_{(\widehat{\beta}_j)}=\sqrt{\widehat{\sigma}^2C_{jj}}.\]</span></p>
+<p>No nosso exemplo todas as variáveis são significativas no modelo ao considerar <span class="math inline">\(\alpha=5\%\)</span>, no entanto ao considerar <span class="math inline">\(\alpha=1\%\)</span>, o intercepto não se mostra significativo. A decisão de removê-lo ou não da análise pertence a você, especialista.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="regressão-linear.html#cb77-1" aria-hidden="true" tabindex="-1"></a>cov_beta_chapeu <span class="ot">=</span> QME<span class="sc">%*%</span><span class="fu">diag</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X))</span>
+<span id="cb77-2"><a href="regressão-linear.html#cb77-2" aria-hidden="true" tabindex="-1"></a>(<span class="at">t_0 =</span> <span class="fu">c</span>(beta)<span class="sc">/</span><span class="fu">sqrt</span>(cov_beta_chapeu))</span></code></pre></div>
+<pre><code>##           [,1]     [,2]      [,3]
+## [1,] -2.707223 22.72973 -4.148522</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="regressão-linear.html#cb79-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">pvalor =</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="fu">abs</span>(t_0),<span class="at">df=</span>n<span class="sc">-</span>p<span class="dv">-1</span>,<span class="at">lower.tail =</span> F))</span></code></pre></div>
+<pre><code>##            [,1]         [,2]        [,3]
+## [1,] 0.02039185 1.349125e-10 0.001620499</code></pre>
+</div>
+<div id="intervalo-de-confiança-para-os-coeficientes-da-regressão" class="section level2" number="9.7">
+<h2><span class="header-section-number">9.7</span> Intervalo de confiança para os coeficientes da regressão</h2>
+<p>Considerando a estatística <span class="math inline">\(t_0\)</span>, um intervalo com <span class="math inline">\(100(1-\alpha)\%\)</span> de confiança para os coeficientes da regressão <span class="math inline">\(\beta_j,~~~j=0,1,2,\ldots,p,\)</span> é dado por</p>
+<p><span class="math display">\[\left[\widehat{\beta}_j-t_{\left(\dfrac{\alpha}{2},n-p-1\right)}{\sqrt{\widehat{\sigma}^2 C_{jj}}}\,;\,\widehat{\beta}_j+t_{\left(\dfrac{\alpha}{2},n-p-1\right)}{\sqrt{\widehat{\sigma}^2 C_{jj}}}\, \right].\]</span></p>
+<p>No nosso exemplo considerando <span class="math inline">\(\alpha=5\%\)</span>,</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="regressão-linear.html#cb81-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">lim_inf =</span> <span class="fu">c</span>(beta)<span class="sc">-</span><span class="fu">qt</span>(<span class="fl">0.025</span>,<span class="at">df=</span>n<span class="sc">-</span>p<span class="dv">-1</span>, <span class="at">lower.tail =</span> F)<span class="sc">*</span><span class="fu">sqrt</span>(cov_beta_chapeu))</span></code></pre></div>
+<pre><code>##           [,1]     [,2]     [,3]
+## [1,] -942.9015 9.737187 -232.871</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="regressão-linear.html#cb83-1" aria-hidden="true" tabindex="-1"></a>(<span class="at">lim_sup =</span> <span class="fu">c</span>(beta)<span class="sc">+</span><span class="fu">qt</span>(<span class="fl">0.025</span>,<span class="at">df=</span>n<span class="sc">-</span>p<span class="dv">-1</span>, <span class="at">lower.tail =</span> F)<span class="sc">*</span><span class="fu">sqrt</span>(cov_beta_chapeu))</span></code></pre></div>
+<pre><code>##           [,1]     [,2]      [,3]
+## [1,] -97.25182 11.82513 -71.42678</code></pre>
+<p>Assim, um resumo pode ser visto na tabela abaixo:</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\beta_j\)</span></th>
+<th><span class="math inline">\(t_0\)</span></th>
+<th><span class="math inline">\(t_{11;2.5\%}\)</span></th>
+<th><span class="math inline">\(p-valor\)</span></th>
+<th>IC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\beta_0\)</span></td>
+<td>-2.7072227</td>
+<td>-2,20</td>
+<td>0.0203918</td>
+<td>[-942.9015346; -97.2518192]</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\beta_1\)</span></td>
+<td>22.7297315</td>
+<td>-2,20</td>
+<td>1.3491246^{-10}</td>
+<td>[9.7371874; 11.8251284]</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\beta_2\)</span></td>
+<td>-4.1485223</td>
+<td>-2,20</td>
+<td>0.0016205</td>
+<td>[-232.8709716; -71.4267778]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="seleção-de-variáveis-regressão-linear-múltipla" class="section level2" number="9.8">
+<h2><span class="header-section-number">9.8</span> Seleção de Variáveis (Regressão Linear Múltipla)</h2>
+<p>Em modelos de regressão múltipla é necessário determinar um subconjunto de variáveis independentes que melhor explique a variável resposta. Isto é, dentre todas as variáveis explicativas disponíveis, devemos encontrar um subconjunto de variáveis importantes para o modelo.</p>
+<p>Construir um modelo que inclui apenas um subconjunto de variáveis explicativas envolve dois objetivos conflitantes:</p>
+<ul>
+<li>Obter o máximo de informação por meio de um modelo com tantas variáveis independentes possíveis;</li>
+<li>Diminuir a variância da estimativa e o custo da coleta por meio de um modelo com menor número possível de variáveis.</li>
+</ul>
+<p>Desta forma, obter um equilíbrio entre esses dois compromissos é de interesse. Para isto, utilizamos uma técnica, denominada de seleção de variáveis. Existem duas principais estratégias no processo de seleção de variáveis:</p>
+<ul>
+<li><em>Todos os modelos possíveis</em>: considera todos os subconjuntos possíveis de variáveis explicativas, e considerando critérios de avaliação, seleciona o melhor deles</li>
+<li><em>Seleção Automática</em>: faz uma busca do melhor subconjunto de variáveis explicativas sem considerar todos os possíveis subconjuntos</li>
+</ul>
+<div id="seleção-de-todos-os-modelos-possíveis" class="section level3" number="9.8.1">
+<h3><span class="header-section-number">9.8.1</span> Seleção de todos os modelos possíveis</h3>
+<p>Considere o modelo de regressão linear múltipla e suas suposições</p>
+<p><span class="math display">\[Y=\beta_0+\beta_1 x_1+\beta_2 x_2+...+\beta_p x_p+\epsilon,\]</span></p>
+<p>O método de todos os modelos possíveis possibilita a análise do ajuste de todos os submodelos compostos pelos possíveis subconjuntos das <span class="math inline">\(p\)</span> variáveis e identifica os melhores desses subconjuntos, segundo critérios de avaliação.</p>
+<p>Utilizando a base de dados <span class="math inline">\(\texttt{mtcars}\)</span> vamos supor a construção de um modelo para relacionar a variável <span class="math inline">\(\texttt{mpg}\)</span> com as variáveis explicativas <span class="math inline">\(\texttt{disp}\)</span>, <span class="math inline">\(\texttt{hp}\)</span> e <span class="math inline">\(\texttt{wt}\)</span>. Assim, todas as combinações possíveis são:</p>
+<ul>
+<li>Modelo 1: <span class="math inline">\(\text{mpg} = \beta_0+\beta_1\text{disp}\)</span></li>
+<li>Modelo 2: <span class="math inline">\(\text{mpg} = \beta_0+\beta_2\text{hp}\)</span></li>
+<li>Modelo 3: <span class="math inline">\(\text{mpg} = \beta_0+\beta_3\text{wt}\)</span></li>
+<li>Modelo 4: <span class="math inline">\(\text{mpg} = \beta_0+\beta_1\text{disp}+\beta_2\text{hp}\)</span></li>
+<li>Modelo 5: <span class="math inline">\(\text{mpg} = \beta_0+\beta_1\text{disp}+\beta_3\text{wt}\)</span></li>
+<li>Modelo 6: <span class="math inline">\(\text{mpg} = \beta_0+\beta_2\text{hp}+\beta_3\text{wt}\)</span></li>
+<li>Modelo 7: <span class="math inline">\(\text{mpg} = \beta_0+\beta_1\text{disp}+\beta_2\text{hp}+\beta_3\text{wt}\)</span></li>
+</ul>
+<p>Alguns critérios para avaliar os modelos são:</p>
+<ul>
+<li><span class="math inline">\(R_a^2\)</span>: não necessariamente aumenta com a adição de parâmetros no modelo, consequentemente, um modelo ótimo é o modelo que tem o <span class="math inline">\(R_a^2\)</span> máximo; e</li>
+<li>AIC e BIC: ambos os critérios de informação penalizam modelos com muitas variáveis sendo que valores menores de AIC e BIC são preferíveis.</li>
+</ul>
+<p>Testando nosso exemplo:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="regressão-linear.html#cb85-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb85-2"><a href="regressão-linear.html#cb85-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, <span class="at">data =</span> mtcars)</span>
+<span id="cb85-3"><a href="regressão-linear.html#cb85-3" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb85-4"><a href="regressão-linear.html#cb85-4" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp<span class="sc">+</span>hp, <span class="at">data =</span> mtcars)</span>
+<span id="cb85-5"><a href="regressão-linear.html#cb85-5" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp<span class="sc">+</span>wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb85-6"><a href="regressão-linear.html#cb85-6" aria-hidden="true" tabindex="-1"></a>mod6 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp<span class="sc">+</span>wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb85-7"><a href="regressão-linear.html#cb85-7" aria-hidden="true" tabindex="-1"></a>mod7 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp<span class="sc">+</span>hp<span class="sc">+</span>wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb85-8"><a href="regressão-linear.html#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-9"><a href="regressão-linear.html#cb85-9" aria-hidden="true" tabindex="-1"></a>selecao <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">R2a=</span><span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">7</span>),<span class="at">AIC=</span><span class="cn">NA</span>,<span class="at">BIC=</span><span class="cn">NA</span>)</span>
+<span id="cb85-10"><a href="regressão-linear.html#cb85-10" aria-hidden="true" tabindex="-1"></a>selecao<span class="sc">$</span>R2a <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">summary</span>(mod1)<span class="sc">$</span>adj.r.squared,<span class="fu">summary</span>(mod2)<span class="sc">$</span>adj.r.squared,</span>
+<span id="cb85-11"><a href="regressão-linear.html#cb85-11" aria-hidden="true" tabindex="-1"></a>                <span class="fu">summary</span>(mod3)<span class="sc">$</span>adj.r.squared,<span class="fu">summary</span>(mod4)<span class="sc">$</span>adj.r.squared,</span>
+<span id="cb85-12"><a href="regressão-linear.html#cb85-12" aria-hidden="true" tabindex="-1"></a>                <span class="fu">summary</span>(mod5)<span class="sc">$</span>adj.r.squared,<span class="fu">summary</span>(mod6)<span class="sc">$</span>adj.r.squared,</span>
+<span id="cb85-13"><a href="regressão-linear.html#cb85-13" aria-hidden="true" tabindex="-1"></a>                <span class="fu">summary</span>(mod7)<span class="sc">$</span>adj.r.squared)</span>
+<span id="cb85-14"><a href="regressão-linear.html#cb85-14" aria-hidden="true" tabindex="-1"></a>selecao<span class="sc">$</span>AIC <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">AIC</span>(mod1),<span class="fu">AIC</span>(mod2),<span class="fu">AIC</span>(mod3),<span class="fu">AIC</span>(mod4),<span class="fu">AIC</span>(mod5),<span class="fu">AIC</span>(mod6),<span class="fu">AIC</span>(mod7))</span>
+<span id="cb85-15"><a href="regressão-linear.html#cb85-15" aria-hidden="true" tabindex="-1"></a>selecao<span class="sc">$</span>BIC <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">BIC</span>(mod1),<span class="fu">BIC</span>(mod2),<span class="fu">BIC</span>(mod3),<span class="fu">BIC</span>(mod4),<span class="fu">BIC</span>(mod5),<span class="fu">BIC</span>(mod6),<span class="fu">BIC</span>(mod7))</span>
+<span id="cb85-16"><a href="regressão-linear.html#cb85-16" aria-hidden="true" tabindex="-1"></a>selecao</span></code></pre></div>
+<pre><code>##         R2a      AIC      BIC
+## 1 0.7089548 170.2094 174.6066
+## 2 0.5891853 181.2386 185.6358
+## 3 0.7445939 166.0294 170.4266
+## 4 0.7308774 168.6186 174.4815
+## 5 0.7658223 164.1678 170.0307
+## 6 0.8148396 156.6523 162.5153
+## 7 0.8082829 158.6430 165.9717</code></pre>
+<p>Qual modelo você escolheria?</p>
+</div>
+<div id="seleção-automática" class="section level3" number="9.8.2">
+<h3><span class="header-section-number">9.8.2</span> Seleção automática</h3>
+<p>Como a seleção de todas as regressões possíveis necessita de um considerável esforço computacional, outros métodos foram desenvolvidos para selecionar o melhor subconjunto de variáveis sequencialmente, adicionando ou removendo variáveis em cada passo. O critério para a adição ou remoção de covariáveis é geralmente baseado na estatística <span class="math inline">\(F\)</span>, comparando modelos com e sem as variáveis em questão. O AIC, assim como outros critérios, também podem ser utilizados na decisão de inserir e remover variáveis.</p>
+<p>Existem três procedimentos automáticos:</p>
+<ol style="list-style-type: decimal">
+<li>Método Forward</li>
+<li>Método Backward</li>
+<li>Método Stepwise</li>
+</ol>
+<div id="método-forward" class="section level4" number="9.8.2.1">
+<h4><span class="header-section-number">9.8.2.1</span> Método Forward</h4>
+<p>Esse procedimento parte da suposição de que não há variável no modelo, apenas o intercepto. A ideia do método é adicionar uma variável de cada vez. A primeira variável selecionada é aquela com maior correlação com a resposta.</p>
+<ol style="list-style-type: decimal">
+<li>Ajustamos o modelo com a variável com maior correlação amostral com a variável resposta</li>
+</ol>
+<ul>
+<li>Supondo que essa variável seja <span class="math inline">\(x_1\)</span>, calculamos a estatística <span class="math inline">\(t\)</span> para testar se ela realmente é significativa para o modelo</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Considerando que <span class="math inline">\(x_1\)</span> foi selecionado para o modelo, o próximo passo é encontrar uma variável com maior correlação com a resposta considerando a presença da primeira variável no modelo</li>
+</ol>
+<ul>
+<li>Esta é chamada de correlação parcial e é a correlação dos resíduos do modelo <span class="math inline">\(\hat{y}=\hat{\beta}_0+\hat{\beta}_1x_1\)</span> com os resíduos do modelo <span class="math inline">\(\hat{x}_j=\hat{\alpha}_{0j}+\hat{\alpha}_{1j}x_1\)</span>, <span class="math inline">\(j=2,3,\ldots,p\)</span></li>
+<li>Vamos supor que a maior correlação parcial com <span class="math inline">\(y\)</span> seja <span class="math inline">\(x_2\)</span></li>
+<li>Se o valor da estatística é maior do que <span class="math inline">\(t_{crítica}\)</span>, <span class="math inline">\(x_2\)</span> é selecionado para o modelo</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>O processo é repetido até que não seja incluída mais nenhuma variável explicativa, significativa, no modelo.</li>
+</ol>
+<p>No nosso exemplo vamos calcular as correlações entre as candidatas a variáveis explicativas (<span class="math inline">\(\texttt{disp,hp,wt}\)</span>) e variável resposta (<span class="math inline">\(\texttt{mpg}\)</span>):</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="regressão-linear.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] -0.8475514</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="regressão-linear.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>hp, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] -0.7761684</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="regressão-linear.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] -0.8676594</code></pre>
+<p>Qual variável seria a primeira candidata?</p>
+<p>Como a correlação entre a variável explicativa <span class="math inline">\(\texttt{wt}\)</span> e a variável resposta <span class="math inline">\(\texttt{mpg}\)</span> foi a que apresentou maior correlação, essa será a escolhida:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="regressão-linear.html#cb93-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb93-2"><a href="regressão-linear.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
+<p>A variável <span class="math inline">\(\texttt{wt}\)</span> é significativa? Ela deve se manter no modelo?</p>
+<p>O teste <span class="math inline">\(t\)</span> mostrou que essa variável é significativa para o modelo, pois p-valor menor que qualquer <span class="math inline">\(\alpha\)</span> usualmente utilizado. Portanto agora iremos calcular as correlações parciais (<span class="math inline">\(\texttt{disp,hp}\)</span>) entre os resíduos dos modelos:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="regressão-linear.html#cb95-1" aria-hidden="true" tabindex="-1"></a>residuos_mod1 <span class="ot">=</span> <span class="fu">residuals</span>(mod1)</span>
+<span id="cb95-2"><a href="regressão-linear.html#cb95-2" aria-hidden="true" tabindex="-1"></a>test1 <span class="ot">=</span> <span class="fu">lm</span>(disp <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb95-3"><a href="regressão-linear.html#cb95-3" aria-hidden="true" tabindex="-1"></a>test2 <span class="ot">=</span> <span class="fu">lm</span>(hp <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb95-4"><a href="regressão-linear.html#cb95-4" aria-hidden="true" tabindex="-1"></a>residuos_test1 <span class="ot">=</span> <span class="fu">residuals</span>(test1)</span>
+<span id="cb95-5"><a href="regressão-linear.html#cb95-5" aria-hidden="true" tabindex="-1"></a>residuos_test2 <span class="ot">=</span> <span class="fu">residuals</span>(test2)</span>
+<span id="cb95-6"><a href="regressão-linear.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(residuos_test1,residuos_mod1)</span></code></pre></div>
+<pre><code>## [1] -0.3371636</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="regressão-linear.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(residuos_test2,residuos_mod1)</span></code></pre></div>
+<pre><code>## [1] -0.5469926</code></pre>
+<p>Qual variável deve ser a próxima candidata a entrar no modelo?</p>
+<p>Como a correlação parcial entre as variávels <span class="math inline">\(\texttt{hp}\)</span> e <span class="math inline">\(\texttt{wt}\)</span> foi maior, a variável <span class="math inline">\(\texttt{hp}\)</span> é a próxima candidata a entrar no modelo:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="regressão-linear.html#cb99-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp, <span class="at">data =</span> mtcars)</span>
+<span id="cb99-2"><a href="regressão-linear.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + hp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.941 -1.600 -0.182  1.050  5.854 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.22727    1.59879  23.285  &lt; 2e-16 ***
+## wt          -3.87783    0.63273  -6.129 1.12e-06 ***
+## hp          -0.03177    0.00903  -3.519  0.00145 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.593 on 29 degrees of freedom
+## Multiple R-squared:  0.8268, Adjusted R-squared:  0.8148 
+## F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12</code></pre>
+<p>A variável <span class="math inline">\(\texttt{hp}\)</span> é significativa? Ela deve se manter no modelo?</p>
+<p>Novamente, o teste <span class="math inline">\(t\)</span> mostrou que essa variável é significativa para o modelo. Portanto como existe somente mais uma candidata a variável explicativa, iremos testar o modelo com as três variáveis juntas:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="regressão-linear.html#cb101-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp <span class="sc">+</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb101-2"><a href="regressão-linear.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + hp + disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.891 -1.640 -0.172  1.061  5.861 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.105505   2.110815  17.579  &lt; 2e-16 ***
+## wt          -3.800891   1.066191  -3.565  0.00133 ** 
+## hp          -0.031157   0.011436  -2.724  0.01097 *  
+## disp        -0.000937   0.010350  -0.091  0.92851    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.639 on 28 degrees of freedom
+## Multiple R-squared:  0.8268, Adjusted R-squared:  0.8083 
+## F-statistic: 44.57 on 3 and 28 DF,  p-value: 8.65e-11</code></pre>
+<p>A variável <span class="math inline">\(\texttt{disp}\)</span> é significativa? Ela deve se manter no modelo?</p>
+<p>Note que dessa vez a variável <span class="math inline">\(\texttt{disp}\)</span> não foi significativa para o modelo, pois apresenta um p-valor superior aos comumente utilizados. Portanto, o modelo final será composto pelas variáveis <span class="math inline">\(\texttt{hp}\)</span> e <span class="math inline">\(\texttt{wt}\)</span> segundo o método de seleção Forward</p>
+</div>
+<div id="método-backward" class="section level4" number="9.8.2.2">
+<h4><span class="header-section-number">9.8.2.2</span> Método Backward</h4>
+<p>Enquanto o método Forward começa sem nenhuma variável no modelo e adiciona variáveis a cada passo, o método Backward faz o caminho oposto: incorpora inicialmente todas as variáveis e depois, por etapas, cada uma pode ser ou não eliminada. A decisão de retirada da variável é tomada baseando-se no p-valor do teste de hipóteses de significância de cada variável, que são calculados para cada variável como se ela fosse a última a entrar no modelo.</p>
+<ol style="list-style-type: decimal">
+<li>Ajusta-se um modelo com todas as <span class="math inline">\(p\)</span> candidatas à variáveis explicativas</li>
+<li>Elimina-se do modelo a variável que obtiver maior p-valor (menos significativa) e caso este p-valor seja maior do que um nível de significância <span class="math inline">\(\alpha\)</span> pré-determinado</li>
+<li>Ajusta-se novamente o modelo, agora com as <span class="math inline">\(p-1\)</span> variáveis. O processo é repetido.</li>
+<li>O algoritmo de eliminação termina quando o maior p-valor obtido for menor que o nível de significância <span class="math inline">\(\alpha\)</span>.</li>
+</ol>
+<p>No nosso exemplo vamos começar ajustando um modelo com as três candidatas à variável explicativa:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="regressão-linear.html#cb103-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb103-2"><a href="regressão-linear.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ disp + hp + wt, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.891 -1.640 -0.172  1.061  5.861 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.105505   2.110815  17.579  &lt; 2e-16 ***
+## disp        -0.000937   0.010350  -0.091  0.92851    
+## hp          -0.031157   0.011436  -2.724  0.01097 *  
+## wt          -3.800891   1.066191  -3.565  0.00133 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.639 on 28 degrees of freedom
+## Multiple R-squared:  0.8268, Adjusted R-squared:  0.8083 
+## F-statistic: 44.57 on 3 and 28 DF,  p-value: 8.65e-11</code></pre>
+<p>Todas as variáveis são significativas? Devemos eliminar alguma variável?</p>
+<p>Note que devemos ajustar um novo modelo após eliminar a variável <span class="math inline">\(\texttt{disp}\)</span>, pois ela possui o maior p-valor e esse p-valor é maior do que qualquer <span class="math inline">\(\alpha\)</span> usual.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="regressão-linear.html#cb105-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb105-2"><a href="regressão-linear.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ hp + wt, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.941 -1.600 -0.182  1.050  5.854 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.22727    1.59879  23.285  &lt; 2e-16 ***
+## hp          -0.03177    0.00903  -3.519  0.00145 ** 
+## wt          -3.87783    0.63273  -6.129 1.12e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.593 on 29 degrees of freedom
+## Multiple R-squared:  0.8268, Adjusted R-squared:  0.8148 
+## F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12</code></pre>
+<p>Todas as variáveis são significativas? Devemos eliminar alguma variável?</p>
+<p>Agora não devemos eliminar nenhuma outra variável, pois a variável <span class="math inline">\(\texttt{hp}\)</span> que possui o menor p-valor ainda assim apresenta valor menor do que qualquer <span class="math inline">\(\alpha\)</span> usual. Portanto, como esperado, o modelo final, mais uma vez contem as variáveis <span class="math inline">\(\texttt{hp}\)</span> e <span class="math inline">\(\texttt{wt}\)</span> segundo o método de seleção Barckward.</p>
+</div>
+<div id="método-stepwise" class="section level4" number="9.8.2.3">
+<h4><span class="header-section-number">9.8.2.3</span> Método Stepwise</h4>
+<p>Stepwise é uma modificação da seleção Forward em que cada passo todas as variáveis do modelo são previamente verificadas pelos seus p-valores. Uma variável adicionada no modelo no passo anterior pode ser redundante para o modelo por causa do seu relacionamento com as outras variáveis e se seu p-valor for maior do que <span class="math inline">\(\alpha\)</span>, ela é removida do modelo.</p>
+<ol style="list-style-type: decimal">
+<li>Iniciamos com uma variável: aquela que tiver maior correlação com a variável resposta.</li>
+<li>A cada passo do forward, depois de incluir uma variável, aplica-se o backward para ver se será descartada alguma variável.</li>
+<li>Continuamos o processo até não incluir ou excluir nenhuma variável.</li>
+</ol>
+<p>No nosso exemplo vamos calcular as correlações entre as candidatas a variáveis explicativas (<span class="math inline">\(\texttt{disp,hp,wt}\)</span>) e variável resposta (<span class="math inline">\(\texttt{mpg}\)</span>):</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="regressão-linear.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] -0.8475514</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="regressão-linear.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>hp, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] -0.7761684</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="regressão-linear.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## [1] -0.8676594</code></pre>
+<p>Qual deve ser a primeira variável candidata a entrar no modelo?</p>
+<p>Como a correlação entre a variável explicativa <span class="math inline">\(\texttt{wt}\)</span> e a variável resposta <span class="math inline">\(\texttt{mpg}\)</span> foi a que apresentou maior correlação, essa será a escolhida:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="regressão-linear.html#cb113-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb113-2"><a href="regressão-linear.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
+<p>A variável <span class="math inline">\(\texttt{wt}\)</span> é significativa? Ela deve se manter no modelo?</p>
+<p>O teste <span class="math inline">\(t\)</span> mostrou que essa variável é significativa para o modelo, pois p-valor menor que qualquer <span class="math inline">\(\alpha\)</span> usualmente utilizado. Portanto agora iremos calcular as correlações parciais entre os resíduos dos modelos:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="regressão-linear.html#cb115-1" aria-hidden="true" tabindex="-1"></a>residuos_mod1 <span class="ot">=</span> <span class="fu">residuals</span>(mod1)</span>
+<span id="cb115-2"><a href="regressão-linear.html#cb115-2" aria-hidden="true" tabindex="-1"></a>test1 <span class="ot">=</span> <span class="fu">lm</span>(disp <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb115-3"><a href="regressão-linear.html#cb115-3" aria-hidden="true" tabindex="-1"></a>test2 <span class="ot">=</span> <span class="fu">lm</span>(hp <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb115-4"><a href="regressão-linear.html#cb115-4" aria-hidden="true" tabindex="-1"></a>residuos_test1 <span class="ot">=</span> <span class="fu">residuals</span>(test1)</span>
+<span id="cb115-5"><a href="regressão-linear.html#cb115-5" aria-hidden="true" tabindex="-1"></a>residuos_test2 <span class="ot">=</span> <span class="fu">residuals</span>(test2)</span>
+<span id="cb115-6"><a href="regressão-linear.html#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(residuos_test1,residuos_mod1)</span></code></pre></div>
+<pre><code>## [1] -0.3371636</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="regressão-linear.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(residuos_test2,residuos_mod1)</span></code></pre></div>
+<pre><code>## [1] -0.5469926</code></pre>
+<p>E agora, qual variável deve ser a próxima candidata a entrar no modelo?</p>
+<p>Como a correlação parcial entre as variávels <span class="math inline">\(\texttt{hp}\)</span> e <span class="math inline">\(\texttt{wt}\)</span> foi maior, a variável <span class="math inline">\(\texttt{hp}\)</span> é a próxima candidata a entrar no modelo:</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="regressão-linear.html#cb119-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp, <span class="at">data =</span> mtcars)</span>
+<span id="cb119-2"><a href="regressão-linear.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + hp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.941 -1.600 -0.182  1.050  5.854 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.22727    1.59879  23.285  &lt; 2e-16 ***
+## wt          -3.87783    0.63273  -6.129 1.12e-06 ***
+## hp          -0.03177    0.00903  -3.519  0.00145 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.593 on 29 degrees of freedom
+## Multiple R-squared:  0.8268, Adjusted R-squared:  0.8148 
+## F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12</code></pre>
+<p>Todas as variáveis são significativas? Existe alguma que deva ser removida do modelo?</p>
+<p>Novamente, o teste <span class="math inline">\(t\)</span> mostrou que essa variável é significativa para o modelo e também mostrou que a variável previamente inserida <span class="math inline">\(\texttt{wt}\)</span> continuou significativa. Portanto, como falta somente a variável <span class="math inline">\(\texttt{disp}\)</span>, ela será inserida em um novo modelo:</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="regressão-linear.html#cb121-1" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp <span class="sc">+</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb121-2"><a href="regressão-linear.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + hp + disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.891 -1.640 -0.172  1.061  5.861 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.105505   2.110815  17.579  &lt; 2e-16 ***
+## wt          -3.800891   1.066191  -3.565  0.00133 ** 
+## hp          -0.031157   0.011436  -2.724  0.01097 *  
+## disp        -0.000937   0.010350  -0.091  0.92851    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.639 on 28 degrees of freedom
+## Multiple R-squared:  0.8268, Adjusted R-squared:  0.8083 
+## F-statistic: 44.57 on 3 and 28 DF,  p-value: 8.65e-11</code></pre>
+<p>Mais uma vez, todas as variáveis são significativas? Existe alguma que deva ser removida do modelo?</p>
+<p>Note que dessa vez a variável <span class="math inline">\(\texttt{disp}\)</span> não foi significativa para o modelo, pois apresenta um p-valor superior aos comumente utilizados. Portanto, o modelo final também será composto pelas variáveis <span class="math inline">\(\texttt{wt}\)</span> e <span class="math inline">\(\texttt{hp}\)</span> segundo o método de seleção Stepwise.</p>
+</div>
+<div id="algumas-considerações" class="section level4" number="9.8.2.4">
+<h4><span class="header-section-number">9.8.2.4</span> Algumas considerações</h4>
+<p>A seleção de variáveis é um meio para se chegar a um modelo, mas não é a etapa final. O objetivo é construir um modelo que seja bom para obter predições ou que explique bem o relacionamento entre os dados. Os métodos de seleção automática têm a vantagem de não necessitar de grande esforço computacional. Mas eles não indicam o melhor modelo respeitando algum critério (não retorna um conjunto de modelos em que o pesquisador tem o poder de escolha). Se por acaso existe um grande número de variáveis, é recomendado usar métodos de seleção automática para eliminar aquelas com efeitos insignificantes e o conjunto reduzido de variáveis pode então ser investigado pelo método de todos os modelos possíveis. Já o método de todos os modelos possíveis identifica modelos que são melhores respeitando o critério que o pesquisador quiser. É indicado, então, usar métodos automáticos combinados com outros critérios.</p>
+<p>A escolha do modelo final não é uma tarefa fácil. Além dos critérios formais, devemos responder às seguintes questões: O modelo faz sentido? O modelo é útil para o objetivo pretendido? Se, por exemplo, o custo da coleta dos dados de uma variável é exorbitante e impossível de ser obtido, isso resultará em um modelo sem utilidade. Todos os coeficientes são razoáveis, ou seja, os sinais e magnitude dos valores fazem sentido e os erros padrões são relativamente pequeno? A adequabilidade do modelo é satisfatória? Sem outliers, tem variância constante, normalidade e os dados são independentes?</p>
+<p>Um princípio a ser levado em consideração é o “princípio da parcimônia”: modelos mais simples devem ser escolhidos aos mais complexos, desde que a qualidade do ajuste seja similar.</p>
+</div>
+</div>
+</div>
+<div id="variáveis-dummy" class="section level2" number="9.9">
+<h2><span class="header-section-number">9.9</span> Variáveis Dummy</h2>
+<p>Imagine um modelo em que você utilize uma variável explicativa categórica. Por exemplo, na base de dados <span class="math inline">\(\texttt{iris}\)</span> imagine que você queira ajustar um modelo de regressão para a variável <span class="math inline">\(\texttt{Sepal.Length}\)</span> utilizando todas as demais variáveis. Note que a variável <span class="math inline">\(\texttt{Species}\)</span> é categórica, pois contêm o tipo de espécie da planta:</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="regressão-linear.html#cb123-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">lm</span>(Sepal.Length <span class="sc">~</span> ., <span class="at">data =</span> iris)</span>
+<span id="cb123-2"><a href="regressão-linear.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Sepal.Length ~ ., data = iris)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.79424 -0.21874  0.00899  0.20255  0.73103 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        2.17127    0.27979   7.760 1.43e-12 ***
+## Sepal.Width        0.49589    0.08607   5.761 4.87e-08 ***
+## Petal.Length       0.82924    0.06853  12.101  &lt; 2e-16 ***
+## Petal.Width       -0.31516    0.15120  -2.084  0.03889 *  
+## Speciesversicolor -0.72356    0.24017  -3.013  0.00306 ** 
+## Speciesvirginica  -1.02350    0.33373  -3.067  0.00258 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3068 on 144 degrees of freedom
+## Multiple R-squared:  0.8673, Adjusted R-squared:  0.8627 
+## F-statistic: 188.3 on 5 and 144 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>No modelo anterior foram “criadas” (automaticamente, pelo <span class="math inline">\(\texttt{R}\)</span>) duas variáveis: <span class="math inline">\(\texttt{Speciesversicolor}\)</span> e <span class="math inline">\(\texttt{Speciesvirginica}\)</span>. Isto significa que o efeito/influência da espécie setosa está ligado ao valor do intercepto, portanto, quando a espécie é versicolor há um decréscimo de <span class="math inline">\(-0.72356\)</span> em relação a categoria setosa no tamanho da sépala (<span class="math inline">\(\texttt{Sepal.Length}\)</span>) e quando a espécie é virginica esse decréscimo é ainda maior. Assim, uma variável dummy é uma variável artificial criada para representar um atributo com duas ou mais categorias/níveis distintos.</p>
+<p>As variáveis dummy atribuem os números ‘0’ e ‘1’ para indicar participação em qualquer categoria mutuamente exclusiva e exaustiva. Algumas considerações:</p>
+<ol style="list-style-type: decimal">
+<li>O número de variáveis fictícias necessárias para representar uma única variável de atributo é igual ao número de níveis (categorias) nessa variável menos um, pois a matriz de coeficiente das variáveis explicativas não pode ser linearmente dependente</li>
+<li>Para uma determinada variável de atributo, nenhuma das variáveis fictícias construídas pode ser redundante. Ou seja, uma variável dummy não pode ser um múltiplo constante ou uma relação linear simples de outra</li>
+<li>A interação de duas variáveis de atributo (por exemplo, Sexo e Estado Civil) é representada por uma terceira variável dummy, que é simplesmente o produto das duas variáveis dummy individuais.</li>
+</ol>
+</div>
+<div id="análise-de-resíduos" class="section level2" number="9.10">
+<h2><span class="header-section-number">9.10</span> Análise de Resíduos</h2>
+<p>Tanto na Regressão Linear Simples quanto na Regressão Múltipla, as suposições do modelo ajustado precisam ser validadas para que os resultados sejam confiáveis. Chamamos de Análise dos Resíduos um conjunto de técnicas utilizadas para investigar a adequabilidade de um modelo de regressão com base nos resíduos.</p>
+<p>Como visto anteriormente, o resíduo <span class="math inline">\((e_i)\)</span> é dado pela diferença entre a variável resposta observada <span class="math inline">\((Y_i)\)</span> e a variável resposta estimada <span class="math inline">\((\widehat{Y}_i)\)</span>. A ideia básica da análise dos resíduos é que, se o modelo for apropriado, os resíduos devem refletir as propriedades impostas pelo termo de erro do modelo. Tais suposições são:</p>
+<ol style="list-style-type: lower-roman">
+<li><span class="math inline">\(\varepsilon_i\)</span> e <span class="math inline">\(\varepsilon_j\)</span> são independentes <span class="math inline">\((i\neq j)\)</span>;</li>
+<li><span class="math inline">\(Var(\varepsilon_i) = \sigma^2\)</span> (constante);</li>
+<li><span class="math inline">\(\varepsilon_i \sim N(0,\sigma^2)\)</span> (normalidade);</li>
+<li>Modelo é linear;</li>
+<li>Não existir outliers (pontos atípicos) influentes.</li>
+</ol>
+<p>Na Regressão Múltipla, além das suposições listadas acima, precisamos diagnosticar colinearidade e multicolinearidade entre as variáveis de entrada para que a relação existente entre elas não interfira nos resultados, causando inferências errôneas ou pouco confiáveis</p>
+<p>As técnicas utilizadas para verificar as suposições descritas acima podem ser informais (como gráficos) ou formais (como testes). As técnicas gráficas, por serem visuais, podem ser subjetivas e por isso técnicas formais são mais indicadas para a tomada de decisão. O ideal é combinar as técnicas disponíveis, tanto formais quanto informais, para o diagnóstico de problemas nas suposições do modelo.</p>
+<p>Algumas técnicas gráficas para análise dos resíduos são:</p>
+<ul>
+<li><strong>Quantile-quantile plot (QQplot)</strong>: verificar a normalidade dos dados</li>
+<li><strong>Gráfico dos resíduos versus a ordem de coleta dos dados</strong>: avaliar a hipótese de independência dos dados</li>
+<li><strong>Gráfico dos resíduos versus valores ajustados</strong>: verifica a homoscedasticidade do modelo, isto é, <span class="math inline">\(\sigma^2\)</span> constante</li>
+<li><strong>Gráfico dos Resíduos Padronizados versus valores ajustados</strong>: verifica se existem outliers em <span class="math inline">\(Y\)</span></li>
+</ul>
+<p>Para a análise formal dos resíduos, podemos realizar os seguintes testes</p>
+<ul>
+<li><strong>Testes de Normalidade</strong>: Shapiro-Wilk</li>
+<li><strong>Teste para independência dos resíduos</strong>: Durbin-Watson</li>
+<li><strong>Teste de homoscedasticidade dos resíduos</strong>: Breusch-Pagan</li>
+<li><strong>Teste para verificar se o modelo ajustado é realmente linear</strong>: Teste de falta de ajuste (<em>Lack of fit</em>)</li>
+</ul>
+<p>Para cada suposição do modelo, vamos mostrar detalhadamente as técnicas para diagnóstico do modelo definido para <span class="math inline">\(\text{mpg} = \beta_0+\beta_1\text{wt}+\beta_2\text{hp}\)</span></p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="regressão-linear.html#cb125-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp, <span class="at">data =</span> mtcars)</span>
+<span id="cb125-2"><a href="regressão-linear.html#cb125-2" aria-hidden="true" tabindex="-1"></a>ajustados <span class="ot">=</span> <span class="fu">as.vector</span>(fit<span class="sc">$</span>fitted.values)</span>
+<span id="cb125-3"><a href="regressão-linear.html#cb125-3" aria-hidden="true" tabindex="-1"></a>residuos <span class="ot">=</span> <span class="fu">as.vector</span>(fit<span class="sc">$</span>residuals)</span>
+<span id="cb125-4"><a href="regressão-linear.html#cb125-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(ajustados,residuos)</span></code></pre></div>
+<div id="diagnóstico-de-normalidade" class="section level3" number="9.10.1">
+<h3><span class="header-section-number">9.10.1</span> Diagnóstico de normalidade</h3>
+<p>A normalidade dos resíduos é uma suposição essencial para que os resultados do ajuste do modelo de regressão linear sejam confiáveis. Podemos verificar essa suposição por meio do QQplot e por meio de testes de hipótese tais como Shapiro-Wilk.</p>
+<p>No <span class="math inline">\(\texttt{R}\)</span>, para gerar o QQplot, podemos usar os seguintes comandos:</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="regressão-linear.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb126-2"><a href="regressão-linear.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">sample =</span> residuos)) <span class="sc">+</span></span>
+<span id="cb126-3"><a href="regressão-linear.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb126-4"><a href="regressão-linear.html#cb126-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb126-5"><a href="regressão-linear.html#cb126-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Quantile-quantile plot (QQplot)&quot;</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-105-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Como os pontos seguem o comportamento da reta (não estão distantes dela), com exceção dos quantis mais altos, temos indícios de que os erros são normalmente distribuídos.</p>
+<p>Já o teste de hipóstes de Shapiro-Wilk, que tem <span class="math inline">\(H_0: \text{dados são normalmente distribuídos}\)</span>, pode ser feito no  segundo o comando a seguir:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="regressão-linear.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuos
+## W = 0.92792, p-value = 0.03427</code></pre>
+<p>Note que o p-valor obtido foi <span class="math inline">\(0.03427\)</span>, portanto para <span class="math inline">\(\alpha = 1\%\)</span> os dados podem ser considerados normalmente distribuídos. No entanto para <span class="math inline">\(\alpha = 5\%\)</span> isso não pode ser afirmado.</p>
+</div>
+<div id="diagnóstico-de-homocedasticidade" class="section level3" number="9.10.2">
+<h3><span class="header-section-number">9.10.2</span> Diagnóstico de homocedasticidade</h3>
+<p>Homocedasticidade é o termo para designar variância constante dos erros experimentais <span class="math inline">\(\varepsilon_i\)</span> para observações distintas. Caso a suposição de homocedasticidade não seja válida, podemos listar alguns efeitos no ajuste do modelo:</p>
+<ul>
+<li>Os erros padrões dos estimadores, obtidos pelo Método dos Mínimos Quadrados, são incorretos e portanto a inferência estatística não é válida</li>
+<li>Não podemos mais dizer que os Estimadores de Mínimos Quadrados são os melhores estimadores de mínima variância para <span class="math inline">\(\beta\)</span>, embora ainda possam ser não viciados</li>
+</ul>
+<p>Vale ressaltar que a ausência de homoscedasticidade é chamada de heteroscedasticidade.</p>
+<p>O gráfico dos resíduos versus valores ajustados (valores preditos) é uma das principais técnicas utilizadas para verificar as suposições dos resíduos. Para o diagnóstico de heteroscedasticidade, tentamos encontrar alguma tendência no gráfico. Por isso, se os pontos estão aleatoriamente distribuídos em torno do 0, sem nenhum comportamento ou tendência, temos indícios de que a variância dos resíduos é homoscedástica. Já a presença de “funil” é um indicativo da presença de heteroscedasticidade.</p>
+<p>No <span class="math inline">\(\texttt{R}\)</span>, para gerar o gráfico dos resíduos versus valores ajustados, podemos usar os seguintes comandos:</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="regressão-linear.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> ajustados, <span class="at">y =</span> residuos)) <span class="sc">+</span></span>
+<span id="cb129-2"><a href="regressão-linear.html#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb129-3"><a href="regressão-linear.html#cb129-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb129-4"><a href="regressão-linear.html#cb129-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Gráfico dos resíduos versus valores ajustados&quot;</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-107-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Note que o gráfico dos resíduos versus valores ajustados do modelo escolhido parece apresentar um comportamento aletório, no entanto também parece haver uma relação quadrática não explicada, pois o gráfico parece formar uma parábola.</p>
+<p>Já o teste de hipóstes de Breusch-Pagan, que tem <span class="math inline">\(H_0:\text{as variâncias dos erros são iguais (homoscedasticidade)}\)</span>, pode ser feito no  segundo o comando a seguir:</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="regressão-linear.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb130-2"><a href="regressão-linear.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(fit)</span></code></pre></div>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  fit
+## BP = 0.88072, df = 2, p-value = 0.6438</code></pre>
+<p>Como p-valor maior que qualquer <span class="math inline">\(\alpha\)</span> usual, não rejeitamos a hipótese de que as variâncias dos erros são iguais.</p>
+</div>
+<div id="diagnóstico-de-independência" class="section level3" number="9.10.3">
+<h3><span class="header-section-number">9.10.3</span> Diagnóstico de independência</h3>
+<p>Uma análise gráfica para verificar a hipótese de independência dos resíduos pode ser feita por meio do gráfico dos resíduos versus a ordem da coleta dos dados. Se ao avaliar o gráfico, percebemos uma tendência dos pontos, ou seja, se os pontos tiverem um comportamento que se repete em determinado ponto do gráfico, temos indícios de dependência dos resíduos.</p>
+<p>No <span class="math inline">\(\texttt{R}\)</span>, para gerar o gráfico dos resíduos versus a ordem da coleta dos dados, podemos usar os seguintes comandos:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="regressão-linear.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(residuos), <span class="at">y =</span> residuos)) <span class="sc">+</span></span>
+<span id="cb132-2"><a href="regressão-linear.html#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb132-3"><a href="regressão-linear.html#cb132-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Gráfico dos resíduos versus a ordem de coleta&quot;</span>)</span></code></pre></div>
+<p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-109-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Analisando o gráfico vemos que os pontos não parecem ter uma tendência e por isso temos indícios de independência dos erros.</p>
+<p>Já o teste de hipóstes de Durbin-Watson, que tem <span class="math inline">\(H_0:\text{os dados são independentes}\)</span>, pode ser feito no  segundo o comando a seguir:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="regressão-linear.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(fit)</span></code></pre></div>
+<pre><code>## 
+##  Durbin-Watson test
+## 
+## data:  fit
+## DW = 1.3624, p-value = 0.02061
+## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+<p>Repare que para <span class="math inline">\(\alpha=1\%\)</span> não rejeitamos a hipótese de que os resíduos são independentes. No entanto para <span class="math inline">\(\alpha=5\%\)</span> esta hipótese é rejeitada.</p>
+</div>
+<div id="valores-extremos" class="section level3" number="9.10.4">
+<h3><span class="header-section-number">9.10.4</span> Valores extremos</h3>
+<p>Em análise de regressão, a resposta observada de alguns casos pode não corresponder ao modelo ajustado aos dados, neste caso, dizemos que esta resposta é um outlier ou valor extremo. Em regressão linear simples, o gráfico de dispersão pode nos mostrar quais observações não correspondem ao modelo ajustado. Entretanto, quando lidamos com modelos de regressão múltipla, devemos realizar uma análise mais cuidadosa.</p>
+<p>O teste de hipóteses mais famoso para identificar valores extremos é o teste de Bonferroni, onde <span class="math inline">\(H_0:\text{observação não é outlier}\)</span>. No  esse teste pode ser performado conforme o comando abaixo:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="regressão-linear.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb135-2"><a href="regressão-linear.html#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="fu">outlierTest</span>(fit)</span></code></pre></div>
+<pre><code>## No Studentized residuals with Bonferroni p &lt; 0.05
+## Largest |rstudent|:
+##                rstudent unadjusted p-value Bonferroni p
+## Toyota Corolla 2.605152            0.01454      0.46528</code></pre>
+<p>Note que a resposta do teste no <span class="math inline">\(\texttt{R}\)</span> é a observação que segundo o teste de Bonferroni apresenta valor extremo.</p>
+</div>
+<div id="teste-da-falta-de-ajuste-lack-of-fit" class="section level3" number="9.10.5">
+<h3><span class="header-section-number">9.10.5</span> Teste da falta de ajuste (<em>lack of fit</em>)</h3>
+<p>O teste assume que a normalidade, independência e homocedasticiade da variância dos resíduos sejam válidos. Assim, após o ajuste, é importante verificar se o modelo linear é adequado. O procedimento do teste envolve particionar a soma dos quadrados dos resíduos em dois componentes, <span class="math inline">\(SQ_E = SQ_{PE}+SQ_{LOF}.\)</span> em que <span class="math inline">\(SQ_{PE}\)</span> é a soma dos quadrados devido ao Erro Puro e <span class="math inline">\(SQ_{LOF}\)</span> é a soma dos quadrados devido ao Falta de Ajuste.</p>
+<ul>
+<li>O teste estatístico para o Falta de Ajuste é</li>
+</ul>
+<p><span class="math display">\[F_0=\frac{\frac{SQ_{LOF}}{(m-p-1)}}{\frac{SQ_{PE}}{(n-m)}}=\frac{QM_{LOF}}{QM_{PE}}.\]</span></p>
+<p>Seja, <span class="math inline">\(H_0:\text{modelo linear adequado}\)</span>, então rejeitamos <span class="math inline">\(H_0\)</span> se <span class="math inline">\(F_0&gt;F_{(\alpha,m - p-1; n - m)}\)</span>, onde o p-valor é dado por: <span class="math inline">\(\text{P-valor}=P[F_{(m - p -1; n - m)}&gt; F_0]\)</span>.</p>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="15%" />
+<col width="16%" />
+<col width="25%" />
+<col width="27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fonte</th>
+<th>Soma de Quadrados</th>
+<th>Graus de Liberdade</th>
+<th>Quadrado Médio</th>
+<th><span class="math inline">\(F_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regressão</td>
+<td>SQR</td>
+<td><span class="math inline">\(p\)</span></td>
+<td><span class="math inline">\(\frac{SQR}{p}\)</span></td>
+<td><span class="math inline">\(F_0=\frac{QMR}{QME}\)</span></td>
+</tr>
+<tr class="even">
+<td>Erro (Resíduo)</td>
+<td>SQE</td>
+<td><span class="math inline">\(n-p-1\)</span></td>
+<td><span class="math inline">\(\frac{SQE}{n-p-1}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Falta de Ajuste</td>
+<td>SQE - SQE(puro)</td>
+<td><span class="math inline">\(m-p-1\)</span></td>
+<td><span class="math inline">\(\frac{SQE-SQE(puro)}{m-p-1}\)</span></td>
+<td><span class="math inline">\(F_0=\frac{QMR(puro)}{QME(puro)}\)</span></td>
+</tr>
+<tr class="even">
+<td>Erro Puro</td>
+<td>SQE(puro)</td>
+<td><span class="math inline">\(n-m\)</span></td>
+<td><span class="math inline">\(\frac{SQE(puro)}{n-m}\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>SQR</td>
+<td><span class="math inline">\(n-1\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>No <span class="math inline">\(\texttt{R}\)</span> o comando utilizado será:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="regressão-linear.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="do">## library(devtools)</span></span>
+<span id="cb137-2"><a href="regressão-linear.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="do">## install_github(&quot;cran/alr3&quot;)</span></span>
+<span id="cb137-3"><a href="regressão-linear.html#cb137-3" aria-hidden="true" tabindex="-1"></a>alr3<span class="sc">::</span><span class="fu">pureErrorAnova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: mpg
+##              Df Sum Sq Mean Sq  F value  Pr(&gt;F)  
+## wt            1 847.73  847.73 865.0258 0.02164 *
+## hp            1  83.27   83.27  84.9737 0.06879 .
+## Residuals    29 195.05    6.73                   
+##  Lack of fit 28 194.07    6.93   7.0724 0.29027  
+##  Pure Error   1   0.98    0.98                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Note que com o p-valor obtido não rejeitamos a hipótese de que o modelo é adequado.</p>
+</div>
+<div id="análise-de-colinearidade-e-multicolinearidade" class="section level3" number="9.10.6">
+<h3><span class="header-section-number">9.10.6</span> Análise de Colinearidade e Multicolinearidade</h3>
+<p>Quando trabalhamos com mais de uma variável regressora, é muito importante verificar se essas variáveis explicativas são correlacionadas. Desta forma, se não houver nenhum relacionamento entre elas, dizemos que são ortogonais. Na prática, é muito difícil que as variáveis de entrada sejam ortogonais e, felizmente, a falta de ortogonalidade não é séria. Mas se as variáveis forem muito correlacionadas, as inferências baseadas no modelo de regressão podem ser errôneas ou pouco confiáveis. Por isso, é necessário verificar se as variáveis são altamente correlacionadas</p>
+<p>Na literatura, os termos Colinearidade (Multicolinearidade) são utilizados para indicar a existência forte de correlação entre duas (ou mais) variáveis independentes. Entretanto, alguns autores designam de Colinearidade a existência de relação linear entre duas variável explicativa (matriz de correlação) e de Multicolinearidade a existência de relação linear entre uma variável explicativa e as demais.</p>
+<p>Se a matriz <span class="math inline">\(X^\prime X\)</span> é singular, isto é, algumas variáveis explicativas são combinações lineares de outras, temos Multicolinearidade e não há Estimadores de Mínimos Quadrados único para os parâmetros. Se <span class="math inline">\(X^\prime X\)</span> é aproximadamente singular, temos Multicolinearidade aproximada.</p>
+<div id="colinearidade" class="section level4" number="9.10.6.1">
+<h4><span class="header-section-number">9.10.6.1</span> <strong>Colinearidade</strong></h4>
+<p>Algumas características no ajuste do modelo podem indicar problema de colinearidade:</p>
+<ul>
+<li><span class="math inline">\(\hat{\beta}_i\)</span> com sinal oposto ao esperado</li>
+<li>Grandes mudanças em <span class="math inline">\(\hat{\beta}_i\)</span> quando adicionamos ou excluímos variáveis ou observações</li>
+<li><span class="math inline">\(\hat{\beta}_i\)</span> não significante para um <span class="math inline">\(X_i\)</span> teoricamente importante</li>
+</ul>
+<p>Para diagnosticar colinearidade, temos que verificar se a matriz de correlações das variáveis explicativas apresenta altas correlações. Se a correlação de duas variáveis for próxima de 1, indica problema.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="regressão-linear.html#cb139-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">disp=</span>mtcars<span class="sc">$</span>disp,<span class="at">hp=</span>mtcars<span class="sc">$</span>hp,<span class="at">wt=</span>mtcars<span class="sc">$</span>wt)</span>
+<span id="cb139-2"><a href="regressão-linear.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(X)</span></code></pre></div>
+<pre><code>##           disp        hp        wt
+## disp 1.0000000 0.7909486 0.8879799
+## hp   0.7909486 1.0000000 0.6587479
+## wt   0.8879799 0.6587479 1.0000000</code></pre>
+<p>Note que a variável <span class="math inline">\(\texttt{disp}\)</span> apresenta alta correlação com as variáveis <span class="math inline">\(\texttt{hp}\)</span> e <span class="math inline">\(\texttt{wt}\)</span>, portanto pode haver um problema de colinearidade quando na consideração de tal variável no modelo.</p>
+</div>
+<div id="multicolinearidade" class="section level4" number="9.10.6.2">
+<h4><span class="header-section-number">9.10.6.2</span> <strong>Multicolinearidade</strong></h4>
+<p>A multicolinearidade é um problema no ajuste do modelo que pode causar impactos na estimativa dos parâmetros. Podemos diagnosticar Multicolinearidade por meio do VIF (Variance Inflation Factor). Geralmente, o VIF é indicativo de problemas de multicolinearidade se <span class="math inline">\(VIF&gt;10\)</span>.</p>
+<p>No <span class="math inline">\(\texttt{R}\)</span> o comando utilizado será:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="regressão-linear.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb141-2"><a href="regressão-linear.html#cb141-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb141-3"><a href="regressão-linear.html#cb141-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(fit)</span></code></pre></div>
+<pre><code>##     disp       hp       wt 
+## 7.324517 2.736633 4.844618</code></pre>
+<p>Como não existem variáveis com VIF maior que 10, podemos dizer que não há multicolinearidade.</p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Cota, Wesley. 2020. <span>“Monitoring the Number of <span>COVID</span>-19 Cases and Deaths in Brazil at Municipal and Federative Units Level.”</span> <em><span>SciELOPreprints:362</span></em>, May. <a href="https://doi.org/10.1590/scielopreprints.362">https://doi.org/10.1590/scielopreprints.362</a>.
+</div>
+<div class="csl-entry">
+R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análise-de-variância-anova.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/09-regressao_linear.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["inferencia_com_R.pdf", "inferencia_com_R.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

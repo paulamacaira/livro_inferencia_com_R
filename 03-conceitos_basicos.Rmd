@@ -1,16 +1,14 @@
 # Conceitos Básicos
 
-## Introdução
-
 No estudo da inferência estatística, o objetivo principal é obter informações sobre uma população a partir das informações de uma amostra e aqui vamos precisar de definições mais formais de população e amostra. Para facilitar a compreensão destes conceitos, apresentamos o exemplo abaixo a título de ilustração
 
 Em um estudo antropométrico em nível nacional, uma amostra de 5000 adultos é selecionada dentre os adultos brasileiros e uma das variáveis de estudo é a altura.
 
-Neste exemplo, a população é o conjunto de todos os brasileiros adultos. No entanto, o interesse (um deles, pelo menos) está na altura dos brasileiros. Assim, nesse estudo, a cada sujeito da população associamos um número correspondente à sua altura. Se determinado sujeito é sorteado para entrar na amostra, o que nos interessa é esse número, ou seja, sua altura.
+Neste exemplo, a população é o conjunto de todos os brasileiros adultos. No entanto, o interesse (um deles, pelo menos) está na altura dos brasileiros. Assim, nesse estudo, a cada sujeito da população associamos um número correspondente a sua altura. Se determinado sujeito é sorteado para entrar na amostra, o que nos interessa é esse número, ou seja, sua altura.
 
 Como sabemos, essa é a definição de variável aleatória: uma função que associa a cada ponto do espaço amostral um número real. Dessa forma, a nossa população pode ser representada pela variável aleatória $X$ = ``altura do adulto brasileiro". Como essa é uma v.a. contínua, a ela está associada uma função de densidade de probabilidade $f$ e da literatura, sabemos que é razoável supor que essa densidade seja a densidade normal. Assim, nossa população, nesse caso, é representada por uma v.a. $X\sim N(\mu; \sigma^2)$. Conhecendo os valores de $\mu$ e $\sigma$ teremos informações completas sobre a nossa população.
 
-Uma forma de obtermos os valores de $\mu$ e $\sigma$ é medindo as alturas de todos os brasileiros adultos. Mas esse seria um procedimento caro e demorado. Uma solução, então, é retirar uma amostra (subonjunto) da população e estudar essa amostra. Suponhamos que essa amostra seja retirada com reposição e que os sorteios sejam feitos de forma independente, isto é, o resultado de cada extração não altera o resultado das demais extrações. Ao sortearmos o primeiro elemento, estamos realizando um experimento que dá origem à v.a. $X_1=$ altura do primeiro elemento; o segundo elemento dá origem à v.a. $X_2=$ ``altura do segundo elemento" e assim por diante. Como as extrações são feitas com reposição, todas as v.a. $X_1, X_2, \ldots$ têm a mesma distribuição, que reflete a distribuição da altura de todos os brasileiros adultos. Para uma amostra específica, temos os valores observados $x_1, x_2, \ldots$ dessas variáveis aleatórias.
+Uma forma de obtermos os valores de $\mu$ e $\sigma$ é medindo as alturas de todos os brasileiros adultos. Mas esse seria um procedimento caro e demorado. Uma solução, então, é retirar uma amostra (subonjunto) da população e estudar essa amostra. Suponhamos que essa amostra seja retirada com reposição e que os sorteios sejam feitos de forma independente, isto é, o resultado de cada extração não altera o resultado das demais extrações. Ao sortearmos o primeiro elemento, estamos realizando um experimento que dá origem a v.a. $X_1=$ altura do primeiro elemento; o segundo elemento dá origem a v.a. $X_2=$ ``altura do segundo elemento" e assim por diante. Como as extrações são feitas com reposição, todas as v.a. $X_1, X_2, \ldots$ têm a mesma distribuição, que reflete a distribuição da altura de todos os brasileiros adultos. Para uma amostra específica, temos os valores observados $x_1, x_2, \ldots$ dessas variáveis aleatórias.
 
 ## População
 
@@ -22,11 +20,11 @@ Os métodos de inferência nos permitirão obter estimativas dos parâmetros (ca
 
 ## Amostra
 
-Embora existam vários métodos de seleção de amostras, nosso foco é a amostragem aleatória simples. Segundo tal método, toda amostra de mesmo tamanho $n$ tem igual chance (probabilidade) de ser sorteada. É possível extrair amostras aleatórias simples com e sem reposição. No entanto, para populações grandes - ou infinitas - extrações com e sem reposição não levam a resultados muito diferentes. Assim, no estudo da Inferência Estatística, estaremos lidando sempre com amostragem aleatória simples com reposição. Este método de seleção atribui a cada elemento da população a mesma probabilidade de ser selecionado e esta probabilidade se mantém constante ao longo do processo de seleção da amostra (se as extrações fossem sem reposição isso não aconteceria). No restante desse curso omitiremos a expressão ``com reposição", ou seja, o termo amostragem (ou amostra) aleatória simples sempre se referirá à amostragem com reposição. Por simplicidade, muitas vezes abreviaremos o termo amostra aleatória simples por aas.
+Embora existam vários métodos de seleção de amostras, nosso foco é a amostragem aleatória simples. Segundo tal método, toda amostra de mesmo tamanho $n$ tem igual chance (probabilidade) de ser sorteada. É possível extrair amostras aleatórias simples com e sem reposição. No entanto, para populações grandes - ou infinitas - extrações com e sem reposição não levam a resultados muito diferentes. Assim, no estudo da Inferência Estatística, estaremos lidando sempre com amostragem aleatória simples com reposição. Este método de seleção atribui a cada elemento da população a mesma probabilidade de ser selecionado e esta probabilidade se mantém constante ao longo do processo de seleção da amostra (se as extrações fossem sem reposição isso não aconteceria). No restante desse curso omitiremos a expressão ``com reposição", ou seja, o termo amostragem (ou amostra) aleatória simples sempre se referirá a amostragem com reposição. Por simplicidade, muitas vezes abreviaremos o termo amostra aleatória simples por aas.
 
 Uma forma de se obter uma amostra aleatória simples é escrever os números ou nomes dos elementos da população em cartões iguais, colocar estes cartões em uma urna misturando-os bem e fazer os sorteios necessários, tendo o cuidado de colocar cada cartão sorteado na urna antes do próximo sorteio. Na prática, em geral são usados programas de computador, uma vez que as populações tendem a ser muito grandes. 
 
-Agora vamos formalizar o processo de seleção de uma amostra aleatória simples, de forma a relacioná-lo com os problemas de inferência estatística que iremos estudar. Seja uma população representada por uma variável aleatória $X$. De tal população será sorteada uma amostra aleatória simples com reposição de tamanho $n$. Como visto nos exemplos anteriores, cada sorteio dá origem a uma variável aleatória $X_i$ e, como os sorteios são com reposição, todas essas variáveis têm a mesma distribuição de $X$. Isso nos leva à seguinte definição.
+Agora vamos formalizar o processo de seleção de uma amostra aleatória simples, de forma a relacioná-lo com os problemas de inferência estatística que iremos estudar. Seja uma população representada por uma variável aleatória $X$. De tal população será sorteada uma amostra aleatória simples com reposição de tamanho $n$. Como visto nos exemplos anteriores, cada sorteio dá origem a uma variável aleatória $X_i$ e, como os sorteios são com reposição, todas essas variáveis têm a mesma distribuição de $X$. Isso nos leva a seguinte definição.
 
 \textbf{Amostra:} \emph{Uma amostra aleatória simples (aas) de tamanho $n$ de uma v.a. $X$ (população) é um conjunto de $n$ v.a. $X_1, X_2, \ldots, X_n$ independentes e identicamente
 distribuídas (i.i.d.).}
@@ -47,7 +45,7 @@ As estatísticas amostrais que estaremos considerando neste curso são:
 - média amostral: $\bar X = \frac{1}{n}\sum_{i=1}^n X_i$
 - variância amostral: $S^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2$
 
-Para uma amostra específica, o valor obido para o estimador será denominado estimativa e, em geral, serão representadas por letras minúsculas. Por exemplo, temos as seguintes notações correspondentes à média amostral e à variância: $\bar x$ e $s^2$. 
+Para uma amostra específica, o valor obido para o estimador será denominado estimativa e, em geral, serão representadas por letras minúsculas. Por exemplo, temos as seguintes notações correspondentes a média amostral e a variância: $\bar x$ e $s^2$. 
 
 Outras estatísticas possíveis são o mínimo amostral, o máximo amostral, a amplitude amostral, etc.
 
@@ -55,7 +53,7 @@ De forma análoga, temos as características de interesse da população. No ent
 
 \textbf{Parâmetro:} \emph{Um parâmetro é uma característica da população.}
 
-Assim, se a população é representada pela v.a. $X$, alguns parâmetros são a esperança $E(X)$ e a variância $V(X)$. Com relação às características mais usuais, vamos usar a seguinte notação:
+Assim, se a população é representada pela v.a. $X$, alguns parâmetros são a esperança $E(X)$ e a variância $V(X)$. Com relação as características mais usuais, vamos usar a seguinte notação:
 
 | Característica | Parâmetro (população) | Estatística (amostra) |
 | -------------- | --------------------- | --------------------- |
@@ -97,7 +95,7 @@ knitr::include_graphics("Estimadores_exemplo.png", dpi=350)
 
 Nas partes (a) e (b) da figura, os tiros estão em torno do alvo, enquanto nas partes (c) e (d) isso não acontece. Comparando as partes (a) e (b), podemos ver que na parte (a) os tiros estão mais concentrados em torno do alvo, isto é, têm menor dispersão. Isso reflete uma pontaria mais certeira do atirador em (a). Analogamente, nas partes (c) e (d), embora ambos os atiradores estejam com a mira deslocada, os tiros do atirador (c) estão mais concentrados em torno de um alvo; o deslocamento poderia até ser resultado de um desalinhamento da arma. Já o atirador (d), além de estar com o alvo deslocado, ele tem os tiros mais espalhados, o que reflete menor precisão.
 
-Traduzindo esta situação para o contexto de estimadores e suas propriedades, temos o seguinte: nas partes (a) e (b), temos dois estimadores que fornecem estimativas centradas em torno do verdadeiro valor do parâmetro, ou seja, as diferentes amostras fornecem valores distribuídos em torno do verdadeiro valor do parâmetro. A diferença é que em (b) esses valores estão mais dispersos e, assim, temos mais chance de obter uma amostra ``infeliz", ou seja, uma amostra que forneça um resultado muito afastado do valor do parâmetro. Essas duas propriedades estão associadas à esperança e à variância do estimador, que são medidas de centro e dispersão, respectivamente. Nas partes (c) e (d), as estimativas estão centradas em torno de um valor diferente do parâmetro de interesse e na parte (d), a dispersão é maior. 
+Traduzindo esta situação para o contexto de estimadores e suas propriedades, temos o seguinte: nas partes (a) e (b), temos dois estimadores que fornecem estimativas centradas em torno do verdadeiro valor do parâmetro, ou seja, as diferentes amostras fornecem valores distribuídos em torno do verdadeiro valor do parâmetro. A diferença é que em (b) esses valores estão mais dispersos e, assim, temos mais chance de obter uma amostra ``infeliz", ou seja, uma amostra que forneça um resultado muito afastado do valor do parâmetro. Essas duas propriedades estão associadas a esperança e a variância do estimador, que são medidas de centro e dispersão, respectivamente. Nas partes (c) e (d), as estimativas estão centradas em torno de um valor diferente do parâmetro de interesse e na parte (d), a dispersão é maior. 
 
 Temos, assim, ilustrados os seguintes conceitos:
 
@@ -109,7 +107,7 @@ Com relação aos estimadores $bar X$, $S^2$ e $\hat \sigma^2$, veremos formalme
 
 \textbf{Eficiência:}\emph{Se $T_1$ e $T_2$ são dois estimadores não-viesados do parâmetro $\theta$, diz-se que $T_1$ é mais eficiente que $T_2$ se $V(T_1)<V(T_2)$.}
 
-Na Figura, o estimador da parte (a) é mais eficiente que o estimador da parte (b). Uma outra propriedade dos estimadores está relacionada à idéia bastante intuitiva de que à medida que se aumenta o tamanho da amostra, mais perto devemos ficar do verdadeiro valor do parâmetro.
+Na Figura, o estimador da parte (a) é mais eficiente que o estimador da parte (b). Uma outra propriedade dos estimadores está relacionada a idéia bastante intuitiva de que a medida que se aumenta o tamanho da amostra, mais perto devemos ficar do verdadeiro valor do parâmetro.
 
 \textbf{Consistência:}\emph{Um estimador $T$ de um parâmetro $\theta$ é consistente se:}
 

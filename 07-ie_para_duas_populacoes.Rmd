@@ -1,0 +1,380 @@
+# Inferência Estatística para Duas Populações
+
+Até aqui foram apresentados testes de hipóteses e intervalos de confiança para o parâmetro de uma única população (a média $\mu$, a variância $\sigma^2$ ou uma proporção $p$). A partir de agora iremos estender aqueles resultados para o caso de duas populações independentes.
+
+## Comparação das médias de distribuições Normais
+
+Suponha que queremos comparar duas médias de duas populações independentes e ambas com distribuição Normal. Da população 1 retiramos uma amostra aleatória $X_{11},\ldots,X_{1,n_1}$ de tamanho $n_1$ e da população 2 retiramos uma amostra aleatória $X_{21},\ldots,X_{2,n_2}$ de tamanho $n_2$.
+
+Vamos supor que $X_1\sim N\left(\mu_1,\sigma^2_1\right)$ e $X_2\sim N\left(\mu_2,\sigma^2_2\right)$. Assim temos que 
+
+$$\bar X_1 \sim N\left(\mu_1,\frac{\sigma^2_1}{n_1}\right)~~~~\text{e}~~~~\bar X_2 \sim N\left(\mu_2,\frac{\sigma^2_2}{n_2}\right).$$
+
+Além disso,
+
+$$\bar X_1 - \bar X_2 \sim N\left(\mu_1-\mu_2,\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}\right)$$
+
+Consideramos três casos distintos para o teste de hipóteses para comparação de duas médias. O primeiro caso em que temos as variâncias das populações conhecidas, o segundo as variâncias são desconhecidas, porém iguais e o terceiro caso em que temos as variâncias desconhecidas e distintas.
+
+### Variâncias Conhecidas
+
+Consideraremos nesta seção as inferências estatísticas para a diferença de médias $\mu_1-\mu_2$ de duas distribuições normais, em que as variâncias são conhecidas. Assim, um estimador lógico de $\mu_1-\mu_2$ é a diferença das médias amostrais $\bar X_1-\bar X_2$. Baseando-se nas propriedades de valores esperados, 
+
+$$E(\bar X_1-\bar X_2)=\mu_1-\mu_2$$
+$$V(\bar X_1-\bar X_2)=V(\bar X_1)+V(\bar X_2)=\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}$$
+
+Portanto, podemos estabelecer que: 
+
+$$Z=\frac{\bar X_1-\bar X_2-(\mu_1-\mu_2)}{\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}}\sim N(0,1)$$
+
+#### Teste de Hipóteses
+
+Estamos interessados em testar a hipótese nula: $H_0: \mu_1-\mu_2=\Delta_0$, contra as seguintes hipóteses alternativas:
+
+- $H_1: \mu_1-\mu_2 \ne \Delta_0$
+- $H_1: \mu_1-\mu_2 > \Delta_0$
+- $H_1: \mu_1-\mu_2 < \Delta_0$
+
+A estatística de teste será 
+
+$$z_0=\frac{\bar X_1-\bar X_2-\Delta_0}{\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}}$$
+
+Portanto, podemos estabelecer para um teste com nível de significância $\alpha$:
+
+| Hipótese Alternativa ($H_1$)    | Região Crítica                                            | p-valor              |
+|---------------------------------|-----------------------------------------------------------|----------------------|
+| $H_1: \mu_1-\mu_2 \ne \Delta_0$ | $z_0<-z_{\frac{\alpha}{2}}$ ou $z_0>z_{\frac{\alpha}{2}}$ | $2\times P(Z>|z_0|)$ |
+| $H_1: \mu_1-\mu_2 > \Delta_0$   | $z_0>z_{\alpha}$                                          | $P(Z>z_0)$           |
+| $H_1: \mu_1-\mu_2 < \Delta_0$   | $z_0<-z_{\alpha}$                                         | $P(Z<z_0)$           |
+
+##### Exemplo
+
+Uma pessoa que desenvolve produtos está interessada em reduzir o tempo de secagem do zarcão. Duas formulações de tinta são testadas; a formulação 1 tem uma química padrão e a formulação 2 tem um novo ingrediente para secagem, que deve reduzir o tempo de secagem. Da experiência, sabe-se que o desvio padrão do tempo de secagem é igual a oito minutos, e essa variabilidade inerente não deve ser afetada pela adição do novo ingrediente. Dez espécimes são pintados com a formulação 1 e outros dez espécimes são pintados com a formulação 2. Os vinte espécimes são pintados em uma ordem aleatória. Os tempos médios de secagem das duas amostras são $\bar x_1=121$ minutos e $\bar x_2=112$ minutos, respectivamente. Quais são as conclusões que o idealizador de produtos pode tirar sobre a eficiência do novo ingrediente, usando $\alpha=0.05$?
+
+Solução:
+
+- $H_0: \mu_1-\mu_2=0\rightarrow H_0: \mu_1=\mu_2$ vs $H_1: \mu_1>\mu_2$
+- $z_0=\frac{121-112}{\sqrt{\frac{8^2}{10}+\frac{8^2}{10}}}=2.52$
+- $z_{0.05}=1.645$
+- Como $z_0(2.52)>z_{0.05}(1.64)$, devemos rejeitar $H_0$, portanto há evidência a um nível de significância de 5% de que a formulação 2 reduz significativamente o tempo de secagem.
+- $p-valor=P(Z>2.52)=0.0059$
+
+#### Intervalo de Confiança
+
+Se $\bar x_1$ e $\bar x_2$ forem as médias de duas amostras aleatórias independentes de tamanhos $n_1$ e $n_2$, provenientes de populações com variâncias conhecidas $\sigma_1^2$ e $\sigma_2^2$, respectivamente, então um intervalo de confiança de $100(1-\alpha)\%$ para $\mu_1-\mu_2$ é: 
+
+$$(\bar x_1-\bar x_2) -z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}\leq \mu_1-\mu_2 \leq (\bar x_1-\bar x_2) +z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}$$
+
+##### Exemplo
+
+Testes de resistência à tensão foram feitos em dois tipos diferentes de estruturas de alumínio. Essas estruturas foram usadas na fabricação das asas de um avião comercial. De experiências passadas com o processo de fabricação dessas estruturas e com o procedimento de testes, os desvios-padrão das resistências à tensão são considerados conhecidos. Os dados obtidos são os seguintes: $n_1=10, \bar x_1=87.6, \sigma_1=1, n_2=12, \bar x_2=74.5, \sigma_2=1.5$. Se $\mu_1$ e $\mu_2$ denotarem as resistências médias verdadeiras à tensão para os dois tipos da estrutura, construa um intervalo de confiança de 90% para a diferença na resistência média $\mu_1-\mu_2$.
+
+Solução:
+
+- $z_{0.05}=1.645$
+- $(87.6-74.5) -1.645\sqrt{\frac{1^2}{10}+\frac{1.5^2}{12}}\leq \mu_1-\mu_2 \leq (87.6-74.5)+1.645\sqrt{\frac{1^2}{10}+\frac{1.5^2}{12}}$
+- $12.22 \leq \mu_1-\mu_2 \leq 13.98$
+
+Note que o intervalo de confiança não inclui o zero, implicando que a resistência média da estrutura 1 ($\mu_1$) excede a resistência média da estrutura 2 ($\mu_2$). De fato, podemos estabelecer que estamos 90% confiantes de que a resistência média à tensão da estrutura 1 excede a resistência média da estrutura 2 por um valor entre 12.22 e 13.98 quilogramas por milímetro quadrado
+
+### Variâncias Desconhecidas
+
+Consideraremos nesta seção as inferências estatísticas para a diferença de médias $\mu_1-\mu_2$ de duas distribuições normais, em que as variâncias são desconhecidas.
+
+Nesta situação, **dois casos** diferentes tem de ser tratados: 
+
+- **Caso 1**: as variâncias das duas distribuições são desconhecidas, porém iguais;
+- **Caso 2**: as variâncias das duas distribuições são desconhecidas e não necessariamente iguais.
+
+Em ambos os casos, o estimador de $\mu_1-\mu_2$ é a diferença das médias amostrais $\bar X_1-\bar X_2$.
+
+#### Caso 1: $\sigma^2_1=\sigma^2_2=\sigma^2$
+
+Considerando 
+
+$$S^2_p=\frac{(n_1-1)S^2_1+(n_2-1)S^2_2}{n_1+n_2-2}$$
+
+Podemos estabelecer 
+
+$$T=\frac{\bar X_1-\bar X_2-(\mu_1-\mu_2)}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim T(n_1+n_2-2)$$
+
+**Teste de hipóteses**
+
+Estamos interessados em testar a hipótese nula: 
+
+$$H_0: \mu_1-\mu_2=\Delta_0,$$
+
+contra as seguintes hipóteses alternativas:
+
+- $H_1: \mu_1-\mu_2 \ne \Delta_0$
+- $H_1: \mu_1-\mu_2 > \Delta_0$
+- $H_1: \mu_1-\mu_2 < \Delta_0$
+  
+A estatística de teste é 
+
+$$t_0=\frac{\bar X_1-\bar X_2-\Delta_0}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}$$
+
+Portanto, podemos estabelecer para um teste com nível de significância $\alpha$:
+
+| Hipótese Alternativa ($H_1$)    | Região Crítica                                                                | p-valor              |
+|---------------------------------|-------------------------------------------------------------------------------|----------------------|
+| $H_1: \mu_1-\mu_2 \ne \Delta_0$ | $t_0<-t_{\frac{\alpha}{2};n_1+n_2-2}$ ou $t_0>t_{\frac{\alpha}{2};n_1+n_2-2}$ | $2\times P(T>|t_0|)$ |
+| $H_1: \mu_1-\mu_2 > \Delta_0$   | $t_0>t_{\alpha;n_1+n_2-2}$                                                    | $P(T>t_0)$           |
+| $H_1: \mu_1-\mu_2 < \Delta_0$   | $t_0<-t_{\alpha;n_1+n_2-2}$                                                   | $P(T<t_0)$           |
+
+##### Exemplo
+
+Dois catalisadores estão sendo analisados para determinar como eles afetam o rendimento médio de um processo químico. Especificamente, o catalisador 1 está corretamente em uso, mas o catalisador 2 é aceitável. Uma vez que o catalisador 2 é mais barato, ele deve ser adotado, desde que não mude o rendimento do processo. Um teste é feito em uma planta piloto, resultando em $\bar x_1=92.255, \bar x_2=92.733, n_1=n_2=8, s_1=2.39, s_2=2.98$. Há alguma diferença entre os rendimentos médios? Use $\alpha=0.05$ e considere variâncias iguais.
+
+**Solução**
+
+- $H_0: \mu_1=\mu_2$ vs $H_1: \mu_1\ne\mu_2$
+- $s^2_p=\frac{(8-1)2.39^2+(8-1)2.98^2}{8+8-2}=7.30$
+- $s_p=\sqrt{7.30}=2.70$
+- $t_0=\frac{92.255-92.733}{2.70\sqrt{\frac{1}{8}+\frac{1}{8}}}=-0.35$
+- $t_{0.025;14}=-2.14$
+- $p-valor=2\times P(T>|-0.35|)=0.7315483$
+
+Como $t_0(-0.35)<t_{0.025;14}(-2.14)$, não devemos rejeitar $H_0$, portanto não há evidência a um nível de significância de 5% para concluir que o catasalidor 2 resulta em um rendimento médio diferente do catalisador 1.
+
+**Intervalo de Confiança**
+
+Se $\bar x_1$, $\bar x_2$, $s_1^2$ e $s_2^2$ forem as médias e as variâncias amostrais de duas amostras aleatórias independentes de tamanhos $n_1$ e $n_2$, respectivamente, provenientes de duas populações normais independentes, com variâncias desconhecidas e iguais, então um intervalo de confiança de $100(1-\alpha)\%$ para $\mu_1-\mu_2$ é: 
+
+$$\left[(\bar x_1-\bar x_2) -t_{\frac{\alpha}{2};n_1+n_2-2}S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\leq \mu_1-\mu_2 \leq (\bar x_1-\bar x_2) +t_{\frac{\alpha}{2};n_1+n_2-2}S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\right]$$
+
+##### Exemplo
+
+Testes de resistência à tensão foram feitos em dois tipos diferentes de estruturas de alumínio. Essas estruturas foram usadas na fabricação das asas de um avião comercial. Os dados obtidos são os seguintes: $n_1=10, \bar x_1=87.6, s_1=1, n_2=12, \bar x_2=74.5, s_2=1.5$. Se $\mu_1$ e $\mu_2$ denotarem as resistências médias verdadeiras à tensão para os dois tipos da estrutura, construa um intervalo de confiança de 90% para a diferença na resistência média $\mu_1-\mu_2$.
+
+**Solução**
+
+- $t_{0.05;20}=1.72$
+- $s^2_p=\frac{(10-1)1^2+(12-1)1.5^2}{10+12-2}=1.6875$
+- $(87.6-74.5) -1.72\times 1.30\sqrt{\frac{1}{10}+\frac{1}{12}}\leq \mu_1-\mu_2 \leq (87.6-74.5) +1.72\times 1.30\sqrt{\frac{1}{10}+\frac{1}{12}}$
+- $12.14 \leq \mu_1-\mu_2 \leq 14.06$
+
+Note que o intervalo de confiança não inclui o zero, implicando que a resistência média da estrutura 1 ($\mu_1$) excede a resistência média da estrutura 2 ($\mu_2$). De fato, podemos estabelecer que estamos 90% confiantes de que a resistência média à tensão da estrutura 1 excede a resistência média da estrutura 2 por um valor entre 12.14 e 14.06 quilogramas por milímetro quadrado
+
+Note que para o mesmo caso com as variâncias conhecidas, no capítulo anterior, o intervalo obtido é mais estreito, mostrando uma maior precisão.
+
+#### Caso 2: $\sigma^2_1\ne\sigma^2_2$
+
+Podemos estabelecer 
+
+$$T=\frac{\bar X_1-\bar X_2-(\mu_1-\mu_2)}{\sqrt{\frac{S^2_1}{n_1}+\frac{S^2_2}{n_2}}}\sim T(v)$$
+
+Onde, 
+
+$$v=\frac{\Big(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\Big)^2}{\frac{(s_1^2/n_1)^2}{n_1-1}+\frac{(s_2^2/n_2)^2}{n_2-1}}$$
+
+Se $v$ não for um número inteiro, arredonde para o menor inteiro mais próximo.
+
+**Teste de hipóteses**
+
+Estamos interessados em testar a hipótese nula: 
+
+$$H_0: \mu_1-\mu_2=\Delta_0,$$
+
+contra as seguintes hipóteses alternativas:
+
+- $H_1: \mu_1-\mu_2 \ne \Delta_0$
+- $H_1: \mu_1-\mu_2 > \Delta_0$
+- $H_1: \mu_1-\mu_2 < \Delta_0$
+  
+A estatística de teste é 
+
+$$t_0=\frac{\bar X_1-\bar X_2-\Delta_0}{\sqrt{\frac{S^2_1}{n_1}+\frac{S^2_2}{n_2}}}$$
+
+Portanto, podemos estabelecer para um teste com nível de significância $\alpha$:
+
+| Hipótese Alternativa ($H_1$)    | Região Crítica                                                | p-valor              |
+|---------------------------------|---------------------------------------------------------------|----------------------|
+| $H_1: \mu_1-\mu_2 \ne \Delta_0$ | $t_0<-t_{\frac{\alpha}{2};v}$ ou $t_0>t_{\frac{\alpha}{2};v}$ | $2\times P(T>|t_0|)$ |
+| $H_1: \mu_1-\mu_2 > \Delta_0$   | $t_0>t_{\alpha;v}$                                            | $P(T>t_0)$           |
+| $H_1: \mu_1-\mu_2 < \Delta_0$   | $t_0<-t_{\alpha;v}$                                           | $P(T<t_0)$           |
+
+##### Exemplo
+
+Dois catalisadores estão sendo analisados para determinar como eles afetam o rendimento médio de um processo químico. Especificamente, o catalisador 1 está corretamente em uso, mas o catalisador 2 é aceitável. Uma vez que o catalisador 2 é mais barato, ele deve ser adotado, desde que não mude o rendimento do processo. Um teste é feito em uma planta piloto, resultando em $\bar x_1=92.255, \bar x_2=92.733, n_1=n_2=8, s_1=2.39, s_2=2.98$. Há alguma diferença entre os rendimentos médios? Use $\alpha=0.05$ e considere variâncias diferentes.
+
+**Solução**
+
+- $H_0: \mu_1=\mu_2$ vs $H_1: \mu_1\ne\mu_2$
+- $v=\frac{\Big(\frac{2.39^2}{8}+\frac{2.98^2}{8}\Big)^2}{\frac{(2.39^2/8)^2}{8-1}+\frac{(2.98^2/8)^2}{8-1}}=13.34\approx13$
+- $t_0=\frac{92.255-92.733}{\sqrt{\frac{2.39^2}{8}+\frac{2.98^2}{8}}}=-0.35$
+- $t_{0.025;13}=-2.16$
+- $p-valor=2\times P(T>|-0.35|)=0.7319441$
+
+Como $t_0(-0.35)<t_{0.025;13}(-2.16)$, não devemos rejeitar $H_0$, portanto não há evidência a um nível de significância de 5% para concluir que o catasalidor 2 resulta em um rendimento médio diferente do catalisador 1.
+
+**Intervalo de Confiança**
+
+Se $\bar x_1$, $\bar x_2$, $s_1^2$ e $s_2^2$ forem as médias e as variâncias amostrais de duas amostras aleatórias independentes de tamanhos $n_1$ e $n_2$, respectivamente, provenientes de duas populações normais independentes, com variâncias desconhecidas e desiguais, então um intervalo de confiança de $100(1-\alpha)\%$ para $\mu_1-\mu_2$ é: 
+
+$$\left[(\bar x_1-\bar x_2) -t_{\frac{\alpha}{2};v}\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}}\leq \mu_1-\mu_2 \leq (\bar x_1-\bar x_2) +t_{\frac{\alpha}{2};v}\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}}\right]$$
+
+##### Exemplo
+
+Testes de resistência à tensão foram feitos em dois tipos diferentes de estruturas de alumínio. Essas estruturas foram usadas na fabricação das asas de um avião comercial. Os dados obtidos são os seguintes: $n_1=10, \bar x_1=87.6, s_1=1, n_2=12, \bar x_2=74.5, s_2=1.5$. Se $\mu_1$ e $\mu_2$ denotarem as resistências médias verdadeiras à tensão para os dois tipos da estrutura, construa um intervalo de confiança de 90% para a diferença na resistência média $\mu_1-\mu_2$.
+
+**Solução**
+
+- $v=\frac{\Big(\frac{1^2}{10}+\frac{1.5^2}{12}\Big)^2}{\frac{(1^2/10)^2}{10-1}+\frac{(1.5^2/12)^2}{12-1}}=19.19055\approx19$
+- $t_{0.05;19}=1.73$
+- $(87.6-74.5) -1.73\times \sqrt{\frac{1^2}{10}+\frac{1.5^2}{12}}\leq \mu_1-\mu_2 \leq (87.6-74.5) +1.73\times \sqrt{\frac{1^2}{10}+\frac{1.5^2}{12}}$
+- $12.17 \leq \mu_1-\mu_2 \leq 14.03$
+
+Note que o intervalo de confiança não inclui o zero, implicando que a resistência média da estrutura 1 ($\mu_1$) excede a resistência média da estrutura 2 ($\mu_2$). De fato, podemos estabelecer que estamos 90% confiantes de que a resistência média à tensão da estrutura 1 excede a resistência média da estrutura 2 por um valor entre 12.17 e 14.03 quilogramas por milímetro quadrado.
+
+## Comparação das variâncias de distribuições Normais
+
+Suponha que queremos comparar as variâncias $\sigma^2_1$ e $\sigma^2_2$ de duas populações Normais independentes. Para isso, retiramos uma amostra aleatória $X_{11},X_{12},\ldots,X_{1n_1}$ da população 1, com distribuição $N(\mu_1,\sigma^2_1)$, e uma amostra $X_{21},X_{22},\ldots,X_{2n_2}$ da população 2, com distribuição $N(\mu_2,\sigma^2_2)$.
+
+Como vimos anteriormente,
+
+$$Q_1=\frac{n_1-1}{\sigma^2_1}s^2_1\sim\chi^2_{n_1-1}$$
+
+$$Q_2=\frac{n_2-1}{\sigma^2_2}s^2_2\sim\chi^2_{n_2-1}$$
+
+onde $s^2_1$ é a variância amostral da população 1 e $s^2_2$ a variância amostral da população 2. Neste caso, a expressão $F$
+
+$$F=\frac{\frac{Q_1}{n_1-1}}{\frac{Q_2}{n_2-1}}=\frac{\frac{s^2_1}{\sigma^2_1}}{\frac{s^2_2}{\sigma^2_2}}=\frac{s^2_1}{s^2_2}\frac{\sigma^2_2}{\sigma^2_1}\sim F(n_1-1;n_2-1)$$
+
+### Teste de hipóteses
+
+Desejamos testar as hipóteses relativas à igualdade das duas variâncias; isto é, $H_0:\sigma^2_1=\sigma^2_2$, contra as seguintes hipóteses alternativas:
+
+- $H_1: \sigma^2_1\ne\sigma^2_2$
+- $H_1: \sigma^2_1>\sigma^2_2$
+- $H_1: \sigma^2_1<\sigma^2_2$
+
+A estatística de teste é 
+
+$$f_0=\frac{s^2_1}{s^2_2}.$$
+
+Portanto, podemos estabelecer para um teste com nível de significância $\alpha$:
+
+| Hipótese Alternativa ($H_1$)   | Região Crítica                                                                     |
+|--------------------------------|------------------------------------------------------------------------------------|
+| $H_1: \sigma^2_1\ne\sigma^2_2$ | $f_0<f_{1-\frac{\alpha}{2};n_1-1;n_2-1}$ ou $f_0>f_{\frac{\alpha}{2};n_1-1;n_2-1}$ |
+| $H_1: \sigma^2_1>\sigma^2_2$   | $f_0>f_{\alpha;n_1-1;n_2-1}$                                                       |
+| $H_1: \sigma^2_1<\sigma^2_2$   | $f_0<f_{1-\alpha;n_1-1;n_2-1}$                                                     |
+
+
+| Hipótese Alternativa ($H_1$)   | p-valor                               |
+|--------------------------------|---------------------------------------|
+| $H_1: \sigma^2_1\ne\sigma^2_2$ | $2\times \min\{{P(F<f_0),P(F>f_0)}\}$ |
+| $H_1: \sigma^2_1>\sigma^2_2$   | $P(F>f_0)$                            |
+| $H_1: \sigma^2_1<\sigma^2_2$   | $P(F<f_0)$                            |
+
+#### Exemplo
+
+Duas misturas diferentes de gases estão sendo estudadas para determinar se uma delas é superior na redução da variabilidade de espessura das camadas de óxido. Dezesseis pastilhas são atacadas com cada gás. Os desvios-padrão da espessura de óxido são: $s_1=1.96$ angstroms e $s_2=2.13$ angstroms, respectivamente. Há qualquer evidência que indique ter um gás preferível em relação ao outro? Use um nível de significância de 2%.
+
+**Solução**
+
+- $H_0: \sigma^2_1=\sigma^2_2$ vs $H_1: \sigma^2_1\ne\sigma^2_2$
+- $n=16$
+- $\alpha=0.02 \rightarrow F_{0.99;15;15} = 0.28 \rightarrow F_{0.01;15;15} = 3.52$
+- $f_0=\frac{1.96^2}{2.13^2}=0.85$
+- $p-valor=2\times \min\{{P(F<0.85),P(F>0.85)}\}=2\times \min\{{0.3785271,0.6214729}\}=0.7570542$
+
+Como $F_{0.99;15;15}(0.28)<f_0(0.85)<F_{0.01;15;15}(3.52)$, não devemos rejeitar $H_0$, portanto não há evidência a um nível de significância de 2% para indicar um gás que resulte em uma variância menor da espessura de óxido.
+
+### Intervalo de Confiança
+
+Se $s_1^2$ e $s_2^2$ forem variâncias de amostras aleatórias de tamanhos $n_1$ e $n_2$, respectivamente, provenientes de duas populações normais independentes, com variâncias desconhecidas $\sigma_1^2$ e $\sigma_2^2$, então um intervalo de confiança de $100(1-\alpha)\%$ para a razão $\frac{\sigma^2_1}{\sigma^2_2}$ é 
+
+$$\frac{s_1^2}{s_2^2\times f_{\frac{\alpha}{2};n_1-1;n_2-1}}\leq \frac{\sigma^2_1}{\sigma^2_2} \leq \frac{s_1^2}{s_2^2\times f_{1-\frac{\alpha}{2};n_1-1;n_2-1}}$$
+
+#### Exemplo
+
+Dois processos diferentes para esmerilhar podem ser usados, podendo produzir peças com iguais rugosidades médias na superfícies. Uma amostra aleatória de $n_1=11$ peças, proveniente do primeiro processo, resulta em um desvio-padrão de $s_1=5.1$ micropolegadas. Uma amostra aleatória de $n_2=16$ peças, proveniente do segundo processo, resulta em um desvio-padrão de $s_2=4.7$ micropolegadas. Encontre um intervalo de confiança de 90% para a razão $\frac{\sigma^2_1}{\sigma^2_2}$
+
+**Solução**
+
+- $\frac{s_1^2}{s_2^2}=\frac{5.1^2}{4.7^2}=1.177$
+- $f_{1-\frac{\alpha}{2};n_1-1;n_2-1}=f_{0.95;10;15}=0.351$
+- $f_{\frac{\alpha}{2};n_1-1;n_2-1}=f_{0.05;10;15}=2.544$
+- $\frac{1.177}{2.544} \leq \frac{\sigma^2_1}{\sigma^2_2} \leq \frac{1.177}{0.351}$
+- $0.4626572 \leq \frac{\sigma^2_1}{\sigma^2_2} \leq 3.353276$
+  
+Note que o intervalo de confiança inclui o valor 1, portanto, não podemos afirmar que as razões da rugosidade da superfície para os dois processos sejam diferentes com um nível de confiança de 90%.
+
+## Comparação das proporções populacionais
+
+Consideremos $X_1$ e $X_2$ variáveis aleatórias que representam determinada característica de duas populações com distribuição de Bernoulli com parâmetros $p_1$ e $p_2$ respectivamente.
+
+Retiremos duas amostras aleatórias independentes, $X_{11},\ldots,X_{1,n1}$ e $X_{21},\ldots,Y_{2,n2}$, dessas populações. Cada $X_{1i}$, $i=1,\ldots,n_1$ e cada $X_{2j}, j=1,\ldots,n_2$, tem distribuição de Bernoulli com parâmetros $p_1$ e $p_2$ respectivamente, com médias $p_1$ e $p_2$ e variâncias $\sigma^2_1=p_1(1-p_1)$ e $\sigma^2_2=p_2(1-p_2)$, respectivamente.
+
+As variáveis $\hat p_1=\bar X_1$ e $\hat p_2=\bar X_2$ são os estimadores de $p_1$ e $p_2$, respectivamente, e tem distribuição amostral aproximadamente normal:
+
+$$\hat p_1\sim N\left(p_1,\frac{p_1(1-p_1)}{n_1}\right)~~~~\text{e}~~~~\hat p_2\sim N\left(p_2,\frac{p_2(1-p_2)}{n_2}\right).$$
+
+Assim, temos que
+
+$$\hat p_1-\hat p_2\sim N\left(p_1-p_2,\frac{p_1(1-p_1)}{n_1}+\frac{p_2(1-p_2)}{n_2}\right)$$
+
+ou seja,
+
+$$Z=\frac{\hat p_1-\hat p_2 - (p_1-p_2)}{\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}}\sim N(0,1).$$
+
+### Teste de hipóteses
+
+Estamos interessados em testar a hipótese nula: $H_0: p_1=p_2$, contra as seguintes hipóteses alternativas:
+
+- $H_1: p_1\ne p_2$
+- $H_1: p_1>p_2$
+- $H_1: p_1<p_2$
+
+A estatística de teste é 
+
+$$z_0=\frac{\hat p_1-\hat p_2}{\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}}$$
+
+Portanto, podemos estabelecer para um teste com nível de significância $\alpha$:
+
+| Hipótese Alternativa ($H_1$)    | Região Crítica                                            |
+|---------------------------------|-----------------------------------------------------------|
+| $H_1: p_1\ne p_2$               | $z_0<-z_{\frac{\alpha}{2}}$ ou $z_0>z_{\frac{\alpha}{2}}$ |
+| $H_1: p_1>p_2$                  | $z_0>z_{\alpha}$                                          |
+| $H_1:  p_1<p_2$                 | $z_0<-z_{\alpha}$                                         |
+
+| Hipótese Alternativa ($H_1$)    | p-valor              |
+|---------------------------------|----------------------|
+| $H_1: p_1\ne p_2$               | $2\times P(Z>|z_0|)$ |
+| $H_1: p_1>p_2$                  | $P(Z>z_0)$           |
+| $H_1:  p_1<p_2$                 | $P(Z<z_0)$           |
+
+#### Exemplo
+
+ Um artigo médico comparou a eficácia de um extrato-padrão de erva-de-são-joão com um placebo em 200 pacientes diagnosticados com depressão unipolar. Pacientes foram designados aleatoriamente em dois grupos de 100 pacientes: um grupo recebeu a erva-de-são-joão e o outro recebeu placebo. Depois de 8 semanas, 19 dos pacientes tratados com placebo mostraram melhoria, enquanto 27 daqueles tratados com erva-de-são-joão melhoraram. Há alguma razão para acreditar que a erva-de-são-joão seja efetiva no tratamento de depressão unipolar?
+
+**Solução**
+
+- sendo 1 a população que recebeu placebo e 2 a que recebu a erva-de-são-joão
+- $H_0: p_1=p_2$ vs $H_1: p_1 < p_2$
+- $\hat p_1=\frac{19}{100}=0.19; \hat p_2=\frac{27}{100}=0.27$
+- $z_0=\frac{0.19-0.27}{\sqrt{\frac{0.19(1-0.19)}{100}+\frac{0.27(1-0.27)}{100}}}=-1.35$
+- $z_{0.05}=1.645$
+- $p-valor= P(Z>|-1.35|)=0.08850799$
+
+Como $-z_{0.05}(-1.645)\leq z_0 (-1.35)$, não devemos rejeitar $H_0$ com $\alpha=0.05$, portanto não há evidência a um nível de significância de 5% para confirmar que a erva-de-são-joão seja efetiva no tratamento de depressão unipolar
+  
+### Intervalo de Confiança
+
+ Se $\hat p_1$ e $\hat p_2$ forem as proporções amostrais de observações de duas amostras aleatórias e independentes, de tamanhos $n_1$ e $n_2$, que pertençam a uma classe de interesse, então um intervalo aproximado de confiança de $100(1-\alpha)\%$ nas proporções verdadeiras $p_1-p_2$ é: 
+
+$$\left[(\hat p_1-\hat p_2) \pm z_{\frac{\alpha}{2}}\sqrt{\frac{\hat p_1(1-\hat p_1)}{n_1}+\frac{\hat p_2(1-\hat p_2)}{n_2}}\right]$$
+
+#### Exemplo
+
+Uma vez que $n_1=85,\hat p_1=0.12,n_2=85, \hat p_2=0.09$, construa um intervalo aproximado de confiança de 95% para a diferença da proporção de mancais defeituosos produzidos pelos dois processos.
+
+**Solução**
+
+- $z_{0.025}=1.96$
+- $(0.12-0.09) - 1.96\sqrt{\frac{0.12(1-0.12)}{85}+\frac{0.09(1-0.09)}{85}}\leq p_1-p_2 \leq (0.12-0.09) + 1.96\sqrt{\frac{0.12(1-0.12)}{85}+\frac{0.09(1-0.09)}{85}}$
+- $-0.06205497 \leq p_1-p_2 \leq 0.122055$
+
+Note que o intervalo de confiança não o zero; assim, com base nos dados das amostras, parece improvável que as proporções sejam diferentes.

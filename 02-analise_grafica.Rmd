@@ -1,13 +1,11 @@
 # Análise Gráfica
 
-## Introdução
-
 Já sabemos que as variáveis de um estudo dividem-se em quatro tipos:
 
-- Qualitativas:
+- **Qualitativas**:
   + nominais
   + ordinais
-- Quantitativas:
+- **Quantitativas**:
   + discretas
   + contínuas
 

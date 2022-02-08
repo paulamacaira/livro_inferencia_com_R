@@ -4,21 +4,23 @@ author: "P. Maçaira, L. Bastos, S. Aguilar & I. Peres"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
+url: https://paulamacaira.github.io/livro_inferencia_com_R/
+cover-image: cover.png
 description: |
-  This is a minimal example of using the bookdown package to write a book.
-  The HTML output format for this example is bookdown::gitbook,
-  set in the _output.yml file.
+  Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando  exemplos reais.
 link-citations: yes
 github-repo: rstudio/bookdown-demo
 ---
 
 # Prefácio {-}
 
-Adicionar um vídeo nosso nos apresentando e o objetivo do livro.(pensar numa capa para o livro)
+Adicionar um vídeo nosso nos apresentando e o objetivo do livro.
 
 Sejam muito bem-vindos ao nosso livro on-line sobre Inferência Estatística.
+
+```{r, echo=F}
+knitr::include_graphics("cover.png")
+```
 
 Este livro destina-se a fornecer uma introdução abrangente aos métodos de inferência estatística e apresentar informações suficientes sobre cada método para que os leitores possam usá-los com sensatez. Desejamos que o leitor adquira o raciocínio necessário para, a partir dos dados, 
 obter conclusões gerais acerca de uma população com base numa amostra.
@@ -29,7 +31,7 @@ Para a maioria das seções, assumimos apenas que os leitores estão familiariza
 
 Usaremos o software R em todo o livro, um software gratuito e disponível em quase todos os sistemas operacionais. O R é uma ferramenta maravilhosa para todas as análises estatísticas e muito mais. Ao longo de todo o livro você se familiarizará com a linguagem e aprenderá a fazer inferência com o R.
 
-A saída abaixo mostra as versões dos pacotes que usamos na compilação desta edição do livro. Alguns exemplos no livro não funcionarão com versões anteriores dos pacotes.
+A saída abaixo mostra a versão do software R e dos pacotes que usamos na compilação desta edição do livro. Alguns exemplos no livro não funcionarão com versões anteriores dos pacotes.
 
 ```{r}
 library(tidyverse)
@@ -53,4 +55,4 @@ Fevereiro 2022
 
 Para citar a versão online deste livro, use o seguinte:
 
-> Maçaira, P.; Bastos, L.; Aguilar, S. & Peres, I. (2022) Inferência Estatística com R, 1ª edição, OTexts: Melbourne, Australia. OTexts.com/fpp3. Acessado em `r lubridate::today()`.
+> Maçaira, P.; Bastos, L.; Aguilar, S. & Peres, I. (2022) Inferência Estatística com R, 1ª edição, Rio de Janeiro, Brasil. https://paulamacaira.github.io/livro_inferencia_com_R/. Acessado em `r lubridate::today()`.

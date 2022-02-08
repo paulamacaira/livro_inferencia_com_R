@@ -1,10 +1,8 @@
 # Distribuições Amostrais
 
-## Introdução
-
 Uma distribuição amostral é a distribuição de probabilidades de uma medida estatística baseada em uma amostra aleatória. Ao retirar uma amostra aleatória de uma população estaremos considerando cada valor da amostra como um valor de uma variável aleatória cuja distribuição de probabilidade é a mesma da população no instante da retirada desse elemento para a amostra. Em consequência do fato de os valores de amostra serem aleatórios, decorre que qualquer quantidade calculada em função dos elementos da amostra também será uma variável aleatória
 
-## Distribuição Amostral da Média Amostral
+## Distribuição da Média Amostral
 
 Considere $X_1,\ldots,X_n$ uma amostra aleatória de uma distribuição normal com média $\mu$ e variância $\sigma^2$.
 
@@ -108,7 +106,7 @@ ggplot(tudo,aes(y)) +
   theme(axis.title = element_blank())
 ```
 
-## Distribuição Amostral da Variância Amostral
+## Distribuição da Variância Amostral
 
 Já vimos que a estatística $$S^2=\frac{1}{n-1}\sum_{i=1}^{n}\left(X_i-\bar X\right)^2$$ é um estimador não viciado da variância $\sigma^2$, portanto $$E(S^2)=\sigma^2$$. Vamos estudar agora a distribuição amostral de $S^2$ e para isso precisamos estudar a distribuição qui-quadrado.
 
@@ -188,7 +186,7 @@ Neste caso, a média das variâncias é `r round(mean(variancias$y),2)` e a vari
 
 Destas propriedades temos que $$V(S^2)=\frac{2\sigma^4}{n-1}.$$
 
-## Distribuição Amostral da Proporção
+## Distribuição da Proporção Amostral
 
 Considere uma população em que cada elemento é classificado de acordo com a presença ou ausência de determinada característica. Por exemplo, podemos pensar em eleitores escolhendo entre 2 candidatos, pessoas classificadas de acordo com o sexo, trabalhadores classificados como trabalhador com carteira assinada ou não, e assim por diante. Em termos de variável aleatória, essa população é representada por uma v.a. de Bernoulli, isto é:
 
