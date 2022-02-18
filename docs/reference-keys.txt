@@ -171,3 +171,6 @@ teste-da-falta-de-ajuste-lack-of-fit
 análise-de-colinearidade-e-multicolinearidade
 colinearidade
 multicolinearidade
+teste-de-hipóteses-vs-intervalo-de-confiança-1
+fig:unnamed-chunk-1
+tab:unnamed-chunk-3
