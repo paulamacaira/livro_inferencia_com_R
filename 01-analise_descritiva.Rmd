@@ -1,8 +1,8 @@
 # Análise Descritiva {#analise_descritiva}
 
-A Indútria 4.0, ou quarta Revolução Industrial, é a continuação do aperfeiçoamento das máquinas, um processo que começou com a primeira Revolução Industrial e nunca mais parou. Podemos dizer que a Indústria 4.0 é a realidade na qual a tecnologia industrial está cada vez mais eficiente, mais inteligente, mais rápida e mais precisa. O termo é utilizado para caracterizar a utilização do que há de mais moderno para produzir bens de consumo: *Big Data*, internet das coisas (*Internet of Things*, *IoT*), inteligência artificial e muito mais.
+A Indústria 4.0, ou quarta Revolução Industrial, é a continuação do aperfeiçoamento das máquinas, um processo que começou com a primeira Revolução Industrial e nunca mais parou. Podemos dizer que a Indústria 4.0 é a realidade na qual a tecnologia industrial está cada vez mais eficiente, mais inteligente, mais rápida e mais precisa. O termo é utilizado para caracterizar a utilização do que há de mais moderno para produzir bens de consumo: *Big Data*, internet das coisas (*Internet of Things*, *IoT*), inteligência artificial e muito mais.
 
-O *Big Data* é um conceito muito importante e que vem ganhando bastante notoriedade nos últimos anos. É o termo em Tecnologia da Informação (TI) que trata sobre grandes conjuntos de dados (em volume e variadade) que precisam ser processados e armazenados de maneira eficiente. É um conceito-chave para a Indústria 4.0, pois são esses dados que permitem às máquinas trabalharem com maior eficiência.
+O *Big Data* é um conceito muito importante e que vem ganhando bastante notoriedade nos últimos anos. É o termo em Tecnologia da Informação (TI) que trata sobre grandes conjuntos de dados (em volume e variedade) que precisam ser processados e armazenados de maneira eficiente. É um conceito-chave para a Indústria 4.0, pois são esses dados que permitem às máquinas trabalharem com maior eficiência.
 
 Os Dados sozinhos não podem dizer muita coisa. Por exemplo, eu posso te dizer que minha cor favorita é verde, mas isso não te faz concluir muito sobre a minha personalidade. Porém, se eu te der uma pequena tabela em Excel com alguns dos meus livros favoritos, provavelmente você terá conclusões mais significativas sobre mim. O que aconteceu foi que você, munido da sua capacidade mental e analítica, aliada a uma certa quantidade de dados foi capaz de tirar alguns insights sobre um assunto (minha preferência de leitura). É exatamente aí que está a beleza e a grandiosidade da chamada "Era do *Big Data*".
 
@@ -10,15 +10,15 @@ Os Dados sozinhos não podem dizer muita coisa. Por exemplo, eu posso te dizer q
 knitr::include_graphics("dados_sabedoria.jpg", dpi=150)
 ```
 
-Apesar do term *Big Data* representar uma variedade de conceitos e ferramentas, estamos falando basicamente de [análise de dados]{.ul}. De fato, isso não é nenhuma novidade. Há muitos anos a humanidade coleta dados para serem analisados. A grande inovação está em aliar os métodos tradicionais de análise de dados e suas limitações aos modernos recursos de hardware de alto processamento. Dessa forma, a evolução tecnológica atual permitiu transitar todos esses cálculos e análises por meio de softwares desenvolvidos especificamente para lidar enormes quantidades de dados. Uma solução de *Big Data* funciona com algoritmos complexos e adaptações/melhorias dos métodos tradicionais a fim de processar a informação e obter como saída os mais diversos tipos de insights.
+Apesar do termo *Big Data* representar uma variedade de conceitos e ferramentas, estamos falando basicamente de [análise de dados]{.ul}. De fato, isso não é nenhuma novidade. Há muitos anos a humanidade coleta dados para serem analisados. A grande inovação está em aliar os métodos tradicionais de análise de dados e suas limitações aos modernos recursos de hardware de alto processamento. Dessa forma, a evolução tecnológica atual permitiu transitar todos esses cálculos e análises por meio de softwares desenvolvidos especificamente para lidar com enormes quantidades de dados. Uma solução de *Big Data* funciona com algoritmos complexos e adaptações/melhorias dos métodos tradicionais a fim de processar a informação e obter como saída os mais diversos tipos de insights.
 
-A **Análise Descritiva** é a fase inicial deste processo de estudo dos dados coletados. Nesta fase, utilizamos métodos de Estatística Descritiva para organizar, resumir e descrever os aspectos importantes de um conjunto de características observadas. Dessa forma, é possível identificar padrões e/ou tendências dessas características, bem como comparaá-las entre dois ou mais conjuntos. Algumas das **principais ferramentas de estatística descritiva** são: **medidas de síntese da informação**, tais como médias, frequência, porcentagens e índices, assim como **ferramentas de visualização de dados** - uma varidade enorme de gráficos e tabelas.
+A **Análise Descritiva** é a fase inicial deste processo de estudo dos dados coletados. Nesta fase, utilizamos métodos de Estatística Descritiva para organizar, resumir e descrever os aspectos importantes de um conjunto de características observadas. Dessa forma, é possível identificar padrões e/ou tendências dessas características, bem como compará-las entre dois ou mais conjuntos. Algumas das **principais ferramentas de estatística descritiva** são: **medidas de síntese da informação**, tais como médias, frequência, porcentagens e índices, assim como **ferramentas de visualização de dados** - uma varidade enorme de gráficos e tabelas.
 
 No processo de síntese dos dados, perde-se informação, pois não se têm mais as observações originais. Entretanto, esta perda é pequena se comparada ao ganho que se tem com a clareza da interpretação proporcionada por uma medida. Por exemplo, saber a temperatura média ou a probabilidade de chuva deste momento te dá informações suficientes para escolher um agasalho correto, sem precisar coletar e analisar o valor medido a cada segundo ou minuto.
 
-A descrição dos dados também tem como objetivo identificar anomalias e inconsistências. Anomalias correspondem aqueles valores medidos que não seguem a tendência geral do restante do conjunto de dados como, por exemplo, uma mudança brusca de temperatura média por conta de uma geada ou uma queda no valor de uma ação por conta de mudanças na conjuntura econômica. Já inconsistências correspondem a valores medidos que forma registrados de maneira incorreta no banco de dados. Um exemplo muito comum de inconsistência são valores faltantes (*missing values*).
+A descrição dos dados também tem como objetivo identificar anomalias e inconsistências. Anomalias correspondem aqueles valores medidos que não seguem a tendência geral do restante do conjunto de dados como, por exemplo, uma mudança brusca de temperatura média por conta de uma geada, ou também por exemplo uma queda no valor de uma ação por conta de mudanças na conjuntura econômica. Já inconsistências correspondem a valores medidos que forma registrados de maneira incorreta no banco de dados. Um exemplo muito comum de inconsistência são valores faltantes (*missing values*).
 
-Não só nos artigos técnicos direcionados para pesquisadores, mas também nos artigos de jornais e revistas, escritos para o público leigo. Diversas visulizações de dados são criadas por cientistas de dados em jornais para resumir de maneira intuitiva ou lúdica algumas das principais informações complementar a apresentação de um fato, justificar ou referendar um argumento.
+Diversas visualizações de dados são criadas por cientistas de dados em jornais para resumir de maneira intuitiva ou lúdica algumas das principais informações complementar a apresentação de um fato, justificar ou referendar um argumento. Não só nos artigos técnicos direcionados para pesquisadores, mas também nos artigos de jornais e revistas, escritos para o público leigo.
 
 Durante a pandemia da COVID-19, por exemplo, foram publicadas ótimas visualizações de dados de evolução dos casos e óbitos. Uma das mais conhecidas delas é o gráfico de John Burn-Murdoch no Financial Times mostrando a evolução da pandemia em diversos países. Esta é uma ótima visualização e ajudou a apresentar gráficos em escala logarítimica para um público amplo. Outro exemplo são [as visualizações geradas no *New York Times*](https://www.nytimes.com/spotlight/graphics)
 
@@ -26,7 +26,7 @@ Durante a pandemia da COVID-19, por exemplo, foram publicadas ótimas visualiza�
 knitr::include_graphics("financial_times.jpg", dpi=400)
 ```
 
-Ao mesmo tempo em que o uso das ferramentas estatísticas vem crescendo, aumenta também o abuso de tais ferramentas. É muito comum ver em jornais e revistas, até mesmo em periódicos científicos, gráficos - voluntariamente ou intencionalmente - enganosos e estatísticas obscuras para justificar argumentos polêmicos. Dessa forma, o conhecimento sobre as ferramentas descritivas, aliado a capacidade analítica e a experiência sobre determinado assunto, tornam-se importantes para um melhor compreedimento do dado mostrado.
+Ao mesmo tempo em que o uso das ferramentas estatísticas vem crescendo, aumenta também o abuso de tais ferramentas. É muito comum ver em jornais e revistas, até mesmo em periódicos científicos, gráficos - voluntariamente ou intencionalmente - enganosos e estatísticas obscuras para justificar argumentos polêmicos. Dessa forma, o conhecimento sobre as ferramentas descritivas, aliado à capacidade analítica e à experiência sobre determinado assunto, tornam-se importantes para uma melhor compreensão do dado apresentado.
 
 Neste capítulo iremos mergulhar no mundo da **Análise de Descritiva de Dados**, explorando estatísticas descritivas e análises gráficas com os pacotes mais atuais do software $\texttt{R}$ [@R2020].
 
@@ -34,7 +34,7 @@ Neste capítulo iremos mergulhar no mundo da **Análise de Descritiva de Dados**
 
 **Contextualizando - A pandemia de COVID-19**
 
-O primeiro caso da COVID-19 no Brasil foi confirmado em 25 de fevereiro de 2020, em São Paulo. Desde então o Governo Federal do Brasil reporta diariamente o número total de casos e mortes no país para cada Unidade da Federação (UF), que corresponde aos 26 estados mais o Distrito Federal. Os dados de notificações são coletados e disponibilizados diariamente em boletins pelas Secretarias Estaduais de Saúde em seus sites oficiais. Várias iniciativas para consolidar e analisar os dados foram feitas e disponilizadas. Por exemplo, o pesquisador [Wesley Cota](https://www.wesleycota.com/) do grupo [Observatório COVID-19BR](https://covid19br.github.io/) disponibiliza diversos dados de acompanhamento de casos e óbitos confirmados por COVID-19 em seu repositório [GitHub](https://github.com/wcota/covid19br) [@CotaCovid19br2020]. Os dados são atualizados diariamente de forma sistematizada em uma planilha de dados de sendo de fácil leitura em programa de computador.
+O primeiro caso da COVID-19 no Brasil foi confirmado em 25 de fevereiro de 2020, em São Paulo. Desde então o Governo Federal do Brasil reporta diariamente o número total de casos e mortes no país para cada Unidade da Federação (UF), que corresponde aos 26 estados mais o Distrito Federal. Os dados de notificações são coletados e disponibilizados diariamente em boletins pelas Secretarias Estaduais de Saúde em seus sites oficiais. Várias iniciativas para consolidar e analisar os dados foram feitas e disponilizadas. Por exemplo, o pesquisador [Wesley Cota](https://www.wesleycota.com/) do grupo [Observatório COVID-19BR](https://covid19br.github.io/) disponibiliza diversos dados de acompanhamento de casos e óbitos confirmados por COVID-19 em seu repositório [GitHub](https://github.com/wcota/covid19br) [@CotaCovid19br2020]. Os dados são atualizados diariamente de forma sistematizada em uma planilha de dados, sendo de fácil leitura em programa de computador.
 
 Como exemplo, vamos extrair as informações agregadas de casos e óbitos confirmados para o Brasil e suas UFs. Este é o formato mais comum de uma base de dados pronta para análise composta por linhas e colunas: Cada linha contém os dados de uma Unidade da Federação (elemento) e as informações (variáveis) estão dispostas em colunas. Dessa forma, a base de dados contém um número de linhas igual ao número de Unidades da Federação (27) mais o total Brasil e um número de colunas igual ao número de variáveis sendo estudadas.
 
@@ -47,21 +47,21 @@ novo = data.frame(
 knitr::kable(novo, caption = "Casos e óbitos confirmados por COVID-19 em cada estado brasileiro", align = "r")
 ```
 
-Note que se estivessemos analisando uma base de dados que contém a evolução diária da pademia por UF, então teríamos um conjunto de dados em dados em que cada linha seria o valor de casos e/ou óbitos para cada dia e cada estado, aumentando consideravelmente a dimensão da base (Ex: Progressão diária de cada UF e total Brasil em um ano - 28 UFs x 365 dias = 10.220 linhas!).
+Note que se estivessemos analisando uma base de dados que contém a evolução diária da pademia por UF, então teríamos um conjunto de dados em que cada linha seria o valor de casos e/ou óbitos para cada dia e cada UF, aumentando consideravelmente a dimensão da base (Ex: Progressão diária de cada UF e total Brasil em um ano - 28 UFs x 365 dias = 10.220 linhas!).
 
 ## Tipos de Variáveis
 
-[**Variável**]{.ul} é a característica de interesse que é medida em cada indivíduo da amostra ou população. Como o nome diz, [seus valores variam de indivíduo para indivíduo]{.ul}. As variáveis podem ter valores numéricos ou não numéricos.
+[**Variável**]{.ul} é a característica ou condição de interesse das unidades/indivíduos da amostra ou população. Como o nome diz, [seus valores variam de indivíduo para indivíduo]{.ul}. As variáveis podem ter valores numéricos ou não numéricos.
 
 ### Variáveis Quantitativas
 
 [São as características que podem ser medidas em uma escala quantitativa]{.ul}, ou seja, apresentam valores numéricos que fazem sentido. Podem ser classificadas como contínuas ou discretas.
 
--   **Variáveis contínuas**: Características mensuráveis que assumem valores em uma escala contínua (na reta real), para as quais valores não-inteiros (com casas decimais) fazem sentido. Usualmente devem ser medidas através de algum instrumento.
+-   **Variáveis contínuas**: Características mensuráveis que assumem valores em uma escala contínua, i.e., em intervalos dos números reais, para as quais valores não-inteiros (com casas decimais) fazem sentido. Usualmente devem ser medidas através de algum instrumento.
 
     -   Exemplos: Peso (balança), Altura (régua), Tempo (relógio), Pressão arterial (esfigmomanômetro), Idade (calendário).
 
--   **Variáveis discretas**: características mensuráveis que podem assumir apenas um número finito ou infinito contável de valores e, assim, somente fazem sentido valores inteiros. Geralmente consistem em resultados de contagens.
+-   **Variáveis discretas**: características mensuráveis que podem assumir apenas um número finito ou infinito contável de valores e, em geral são considerados os valores inteiros. Geralmente consistem em resultados de contagens.
 
     -   Exemplos: Número de filhos, Número de bactérias por litro de leite, Número de casos de uma doença.
 
@@ -74,7 +74,7 @@ Note que se estivessemos analisando uma base de dados que contém a evolução d
 
 Uma variável originalmente quantitativa pode ser coletada de forma qualitativa. Por exemplo, a variável idade, medida em anos completos, é quantitativa (contínua). Porém, se for informada apenas a faixa etária ("0 a 5 anos", "6 a 10 anos", etc.), ela se torna qualitativa (categórica e ordinal). Outro exemplo é o peso dos lutadores de boxe, uma variável quantitativa (contínua) se trabalhamos com o valor obtido na balança, em kilogramas, mas qualitativa (ordinal) se o classificarmos nas categorias do boxe ("peso-pena", "peso-leve", "peso-pesado", etc.).
 
-Outro ponto importante é que nem sempre uma variável representada por números é quantitativa, como, por exemplo, o número do telefone de uma pessoa, o número de sua casa, o número de sua identidade. Às vezes o sexo biológico do indivíduo é registrado na planilha de como "1" se macho e "2" se fêmea, por exemplo. Isto não significa que a variável sexo passou a ser quantitativa, mas, neste caso, corresponde apenas a uma codificação da variável.
+Outro ponto importante é que nem sempre uma variável representada por números é quantitativa, como, por exemplo, o número do telefone de uma pessoa, o número de sua casa, o número de sua identidade. Às vezes o sexo biológico de uma espécie de animal é registrado na planilha como sendo "1" se macho e "2" se fêmea, por exemplo. Isto não significa que a variável sexo passou a ser quantitativa, mas, neste caso, corresponde apenas a uma codificação da variável.
 
 ## Medidas de Tendência Central
 
@@ -94,7 +94,7 @@ Para apresentar a média, primeiramente vamos definir alguma notação. A princ�
     \begin{cases}
       n          & \text{tamanho da amostra} \\
       x_i        & \text{valor da $i$-ésima observação} \\
-      \sum_{i=1}^n x & \text{soma de todas as observações} \\
+      \sum_{i=1}^n x_i & \text{soma de todas as observações} \\
       \bar x     & \text{símbolo que representa a média aritmética simples}
     \end{cases}
 \end{equation*}
@@ -103,7 +103,7 @@ Assim,
 
 ```{=tex}
 \begin{equation*}
-\bar x = \frac{\text{soma de todas as observações}}{{n}} = \frac{\sum_{i=1}^n x}{n}
+\bar x = \frac{\text{soma de todas as observações}}{{n}} = \frac{x_1 + x_2 + \ldots + x_n}{n}= \frac{\sum_{i=1}^n x_i} {n}
 \end{equation*}
 ```
 ```{r echo=F}
@@ -126,7 +126,7 @@ mean(c(1.3, 0.7, 5.8, 2.4, 1.2))
 
 ### Mediana
 
-A mediana de um conjunto de dados é definida como sendo o "valor do meio" desse conjunto de dados, dispostos em ordem crescente, deixando metade dos valores acima dela e metade dos valores abaixo dela.
+A mediana de um conjunto de dados é definida como sendo o "valor do meio" desse conjunto de dados, dispostos em ordem crescente, que deixa metade dos valores acima dele e metade dos valores abaixo dele.
 
 Como calcular a mediana? Basta seguir sua definição. Vejamos:
 
@@ -160,7 +160,7 @@ Uma maneira alternativa de representar o que é "típico" é através do valor m
 Como calcular a moda? Basta verificar o valor que "aparece" mais vezes. Vejamos:
 
 -   No conjunto de dados (`r dados_ex3`), há apenas uma moda, o valor $5$, portanto o conjunto de dados é **unimodal**.
--   No conjunto de dados (`r dados_ex4`), existem duas modas, os valores $2$ e $6$, portanto o conjunto de dados é **bimodal**.
+-   No conjunto de dados (`r dados_ex4`), existem duas modas, os valores $2$ e $6$, portanto o conjunto de dados é **bimodal**. Caso existam mais de duas modas, diremos que o conjunto de dados é **multimodal**.
 -   Nem sempre a moda existe ou faz sentido, no conjunto de dados (`r dados_ex5`), não existe um valor mais frequente que os demais, portanto o conjunto de dados é **amodal**.
 
 Para usar a função que calcula a moda ($\texttt{Mode}$) no $\texttt{R}$ temos que instalar e carregar o pacote $\texttt{pracma}$:
@@ -178,10 +178,10 @@ A moda é também a única das medidas de tendência central que faz sentido no 
 
 As medidas de tendência central (média, mediana, moda) conseguem resumir em um único número, o valor que é "típico" no conjunto de dados. Mas, será que, somente com essas medidas, conseguimos descrever adequadamente o que ocorre em um conjunto de dados?
 
-Vejamos um exemplo: quando pesamos algo em uma balança, esperamos que ela nos dê o verdadeiro peso daquilo que estamos pesando. No entanto, se fizermos várias medições do peso de um mesmo objeto em uma mesma balança, teremos diferentes valores para o peso deste objeto. Ou seja, existe variabilidade nas medições de peso fornecidas pela balança. Neste caso, quanto menor a variabilidade desses valores, mais precisa é a balança (considerando que a média das medidas de peso coincida como seu valor real). Observe na Figura abaixo, onde estão representadas as distribuições das medições do peso de uma esfera de 1000g, feitas por duas balanças (A e B). As duas balanças registram o mesmo peso médio de 1000g (média dos pesos de todas as medições feitas). Isto é, as duas balanças tipicamente acertam o verdadeiro peso da esfera. Porém, pela Figura, podemos notar que
+**Vejamos um exemplo**: quando pesamos algo em uma balança, esperamos que ela nos dê o verdadeiro peso daquilo que estamos pesando. No entanto, se fizermos várias medições do peso de um mesmo objeto em uma mesma balança, teremos diferentes valores para o peso deste objeto. Ou seja, existe variabilidade nas medições de peso fornecidas pela balança. Neste caso, quanto menor a variabilidade desses valores, mais precisa é a balança (considerando que a média das medidas de peso coincida como seu valor real). Observe na Figura abaixo, onde estão representadas as distribuições das medições do peso de uma esfera de 1000g, feitas por duas balanças (A e B). As duas balanças registram o mesmo peso médio de 1000g (média dos pesos de todas as medições feitas). Isto é, as duas balanças tipicamente acertam o verdadeiro peso da esfera. Porém, pela Figura, podemos notar que:
 
--   as medições da balança A *variam pouco* em torno de 1000g: oscilam bastante entre cerca de 950g e 1050g (uma "imprecisão" de 50g)
--   as medições da balança B *variam muito* em torno de 1000g: oscilam basicamente entre 900g e 1100g (uma "imprecisão" de 100g)
+-   As medições da balança **A** *variam pouco* em torno de 1000g: oscilam bastante entre cerca de 950g e 1050g (uma "imprecisão" de 50g)
+-   As medições da balança **B** *variam muito* em torno de 1000g: oscilam basicamente entre 900g e 1100g (uma "imprecisão" de 100g)
 
 ```{r echo=F, warning=F, message=F, fig.width=4, fig.height=2}
 library(ggplot2)
@@ -262,7 +262,7 @@ No entanto, os sinais dos desvios não são importantes para nossa medida de dis
 ```
 Para os dados do exemplo, teremos $46/(10-1)=5,11$. Esse valor pode ser visto como uma quase-média dos desvios ao quadrado e é chamado de **variância**.
 
-A variância seria nossa medida de variabilidade se não fosse o fato de que ela está expressa em uma unidade diferente da unidade dos dados, pois, ao elevarmos os desvios ao quadrado, elevamos também as unidades de medida em que eles estão expressos. No caso dos dados do exemplo, medidos em número de filhos, a variância vale $5,11$ "filhos ao quadrado", algo que não faz nenhum sentido.
+A variância seria nossa medida de variabilidade se não fosse o fato de que ela está expressa em uma unidade diferente da unidade dos dados, pois, ao elevarmos os desvios ao quadrado, elevamos também as unidades de medida em que eles estão expressos. No caso dos dados do exemplo, medidos em número de filhos, a variância vale $5,11$ "filhos ao quadrado", algo que à luz das unidades do conjunto de dados não é interpretável.
 
 Para eliminar esse problema, extraímos a raiz quadrada da variância e, finalmente, temos a nossa medida de variabilidade, que chamaremos desvio-padrão (DP).
 
@@ -273,7 +273,7 @@ DP=\sqrt{\frac{\sum_{i=1}^n (x_i-\bar x)^2}{n-1}}
 ```
 O desvio-padrão, como o nome já diz, representa o desvio típico dos dados em relação à média, escolhida como medida de tendência central. No exemplo, temos que o desvio padrão vale $2,26$. Isto significa que a distância típica (padrão) de cada mãe até o número médio de filhos (4 filhos) é de 2,26 filhos. Quanto maior o desvio-padrão, mais diferentes entre si serão as quantidades de filhos de cada mãe.
 
-O desvio-padrão, em alguns livros chamado de $s$, é uma medida sempre positiva. Se observarmos a maneira como ele é calculado, veremos que não há como obter um valor negativo.
+O desvio-padrão, em alguns livros recebe a notação de $s$, e sempre é uma medida positiva. Se observarmos a maneira como ele é calculado, veremos que não há como obter um valor negativo.
 
 Fazendo no $\texttt{R}$:
 
@@ -300,7 +300,7 @@ Os bifes desse restaurante pesam, em média, 190 gramas, com um desvio-padrão d
 
 Para casos como esse, os agentes fiscalizadores podem estabelecer parâmetros (valores) para saber até quanto a média pode se desviar do valor correto e o quanto de variação eles podem permitir numa amostra para concluir que o processo de produção de bifes não possui problemas. Por exemplo, a média da amostra não poderia ser inferior a 198 gramas, com um desvio-padrão que não seja superior a 5% dessa média.
 
-Essas idéias são utilizadas no controle do processo de produção das indústrias, onde já se espera alguma variação entre as unidades produzidas. Porém, essa variação deve estar sob controle. Numa indústria farmacêutica, por exemplo, espera-se que os comprimidos de uma certa droga sejam produzidos com uma certa variação em sua composição (maior ou menor quantidade do princípio ativo), devido à própria maneira como os comprimidos são produzidos (máquinas, pessoas etc.). No entanto, esta variação deve ser pequena, para que não sejam produzidos comprimidos inócuos (com pouco do princípio ativo) ou com extra-dosagem do princípio ativo, o que, em ambos os casos, pode causar sérias complicações à saúde do paciente.
+Essas idéias são utilizadas no processo de controle e qualidade de produção das indústrias, onde já se espera alguma variação entre as unidades produzidas. Porém, essa variação deve estar sob controle. Numa indústria farmacêutica, por exemplo, espera-se que os comprimidos de uma certa droga sejam produzidos com uma certa variação em sua composição (maior ou menor quantidade do princípio ativo), devido à própria maneira como os comprimidos são produzidos (máquinas, pessoas etc.). No entanto, esta variação deve ser pequena, para que não sejam produzidos comprimidos inócuos (com pouco do princípio ativo) ou com extra-dosagem do princípio ativo, o que, em ambos os casos, pode causar sérias complicações à saúde do paciente.
 
 O desvio-padrão nos permite distinguir numericamente conjuntos de dados de mesmo tamanho, mesma média, mas que são visivelmente diferentes. Usando o desvio-padrão, também conseguimos representar numericamente a variabilidade das medições das balanças A e B, que, apesar de possuírem a mesma média, possuem variabilidades bastante diferentes.
 
@@ -320,7 +320,7 @@ Assim, antes de responder se um desvio-padrão de 10 unidades é grande ou peque
 -   No primeiro caso, o desvio-padrão corresponde a 0,1% da média
 -   No segundo caso, o desvio-padrão corresponde a 10% da média
 
-À essa razão entre o desvio-padrão e a média damos o nome de **Coeficiente de Variação**:
+Desta forma, a razão entre o desvio-padrão e a média recebe o nome de **Coeficiente de Variação**:
 
 ```{=tex}
 \begin{equation*}
@@ -363,11 +363,11 @@ Considere o trecho a seguir, sobre a posição do Brasil, entre os países do mu
 
 <center>
 
-*O Brasil obviamente não é país rico, mas também não está entre os mais pobres.* $\ldots$ Mais de três quartos da população mundial vivem em países de renda per capita menor
+*O Brasil obviamente não é país rico, mas também não está entre os mais pobres.* $\ldots$ Mais de três quartos da população mundial vivem em países de renda per capita menor.
 
 </center>
 
-Neste caso, o posição do Brasil é dada pela quantidade de países que têm renda per capita menores que o Brasil, a saber três quartos ou $75\%$. O mesmo tipo de raciocínio fazemos quando dizemos que certo aluno está entre os $5\%$ melhores do colégio. Não precisamos nem saber quantos alunos tem o colégio ou em quantos países estão sendo consideradas as rendas. Aqui já houve uma padronização da posição usando-se a porcentagem de alunos ou países com desempenho ou renda abaixo do valor considerado. É este raciocínio que define os percentis.
+Neste caso, a posição do Brasil é dada pela quantidade de países que têm renda per capita menores que o Brasil, a saber três quartos ou $75\%$. O mesmo tipo de raciocínio fazemos quando dizemos que certo aluno está entre os $5\%$ melhores do colégio. Não precisamos nem saber quantos alunos tem o colégio ou em quantos países estão sendo consideradas as rendas. Aqui já houve uma padronização da posição usando-se a porcentagem de alunos ou países com desempenho ou renda abaixo do valor considerado. É este raciocínio que define os percentis.
 
 \textbf{O percentil de ordem $K$ (onde $k$ é qualquer valor entre $0$ e $100$), denotado por $P_k$, é o valor tal que $K\%$ dos valores do conjunto de dados são menores ou iguais a ele.}
 
@@ -377,7 +377,7 @@ Os percentil de ordem $10,20,30,\ldots,90$ dividem o conjunto de dados em dez pa
 
 Os percentis de ordem $25,50$ e $75$ dividem o conjunto de dados em quatro partes com o mesmo número de observações. Assim, estes três percentis recebem o nome de quartis -- **primeiro quartil (Q1), segundo quartil (Q2) e terceiro quartil (Q3)**, respectivamente. O segundo quartil é a já conhecida mediana.
 
-Existem vários processos para calcular os percentis, usando interpolação. Vamos ficar com um método mais simples, mostrado na Figura a seguir. As diferenças serão muito pequenas e desaparecerão à medida que aumenta o número de dados.
+Existem vários processos para calcular os percentis, entre eles, usando interpolação. Vamos ficar com um método mais simples, mostrado na Figura a seguir. As diferenças serão muito pequenas e desaparecerão à medida que aumenta o número de dados.
 
 ```{r echo=F}
 knitr::include_graphics("fluxograma_percentil.png", dpi=500)

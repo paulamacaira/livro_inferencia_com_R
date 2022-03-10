@@ -2,12 +2,15 @@
 
 Já sabemos que as variáveis de um estudo dividem-se em quatro tipos:
 
-- **Qualitativas**:
-  + nominais
-  + ordinais
-- **Quantitativas**:
-  + discretas
-  + contínuas
+-   **Qualitativas**:
+
+    -   Nominais
+    -   Ordinais
+
+-   **Quantitativas**:
+
+    -   Discretas
+    -   Contínuas
 
 Os dados gerados por esses tipos de variáveis são de naturezas diferentes e devem receber tratamentos diferentes. Portanto, vamos estudar as ferramentas mais adequadas para cada tipo de dados, separadamente.
 
@@ -30,8 +33,7 @@ kable(dt, "latex", booktabs = T,
   column_spec(2:3, width = "2.5cm")
 ```
 
-Quando a variável tabelada for do tipo qualitativa ordinal, as linhas da tabela de frequências devem ser dispostas na ordem existente para as categorias. A tabela abaixo mostra a distribuição de
-frequências das coletas segundo o mês de observação na base de dados $\texttt{airquality}$, que é uma variável qualitativa ordinal. Nesse caso, podemos acrescentar mais duas colunas com as frequências acumuladas (absoluta e relativa), que mostram, para cada mês, a frequência das coletas até aquele mês. Por exemplo, até o mês de julho, foram coletadas 92 amostras, o que representa 60,13% do total de amostras coletadas.
+Quando a variável tabelada for do tipo qualitativa ordinal, as linhas da tabela de frequências devem ser dispostas na ordem existente para as categorias. A tabela abaixo mostra a distribuição de frequências das coletas segundo o mês de observação na base de dados $\texttt{airquality}$, que é uma variável qualitativa ordinal. Nesse caso, podemos acrescentar mais duas colunas com as frequências acumuladas (absoluta e relativa), que mostram, para cada mês, a frequência das coletas até aquele mês. Por exemplo, até o mês de julho, foram coletadas 92 amostras, o que representa 60,13% do total de amostras coletadas.
 
 ```{r echo=F, warning=F, message=F, fig.width=4, fig.height=2, fig.align='center'}
 dt = tibble(
@@ -217,26 +219,26 @@ Os histogramas das figuras acima têm exatamente a mesma forma, apesar de serem 
 
 Para o desenvolvimento do histograma:
 
-- Calcule a amplitude dos dados
-- Defina a quantidade de classes (as barras verticais). Não existe uma regra, porém uma boa aproximação seria calcular a raiz quadrada da quantidade de dados ($\sqrt n$)
-- Calcule o intervalo das classes dividindo a amplitude pela quantidade de classes
-- Determine os limites das classes. Selecione o valor mínimo dos dados (se for mais viável, ele pode ser arredondado para baixo) e soma o valor do intervalo de classe para obter o limite superior
-- Faça o passo anterior para todas as classes
-- Calcule a frequência dos dados que pertence a cada intervalo
+-   Calcule a amplitude dos dados
+-   Defina a quantidade de classes (as barras verticais). Não existe uma regra, porém uma boa aproximação seria calcular a raiz quadrada da quantidade de dados ($\sqrt n$)
+-   Calcule o intervalo das classes dividindo a amplitude pela quantidade de classes
+-   Determine os limites das classes. Selecione o valor mínimo dos dados (se for mais viável, ele pode ser arredondado para baixo) e soma o valor do intervalo de classe para obter o limite superior
+-   Faça o passo anterior para todas as classes
+-   Calcule a frequência dos dados que pertence a cada intervalo
 
 Este é o passo a passo básico para a elaboração de um Histograma, que seja capaz de lhe trazer informações precisas sobre a frequência com que algo acontece em um determinado contexto.
 
 Ao estudarmos a distribuição de frequências de uma variável quantitativa, seja em um grupo apenas ou comparando vários grupos, devemos verificar basicamente três características:
 
-- Tendência Central;
-- Variabilidade;
-- Forma.
+-   Tendência Central;
+-   Variabilidade;
+-   Forma.
 
 Tais características podem ser quantificadas através das medidas de síntese numérica ou visualizadas a partir do histograma.
 
 ### Tendência Central
 
-A tendência central da distribuição de frequências de uma variável é caracterizada pelo valor (ou faixa de valores) "típico" da variável. 
+A tendência central da distribuição de frequências de uma variável é caracterizada pelo valor (ou faixa de valores) "típico" da variável.
 
 Uma das maneiras de representar o que é "típico" é através do valor mais frequente da variável, chamado de moda. Ou, no caso da tabela de frequências, a classe de maior frequência, chamada de classe modal. No histograma, esta classe corresponde àquela com barra mais alta ("pico").
 
@@ -329,10 +331,10 @@ Quando uma distribuição é simétrica em torno de um valor (o mais frequente),
 
 A assimetria de uma distribuição pode ocorrer de duas formas:
 
-- quando os valores concentram-se à esquerda (assimetria com concentração à esquerda ou assimetria com cauda à direita);
-- quando os valores concentram-se à direita (assimetria com concentração à direita ou com assimetria cauda à esquerda);
+-   quando os valores concentram-se à esquerda (assimetria com concentração à esquerda ou assimetria com cauda à direita);
+-   quando os valores concentram-se à direita (assimetria com concentração à direita ou com assimetria cauda à esquerda);
 
-Ao definir a assimetria de uma distribuição, algumas pessoas preferem se referir ao lado onde está a concentração dos dados. Porém, outras pessoas preferem se referir ao lado onde está “faltando” dados (cauda). As duas denominações são alternativas. 
+Ao definir a assimetria de uma distribuição, algumas pessoas preferem se referir ao lado onde está a concentração dos dados. Porém, outras pessoas preferem se referir ao lado onde está "faltando" dados (cauda). As duas denominações são alternativas.
 
 Em alguns casos, apenas o conhecimento da forma da distribuição de frequências de uma variável já nos fornece uma boa informação sobre o comportamento dessa variável. Por exemplo, o que você acharia se soubesse que a distribuição de frequências das notas da primeira prova da disciplina de Estatística que você está cursando é, geralmente, assimétrica com concentração à direita? Como você acha que é a forma da distribuição de frequências da renda no Brasil?
 
@@ -356,9 +358,9 @@ No exemplo da imagem acima o segundo caso aconteceu, assim os valores que ainda 
 
 Além da detecção de valores discrepantes, o boxplot pode ser muito útil na análise da distribuição dos valores de um conjunto de dados. Através do boxplot, podemos:
 
-- identificar a forma da distribuição (simétrica ou assimétrica);
-- avaliar e comparar a tendência central (mediana) de dois ou mais conjuntos de dados;
-- comparar a variabilidade de dois ou mais conjuntos de dados
+-   identificar a forma da distribuição (simétrica ou assimétrica);
+-   avaliar e comparar a tendência central (mediana) de dois ou mais conjuntos de dados;
+-   comparar a variabilidade de dois ou mais conjuntos de dados
 
 Para avaliar a forma da distribuição, devemos observar o deslocamento da caixa em relação a linha do boxplot. Lembrando que a caixa do boxplot contém 50% dos dados, o seu deslocamento na linha nos informa onde estão concentrados os dados.
 
@@ -420,10 +422,10 @@ dados %>%
   geom_text(aes(x = Variável.X, y = Variável.Y, label = Indivíduos),nudge_x = -0.15)
 ```
 
-O diagrama de dispersão é usado principalmente para visualizar a relação/associação entre duas variáveis, mas também para é muito útil para: 
+O diagrama de dispersão é usado principalmente para visualizar a relação/associação entre duas variáveis, mas também para é muito útil para:
 
-- Comparar o efeito de dois tratamentos no mesmo indivíduo
-- Verificar o efeito tipo antes/depois de um tratamento
+-   Comparar o efeito de dois tratamentos no mesmo indivíduo
+-   Verificar o efeito tipo antes/depois de um tratamento
 
 A seguir, veremos dois exemplos da utilização do diagrama de dispersão. O primeiro refere-se ao estudo da associação entre duas variáveis. O segundo utiliza o diagrama de dispersão para comparar o efeito da aplicação de um tratamento, comparando as medidas antes e depois da medicação.
 
@@ -489,9 +491,9 @@ dados %>%
   labs(x = "Quantidade de Frutos",y = "Peso do Fruto (g)")
 ```
 
-O diagrama de dispersão mostra-nos dois fatos. O primeiro, que há um decréscimo no valor médio do peso do fruto por árvore à medida que cresce o número de frutos na árvore. Ou seja, não é vantagem uma árvore produzir muitos frutos, pois eles tenderão a ser muito pequenos. 
+O diagrama de dispersão mostra-nos dois fatos. O primeiro, que há um decréscimo no valor médio do peso do fruto por árvore à medida que cresce o número de frutos na árvore. Ou seja, não é vantagem uma árvore produzir muitos frutos, pois eles tenderão a ser muito pequenos.
 
-O segundo fato que percebemos é que, com o aumento no número de frutos na árvore, cresce também a variabilidade no peso, gerando tanto frutos muito grandes, como muito pequenos. 
+O segundo fato que percebemos é que, com o aumento no número de frutos na árvore, cresce também a variabilidade no peso, gerando tanto frutos muito grandes, como muito pequenos.
 
 Assim, conclui-se que não é vantagem ter poucas plantas produzindo muito frutos, mas sim muitas plantas produzindo poucos frutos, mas grandes e uniformes. Uma análise mais detalhada poderá determinar o número ideal de frutos por árvore, aquele que maximiza o peso médio e, ao mesmo tempo, minimiza a variabilidade do peso.
 
@@ -557,16 +559,16 @@ dados %>%
 
 De maneira geral, um gráfico de linhas deve ser construído de modo que:
 
-- O início do eixo vertical seja o valor mínimo possível para a variável que está sendo representada, para evitar as distorções
-- O final do eixo vertical seja tal que a série fica centrada em relação ao eixo vertical
-- Os tamanhos dos eixos sejam o mais parecidos possível
+-   O início do eixo vertical seja o valor mínimo possível para a variável que está sendo representada, para evitar as distorções
+-   O final do eixo vertical seja tal que a série fica centrada em relação ao eixo vertical
+-   Os tamanhos dos eixos sejam o mais parecidos possível
 
 ## Gráfico de Radar
 
 O gráfico de radar é um diagrama e/ou gráfico que consiste de uma sequência de raios equi-angulares, com cada raio representando uma das variáveis. O comprimento de cada raio é proporcional à magnitude da variável para o ponto de dados em relação à máxima magnitude da variável em todos os pontos. Uma linha é desenhada ligando os valores de cada raio. Isso dá ao diagrama uma aparência de estrela, o que deu origem a um dos nomes mais populares para este gráfico. O gráfico de estrela pode ser usado para responder as seguintes questões:
 
-- Que observações são mais semelhantes, por exemplo, existem clusters de observações? 
-- Existem exceções?
+-   Que observações são mais semelhantes, por exemplo, existem clusters de observações?
+-   Existem exceções?
 
 Gráficos de radar oferecem uma maneira útil de exibir observações multivariáveis com um número arbitrário de variáveis. Cada estrela representa uma única observação. Normalmente, os gráficos de radar são gerados em um formato multi-diagrama com muitas estrelas em cada página, cada estrela representando uma observação. É um pouco mais fácil de ver padrões em dados se as observações forem organizadas em alguma ordem não-arbitrária (se as variáveis forem atribuídas aos raios da estrela em uma ordem significativa).
 
