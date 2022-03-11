@@ -174,3 +174,15 @@ multicolinearidade
 teste-de-hipóteses-vs-intervalo-de-confiança-1
 fig:unnamed-chunk-1
 tab:unnamed-chunk-3
+primeiros-passos
+introdução
+instalando-o-r
+passo-a-passo-da-instalação
+instalando-o-textttrstudio
+passo-a-passo-para-a-instalação-textttrstudio
+usando-o-textttrstudio-cloud
+criação-de-projetos
+passos-para-a-criação
+manipulação-simples-no-console
+pacotes
+outros-recursos

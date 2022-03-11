@@ -386,6 +386,28 @@ div.csl-indent {
 <li class="chapter" data-level="9.10.6" data-path="regressão-linear.html"><a href="regressão-linear.html#análise-de-colinearidade-e-multicolinearidade"><i class="fa fa-check"></i><b>9.10.6</b> Análise de Colinearidade e Multicolinearidade</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="primeiros-passos.html"><a href="primeiros-passos.html"><i class="fa fa-check"></i><b>10</b> Primeiros Passos</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="primeiros-passos.html"><a href="primeiros-passos.html#introdução"><i class="fa fa-check"></i><b>10.1</b> Introdução</a></li>
+<li class="chapter" data-level="10.2" data-path="primeiros-passos.html"><a href="primeiros-passos.html#instalando-o-r"><i class="fa fa-check"></i><b>10.2</b> Instalando o R</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="primeiros-passos.html"><a href="primeiros-passos.html#passo-a-passo-da-instalação"><i class="fa fa-check"></i><b>10.2.1</b> Passo a passo da instalação</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="primeiros-passos.html"><a href="primeiros-passos.html#instalando-o-textttrstudio"><i class="fa fa-check"></i><b>10.3</b> Instalando o <span class="math inline">\(\texttt{RStudio}\)</span></a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="primeiros-passos.html"><a href="primeiros-passos.html#passo-a-passo-para-a-instalação-textttrstudio"><i class="fa fa-check"></i><b>10.3.1</b> Passo a passo para a instalação <span class="math inline">\(\texttt{RStudio}\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="primeiros-passos.html"><a href="primeiros-passos.html#usando-o-textttrstudio-cloud"><i class="fa fa-check"></i><b>10.4</b> Usando o <span class="math inline">\(\texttt{RStudio}\)</span> Cloud</a></li>
+<li class="chapter" data-level="10.5" data-path="primeiros-passos.html"><a href="primeiros-passos.html#criação-de-projetos"><i class="fa fa-check"></i><b>10.5</b> Criação de Projetos</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="primeiros-passos.html"><a href="primeiros-passos.html#passos-para-a-criação"><i class="fa fa-check"></i><b>10.5.1</b> Passos para a criação</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="primeiros-passos.html"><a href="primeiros-passos.html#manipulação-simples-no-console"><i class="fa fa-check"></i><b>10.6</b> Manipulação simples no <strong>Console</strong></a></li>
+<li class="chapter" data-level="10.7" data-path="primeiros-passos.html"><a href="primeiros-passos.html#pacotes"><i class="fa fa-check"></i><b>10.7</b> Pacotes</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="primeiros-passos.html"><a href="primeiros-passos.html#outros-recursos"><i class="fa fa-check"></i><b>10.7.1</b> Outros recursos</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://paulamacaira.github.io/livro_inferencia_com_R" target="blank">Published with bookdown</a></li>
 
@@ -408,28 +430,28 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="analise_descritiva" class="section level1" number="1">
 <h1><span class="header-section-number">Capítulo 1</span> Análise Descritiva</h1>
-<p>A Indútria 4.0, ou quarta Revolução Industrial, é a continuação do aperfeiçoamento das máquinas, um processo que começou com a primeira Revolução Industrial e nunca mais parou. Podemos dizer que a Indústria 4.0 é a realidade na qual a tecnologia industrial está cada vez mais eficiente, mais inteligente, mais rápida e mais precisa. O termo é utilizado para caracterizar a utilização do que há de mais moderno para produzir bens de consumo: <em>Big Data</em>, internet das coisas (<em>Internet of Things</em>, <em>IoT</em>), inteligência artificial e muito mais.</p>
-<p>O <em>Big Data</em> é um conceito muito importante e que vem ganhando bastante notoriedade nos últimos anos. É o termo em Tecnologia da Informação (TI) que trata sobre grandes conjuntos de dados (em volume e variadade) que precisam ser processados e armazenados de maneira eficiente. É um conceito-chave para a Indústria 4.0, pois são esses dados que permitem às máquinas trabalharem com maior eficiência.</p>
-<p>Os Dados sozinhos não podem dizer muita coisa. Por exemplo, eu posso te dizer que minha cor favorita é verde, mas isso não te faz concluir muito sobre a minha personalidade. Porém, se eu te der uma pequena tabela em Excel com alguns dos meus livros favoritos, provavelmente você terá conclusões mais significativas sobre mim. O que aconteceu foi que você, munido da sua capacidade mental e analítica, aliada a uma certa quantidade de dados foi capaz de tirar alguns insights sobre um assunto (minha preferência de leitura). É exatamente aí que está a beleza e a grandiosidade da chamada “Era do <em>Big Data</em>.”</p>
+<p>A Indústria 4.0, ou quarta Revolução Industrial, é a continuação do aperfeiçoamento das máquinas, um processo que começou com a primeira Revolução Industrial e nunca mais parou. Podemos dizer que a Indústria 4.0 é a realidade na qual a tecnologia industrial está cada vez mais eficiente, mais inteligente, mais rápida e mais precisa. O termo é utilizado para caracterizar a utilização do que há de mais moderno para produzir bens de consumo: <em>Big Data</em>, internet das coisas (<em>Internet of Things</em>, <em>IoT</em>), inteligência artificial e muito mais.</p>
+<p>O <em>Big Data</em> é um conceito muito importante e que vem ganhando bastante notoriedade nos últimos anos. É o termo em Tecnologia da Informação (TI) que trata sobre grandes conjuntos de dados (em volume e variedade) que precisam ser processados e armazenados de maneira eficiente. É um conceito-chave para a Indústria 4.0, pois são esses dados que permitem às máquinas trabalharem com maior eficiência.</p>
+<p>Os Dados sozinhos não podem dizer muita coisa. Por exemplo, eu posso te dizer que minha cor favorita é verde, mas isso não te faz concluir muito sobre a minha personalidade. Porém, se eu te der uma pequena tabela em Excel com alguns dos meus livros favoritos, provavelmente você terá conclusões mais significativas sobre mim. O que aconteceu foi que você, munido da sua capacidade mental e analítica, aliada a uma certa quantidade de dados foi capaz de tirar alguns insights sobre um assunto (minha preferência de leitura). É exatamente aí que está a beleza e a grandiosidade da chamada “Era do <em>Big Data</em>”.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="dados_sabedoria.jpg" alt="O caminho para construção do conhecimento se baseia em dados, a capacidade analítca e domínio do tema"  />
 <p class="caption">
 Figure 1.1: O caminho para construção do conhecimento se baseia em dados, a capacidade analítca e domínio do tema
 </p>
 </div>
-<p>Apesar do term <em>Big Data</em> representar uma variedade de conceitos e ferramentas, estamos falando basicamente de <u>análise de dados</u>. De fato, isso não é nenhuma novidade. Há muitos anos a humanidade coleta dados para serem analisados. A grande inovação está em aliar os métodos tradicionais de análise de dados e suas limitações aos modernos recursos de hardware de alto processamento. Dessa forma, a evolução tecnológica atual permitiu transitar todos esses cálculos e análises por meio de softwares desenvolvidos especificamente para lidar enormes quantidades de dados. Uma solução de <em>Big Data</em> funciona com algoritmos complexos e adaptações/melhorias dos métodos tradicionais a fim de processar a informação e obter como saída os mais diversos tipos de insights.</p>
-<p>A <strong>Análise Descritiva</strong> é a fase inicial deste processo de estudo dos dados coletados. Nesta fase, utilizamos métodos de Estatística Descritiva para organizar, resumir e descrever os aspectos importantes de um conjunto de características observadas. Dessa forma, é possível identificar padrões e/ou tendências dessas características, bem como comparaá-las entre dois ou mais conjuntos. Algumas das <strong>principais ferramentas de estatística descritiva</strong> são: <strong>medidas de síntese da informação</strong>, tais como médias, frequência, porcentagens e índices, assim como <strong>ferramentas de visualização de dados</strong> - uma varidade enorme de gráficos e tabelas.</p>
+<p>Apesar do termo <em>Big Data</em> representar uma variedade de conceitos e ferramentas, estamos falando basicamente de <u>análise de dados</u>. De fato, isso não é nenhuma novidade. Há muitos anos a humanidade coleta dados para serem analisados. A grande inovação está em aliar os métodos tradicionais de análise de dados e suas limitações aos modernos recursos de hardware de alto processamento. Dessa forma, a evolução tecnológica atual permitiu transitar todos esses cálculos e análises por meio de softwares desenvolvidos especificamente para lidar com enormes quantidades de dados. Uma solução de <em>Big Data</em> funciona com algoritmos complexos e adaptações/melhorias dos métodos tradicionais a fim de processar a informação e obter como saída os mais diversos tipos de insights.</p>
+<p>A <strong>Análise Descritiva</strong> é a fase inicial deste processo de estudo dos dados coletados. Nesta fase, utilizamos métodos de Estatística Descritiva para organizar, resumir e descrever os aspectos importantes de um conjunto de características observadas. Dessa forma, é possível identificar padrões e/ou tendências dessas características, bem como compará-las entre dois ou mais conjuntos. Algumas das <strong>principais ferramentas de estatística descritiva</strong> são: <strong>medidas de síntese da informação</strong>, tais como médias, frequência, porcentagens e índices, assim como <strong>ferramentas de visualização de dados</strong> - uma varidade enorme de gráficos e tabelas.</p>
 <p>No processo de síntese dos dados, perde-se informação, pois não se têm mais as observações originais. Entretanto, esta perda é pequena se comparada ao ganho que se tem com a clareza da interpretação proporcionada por uma medida. Por exemplo, saber a temperatura média ou a probabilidade de chuva deste momento te dá informações suficientes para escolher um agasalho correto, sem precisar coletar e analisar o valor medido a cada segundo ou minuto.</p>
-<p>A descrição dos dados também tem como objetivo identificar anomalias e inconsistências. Anomalias correspondem aqueles valores medidos que não seguem a tendência geral do restante do conjunto de dados como, por exemplo, uma mudança brusca de temperatura média por conta de uma geada ou uma queda no valor de uma ação por conta de mudanças na conjuntura econômica. Já inconsistências correspondem a valores medidos que forma registrados de maneira incorreta no banco de dados. Um exemplo muito comum de inconsistência são valores faltantes (<em>missing values</em>).</p>
-<p>Não só nos artigos técnicos direcionados para pesquisadores, mas também nos artigos de jornais e revistas, escritos para o público leigo. Diversas visulizações de dados são criadas por cientistas de dados em jornais para resumir de maneira intuitiva ou lúdica algumas das principais informações complementar a apresentação de um fato, justificar ou referendar um argumento.</p>
+<p>A descrição dos dados também tem como objetivo identificar anomalias e inconsistências. Anomalias correspondem aqueles valores medidos que não seguem a tendência geral do restante do conjunto de dados como, por exemplo, uma mudança brusca de temperatura média por conta de uma geada, ou também por exemplo uma queda no valor de uma ação por conta de mudanças na conjuntura econômica. Já inconsistências correspondem a valores medidos que forma registrados de maneira incorreta no banco de dados. Um exemplo muito comum de inconsistência são valores faltantes (<em>missing values</em>).</p>
+<p>Diversas visualizações de dados são criadas por cientistas de dados em jornais para resumir de maneira intuitiva ou lúdica algumas das principais informações complementar a apresentação de um fato, justificar ou referendar um argumento. Não só nos artigos técnicos direcionados para pesquisadores, mas também nos artigos de jornais e revistas, escritos para o público leigo.</p>
 <p>Durante a pandemia da COVID-19, por exemplo, foram publicadas ótimas visualizações de dados de evolução dos casos e óbitos. Uma das mais conhecidas delas é o gráfico de John Burn-Murdoch no Financial Times mostrando a evolução da pandemia em diversos países. Esta é uma ótima visualização e ajudou a apresentar gráficos em escala logarítimica para um público amplo. Outro exemplo são <a href="https://www.nytimes.com/spotlight/graphics">as visualizações geradas no <em>New York Times</em></a></p>
 <p><img src="financial_times.jpg" style="display: block; margin: auto;" /></p>
-<p>Ao mesmo tempo em que o uso das ferramentas estatísticas vem crescendo, aumenta também o abuso de tais ferramentas. É muito comum ver em jornais e revistas, até mesmo em periódicos científicos, gráficos - voluntariamente ou intencionalmente - enganosos e estatísticas obscuras para justificar argumentos polêmicos. Dessa forma, o conhecimento sobre as ferramentas descritivas, aliado a capacidade analítica e a experiência sobre determinado assunto, tornam-se importantes para um melhor compreedimento do dado mostrado.</p>
+<p>Ao mesmo tempo em que o uso das ferramentas estatísticas vem crescendo, aumenta também o abuso de tais ferramentas. É muito comum ver em jornais e revistas, até mesmo em periódicos científicos, gráficos - voluntariamente ou intencionalmente - enganosos e estatísticas obscuras para justificar argumentos polêmicos. Dessa forma, o conhecimento sobre as ferramentas descritivas, aliado à capacidade analítica e à experiência sobre determinado assunto, tornam-se importantes para uma melhor compreensão do dado apresentado.</p>
 <p>Neste capítulo iremos mergulhar no mundo da <strong>Análise de Descritiva de Dados</strong>, explorando estatísticas descritivas e análises gráficas com os pacotes mais atuais do software <span class="math inline">\(\texttt{R}\)</span> <span class="citation">(<a href="#ref-R2020" role="doc-biblioref">R Core Team 2020</a>)</span>.</p>
 <div id="coleta-e-armazenamento-de-dados" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Coleta e Armazenamento de Dados</h2>
 <p><strong>Contextualizando - A pandemia de COVID-19</strong></p>
-<p>O primeiro caso da COVID-19 no Brasil foi confirmado em 25 de fevereiro de 2020, em São Paulo. Desde então o Governo Federal do Brasil reporta diariamente o número total de casos e mortes no país para cada Unidade da Federação (UF), que corresponde aos 26 estados mais o Distrito Federal. Os dados de notificações são coletados e disponibilizados diariamente em boletins pelas Secretarias Estaduais de Saúde em seus sites oficiais. Várias iniciativas para consolidar e analisar os dados foram feitas e disponilizadas. Por exemplo, o pesquisador <a href="https://www.wesleycota.com/">Wesley Cota</a> do grupo <a href="https://covid19br.github.io/">Observatório COVID-19BR</a> disponibiliza diversos dados de acompanhamento de casos e óbitos confirmados por COVID-19 em seu repositório <a href="https://github.com/wcota/covid19br">GitHub</a> <span class="citation">(<a href="#ref-CotaCovid19br2020" role="doc-biblioref">Cota 2020</a>)</span>. Os dados são atualizados diariamente de forma sistematizada em uma planilha de dados de sendo de fácil leitura em programa de computador.</p>
+<p>O primeiro caso da COVID-19 no Brasil foi confirmado em 25 de fevereiro de 2020, em São Paulo. Desde então o Governo Federal do Brasil reporta diariamente o número total de casos e mortes no país para cada Unidade da Federação (UF), que corresponde aos 26 estados mais o Distrito Federal. Os dados de notificações são coletados e disponibilizados diariamente em boletins pelas Secretarias Estaduais de Saúde em seus sites oficiais. Várias iniciativas para consolidar e analisar os dados foram feitas e disponilizadas. Por exemplo, o pesquisador <a href="https://www.wesleycota.com/">Wesley Cota</a> do grupo <a href="https://covid19br.github.io/">Observatório COVID-19BR</a> disponibiliza diversos dados de acompanhamento de casos e óbitos confirmados por COVID-19 em seu repositório <a href="https://github.com/wcota/covid19br">GitHub</a> <span class="citation">(<a href="#ref-CotaCovid19br2020" role="doc-biblioref">Cota 2020</a>)</span>. Os dados são atualizados diariamente de forma sistematizada em uma planilha de dados, sendo de fácil leitura em programa de computador.</p>
 <p>Como exemplo, vamos extrair as informações agregadas de casos e óbitos confirmados para o Brasil e suas UFs. Este é o formato mais comum de uma base de dados pronta para análise composta por linhas e colunas: Cada linha contém os dados de uma Unidade da Federação (elemento) e as informações (variáveis) estão dispostas em colunas. Dessa forma, a base de dados contém um número de linhas igual ao número de Unidades da Federação (27) mais o total Brasil e um número de colunas igual ao número de variáveis sendo estudadas.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-3">Table 1.1: </span>Casos e óbitos confirmados por COVID-19 em cada estado brasileiro</caption>
@@ -443,160 +465,160 @@ Figure 1.1: O caminho para construção do conhecimento se baseia em dados, a ca
 <tbody>
 <tr class="odd">
 <td align="right">TOTAL</td>
-<td align="right">27.940.119</td>
-<td align="right">642.156</td>
+<td align="right">29.259.206</td>
+<td align="right">654.380</td>
 </tr>
 <tr class="even">
 <td align="right">AC</td>
-<td align="right">114.823</td>
-<td align="right">1.940</td>
+<td align="right">123.157</td>
+<td align="right">1.987</td>
 </tr>
 <tr class="odd">
 <td align="right">AL</td>
-<td align="right">287.747</td>
-<td align="right">6.566</td>
+<td align="right">293.954</td>
+<td align="right">6.778</td>
 </tr>
 <tr class="even">
 <td align="right">AM</td>
-<td align="right">566.688</td>
-<td align="right">14.083</td>
+<td align="right">577.094</td>
+<td align="right">14.137</td>
 </tr>
 <tr class="odd">
 <td align="right">AP</td>
-<td align="right">159.765</td>
-<td align="right">2.095</td>
+<td align="right">160.198</td>
+<td align="right">2.116</td>
 </tr>
 <tr class="even">
 <td align="right">BA</td>
-<td align="right">1.473.788</td>
-<td align="right">28.779</td>
+<td align="right">1.514.797</td>
+<td align="right">29.446</td>
 </tr>
 <tr class="odd">
 <td align="right">CE</td>
-<td align="right">1.212.653</td>
-<td align="right">25.929</td>
+<td align="right">1.232.805</td>
+<td align="right">26.525</td>
 </tr>
 <tr class="even">
 <td align="right">DF</td>
-<td align="right">669.062</td>
-<td align="right">11.327</td>
+<td align="right">687.358</td>
+<td align="right">11.497</td>
 </tr>
 <tr class="odd">
 <td align="right">ES</td>
-<td align="right">998.482</td>
-<td align="right">13.962</td>
+<td align="right">1.030.538</td>
+<td align="right">14.222</td>
 </tr>
 <tr class="even">
 <td align="right">GO</td>
-<td align="right">1.126.975</td>
-<td align="right">25.443</td>
+<td align="right">1.207.381</td>
+<td align="right">25.955</td>
 </tr>
 <tr class="odd">
 <td align="right">MA</td>
-<td align="right">405.026</td>
-<td align="right">10.662</td>
+<td align="right">417.566</td>
+<td align="right">10.839</td>
 </tr>
 <tr class="even">
 <td align="right">MG</td>
-<td align="right">3.066.431</td>
-<td align="right">58.744</td>
+<td align="right">3.255.023</td>
+<td align="right">60.153</td>
 </tr>
 <tr class="odd">
 <td align="right">MS</td>
-<td align="right">474.331</td>
-<td align="right">10.164</td>
+<td align="right">511.191</td>
+<td align="right">10.430</td>
 </tr>
 <tr class="even">
 <td align="right">MT</td>
-<td align="right">685.324</td>
-<td align="right">14.598</td>
+<td align="right">716.129</td>
+<td align="right">14.793</td>
 </tr>
 <tr class="odd">
 <td align="right">PA</td>
-<td align="right">694.561</td>
-<td align="right">17.611</td>
+<td align="right">733.128</td>
+<td align="right">17.961</td>
 </tr>
 <tr class="even">
 <td align="right">PB</td>
-<td align="right">555.776</td>
-<td align="right">10.002</td>
+<td align="right">584.306</td>
+<td align="right">10.148</td>
 </tr>
 <tr class="odd">
 <td align="right">PE</td>
-<td align="right">781.202</td>
-<td align="right">20.890</td>
+<td align="right">858.568</td>
+<td align="right">21.184</td>
 </tr>
 <tr class="even">
 <td align="right">PI</td>
-<td align="right">360.563</td>
-<td align="right">7.580</td>
+<td align="right">366.414</td>
+<td align="right">7.697</td>
 </tr>
 <tr class="odd">
 <td align="right">PR</td>
-<td align="right">2.243.373</td>
-<td align="right">41.927</td>
+<td align="right">2.374.108</td>
+<td align="right">42.632</td>
 </tr>
 <tr class="even">
 <td align="right">RJ</td>
-<td align="right">1.946.016</td>
-<td align="right">71.074</td>
+<td align="right">2.027.636</td>
+<td align="right">72.093</td>
 </tr>
 <tr class="odd">
 <td align="right">RN</td>
-<td align="right">465.764</td>
-<td align="right">7.971</td>
+<td align="right">483.167</td>
+<td align="right">8.082</td>
 </tr>
 <tr class="even">
 <td align="right">RO</td>
-<td align="right">358.013</td>
-<td align="right">6.990</td>
+<td align="right">382.904</td>
+<td align="right">7.111</td>
 </tr>
 <tr class="odd">
 <td align="right">RR</td>
-<td align="right">150.481</td>
-<td align="right">2.122</td>
+<td align="right">154.405</td>
+<td align="right">2.137</td>
 </tr>
 <tr class="even">
 <td align="right">RS</td>
-<td align="right">2.064.886</td>
-<td align="right">37.784</td>
+<td align="right">2.202.873</td>
+<td align="right">38.647</td>
 </tr>
 <tr class="odd">
 <td align="right">SC</td>
-<td align="right">1.569.584</td>
-<td align="right">21.125</td>
+<td align="right">1.641.437</td>
+<td align="right">21.529</td>
 </tr>
 <tr class="even">
 <td align="right">SE</td>
-<td align="right">317.404</td>
-<td align="right">6.197</td>
+<td align="right">322.025</td>
+<td align="right">6.279</td>
 </tr>
 <tr class="odd">
 <td align="right">SP</td>
-<td align="right">4.898.289</td>
-<td align="right">162.517</td>
+<td align="right">5.100.545</td>
+<td align="right">165.878</td>
 </tr>
 <tr class="even">
 <td align="right">TO</td>
-<td align="right">293.112</td>
-<td align="right">4.074</td>
+<td align="right">300.499</td>
+<td align="right">4.124</td>
 </tr>
 </tbody>
 </table>
-<p>Note que se estivessemos analisando uma base de dados que contém a evolução diária da pademia por UF, então teríamos um conjunto de dados em dados em que cada linha seria o valor de casos e/ou óbitos para cada dia e cada estado, aumentando consideravelmente a dimensão da base (Ex: Progressão diária de cada UF e total Brasil em um ano - 28 UFs x 365 dias = 10.220 linhas!).</p>
+<p>Note que se estivessemos analisando uma base de dados que contém a evolução diária da pademia por UF, então teríamos um conjunto de dados em que cada linha seria o valor de casos e/ou óbitos para cada dia e cada UF, aumentando consideravelmente a dimensão da base (Ex: Progressão diária de cada UF e total Brasil em um ano - 28 UFs x 365 dias = 10.220 linhas!).</p>
 </div>
 <div id="tipos-de-variáveis" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Tipos de Variáveis</h2>
-<p><u><strong>Variável</strong></u> é a característica de interesse que é medida em cada indivíduo da amostra ou população. Como o nome diz, <u>seus valores variam de indivíduo para indivíduo</u>. As variáveis podem ter valores numéricos ou não numéricos.</p>
+<p><u><strong>Variável</strong></u> é a característica ou condição de interesse das unidades/indivíduos da amostra ou população. Como o nome diz, <u>seus valores variam de indivíduo para indivíduo</u>. As variáveis podem ter valores numéricos ou não numéricos.</p>
 <div id="variáveis-quantitativas" class="section level3" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> Variáveis Quantitativas</h3>
 <p><u>São as características que podem ser medidas em uma escala quantitativa</u>, ou seja, apresentam valores numéricos que fazem sentido. Podem ser classificadas como contínuas ou discretas.</p>
 <ul>
-<li><p><strong>Variáveis contínuas</strong>: Características mensuráveis que assumem valores em uma escala contínua (na reta real), para as quais valores não-inteiros (com casas decimais) fazem sentido. Usualmente devem ser medidas através de algum instrumento.</p>
+<li><p><strong>Variáveis contínuas</strong>: Características mensuráveis que assumem valores em uma escala contínua, i.e., em intervalos dos números reais, para as quais valores não-inteiros (com casas decimais) fazem sentido. Usualmente devem ser medidas através de algum instrumento.</p>
 <ul>
 <li>Exemplos: Peso (balança), Altura (régua), Tempo (relógio), Pressão arterial (esfigmomanômetro), Idade (calendário).</li>
 </ul></li>
-<li><p><strong>Variáveis discretas</strong>: características mensuráveis que podem assumir apenas um número finito ou infinito contável de valores e, assim, somente fazem sentido valores inteiros. Geralmente consistem em resultados de contagens.</p>
+<li><p><strong>Variáveis discretas</strong>: características mensuráveis que podem assumir apenas um número finito ou infinito contável de valores e, em geral são considerados os valores inteiros. Geralmente consistem em resultados de contagens.</p>
 <ul>
 <li>Exemplos: Número de filhos, Número de bactérias por litro de leite, Número de casos de uma doença.</li>
 </ul></li>
@@ -607,10 +629,10 @@ Figure 1.1: O caminho para construção do conhecimento se baseia em dados, a ca
 <p><u>São as características definidas por várias categorias, ou seja, representam uma classificação dos indivíduos</u>, ao invés de valores quantitativos. Podem ser nominais ou ordinais.</p>
 <ul>
 <li><strong>Variáveis nominais</strong>: Não existe ordenação entre as categorias. Exemplos: sexo, cor dos olhos, fumante/não fumante, doente/sadio.</li>
-<li><strong>Variáveis ordinais</strong>: Apresentam uma ordenação entre as categorias. Exemplos: escolaridade (“1o,” “2o,” “3o” graus), estágio da doença (“inicial,” “intermediário,” “terminal”), mês de observação (“janeiro,” “fevereiro,”…, “dezembro”).</li>
+<li><strong>Variáveis ordinais</strong>: Apresentam uma ordenação entre as categorias. Exemplos: escolaridade (“1o”, “2o”, “3o” graus), estágio da doença (“inicial”, “intermediário”, “terminal”), mês de observação (“janeiro”, “fevereiro”,…, “dezembro”).</li>
 </ul>
-<p>Uma variável originalmente quantitativa pode ser coletada de forma qualitativa. Por exemplo, a variável idade, medida em anos completos, é quantitativa (contínua). Porém, se for informada apenas a faixa etária (“0 a 5 anos,” “6 a 10 anos,” etc.), ela se torna qualitativa (categórica e ordinal). Outro exemplo é o peso dos lutadores de boxe, uma variável quantitativa (contínua) se trabalhamos com o valor obtido na balança, em kilogramas, mas qualitativa (ordinal) se o classificarmos nas categorias do boxe (“peso-pena,” “peso-leve,” “peso-pesado,” etc.).</p>
-<p>Outro ponto importante é que nem sempre uma variável representada por números é quantitativa, como, por exemplo, o número do telefone de uma pessoa, o número de sua casa, o número de sua identidade. Às vezes o sexo biológico do indivíduo é registrado na planilha de como “1” se macho e “2” se fêmea, por exemplo. Isto não significa que a variável sexo passou a ser quantitativa, mas, neste caso, corresponde apenas a uma codificação da variável.</p>
+<p>Uma variável originalmente quantitativa pode ser coletada de forma qualitativa. Por exemplo, a variável idade, medida em anos completos, é quantitativa (contínua). Porém, se for informada apenas a faixa etária (“0 a 5 anos”, “6 a 10 anos”, etc.), ela se torna qualitativa (categórica e ordinal). Outro exemplo é o peso dos lutadores de boxe, uma variável quantitativa (contínua) se trabalhamos com o valor obtido na balança, em kilogramas, mas qualitativa (ordinal) se o classificarmos nas categorias do boxe (“peso-pena”, “peso-leve”, “peso-pesado”, etc.).</p>
+<p>Outro ponto importante é que nem sempre uma variável representada por números é quantitativa, como, por exemplo, o número do telefone de uma pessoa, o número de sua casa, o número de sua identidade. Às vezes o sexo biológico de uma espécie de animal é registrado na planilha como sendo “1” se macho e “2” se fêmea, por exemplo. Isto não significa que a variável sexo passou a ser quantitativa, mas, neste caso, corresponde apenas a uma codificação da variável.</p>
 </div>
 </div>
 <div id="medidas-de-tendência-central" class="section level2" number="1.3">
@@ -622,17 +644,17 @@ Figure 1.1: O caminho para construção do conhecimento se baseia em dados, a ca
 <p>A média aritmética simples (que chamaremos apenas de média) é a medida de tendência central mais conhecida e usada para o resumo de dados. Essa popularidade pode ser devida à facilidade de cálculo e à idéia simples que ela nos sugere. De fato, se queremos um valor que represente a altura dos brasileiros adultos, por que não medir as alturas de uma amostra de brasileiros adultos, somar os valores e dividir esse “bolo” igualmente entre os participantes? Essa é a idéia da média aritmética.</p>
 <p>Para apresentar a média, primeiramente vamos definir alguma notação. A princípio, essa notação pode parecer desnecessária, mas facilitará bastante nosso trabalho futuro.</p>
 <span class="math display">\[\begin{equation*}
-\text{Notação} 
+\text{Notação}
     \begin{cases}
       n          &amp; \text{tamanho da amostra} \\
       x_i        &amp; \text{valor da $i$-ésima observação} \\
-      \sum_{i=1}^n x &amp; \text{soma de todas as observações} \\
+      \sum_{i=1}^n x_i &amp; \text{soma de todas as observações} \\
       \bar x     &amp; \text{símbolo que representa a média aritmética simples}
     \end{cases}
 \end{equation*}\]</span>
 <p>Assim,</p>
 <span class="math display">\[\begin{equation*}
-\bar x = \frac{\text{soma de todas as observações}}{{n}} = \frac{\sum_{i=1}^n x}{n}
+\bar x = \frac{\text{soma de todas as observações}}{{n}} = \frac{x_1 + x_2 + \ldots + x_n}{n}= \frac{\sum_{i=1}^n x_i} {n}
 \end{equation*}\]</span>
 <p>Exemplo: No conjunto de dados (1.3, 0.7, 5.8, 2.4, 1.2), temos <span class="math inline">\(n=5\)</span>, <span class="math inline">\(x_1=\)</span> 1.3, <span class="math inline">\(x_2=\)</span> 0.7, <span class="math inline">\(x_3=\)</span> 5.8, <span class="math inline">\(x_4=\)</span> 2.4 e <span class="math inline">\(x_5=\)</span> 1.2, portanto <span class="math inline">\(\sum_{i=1}^5 x_i=\)</span> 1.3 + 0.7 + 5.8 + 2.4 + 1.2 <span class="math inline">\(=\)</span> 11.4 e assim <span class="math inline">\(\bar x = \frac{11.4}{5}=2.28\)</span>.</p>
 <p>Se esses seis valores representassem, por exemplo, as quantidades de peixe pescado (em toneladas) durante cinco dias da semana, a quantidade típica pescada por dia, naquela semana, seria 2,28 toneladas. Como estamos representando o valor típico pela média aritmética, podemos falar em quantidade média diária naquela semana.</p>
@@ -642,17 +664,17 @@ Figure 1.1: O caminho para construção do conhecimento se baseia em dados, a ca
 </div>
 <div id="mediana" class="section level3" number="1.3.2">
 <h3><span class="header-section-number">1.3.2</span> Mediana</h3>
-<p>A mediana de um conjunto de dados é definida como sendo o “valor do meio” desse conjunto de dados, dispostos em ordem crescente, deixando metade dos valores acima dela e metade dos valores abaixo dela.</p>
+<p>A mediana de um conjunto de dados é definida como sendo o “valor do meio” desse conjunto de dados, dispostos em ordem crescente, que deixa metade dos valores acima dele e metade dos valores abaixo dele.</p>
 <p>Como calcular a mediana? Basta seguir sua definição. Vejamos:</p>
 <ul>
-<li><p><span class="math inline">\(n\)</span> é ímpar: Existe apenas um “valor do meio,” que é a mediana.</p>
+<li><p><span class="math inline">\(n\)</span> é ímpar: Existe apenas um “valor do meio”, que é a mediana.</p>
 <ul>
 <li>Seja o conjunto de dados (1.3, 0.7, 5.8, 2.4, 1.2).</li>
 <li>Ordenando os valores (0.7, 1.2, 1.3, 2.4, 5.8).</li>
 <li>O valor do meio é o 1.3.</li>
 <li>A mediana é o valor 1.3.</li>
 </ul></li>
-<li><p><span class="math inline">\(n\)</span> é par: Existem dois “valores do meio.” A mediana é a média aritmética simples deles.</p>
+<li><p><span class="math inline">\(n\)</span> é par: Existem dois “valores do meio”. A mediana é a média aritmética simples deles.</p>
 <ul>
 <li>Seja o conjunto de dados (1.3, 0.7, 5.8, 2.4, 1.2, 2.1).</li>
 <li>Ordenando os valores (0.7, 1.2, 1.3, 2.1, 2.4, 5.8).</li>
@@ -673,7 +695,7 @@ Figure 1.1: O caminho para construção do conhecimento se baseia em dados, a ca
 <p>Como calcular a moda? Basta verificar o valor que “aparece” mais vezes. Vejamos:</p>
 <ul>
 <li>No conjunto de dados (1, 2, 3, 3, 4, 5, 5, 5, 5, 5), há apenas uma moda, o valor <span class="math inline">\(5\)</span>, portanto o conjunto de dados é <strong>unimodal</strong>.</li>
-<li>No conjunto de dados (1, 2, 2, 2, 2, 3, 4, 5, 6, 6, 6, 6, 7, 9), existem duas modas, os valores <span class="math inline">\(2\)</span> e <span class="math inline">\(6\)</span>, portanto o conjunto de dados é <strong>bimodal</strong>.</li>
+<li>No conjunto de dados (1, 2, 2, 2, 2, 3, 4, 5, 6, 6, 6, 6, 7, 9), existem duas modas, os valores <span class="math inline">\(2\)</span> e <span class="math inline">\(6\)</span>, portanto o conjunto de dados é <strong>bimodal</strong>. Caso existam mais de duas modas, diremos que o conjunto de dados é <strong>multimodal</strong>.</li>
 <li>Nem sempre a moda existe ou faz sentido, no conjunto de dados (1, 2, 3, 4, 5, 6, 7, 8, 9), não existe um valor mais frequente que os demais, portanto o conjunto de dados é <strong>amodal</strong>.</li>
 </ul>
 <p>Para usar a função que calcula a moda (<span class="math inline">\(\texttt{Mode}\)</span>) no <span class="math inline">\(\texttt{R}\)</span> temos que instalar e carregar o pacote <span class="math inline">\(\texttt{pracma}\)</span>:</p>
@@ -690,10 +712,10 @@ Figure 1.1: O caminho para construção do conhecimento se baseia em dados, a ca
 <div id="medidas-de-variabilidade" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> Medidas de Variabilidade</h2>
 <p>As medidas de tendência central (média, mediana, moda) conseguem resumir em um único número, o valor que é “típico” no conjunto de dados. Mas, será que, somente com essas medidas, conseguimos descrever adequadamente o que ocorre em um conjunto de dados?</p>
-<p>Vejamos um exemplo: quando pesamos algo em uma balança, esperamos que ela nos dê o verdadeiro peso daquilo que estamos pesando. No entanto, se fizermos várias medições do peso de um mesmo objeto em uma mesma balança, teremos diferentes valores para o peso deste objeto. Ou seja, existe variabilidade nas medições de peso fornecidas pela balança. Neste caso, quanto menor a variabilidade desses valores, mais precisa é a balança (considerando que a média das medidas de peso coincida como seu valor real). Observe na Figura abaixo, onde estão representadas as distribuições das medições do peso de uma esfera de 1000g, feitas por duas balanças (A e B). As duas balanças registram o mesmo peso médio de 1000g (média dos pesos de todas as medições feitas). Isto é, as duas balanças tipicamente acertam o verdadeiro peso da esfera. Porém, pela Figura, podemos notar que</p>
+<p><strong>Vejamos um exemplo</strong>: quando pesamos algo em uma balança, esperamos que ela nos dê o verdadeiro peso daquilo que estamos pesando. No entanto, se fizermos várias medições do peso de um mesmo objeto em uma mesma balança, teremos diferentes valores para o peso deste objeto. Ou seja, existe variabilidade nas medições de peso fornecidas pela balança. Neste caso, quanto menor a variabilidade desses valores, mais precisa é a balança (considerando que a média das medidas de peso coincida como seu valor real). Observe na Figura abaixo, onde estão representadas as distribuições das medições do peso de uma esfera de 1000g, feitas por duas balanças (A e B). As duas balanças registram o mesmo peso médio de 1000g (média dos pesos de todas as medições feitas). Isto é, as duas balanças tipicamente acertam o verdadeiro peso da esfera. Porém, pela Figura, podemos notar que:</p>
 <ul>
-<li>as medições da balança A <em>variam pouco</em> em torno de 1000g: oscilam bastante entre cerca de 950g e 1050g (uma “imprecisão” de 50g)</li>
-<li>as medições da balança B <em>variam muito</em> em torno de 1000g: oscilam basicamente entre 900g e 1100g (uma “imprecisão” de 100g)</li>
+<li>As medições da balança <strong>A</strong> <em>variam pouco</em> em torno de 1000g: oscilam bastante entre cerca de 950g e 1050g (uma “imprecisão” de 50g)</li>
+<li>As medições da balança <strong>B</strong> <em>variam muito</em> em torno de 1000g: oscilam basicamente entre 900g e 1100g (uma “imprecisão” de 100g)</li>
 </ul>
 <p><img src="inferencia_com_R_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
 <p>Dois conjuntos de dados podem ter a mesma medida de centro (valor típico), porém uma dispersão diferente em torno desse valor. Desse modo, além de uma medida que nos diga qual é o valor “típico” do conjunto de dados, precisamos de uma medida do grau de dispersão (variabilidade) dos dados em torno do valor típico.</p>
@@ -812,24 +834,24 @@ AT = \text{Máximo}-\text{Mínimo}
 </table>
 <p><strong>A ideia do desvio padrão</strong></p>
 <p>Como temos um desvio para cada elemento, poderíamos pensar em resumi-los em um desvio típico, a exemplo do que fizemos com a média. Porém, quando somarmos esses desvios para o cálculo do desvio médio, a soma dará sempre zero, como pode ser visto na coluna 2 do exemplo anterior. Isto ocorre com qualquer conjunto de dados, pois os desvios negativos sempre compensaram os positivos.</p>
-<p>No entanto, os sinais dos desvios não são importantes para nossa medida de dispersão, já que estamos interessados na quantidade de dispersão e não na direção dela. Portanto, eliminaremos os sinais elevando os desvios ao quadrado, como mostrado na coluna 3. A soma desses desvios ao quadrado pode ser, então, dividida entre os participantes do “bolo.” Na verdade, por razões absolutamente teóricas, dividiremos essa soma pelo total de participantes menos 1 <span class="math inline">\((n-1)\)</span>. Assim, usando a notação definida anteriormente, teremos</p>
+<p>No entanto, os sinais dos desvios não são importantes para nossa medida de dispersão, já que estamos interessados na quantidade de dispersão e não na direção dela. Portanto, eliminaremos os sinais elevando os desvios ao quadrado, como mostrado na coluna 3. A soma desses desvios ao quadrado pode ser, então, dividida entre os participantes do “bolo”. Na verdade, por razões absolutamente teóricas, dividiremos essa soma pelo total de participantes menos 1 <span class="math inline">\((n-1)\)</span>. Assim, usando a notação definida anteriormente, teremos</p>
 <span class="math display">\[\begin{equation*}
 \frac{\sum_{i=1}^n (x_i-\bar x)^2}{n-1}
 \end{equation*}\]</span>
 <p>Para os dados do exemplo, teremos <span class="math inline">\(46/(10-1)=5,11\)</span>. Esse valor pode ser visto como uma quase-média dos desvios ao quadrado e é chamado de <strong>variância</strong>.</p>
-<p>A variância seria nossa medida de variabilidade se não fosse o fato de que ela está expressa em uma unidade diferente da unidade dos dados, pois, ao elevarmos os desvios ao quadrado, elevamos também as unidades de medida em que eles estão expressos. No caso dos dados do exemplo, medidos em número de filhos, a variância vale <span class="math inline">\(5,11\)</span> “filhos ao quadrado,” algo que não faz nenhum sentido.</p>
+<p>A variância seria nossa medida de variabilidade se não fosse o fato de que ela está expressa em uma unidade diferente da unidade dos dados, pois, ao elevarmos os desvios ao quadrado, elevamos também as unidades de medida em que eles estão expressos. No caso dos dados do exemplo, medidos em número de filhos, a variância vale <span class="math inline">\(5,11\)</span> “filhos ao quadrado”, algo que à luz das unidades do conjunto de dados não é interpretável.</p>
 <p>Para eliminar esse problema, extraímos a raiz quadrada da variância e, finalmente, temos a nossa medida de variabilidade, que chamaremos desvio-padrão (DP).</p>
 <span class="math display">\[\begin{equation*}
 DP=\sqrt{\frac{\sum_{i=1}^n (x_i-\bar x)^2}{n-1}}
 \end{equation*}\]</span>
 <p>O desvio-padrão, como o nome já diz, representa o desvio típico dos dados em relação à média, escolhida como medida de tendência central. No exemplo, temos que o desvio padrão vale <span class="math inline">\(2,26\)</span>. Isto significa que a distância típica (padrão) de cada mãe até o número médio de filhos (4 filhos) é de 2,26 filhos. Quanto maior o desvio-padrão, mais diferentes entre si serão as quantidades de filhos de cada mãe.</p>
-<p>O desvio-padrão, em alguns livros chamado de <span class="math inline">\(s\)</span>, é uma medida sempre positiva. Se observarmos a maneira como ele é calculado, veremos que não há como obter um valor negativo.</p>
+<p>O desvio-padrão, em alguns livros recebe a notação de <span class="math inline">\(s\)</span>, e sempre é uma medida positiva. Se observarmos a maneira como ele é calculado, veremos que não há como obter um valor negativo.</p>
 <p>Fazendo no <span class="math inline">\(\texttt{R}\)</span>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="analise_descritiva.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">var</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>)),<span class="dv">2</span>) <span class="co"># função round() serve para arrendondar o número de dígitos</span></span></code></pre></div>
 <pre><code>## [1] 5.11</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="analise_descritiva.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sd</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">7</span>)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 2.26</code></pre>
-<p>Exemplo: Os agentes de fiscalização de certo município realizam, periodicamente, uma vistoria nos bares e restaurantes para apurar possíveis irregularidades na venda de seus produtos. A seguir, são apresentados dados de uma vistoria sobre os pesos (em gramas) de uma amostra de 10 bifes, constantes de um cardápio de um restaurante como “bife de 200 gramas.”</p>
+<p>Exemplo: Os agentes de fiscalização de certo município realizam, periodicamente, uma vistoria nos bares e restaurantes para apurar possíveis irregularidades na venda de seus produtos. A seguir, são apresentados dados de uma vistoria sobre os pesos (em gramas) de uma amostra de 10 bifes, constantes de um cardápio de um restaurante como “bife de 200 gramas”.</p>
 <pre><code>##  [1] 170 175 180 185 190 195 200 200 200 205</code></pre>
 <p>Como podemos notar, nem todos os “bifes de 200 gramas” pesam realmente 200 gramas. Esta variação é natural e é devida ao processo de produção dos bifes. No entanto, esses bifes deveriam pesar cerca de 200 gramas e com pouca variação em torno desse valor. Com o auxílio do <span class="math inline">\(\texttt{R}\)</span>, calcularemos a média e o desvio-padrão.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="analise_descritiva.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">170</span>,<span class="dv">175</span>,<span class="dv">180</span>,<span class="dv">185</span>,<span class="dv">190</span>,<span class="dv">195</span>,<span class="dv">200</span>,<span class="dv">200</span>,<span class="dv">200</span>,<span class="dv">205</span>))</span></code></pre></div>
@@ -838,7 +860,7 @@ DP=\sqrt{\frac{\sum_{i=1}^n (x_i-\bar x)^2}{n-1}}
 <pre><code>## [1] 12.0185</code></pre>
 <p>Os bifes desse restaurante pesam, em média, 190 gramas, com um desvio-padrão de 12 gramas. Ou seja, os pesos dos “bifes de 200 gramas” variam tipicamente entre 178 e 202 gramas. Analisando esses valores, concluímos que esse restaurante pode estar lesando a maior parte de seus clientes.</p>
 <p>Para casos como esse, os agentes fiscalizadores podem estabelecer parâmetros (valores) para saber até quanto a média pode se desviar do valor correto e o quanto de variação eles podem permitir numa amostra para concluir que o processo de produção de bifes não possui problemas. Por exemplo, a média da amostra não poderia ser inferior a 198 gramas, com um desvio-padrão que não seja superior a 5% dessa média.</p>
-<p>Essas idéias são utilizadas no controle do processo de produção das indústrias, onde já se espera alguma variação entre as unidades produzidas. Porém, essa variação deve estar sob controle. Numa indústria farmacêutica, por exemplo, espera-se que os comprimidos de uma certa droga sejam produzidos com uma certa variação em sua composição (maior ou menor quantidade do princípio ativo), devido à própria maneira como os comprimidos são produzidos (máquinas, pessoas etc.). No entanto, esta variação deve ser pequena, para que não sejam produzidos comprimidos inócuos (com pouco do princípio ativo) ou com extra-dosagem do princípio ativo, o que, em ambos os casos, pode causar sérias complicações à saúde do paciente.</p>
+<p>Essas idéias são utilizadas no processo de controle e qualidade de produção das indústrias, onde já se espera alguma variação entre as unidades produzidas. Porém, essa variação deve estar sob controle. Numa indústria farmacêutica, por exemplo, espera-se que os comprimidos de uma certa droga sejam produzidos com uma certa variação em sua composição (maior ou menor quantidade do princípio ativo), devido à própria maneira como os comprimidos são produzidos (máquinas, pessoas etc.). No entanto, esta variação deve ser pequena, para que não sejam produzidos comprimidos inócuos (com pouco do princípio ativo) ou com extra-dosagem do princípio ativo, o que, em ambos os casos, pode causar sérias complicações à saúde do paciente.</p>
 <p>O desvio-padrão nos permite distinguir numericamente conjuntos de dados de mesmo tamanho, mesma média, mas que são visivelmente diferentes. Usando o desvio-padrão, também conseguimos representar numericamente a variabilidade das medições das balanças A e B, que, apesar de possuírem a mesma média, possuem variabilidades bastante diferentes.</p>
 <p>Quando os conjuntos de dados a serem comparados possuem médias diferentes, a comparação da variabilidade desses conjuntos deve levar em conta essa diferença. Por esta e outras razões, definiremos uma terceira medida de variabilidade, o <strong>coeficiente de variação</strong>.</p>
 </div>
@@ -855,7 +877,7 @@ DP=\sqrt{\frac{\sum_{i=1}^n (x_i-\bar x)^2}{n-1}}
 <li>No primeiro caso, o desvio-padrão corresponde a 0,1% da média</li>
 <li>No segundo caso, o desvio-padrão corresponde a 10% da média</li>
 </ul>
-<p>À essa razão entre o desvio-padrão e a média damos o nome de <strong>Coeficiente de Variação</strong>:</p>
+<p>Desta forma, a razão entre o desvio-padrão e a média recebe o nome de <strong>Coeficiente de Variação</strong>:</p>
 <span class="math display">\[\begin{equation*}
 CV=\frac{\text{Desvio Padrão}}{\text{Média}}
 \end{equation*}\]</span>
@@ -906,14 +928,14 @@ CV=\frac{\text{Desvio Padrão}}{\text{Média}}
 <h3><span class="header-section-number">1.5.1</span> Percentis</h3>
 <p>Considere o trecho a seguir, sobre a posição do Brasil, entre os países do mundo, quanto à renda per capita:</p>
 <center>
-<p><em>O Brasil obviamente não é país rico, mas também não está entre os mais pobres.</em> <span class="math inline">\(\ldots\)</span> Mais de três quartos da população mundial vivem em países de renda per capita menor</p>
+<p><em>O Brasil obviamente não é país rico, mas também não está entre os mais pobres.</em> <span class="math inline">\(\ldots\)</span> Mais de três quartos da população mundial vivem em países de renda per capita menor.</p>
 </center>
-<p>Neste caso, o posição do Brasil é dada pela quantidade de países que têm renda per capita menores que o Brasil, a saber três quartos ou <span class="math inline">\(75\%\)</span>. O mesmo tipo de raciocínio fazemos quando dizemos que certo aluno está entre os <span class="math inline">\(5\%\)</span> melhores do colégio. Não precisamos nem saber quantos alunos tem o colégio ou em quantos países estão sendo consideradas as rendas. Aqui já houve uma padronização da posição usando-se a porcentagem de alunos ou países com desempenho ou renda abaixo do valor considerado. É este raciocínio que define os percentis.</p>
+<p>Neste caso, a posição do Brasil é dada pela quantidade de países que têm renda per capita menores que o Brasil, a saber três quartos ou <span class="math inline">\(75\%\)</span>. O mesmo tipo de raciocínio fazemos quando dizemos que certo aluno está entre os <span class="math inline">\(5\%\)</span> melhores do colégio. Não precisamos nem saber quantos alunos tem o colégio ou em quantos países estão sendo consideradas as rendas. Aqui já houve uma padronização da posição usando-se a porcentagem de alunos ou países com desempenho ou renda abaixo do valor considerado. É este raciocínio que define os percentis.</p>
 <p></p>
 <p>Assim, o percentil de ordem <span class="math inline">\(10\)</span>, o <span class="math inline">\(P_{10}\)</span>, é o valor da variável tal que <span class="math inline">\(10\%\)</span> dos valores são menores ou iguais a ele; o percentil de ordem <span class="math inline">\(65\)</span> deixa <span class="math inline">\(65\%\)</span> dos dados menores ou iguais a ele etc.</p>
 <p>Os percentil de ordem <span class="math inline">\(10,20,30,\ldots,90\)</span> dividem o conjunto de dados em dez partes com mesmo número de observações e são chamados de <strong>decis</strong>.</p>
 <p>Os percentis de ordem <span class="math inline">\(25,50\)</span> e <span class="math inline">\(75\)</span> dividem o conjunto de dados em quatro partes com o mesmo número de observações. Assim, estes três percentis recebem o nome de quartis – <strong>primeiro quartil (Q1), segundo quartil (Q2) e terceiro quartil (Q3)</strong>, respectivamente. O segundo quartil é a já conhecida mediana.</p>
-<p>Existem vários processos para calcular os percentis, usando interpolação. Vamos ficar com um método mais simples, mostrado na Figura a seguir. As diferenças serão muito pequenas e desaparecerão à medida que aumenta o número de dados.</p>
+<p>Existem vários processos para calcular os percentis, entre eles, usando interpolação. Vamos ficar com um método mais simples, mostrado na Figura a seguir. As diferenças serão muito pequenas e desaparecerão à medida que aumenta o número de dados.</p>
 <p><img src="fluxograma_percentil.png" /><!-- --></p>
 <p>Considere as notas finais dos 40 candidatos ao curso de Direito no Vestibular de certa faculdade, já colocadas em ordem crescente:</p>
 <pre><code>##  [1] 40 41 42 42 44 47 48 48 49 49 51 52 53 58 59 62 63 64 65 66 67 68 69 70 75
@@ -934,7 +956,7 @@ CV=\frac{\text{Desvio Padrão}}{\text{Média}}
 <span id="cb29-5"><a href="analise_descritiva.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(dados,<span class="at">probs=</span><span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.95</span>,<span class="fl">0.25</span>,<span class="fl">0.75</span>,<span class="fl">0.5</span>))</span></code></pre></div>
 <pre><code>##    10%    95%    25%    75%    50% 
 ## 174.50 202.75 181.25 200.00 192.50</code></pre>
-<p>Veja que os valores encontrados pelo <span class="math inline">\(\texttt{R}\)</span> não coincidem com os calculados “na mão,” isto porque, o <span class="math inline">\(\texttt{R}\)</span> utiliza um método de interpolação para calcular valores que não estão presentes na amostra.</p>
+<p>Veja que os valores encontrados pelo <span class="math inline">\(\texttt{R}\)</span> não coincidem com os calculados “na mão”, isto porque, o <span class="math inline">\(\texttt{R}\)</span> utiliza um método de interpolação para calcular valores que não estão presentes na amostra.</p>
 </div>
 </div>
 <div id="referências" class="section level2" number="1.6">
