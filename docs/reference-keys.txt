@@ -186,3 +186,5 @@ passos-para-a-criação
 manipulação-simples-no-console
 pacotes
 outros-recursos
+primeiros-passos-em-r
+help

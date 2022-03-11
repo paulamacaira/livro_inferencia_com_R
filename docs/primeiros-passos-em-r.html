@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Inferência Estatística com R</title>
+  <title>Capítulo 10 Primeiros Passos em R | Inferência Estatística com R</title>
   <meta name="description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Inferência Estatística com R" />
+  <meta property="og:title" content="Capítulo 10 Primeiros Passos em R | Inferência Estatística com R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://paulamacaira.github.io/livro_inferencia_com_R/" />
   <meta property="og:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Inferência Estatística com R" />
+  <meta name="twitter:title" content="Capítulo 10 Primeiros Passos em R | Inferência Estatística com R" />
   
   <meta name="twitter:description" content="Uma abrangente introdução aos métodos de estatística inferencial usando o R. Adquira o raciocínio necessário para extrair conclusões a partir de uma amostra usando exemplos reais." />
   <meta name="twitter:image" content="https://paulamacaira.github.io/livro_inferencia_com_R/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="regressão-linear.html"/>
+<link rel="next" href="help.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -407,19 +407,183 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="primeiros-passos-em-r" class="section level1" number="10">
+<h1><span class="header-section-number">Capítulo 10</span> Primeiros Passos em R</h1>
+<div id="introdução" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Introdução</h2>
+<p><strong>R permite que especialistas interpretem, interajam e visualizem dados de forma rápida e fácil</strong></p>
+<p>Antes de inicializar qualquer projeto aplicado através da linguagem computacional R, é importante entender um pouco sobre esta ferramenta, e para isto é necessário destacar que o <span class="math inline">\(\texttt{R}\)</span> é um ambiente para análise de dados. Básicamente é uma linguagem, e pode ser entendida também como um projeto de código aberto, isto é, um projeto cujos códigos estão disponíveis para seu livre descarregamento sem custo nenhum, pemitindo a qualquer pessoa utilizá-los.</p>
+<p>A linguagem <span class="math inline">\(\texttt{R}\)</span> surgiu no começo da década de 90, e foi inicialmente concebida por Robert Gentleman e Ross Ihaka, na época, ambos professores de Departamento de Estatística da Universidade de Auckland, na Nova Zelândia, e especialistas em dados. Desde 1997, o projeto <span class="math inline">\(\texttt{R}\)</span> é gerenciado pelo <span class="math inline">\(\texttt{R}\)</span> Core Group, sendo feito seu primeiro lançamento em fevereiro de 2000. O trabalhos que tiveram o uso intensivo da linguagem envolviam o mapeamento das tendências sociais e de marketing on-line, passando pelo desenvolvimento de modelos financeiros e globando também modelos climáticos para fomentar o desenvolvimento da economia e a sociedade. Assim, muitas das visualizações impactantes de dados e análises estatísticas que são performadas na atualidade por pesquisadores, estatísticos e cientistas de dados podem certamente estarem usando a linguagem <span class="math inline">\(\texttt{R}\)</span> para estes propósitos.</p>
+<p>Diversos contribuidores do Core Group continuaram no desenvolvimento e aprimoramento do <span class="math inline">\(\texttt{R}\)</span>, dando surgimento a novas ferramentas e aplicativos, acumulando alto volume de pacotes (<em>package</em>, no inglês) criadas pelos usuários com o intuito de aprimorar a funcionalidade do <span class="math inline">\(\texttt{R}\)</span> em diversas áreas. A validação da qualidade desses pacotes se dá através de especialistas e líderes reconhecidos em todos os campos, contando com um suporte via crowdsourcing. Adicionalmente, a linguagem <span class="math inline">\(\texttt{R}\)</span> se destaca por ser interativa, orientada a objetos e funções, onde os objetos podem ser conjuntos de dados, vetores, funções, matrizes etc, e cujas manipulações podem ser cálculos, entradas e saídas de dados, análises estatísticas e gráficos</p>
+</div>
+<div id="instalando-o-r" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Instalando o R</h2>
+<p>No intuito de auxiliar no processo de download do software, é importante entender que ela é feita <span class="math inline">\(\texttt{R}\)</span> através do CRAN (<em>Comprehensive R Archive Network</em>), sendo uma rede de servidores que se encontra distribuída ao redo do mundo, contendo as diversãs e idénticas versões dos códigos e documentações da linguagem de forma atualizada.</p>
+<p>Para fazer download do software, inicialmente selecione a CRAN <a href="https://cran.r-project.org/"><code>https://cran.r-project.org/</code></a> do seu país e em seguida a cidade mais próxima a você.</p>
+<pre><code>+ Para o caso do Rio de Janeiro, selecione a CRAN Oswaldo Cruz Foundation, Rio de Janeiro, ou acesse [`http://cran.fiocruz.br/`](http://cran.fiocruz.br/)</code></pre>
+<div id="passo-a-passo-da-instalação" class="section level3" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Passo a passo da instalação</h3>
+<ul>
+<li><p>Após escolher a CRAN, selecione o link de download compatível com seu sistema operacional, o <span class="math inline">\(\texttt{R}\)</span> se encontra disponível para Linux(Debian, Fedora/Redhat, Ubuntu), macOS e Windows.</p></li>
+<li><p>Clique no link ‘install R for the first time’.</p></li>
+<li><p>Por fim, selecione ‘Download R X.X.X for Windows’, ou seja, a versão mais atual disponível.</p></li>
+<li><p>Uma vez realizado o download, clique duas vezes no arquivo que foi descarregado e siga as instruções da instalação padrão.</p></li>
+<li><p>Qualquer dúvida sobre a instalação ou demais, visite a página de perguntas frequentes: <a href="http://cran.r-project.org/doc/FAQ/R-FAQ.html"><code>http://cran.r-project.org/doc/FAQ/R-FAQ.html</code></a>.</p></li>
+</ul>
+<p>Após executar toda a instalação corretamente, o software pode ser acessado pelo Menu Iniciar (Sistema Windows) ou pelo ícone na sua área de trabalho. Na seguinte Figura está a interface de comando que deverá aparecer quando iniciar o <span class="math inline">\(\texttt{R}\)</span>,</p>
+<p><img src="R_interface.png" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="instalando-o-textttrstudio" class="section level2" number="10.3">
+<h2><span class="header-section-number">10.3</span> Instalando o <span class="math inline">\(\texttt{RStudio}\)</span></h2>
+<p>O <span class="math inline">\(\texttt{RStudio}\)</span> é um ambiente de desenvolvimento integrado (IDE) aberto e <em>free</em> para o <em>software</em> <span class="math inline">\(\texttt{R}\)</span>. Seu principal objetivo é facilitar a integração entre o <span class="math inline">\(\texttt{R}\)</span> e o usuário, sendo uma interface <em>user-friendly</em>. O <span class="math inline">\(\texttt{RStudio}\)</span> é desenvolvido na linguagem de programação C++ e está disponível para diversos sistemas operacionais, tais como: Microsoft Windows, Mac OS X e GNU/Linux. Antes da instalação do <span class="math inline">\(\texttt{RStudio}\)</span> é prioritário ter feito a instalação do <span class="math inline">\(\texttt{R}\)</span>.</p>
+<ul>
+<li></li>
+</ul>
+<div id="passo-a-passo-para-a-instalação-textttrstudio" class="section level3" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> Passo a passo para a instalação <span class="math inline">\(\texttt{RStudio}\)</span></h3>
+<ul>
+<li><p>Acesse no site oficial do <span class="math inline">\(\texttt{RStudio}\)</span>: <a href="http://www.rstudio.org" class="uri">http://www.rstudio.org</a></p></li>
+<li><p>Clique no menu <em>Products</em> (OPEN SOURCE Get started with R) <span class="math inline">\(\rightarrow\)</span> RStudio</p></li>
+<li><p>Descenda na página e selecione RStudio Desktop</p></li>
+<li><p>Escolha o link de acordo com o seu sistema operacional</p></li>
+<li><p>Instale o programa a partir do arquivo salvo</p></li>
+</ul>
+<p>Uma vez instalado o software pode ser acessado pelo Menu Iniciar (Sistema Windows) ou pelo ícone na sua área de trabalho tendo o seguinte layout que conta com 4 quadrantes:</p>
+<p><img src="RStudio.png" style="display: block; margin: auto;" /></p>
+<p>Esses quadrantes representam o editor, o console, o workspace e o output. O padrão e organização vem nesse formato e ordem, mas você pode ter uma disposição diferente priorizando suas preferências do formato, para isto acesse no menu <strong>Tools</strong> na opção <strong>Global options</strong> na seção do painel esquedo: <strong>Pane Layout</strong>. Os dois principais paineis do <span class="math inline">\(\texttt{RStudio}\)</span> são o <strong>editor</strong> e o <strong>console</strong>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Editor/Scripts: painel onde são escritos os códigos, o cujo espaço pode ser guardado, sendo aextensão do arquivo “.R” Assim como o layout pode ser ajustado, as cores do texto dos códigos também podem ser ajustadas facilitando a sua leitura (Siga o caminho: Tools <span class="math inline">\(\rightarrow\)</span> Global optios <span class="math inline">\(\rightarrow\)</span> Appearance).</p></li>
+<li><p>Console: é o painel onde os códigos são rodados e onde também são fornecidas a maioria das saídas.</p></li>
+</ol>
+<p>Os demais painéis são auxiliares. O objetivo deles é facilitar pequenas tarefas que fazem parte tanto da programação quanto da análise de dados, como olhar a documentação de funções, analisar os objetos criados em uma sessão do <span class="math inline">\(\texttt{R}\)</span>, procurar e organizar os arquivos que compõem a nossa análise, armazenar e analisar os gráficos criados e muito mais.</p>
+<ul>
+<li>Environment: painel com todos os objetos criados na sessão.</li>
+<li>History: painel com um histórico dos comandos rodados.</li>
+<li>Files: mostra os arquivos no diretório de trabalho. É possível navegar entre diretórios.</li>
+<li>Plots: painel onde os gráficos serão apresentados.</li>
+<li>Packages: apresenta todos os pacotes instalados e carregados.</li>
+<li>Help: janela onde a documentação das funções serão apresentadas.</li>
+<li>Viewer: painel onde relatórios e dashboards serão apresentados.</li>
+</ul>
+</div>
+</div>
+<div id="usando-o-textttrstudio-cloud" class="section level2" number="10.4">
+<h2><span class="header-section-number">10.4</span> Usando o <span class="math inline">\(\texttt{RStudio}\)</span> Cloud</h2>
+<p>Uma alternativa do <span class="math inline">\(\texttt{RStudio}\)</span> é o <span class="math inline">\(\texttt{RStudio}\)</span> Cloud, permitindo o uso on-line do <span class="math inline">\(\texttt{R}\)</span> e do <span class="math inline">\(\texttt{RStudio}\)</span>. O <span class="math inline">\(\texttt{RStudio}\)</span> Cloud se destaca por ser um serviço do <span class="math inline">\(\texttt{RStudio}\)</span>, com algumas restrições para o seu uso gratuito, mas oferecendo opções de planos para a expasão dos serviços e a possibilidade trabalhos colaborativos conjuntos. Umas grandes vantagens do <span class="math inline">\(\texttt{RStudio}\)</span> Cloud é o seu armazenamento na nuvem no servidor de todos os projetos criados (incluindo todos os arquivos <span class="math inline">\(\texttt{R}\)</span>). Além disso, você pode acessar aos arquivos/projetos em qualquer lugar, independentemente do computador que você estiver usando e a qualquer hora.</p>
+<p>Para poder acessar ao <span class="math inline">\(\texttt{RStudio}\)</span> Cloud de forma gratuita, siga os seguintes passos:</p>
+<ul>
+<li><p>Acesse em: <a href="https://rstudio.cloud/plans" class="uri">https://rstudio.cloud/plans</a></p></li>
+<li><p>Selecione o plano gratuito (Campo: Cloud <span class="math inline">\(\rightarrow\)</span> <strong>Free</strong>)</p></li>
+<li><p>Seleccione </p></li>
+<li><p>Para logar, pode ser usado o seu e-mail ou escolher entre a conta <strong>Google</strong> ou <strong>GitHub</strong>.</p></li>
+</ul>
+<p>Ao acessar na página do <span class="math inline">\(\texttt{RStudio}\)</span> Cloud a página que aparece é a seguinte:</p>
+<p>Logando no <span class="math inline">\(\texttt{RStudio}\)</span> Cloud</p>
+<p>Uma vez que você fizer o login na sua conta, será direcionado pelo sistema para criar o nome da sua conta:</p>
+<p>Criando um projeto no <span class="math inline">\(\texttt{RStudio}\)</span> Cloud</p>
+<p>Posteriormente, será direcionado para os seus projetos, ali é só criar um novo projeto clicando no botão <strong>New Project</strong>:</p>
+<p>Interface do <span class="math inline">\(\texttt{RStudio}\)</span> Cloud</p>
+</div>
+<div id="criação-de-projetos" class="section level2" number="10.5">
+<h2><span class="header-section-number">10.5</span> Criação de Projetos</h2>
+<ul>
+<li><p>O <span class="math inline">\(\texttt{RStudio}\)</span> tem uma funcionalidade muito importante que é a de criar projetos.</p>
+<ul>
+<li><em>Um projeto é basicamente uma pasta no seu computador ou na nuvem, na qual estarão todos os arquivos que você usará ou criará no processo de análise</em>.</li>
+</ul></li>
+</ul>
+<div id="passos-para-a-criação" class="section level3" number="10.5.1">
+<h3><span class="header-section-number">10.5.1</span> Passos para a criação</h3>
+<ul>
+<li><p>Selecione o menu <strong>File</strong> <span class="math inline">\(\rightarrow\)</span> <strong>New Project…</strong> .</p></li>
+<li><p>Uma caixa de diálogo será aberta, clique em <strong>New Directory</strong> <span class="math inline">\(\rightarrow\)</span> <strong>New Project</strong></p></li>
+<li><p>O primeiro campo da caixa de diálogo será usado para criar nome do projeto e pasta e uma nova pasta onde está contido. O segundo campo será usado caso deseje criar o projeto dentro de uma pasta já existente.</p></li>
+</ul>
+<p>Assim que criar seu projeto ele será aberto no <span class="math inline">\(\texttt{RStudio}\)</span>, e o nome do projeto aparecerá no canto superior direito da tela. Na aba Files, aparecerão todos os arquivos contidos no projeto.</p>
+<p>A estrutura básica, considerando a extensão dos arquivos pode ser da forma:</p>
+</div>
+</div>
+<div id="manipulação-simples-no-console" class="section level2" number="10.6">
+<h2><span class="header-section-number">10.6</span> Manipulação simples no <strong>Console</strong></h2>
+<p>A forma mais direta de interagir com o <span class="math inline">\(\texttt{R}\)</span> é através das linhas de comandos</p>
+<ul>
+<li>Os comandos são digitados no prompt de comando (ou console) do <span class="math inline">\(\texttt{R}\)</span>, onde o símbolo indica que o prompt está listo para recebê-los.</li>
+<li>Continuação da linha ou o comando enviado está incompleto é indicado pelo símbolo .</li>
+<li>Para submeter os comandos pressione a tecla .</li>
+<li>Para inserir vários comandos na mesma linha, utilize ponto e vírgula: .</li>
+</ul>
+<p></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="primeiros-passos-em-r.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">4</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="primeiros-passos-em-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5-8</span></span></code></pre></div>
+<pre><code>## [1] -3</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="primeiros-passos-em-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">*</span><span class="dv">9</span></span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="primeiros-passos-em-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Use os parênteses para calcular expressões, por exemplo, </p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="primeiros-passos-em-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">20</span> <span class="sc">+</span> <span class="dv">7</span>)<span class="sc">/</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 81</code></pre>
+<ul>
+<li>O <span class="math inline">\(\texttt{R}\)</span> ignora os espaços em brancos excessivos</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="primeiros-passos-em-r.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span>               <span class="sc">/</span>              <span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<ul>
+<li>String/caracteres devem ser inseridos entre aspas simples ou dupla: ou </li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="primeiros-passos-em-r.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;Exemplo de string/caracter&quot;</span></span></code></pre></div>
+<pre><code>## [1] &quot;Exemplo de string/caracter&quot;</code></pre>
+</div>
+<div id="pacotes" class="section level2" number="10.7">
+<h2><span class="header-section-number">10.7</span> Pacotes</h2>
+<ul>
+<li><p>A versão do <span class="math inline">\(\texttt{R}\)</span> possui uma coleção enorme de funções, como por exemplo:</p>
+<ul>
+<li><p>Modelos estatísticos</p></li>
+<li><p>Algoritmos computacionais</p></li>
+<li><p>Métodos computacionais</p></li>
+<li><p>Visualização de dados</p></li>
+<li><p>E MUITAS outras funções</p></li>
+</ul></li>
+<li><p>No entanto, às vezes precisamos acessar outros módulos que contenham funções mais específicas como por exemplo:</p>
+<ul>
+<li><p>Análise multivariada</p></li>
+<li><p>Análise Bayesiana</p></li>
+<li><p>Manipulação de dados</p></li>
+<li><p>Gráficos a nível de publicação</p></li>
+<li><p>Big Data</p></li>
+<li><p>Machine Learning</p></li>
+<li><p>Processamento de imagens</p></li>
+<li><p>Modelos Econométricos</p></li>
+<li><p>etc.</p></li>
+</ul></li>
+</ul>
+<p>Os pacotes podem ser entendidos como sendo uma coleção de funções que são chamadas diretamente de dentro do <span class="math inline">\(\texttt{R}\)</span>. Eles incluem: funções, dados para exemplificar as funcionalidades do pacote, arquivo com ajuda (help) para cada função, e uma descrição do pacote. Esses também são conhecidos como módulos, ou , pelo seu nome em inglês. Como indicado anteriormente, posser de um software de ambiente livre, qualquer pessoa pode desenvolver seus pacotes e submeter ao CRAN, disponibilizando através do GitHub ou standalone.</p>
+<p><strong>Instalando pacotes</strong></p>
+<ul>
+<li>Para instalar um pacote do <span class="math inline">\(\texttt{R}\)</span> que já esteja no CRAN basta usar o comando:</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="primeiros-passos-em-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;ggplot2&#39;</span>)</span></code></pre></div>
+<ul>
+<li><p>Além da opção de comando, também podemos instalar pacotes utilizando os menus do <span class="math inline">\(\texttt{R}\)</span> , ou do <span class="math inline">\(\texttt{RStudio}\)</span> </p></li>
+<li><p>Uma vez que o pacote foi instalado não há mais a necessidade de instalar sempre que for utilizar as suas funcionalidades, basta carregar o pacote com os comandos: ou </p></li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="primeiros-passos-em-r.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="primeiros-passos-em-r.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span></code></pre></div>
+<div id="outros-recursos" class="section level3" number="10.7.1">
+<h3><span class="header-section-number">10.7.1</span> Outros recursos</h3>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="regressão-linear.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="help.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -450,7 +614,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/%s",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/10-Laboratorio_01.Rmd",
 "text": "Edit"
 },
 "history": {
