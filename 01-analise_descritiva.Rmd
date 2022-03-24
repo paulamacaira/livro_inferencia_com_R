@@ -369,7 +369,7 @@ Considere o trecho a seguir, sobre a posição do Brasil, entre os países do mu
 
 Neste caso, a posição do Brasil é dada pela quantidade de países que têm renda per capita menores que o Brasil, a saber três quartos ou $75\%$. O mesmo tipo de raciocínio fazemos quando dizemos que certo aluno está entre os $5\%$ melhores do colégio. Não precisamos nem saber quantos alunos tem o colégio ou em quantos países estão sendo consideradas as rendas. Aqui já houve uma padronização da posição usando-se a porcentagem de alunos ou países com desempenho ou renda abaixo do valor considerado. É este raciocínio que define os percentis.
 
-\textbf{O percentil de ordem $K$ (onde $k$ é qualquer valor entre $0$ e $100$), denotado por $P_k$, é o valor tal que $K\%$ dos valores do conjunto de dados são menores ou iguais a ele.}
+**O percentil de ordem $K$ (onde $k$ é qualquer valor entre $0$ e $100$), denotado por $P_k$, é o valor tal que $K\%$ dos valores do conjunto de dados são menores ou iguais a ele.**
 
 Assim, o percentil de ordem $10$, o $P_{10}$, é o valor da variável tal que $10\%$ dos valores são menores ou iguais a ele; o percentil de ordem $65$ deixa $65\%$ dos dados menores ou iguais a ele etc.
 

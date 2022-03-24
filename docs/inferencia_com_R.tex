@@ -4,10 +4,6 @@
 %
 \documentclass[
 ]{book}
-\title{Inferência Estatística com R}
-\author{P. Maçaira, L. Bastos, S. Aguilar \& I. Peres}
-\date{}
-
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -108,6 +104,9 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
+\usepackage[normalem]{ulem}
+% Avoid problems with \sout in headers with hyperref
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -132,6 +131,10 @@
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{plainnat}
+
+\title{Inferência Estatística com R}
+\author{P. Maçaira, L. Bastos, S. Aguilar \& I. Peres}
+\date{}
 
 \begin{document}
 \maketitle
@@ -212,157 +215,168 @@ Fevereiro 2022
 Para citar a versão online deste livro, use o seguinte:
 
 \begin{quote}
-Maçaira, P.; Bastos, L.; Aguilar, S. \& Peres, I. (2022) Inferência Estatística com R, 1ª edição, Rio de Janeiro, Brasil. \url{https://paulamacaira.github.io/livro_inferencia_com_R/}. Acessado em 2022-02-08.
+Maçaira, P.; Bastos, L.; Aguilar, S. \& Peres, I. (2022) Inferência Estatística com R, 1ª edição, Rio de Janeiro, Brasil. \url{https://paulamacaira.github.io/livro_inferencia_com_R/}. Acessado em 2022-03-24.
 \end{quote}
 
 \hypertarget{analise_descritiva}{%
 \chapter{Análise Descritiva}\label{analise_descritiva}}
 
-A indútria 4.0, ou quarta revolução industrial, é a continuação do aperfeiçoamento das máquinas, um processo que começou com a primeira Revolução Industrial e nunca mais parou. Podemos dizer que a indústria 4.0 é a realidade na qual a tecnologia industrial está cada vez mais eficiente: mais inteligente, mais rápida e mais precisa. O termo é utilizado para caracterizar a utilização do que há de mais moderno para produzir bens de consumo: big data, internet das coisas, inteligência artificial e muito mais.
+A Indústria 4.0, ou quarta Revolução Industrial, é a continuação do aperfeiçoamento das máquinas, um processo que começou com a primeira Revolução Industrial e nunca mais parou. Podemos dizer que a Indústria 4.0 é a realidade na qual a tecnologia industrial está cada vez mais eficiente, mais inteligente, mais rápida e mais precisa. O termo é utilizado para caracterizar a utilização do que há de mais moderno para produzir bens de consumo: \emph{Big Data}, internet das coisas (\emph{Internet of Things}, \emph{IoT}), inteligência artificial e muito mais.
 
-O big data é um conceito muito importante e que vem ganhando bastante notoriedade nos últimos anos. É o termo em Tecnologia da Informação (TI) que trata sobre grandes conjuntos de dados que precisam ser processados e armazenados. É um conceito-chave para a quarta revolução industrial, pois são esses dados que permitem às máquinas trabalharem com maior eficiência.
+O \emph{Big Data} é um conceito muito importante e que vem ganhando bastante notoriedade nos últimos anos. É o termo em Tecnologia da Informação (TI) que trata sobre grandes conjuntos de dados (em volume e variedade) que precisam ser processados e armazenados de maneira eficiente. É um conceito-chave para a Indústria 4.0, pois são esses dados que permitem às máquinas trabalharem com maior eficiência.
 
-Dados sozinhos não podem dizer muita coisa. Por exemplo, eu posso te dizer que minha cor favorita é verde. Isso não te leva a tirar muitas conclusões sobre minha personalidade. Porém, se eu te der uma pequena tabela em excel com alguns dos meus livros favoritos, provavelmente você terá conclusões mais significativas sobre mim. O que aconteceu foi que você, munido da sua capacidade mental e analítica, aliada a uma certa quantidade de dados foi capaz de tirar alguns insights sobre um assunto. E é exatamente aí que está a beleza e a grandiosidade da chamada ``Era do Big Data''.
+Os Dados sozinhos não podem dizer muita coisa. Por exemplo, eu posso te dizer que minha cor favorita é verde, mas isso não te faz concluir muito sobre a minha personalidade. Porém, se eu te der uma pequena tabela em Excel com alguns dos meus livros favoritos, provavelmente você terá conclusões mais significativas sobre mim. O que aconteceu foi que você, munido da sua capacidade mental e analítica, aliada a uma certa quantidade de dados foi capaz de tirar alguns insights sobre um assunto (minha preferência de leitura). É exatamente aí que está a beleza e a grandiosidade da chamada ``Era do \emph{Big Data}''.
 
-\includegraphics{dados_sabedoria.jpg}
+\begin{figure}
 
-Big Data é basicamente análise de dados. De fato isso não é nenhuma novidade. Há muitos e muitos anos a humanidade coleta dados para serem analisados. A grande inovação está em aliar métodos antigos e limitados de análise de dados aos modernos recursos de hardware de alto processamento. Ou seja, agora é possível transitar todos esses cálculos e análises por meio de softwares desenvolvidos especificamente para trabalharem com enormes quantidades de dados. Uma solução de Big Data funciona com algoritmos complexos que trabalham a informação de modo a obter como saída os mais diversos tipos de insights.
+{\centering \includegraphics{dados_sabedoria} 
 
-A Análise Descritiva é a fase inicial deste processo de estudo dos dados coletados. Utilizamos métodos de Estatística Descritiva para organizar, resumir e descrever os aspectos importantes de um conjunto de características observadas ou comparar tais características entre dois ou mais conjuntos. As ferramentas descritivas são os muitos tipos de gráficos e tabelas e também medidas de síntese como porcentagens, índices e médias.
+}
 
-Ao se condensar os dados, perde-se informação, pois não se têm as observações originais. Entretanto, esta perda de informação é pequena se comparada ao ganho que se tem com a clareza da interpretação proporcionada.
+\caption{O caminho para construção do conhecimento se baseia em dados, a capacidade analítca e domínio do tema}\label{fig:unnamed-chunk-3}
+\end{figure}
 
-A descrição dos dados também tem como objetivo identificar anomalias, até mesmo resultante do registro incorreto de valores, e dados dispersos, aqueles que não seguem a tendência geral do restante do conjunto.
+Apesar do termo \emph{Big Data} representar uma variedade de conceitos e ferramentas, estamos falando basicamente de \uline{análise de dados}. De fato, isso não é nenhuma novidade. Há muitos anos a humanidade coleta dados para serem analisados. A grande inovação está em aliar os métodos tradicionais de análise de dados e suas limitações aos modernos recursos de hardware de alto processamento. Dessa forma, a evolução tecnológica atual permitiu transitar todos esses cálculos e análises por meio de softwares desenvolvidos especificamente para lidar com enormes quantidades de dados. Uma solução de \emph{Big Data} funciona com algoritmos complexos e adaptações/melhorias dos métodos tradicionais a fim de processar a informação e obter como saída os mais diversos tipos de insights.
 
-Não só nos artigos técnicos direcionados para pesquisadores, mas também nos artigos de jornais e revistas escritos para o público leigo, é cada vez mais frequente a utilização destes recursos de descrição para complementar a apresentação de um fato, justificar ou referendar um argumento.
+A \textbf{Análise Descritiva} é a fase inicial deste processo de estudo dos dados coletados. Nesta fase, utilizamos métodos de Estatística Descritiva para organizar, resumir e descrever os aspectos importantes de um conjunto de características observadas. Dessa forma, é possível identificar padrões e/ou tendências dessas características, bem como compará-las entre dois ou mais conjuntos. Algumas das \textbf{principais ferramentas de estatística descritiva} são: \textbf{medidas de síntese da informação}, tais como médias, frequência, porcentagens e índices, assim como \textbf{ferramentas de visualização de dados} - uma varidade enorme de gráficos e tabelas.
 
-Durante a pandemia da COVID-19 foram publicadas ótimas visualizações de dados de casos e mortes, mas a mais conhecida delas é o gráfico de John Burn-Murdoch no Financial Times. Esta é uma ótima visualização e ajudou a apresentar gráficos em escala logarítimica para um público amplo.
+No processo de síntese dos dados, perde-se informação, pois não se têm mais as observações originais. Entretanto, esta perda é pequena se comparada ao ganho que se tem com a clareza da interpretação proporcionada por uma medida. Por exemplo, saber a temperatura média ou a probabilidade de chuva deste momento te dá informações suficientes para escolher um agasalho correto, sem precisar coletar e analisar o valor medido a cada segundo ou minuto.
 
-\includegraphics{financial_times.jpg}
+A descrição dos dados também tem como objetivo identificar anomalias e inconsistências. Anomalias correspondem aqueles valores medidos que não seguem a tendência geral do restante do conjunto de dados como, por exemplo, uma mudança brusca de temperatura média por conta de uma geada, ou também por exemplo uma queda no valor de uma ação por conta de mudanças na conjuntura econômica. Já inconsistências correspondem a valores medidos que forma registrados de maneira incorreta no banco de dados. Um exemplo muito comum de inconsistência são valores faltantes (\emph{missing values}).
 
-Ao mesmo tempo em que o uso das ferramentas estatísticas vem crescendo, aumenta também o abuso de tais ferramentas. É muito comum vermos em jornais e revistas, até mesmo em periódicos científicos, gráficos - voluntariamente ou intencionalmente - enganosos e estatísticas obscuras para justificar argumentos polêmicos.
+Diversas visualizações de dados são criadas por cientistas de dados em jornais para resumir de maneira intuitiva ou lúdica algumas das principais informações complementar a apresentação de um fato, justificar ou referendar um argumento. Não só nos artigos técnicos direcionados para pesquisadores, mas também nos artigos de jornais e revistas, escritos para o público leigo.
 
-Neste capítulo iremos mergulhar no mundo da Análise de Descritiva de Dados, explorando estatísticas descritivas e análises gráficas com os pacotes mais atuais do software \(\texttt{R}\) \citep{R2020}.
+Durante a pandemia da COVID-19, por exemplo, foram publicadas ótimas visualizações de dados de evolução dos casos e óbitos. Uma das mais conhecidas delas é o gráfico de John Burn-Murdoch no Financial Times mostrando a evolução da pandemia em diversos países. Esta é uma ótima visualização e ajudou a apresentar gráficos em escala logarítimica para um público amplo. Outro exemplo são \href{https://www.nytimes.com/spotlight/graphics}{as visualizações geradas no \emph{New York Times}}
+
+\begin{center}\includegraphics{financial_times} \end{center}
+
+Ao mesmo tempo em que o uso das ferramentas estatísticas vem crescendo, aumenta também o abuso de tais ferramentas. É muito comum ver em jornais e revistas, até mesmo em periódicos científicos, gráficos - voluntariamente ou intencionalmente - enganosos e estatísticas obscuras para justificar argumentos polêmicos. Dessa forma, o conhecimento sobre as ferramentas descritivas, aliado à capacidade analítica e à experiência sobre determinado assunto, tornam-se importantes para uma melhor compreensão do dado apresentado.
+
+Neste capítulo iremos mergulhar no mundo da \textbf{Análise de Descritiva de Dados}, explorando estatísticas descritivas e análises gráficas com os pacotes mais atuais do software \(\texttt{R}\) \citep{R2020}.
 
 \hypertarget{coleta-e-armazenamento-de-dados}{%
 \section{Coleta e Armazenamento de Dados}\label{coleta-e-armazenamento-de-dados}}
 
-\textbf{Contextualizando com um exemplo}
+\textbf{Contextualizando - A pandemia de COVID-19}
 
-O primeiro caso da COVID-19 no Brasil foi confirmado em 25 de fevereiro de 2020, em São Paulo. Desde então o Governo Federal do Brasil reporta diariamente o número total de casos e mortes no país para cada Unidade da Federação, que corresponde aos 26 estados mais o Distrito Federal. No \href{https://github.com/wcota/covid19br}{github do Wesley Cota} \citep{CotaCovid19br2020} é possível extrair tais informações atualizadas para o dia anterior de forma sistematizada numa planilha de dados de maneira a realizar a entrada dos dados num programa de computador.
+O primeiro caso da COVID-19 no Brasil foi confirmado em 25 de fevereiro de 2020, em São Paulo. Desde então o Governo Federal do Brasil reporta diariamente o número total de casos e mortes no país para cada Unidade da Federação (UF), que corresponde aos 26 estados mais o Distrito Federal. Os dados de notificações são coletados e disponibilizados diariamente em boletins pelas Secretarias Estaduais de Saúde em seus sites oficiais. Várias iniciativas para consolidar e analisar os dados foram feitas e disponilizadas. Por exemplo, o pesquisador \href{https://www.wesleycota.com/}{Wesley Cota} do grupo \href{https://covid19br.github.io/}{Observatório COVID-19BR} disponibiliza diversos dados de acompanhamento de casos e óbitos confirmados por COVID-19 em seu repositório \href{https://github.com/wcota/covid19br}{GitHub} \citep{CotaCovid19br2020}. Os dados são atualizados diariamente de forma sistematizada em uma planilha de dados, sendo de fácil leitura em programa de computador.
 
-Para exemplificação, iremos extrair do \href{https://github.com/wcota/covid19br}{github do Wesley Cota} a planilha que possui informações agregadas para o Brasil e suas UFs. Este é o formato mais comum de uma base de dados, composta por linhas e colunas. Cada linha contém os dados de uma Unidade da Federação (elemento) e as informações (variáveis) esntão dispostas nas colunas. Dessa forma, a base de dados contém um número de linhas igual ao número de Unidades da Federação mais o total Brasil e um número de colunas igual ao número de variáveis sendo estudadas.
+Como exemplo, vamos extrair as informações agregadas de casos e óbitos confirmados para o Brasil e suas UFs. Este é o formato mais comum de uma base de dados pronta para análise composta por linhas e colunas: Cada linha contém os dados de uma Unidade da Federação (elemento) e as informações (variáveis) estão dispostas em colunas. Dessa forma, a base de dados contém um número de linhas igual ao número de Unidades da Federação (27) mais o total Brasil e um número de colunas igual ao número de variáveis sendo estudadas.
 
-\begin{tabular}{l|r|r}
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}Casos e óbitos confirmados por COVID-19 em cada estado brasileiro}
+\centering
+\begin{tabular}[t]{r|r|r}
 \hline
-Estado & Casos & Mortes\\
+UF & Casos & Óbitos\\
 \hline
-TOTAL & 26616014 & 632946\\
+TOTAL & 29.738.362 & 658.286\\
 \hline
-AC & 105979 & 1899\\
+AC & 123.737 & 1.990\\
 \hline
-AL & 269644 & 6478\\
+AL & 295.519 & 6.860\\
 \hline
-AM & 549076 & 14024\\
+AM & 580.901 & 14.148\\
 \hline
-AP & 157127 & 2059\\
+AP & 160.288 & 2.122\\
 \hline
-BA & 1410619 & 28217\\
+BA & 1.526.827 & 29.635\\
 \hline
-CE & 1183229 & 25542\\
+CE & 1.238.511 & 26.683\\
 \hline
-DF & 640006 & 11230\\
+DF & 690.717 & 11.566\\
 \hline
-ES & 934798 & 13701\\
+ES & 1.035.955 & 14.313\\
 \hline
-GO & 1072457 & 25197\\
+GO & 1.261.838 & 26.181\\
 \hline
-MA & 393535 & 10543\\
+MA & 423.165 & 10.863\\
 \hline
-MG & 2880591 & 57894\\
+MG & 3.306.753 & 60.638\\
 \hline
-MS & 443055 & 9992\\
+MS & 521.970 & 10.474\\
 \hline
-MT & 656139 & 14444\\
+MT & 722.928 & 14.851\\
 \hline
-PA & 667874 & 17458\\
+PA & 748.290 & 18.061\\
 \hline
-PB & 521577 & 9832\\
+PB & 592.905 & 10.181\\
 \hline
-PE & 731104 & 20736\\
+PE & 884.902 & 21.318\\
 \hline
-PI & 352464 & 7466\\
+PI & 367.441 & 7.718\\
 \hline
-PR & 2094041 & 41450\\
+PR & 2.401.709 & 42.857\\
 \hline
-RJ & 1856969 & 70234\\
+RJ & 2.068.356 & 72.556\\
 \hline
-RN & 442435 & 7815\\
+RN & 494.129 & 8.116\\
 \hline
-RO & 335746 & 6869\\
+RO & 388.961 & 7.157\\
 \hline
-RR & 145883 & 2105\\
+RR & 154.903 & 2.144\\
 \hline
-RS & 1932262 & 37185\\
+RS & 2.252.742 & 38.929\\
 \hline
-SC & 1502015 & 20805\\
+SC & 1.665.110 & 21.638\\
 \hline
-SE & 306977 & 6135\\
+SE & 324.533 & 6.303\\
 \hline
-SP & 4749089 & 159615\\
+SP & 5.202.983 & 166.843\\
 \hline
-TO & 281323 & 4021\\
+TO & 302.289 & 4.141\\
 \hline
 \end{tabular}
+\end{table}
 
-Note que se usássemos uma base de dados que contém a evolução da doença por UF então teríamos uma combinação que seria uma linha para cada dia e cada estado, aumentando consideravelmente a dimensão da base.
+Note que se estivessemos analisando uma base de dados que contém a evolução diária da pademia por UF, então teríamos um conjunto de dados em que cada linha seria o valor de casos e/ou óbitos para cada dia e cada UF, aumentando consideravelmente a dimensão da base (Ex: Progressão diária de cada UF e total Brasil em um ano - 28 UFs x 365 dias = 10.220 linhas!).
 
 \hypertarget{tipos-de-variuxe1veis}{%
 \section{Tipos de Variáveis}\label{tipos-de-variuxe1veis}}
 
-\textbf{Variável} é a característica de interesse que é medida em cada indivíduo da amostra ou população. Como o nome diz, seus valores variam de indivíduo para indivíduo. As variáveis podem ter valores numéricos ou não numéricos.
+\uline{\textbf{Variável}} é a característica ou condição de interesse das unidades/indivíduos da amostra ou população. Como o nome diz, \uline{seus valores variam de indivíduo para indivíduo}. As variáveis podem ter valores numéricos ou não numéricos.
 
 \hypertarget{variuxe1veis-quantitativas}{%
-\section{Variáveis Quantitativas}\label{variuxe1veis-quantitativas}}
+\subsection{Variáveis Quantitativas}\label{variuxe1veis-quantitativas}}
 
-São as características que podem ser medidas em uma escala quantitativa, ou seja, apresentam valores numéricos que fazem sentido. Podem ser contínuas ou discretas.
+\uline{São as características que podem ser medidas em uma escala quantitativa}, ou seja, apresentam valores numéricos que fazem sentido. Podem ser classificadas como contínuas ou discretas.
 
 \begin{itemize}
-\tightlist
 \item
-  \textbf{Variáveis contínuas}: características mensuráveis que assumem valores em uma escala contínua (na reta real), para as quais valores não-inteiros (com casas decimais) fazem sentido. Usualmente devem ser medidas através de algum instrumento.
+  \textbf{Variáveis contínuas}: Características mensuráveis que assumem valores em uma escala contínua, i.e., em intervalos dos números reais, para as quais valores não-inteiros (com casas decimais) fazem sentido. Usualmente devem ser medidas através de algum instrumento.
 
   \begin{itemize}
   \tightlist
   \item
-    Exemplos: peso (balança), altura (régua), tempo (relógio), pressão arterial, idade.
+    Exemplos: Peso (balança), Altura (régua), Tempo (relógio), Pressão arterial (esfigmomanômetro), Idade (calendário).
   \end{itemize}
 \item
-  \textbf{Variáveis discretas}: características mensuráveis que podem assumir apenas um número finito ou infinito contável de valores e, assim, somente fazem sentido valores inteiros. Geralmente, são o resultado de contagens.
+  \textbf{Variáveis discretas}: características mensuráveis que podem assumir apenas um número finito ou infinito contável de valores e, em geral são considerados os valores inteiros. Geralmente consistem em resultados de contagens.
 
   \begin{itemize}
   \tightlist
   \item
-    Exemplos: número de filhos, número de bactérias por litro de leite, número de casos de uma doença.
+    Exemplos: Número de filhos, Número de bactérias por litro de leite, Número de casos de uma doença.
   \end{itemize}
 \end{itemize}
 
 \hypertarget{variuxe1veis-qualitativas-ou-categuxf3ricas}{%
-\section{Variáveis Qualitativas (ou categóricas)}\label{variuxe1veis-qualitativas-ou-categuxf3ricas}}
+\subsection{Variáveis Qualitativas (ou categóricas)}\label{variuxe1veis-qualitativas-ou-categuxf3ricas}}
 
-São as características que não possuem valores quantitativos, mas, ao contrário, são definidas por várias categorias, ou seja, representam uma classificação dos indivíduos. Podem ser nominais ou ordinais.
+\uline{São as características definidas por várias categorias, ou seja, representam uma classificação dos indivíduos}, ao invés de valores quantitativos. Podem ser nominais ou ordinais.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Variáveis nominais}: não existe ordenação entre as categorias. Exemplos: sexo, cor dos olhos, fumante/não fumante, doente/sadio.
+  \textbf{Variáveis nominais}: Não existe ordenação entre as categorias. Exemplos: sexo, cor dos olhos, fumante/não fumante, doente/sadio.
 \item
-  \textbf{Variáveis ordinais}: existe uma ordenação entre as categorias. Exemplos: escolaridade (1o, 2o, 3o graus), estágio da doença (inicial,intermediário, terminal), mês de observação (janeiro, fevereiro,\(\ldots\), dezembro).
+  \textbf{Variáveis ordinais}: Apresentam uma ordenação entre as categorias. Exemplos: escolaridade (``1o'', ``2o'', ``3o'' graus), estágio da doença (``inicial'', ``intermediário'', ``terminal''), mês de observação (``janeiro'', ``fevereiro'',\ldots, ``dezembro'').
 \end{itemize}
 
-Uma variável originalmente quantitativa pode ser coletada de forma qualitativa. Por exemplo, a variável idade, medida em anos completos, é quantitativa (contínua); mas, se for informada apenas a faixa etária (0 a 5 anos, 6 a 10 anos etc.), é qualitativa (ordinal). Outro exemplo é o peso dos lutadores de boxe, uma variável quantitativa (contínua) se trabalhamos com o valor obtido na balança, mas qualitativa (ordinal) se o classificarmos nas categorias do boxe (peso-pena, peso-leve, peso-pesado etc.).
+Uma variável originalmente quantitativa pode ser coletada de forma qualitativa. Por exemplo, a variável idade, medida em anos completos, é quantitativa (contínua). Porém, se for informada apenas a faixa etária (``0 a 5 anos'', ``6 a 10 anos'', etc.), ela se torna qualitativa (categórica e ordinal). Outro exemplo é o peso dos lutadores de boxe, uma variável quantitativa (contínua) se trabalhamos com o valor obtido na balança, em kilogramas, mas qualitativa (ordinal) se o classificarmos nas categorias do boxe (``peso-pena'', ``peso-leve'', ``peso-pesado'', etc.).
 
-Outro ponto importante é que nem sempre uma variável representada por números é quantitativa. O número do telefone de uma pessoa, o número da casa, o número de sua identidade. Às vezes o sexo do indivíduo é registrado na planilha de dados como 1 se macho e 2 se fêmea, por exemplo. Isto não significa que a variável sexo passou a ser quantitativa.
+Outro ponto importante é que nem sempre uma variável representada por números é quantitativa, como, por exemplo, o número do telefone de uma pessoa, o número de sua casa, o número de sua identidade. Às vezes o sexo biológico de uma espécie de animal é registrado na planilha como sendo ``1'' se macho e ``2'' se fêmea, por exemplo. Isto não significa que a variável sexo passou a ser quantitativa, mas, neste caso, corresponde apenas a uma codificação da variável.
 
 \hypertarget{medidas-de-tenduxeancia-central}{%
 \section{Medidas de Tendência Central}\label{medidas-de-tenduxeancia-central}}
@@ -383,7 +397,7 @@ Para apresentar a média, primeiramente vamos definir alguma notação. A princ�
     \begin{cases}
       n          & \text{tamanho da amostra} \\
       x_i        & \text{valor da $i$-ésima observação} \\
-      \sum_{i=1}^n x & \text{soma de todas as observações} \\
+      \sum_{i=1}^n x_i & \text{soma de todas as observações} \\
       \bar x     & \text{símbolo que representa a média aritmética simples}
     \end{cases}
 \end{equation*}
@@ -391,7 +405,7 @@ Para apresentar a média, primeiramente vamos definir alguma notação. A princ�
 Assim,
 
 \begin{equation*}
-\bar x = \frac{\text{soma de todas as observações}}{{n}} = \frac{\sum_{i=1}^n x}{n}
+\bar x = \frac{\text{soma de todas as observações}}{{n}} = \frac{x_1 + x_2 + \ldots + x_n}{n}= \frac{\sum_{i=1}^n x_i} {n}
 \end{equation*}
 
 Exemplo: No conjunto de dados (1.3, 0.7, 5.8, 2.4, 1.2), temos \(n=5\), \(x_1=\) 1.3, \(x_2=\) 0.7, \(x_3=\) 5.8, \(x_4=\) 2.4 e \(x_5=\) 1.2, portanto \(\sum_{i=1}^5 x_i=\) 1.3 + 0.7 + 5.8 + 2.4 + 1.2 \(=\) 11.4 e assim \(\bar x = \frac{11.4}{5}=2.28\).
@@ -413,14 +427,13 @@ Fazendo no \(\texttt{R}\):
 \hypertarget{mediana}{%
 \subsection{Mediana}\label{mediana}}
 
-A mediana de um conjunto de dados é definida como sendo o ``valor do meio'' desse conjunto de dados, dispostos em ordem crescente, deixando metade dos valores acima dela e metade dos valores abaixo dela.
+A mediana de um conjunto de dados é definida como sendo o ``valor do meio'' desse conjunto de dados, dispostos em ordem crescente, que deixa metade dos valores acima dele e metade dos valores abaixo dele.
 
 Como calcular a mediana? Basta seguir sua definição. Vejamos:
 
 \begin{itemize}
-\tightlist
 \item
-  \textbf{\(n\) é ímpar}: Existe apenas um ``valor do meio'', que é a mediana.
+  \(n\) é ímpar: Existe apenas um ``valor do meio'', que é a mediana.
 
   \begin{itemize}
   \tightlist
@@ -434,7 +447,7 @@ Como calcular a mediana? Basta seguir sua definição. Vejamos:
     A mediana é o valor 1.3.
   \end{itemize}
 \item
-  \textbf{\(n\) é par}: Existem dois ``valores do meio''. A mediana é a média aritmética simples deles.
+  \(n\) é par: Existem dois ``valores do meio''. A mediana é a média aritmética simples deles.
 
   \begin{itemize}
   \tightlist
@@ -485,7 +498,7 @@ Como calcular a moda? Basta verificar o valor que ``aparece'' mais vezes. Vejamo
 \item
   No conjunto de dados (1, 2, 3, 3, 4, 5, 5, 5, 5, 5), há apenas uma moda, o valor \(5\), portanto o conjunto de dados é \textbf{unimodal}.
 \item
-  No conjunto de dados (1, 2, 2, 2, 2, 3, 4, 5, 6, 6, 6, 6, 7, 9), existem duas modas, os valores \(2\) e \(6\), portanto o conjunto de dados é \textbf{bimodal}.
+  No conjunto de dados (1, 2, 2, 2, 2, 3, 4, 5, 6, 6, 6, 6, 7, 9), existem duas modas, os valores \(2\) e \(6\), portanto o conjunto de dados é \textbf{bimodal}. Caso existam mais de duas modas, diremos que o conjunto de dados é \textbf{multimodal}.
 \item
   Nem sempre a moda existe ou faz sentido, no conjunto de dados (1, 2, 3, 4, 5, 6, 7, 8, 9), não existe um valor mais frequente que os demais, portanto o conjunto de dados é \textbf{amodal}.
 \end{itemize}
@@ -530,14 +543,14 @@ A moda é também a única das medidas de tendência central que faz sentido no 
 
 As medidas de tendência central (média, mediana, moda) conseguem resumir em um único número, o valor que é ``típico'' no conjunto de dados. Mas, será que, somente com essas medidas, conseguimos descrever adequadamente o que ocorre em um conjunto de dados?
 
-Vejamos um exemplo: quando pesamos algo em uma balança, esperamos que ela nos dê o verdadeiro peso daquilo que estamos pesando. No entanto, se fizermos várias medições do peso de um mesmo objeto em uma mesma balança, teremos diferentes valores para o peso deste objeto. Ou seja, existe variabilidade nas medições de peso fornecidas pela balança. Neste caso, quanto menor a variabilidade desses valores, mais precisa é a balança (considerando que a média das medidas de peso coincida como seu valor real). Observe na Figura abaixo, onde estão representadas as distribuições das medições do peso de uma esfera de 1000g, feitas por duas balanças (A e B). As duas balanças registram o mesmo peso médio de 1000g (média dos pesos de todas as medições feitas). Isto é, as duas balanças tipicamente acertam o verdadeiro peso da esfera. Porém, pela Figura, podemos notar que
+\textbf{Vejamos um exemplo}: quando pesamos algo em uma balança, esperamos que ela nos dê o verdadeiro peso daquilo que estamos pesando. No entanto, se fizermos várias medições do peso de um mesmo objeto em uma mesma balança, teremos diferentes valores para o peso deste objeto. Ou seja, existe variabilidade nas medições de peso fornecidas pela balança. Neste caso, quanto menor a variabilidade desses valores, mais precisa é a balança (considerando que a média das medidas de peso coincida como seu valor real). Observe na Figura abaixo, onde estão representadas as distribuições das medições do peso de uma esfera de 1000g, feitas por duas balanças (A e B). As duas balanças registram o mesmo peso médio de 1000g (média dos pesos de todas as medições feitas). Isto é, as duas balanças tipicamente acertam o verdadeiro peso da esfera. Porém, pela Figura, podemos notar que:
 
 \begin{itemize}
 \tightlist
 \item
-  as medições da balança A \emph{variam pouco} em torno de 1000g: oscilam bastante entre cerca de 950g e 1050g (uma ``imprecisão'' de 50g)
+  As medições da balança \textbf{A} \emph{variam pouco} em torno de 1000g: oscilam bastante entre cerca de 950g e 1050g (uma ``imprecisão'' de 50g)
 \item
-  as medições da balança B \emph{variam muito} em torno de 1000g: oscilam basicamente entre 900g e 1100g (uma ``imprecisão'' de 100g)
+  As medições da balança \textbf{B} \emph{variam muito} em torno de 1000g: oscilam basicamente entre 900g e 1100g (uma ``imprecisão'' de 100g)
 \end{itemize}
 
 \includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-10-1.pdf}
@@ -643,7 +656,7 @@ No entanto, os sinais dos desvios não são importantes para nossa medida de dis
 
 Para os dados do exemplo, teremos \(46/(10-1)=5,11\). Esse valor pode ser visto como uma quase-média dos desvios ao quadrado e é chamado de \textbf{variância}.
 
-A variância seria nossa medida de variabilidade se não fosse o fato de que ela está expressa em uma unidade diferente da unidade dos dados, pois, ao elevarmos os desvios ao quadrado, elevamos também as unidades de medida em que eles estão expressos. No caso dos dados do exemplo, medidos em número de filhos, a variância vale \(5,11\) ``filhos ao quadrado'', algo que não faz nenhum sentido.
+A variância seria nossa medida de variabilidade se não fosse o fato de que ela está expressa em uma unidade diferente da unidade dos dados, pois, ao elevarmos os desvios ao quadrado, elevamos também as unidades de medida em que eles estão expressos. No caso dos dados do exemplo, medidos em número de filhos, a variância vale \(5,11\) ``filhos ao quadrado'', algo que à luz das unidades do conjunto de dados não é interpretável.
 
 Para eliminar esse problema, extraímos a raiz quadrada da variância e, finalmente, temos a nossa medida de variabilidade, que chamaremos desvio-padrão (DP).
 
@@ -653,8 +666,7 @@ DP=\sqrt{\frac{\sum_{i=1}^n (x_i-\bar x)^2}{n-1}}
 
 O desvio-padrão, como o nome já diz, representa o desvio típico dos dados em relação à média, escolhida como medida de tendência central. No exemplo, temos que o desvio padrão vale \(2,26\). Isto significa que a distância típica (padrão) de cada mãe até o número médio de filhos (4 filhos) é de 2,26 filhos. Quanto maior o desvio-padrão, mais diferentes entre si serão as quantidades de filhos de cada mãe.
 
-O desvio-padrão, em alguns livros chamado de \(s\), é uma medida sempre positiva. Se observarmos a maneira como ele é calculado, veremos que não há como obter um valor
-negativo.
+O desvio-padrão, em alguns livros recebe a notação de \(s\), e sempre é uma medida positiva. Se observarmos a maneira como ele é calculado, veremos que não há como obter um valor negativo.
 
 Fazendo no \(\texttt{R}\):
 
@@ -710,7 +722,7 @@ Os bifes desse restaurante pesam, em média, 190 gramas, com um desvio-padrão d
 
 Para casos como esse, os agentes fiscalizadores podem estabelecer parâmetros (valores) para saber até quanto a média pode se desviar do valor correto e o quanto de variação eles podem permitir numa amostra para concluir que o processo de produção de bifes não possui problemas. Por exemplo, a média da amostra não poderia ser inferior a 198 gramas, com um desvio-padrão que não seja superior a 5\% dessa média.
 
-Essas idéias são utilizadas no controle do processo de produção das indústrias, onde já se espera alguma variação entre as unidades produzidas. Porém, essa variação deve estar sob controle. Numa indústria farmacêutica, por exemplo, espera-se que os comprimidos de uma certa droga sejam produzidos com uma certa variação em sua composição (maior ou menor quantidade do princípio ativo), devido à própria maneira como os comprimidos são produzidos (máquinas, pessoas etc.). No entanto, esta variação deve ser pequena, para que não sejam produzidos comprimidos inócuos (com pouco do princípio ativo) ou com extra-dosagem do princípio ativo, o que, em ambos os casos, pode causar sérias complicações à saúde do paciente.
+Essas idéias são utilizadas no processo de controle e qualidade de produção das indústrias, onde já se espera alguma variação entre as unidades produzidas. Porém, essa variação deve estar sob controle. Numa indústria farmacêutica, por exemplo, espera-se que os comprimidos de uma certa droga sejam produzidos com uma certa variação em sua composição (maior ou menor quantidade do princípio ativo), devido à própria maneira como os comprimidos são produzidos (máquinas, pessoas etc.). No entanto, esta variação deve ser pequena, para que não sejam produzidos comprimidos inócuos (com pouco do princípio ativo) ou com extra-dosagem do princípio ativo, o que, em ambos os casos, pode causar sérias complicações à saúde do paciente.
 
 O desvio-padrão nos permite distinguir numericamente conjuntos de dados de mesmo tamanho, mesma média, mas que são visivelmente diferentes. Usando o desvio-padrão, também conseguimos representar numericamente a variabilidade das medições das balanças A e B, que, apesar de possuírem a mesma média, possuem variabilidades bastante diferentes.
 
@@ -741,7 +753,7 @@ Assim, antes de responder se um desvio-padrão de 10 unidades é grande ou peque
   No segundo caso, o desvio-padrão corresponde a 10\% da média
 \end{itemize}
 
-À essa razão entre o desvio-padrão e a média damos o nome de \textbf{Coeficiente de Variação}:
+Desta forma, a razão entre o desvio-padrão e a média recebe o nome de \textbf{Coeficiente de Variação}:
 
 \begin{equation*}
 CV=\frac{\text{Desvio Padrão}}{\text{Média}}
@@ -793,11 +805,11 @@ Como veremos, esta medida de posição pode ser usada para comparar a posição 
 
 Considere o trecho a seguir, sobre a posição do Brasil, entre os países do mundo, quanto à renda per capita:
 
-\emph{O Brasil obviamente não é país rico, mas também não está entre os mais pobres. \(\ldots\) Mais de três quartos da população mundial vivem em países de renda per capita menor}
+\emph{O Brasil obviamente não é país rico, mas também não está entre os mais pobres.} \(\ldots\) Mais de três quartos da população mundial vivem em países de renda per capita menor.
 
-Neste caso, o posição do Brasil é dada pela quantidade de países que têm renda per capita menores que o Brasil, a saber três quartos ou \(75\%\). O mesmo tipo de raciocínio fazemos quando dizemos que certo aluno está entre os \(5\%\) melhores do colégio. Não precisamos nem saber quantos alunos tem o colégio ou em quantos países estão sendo consideradas as rendas. Aqui já houve uma padronização da posição usando-se a porcentagem de alunos ou países com desempenho ou renda abaixo do valor considerado. É este raciocínio que define os percentis.
+Neste caso, a posição do Brasil é dada pela quantidade de países que têm renda per capita menores que o Brasil, a saber três quartos ou \(75\%\). O mesmo tipo de raciocínio fazemos quando dizemos que certo aluno está entre os \(5\%\) melhores do colégio. Não precisamos nem saber quantos alunos tem o colégio ou em quantos países estão sendo consideradas as rendas. Aqui já houve uma padronização da posição usando-se a porcentagem de alunos ou países com desempenho ou renda abaixo do valor considerado. É este raciocínio que define os percentis.
 
-\textbf{O percentil de ordem $K$ (onde $k$ é qualquer valor entre $0$ e $100$), denotado por $P_k$, é o valor tal que $K\%$ dos valores do conjunto de dados são menores ou iguais a ele.}
+\textbf{O percentil de ordem \(K\) (onde \(k\) é qualquer valor entre \(0\) e \(100\)), denotado por \(P_k\), é o valor tal que \(K\%\) dos valores do conjunto de dados são menores ou iguais a ele.}
 
 Assim, o percentil de ordem \(10\), o \(P_{10}\), é o valor da variável tal que \(10\%\) dos valores são menores ou iguais a ele; o percentil de ordem \(65\) deixa \(65\%\) dos dados menores ou iguais a ele etc.
 
@@ -805,7 +817,7 @@ Os percentil de ordem \(10,20,30,\ldots,90\) dividem o conjunto de dados em dez 
 
 Os percentis de ordem \(25,50\) e \(75\) dividem o conjunto de dados em quatro partes com o mesmo número de observações. Assim, estes três percentis recebem o nome de quartis -- \textbf{primeiro quartil (Q1), segundo quartil (Q2) e terceiro quartil (Q3)}, respectivamente. O segundo quartil é a já conhecida mediana.
 
-Existem vários processos para calcular os percentis, usando interpolação. Vamos ficar com um método mais simples, mostrado na Figura a seguir. As diferenças serão muito pequenas e desaparecerão à medida que aumenta o número de dados.
+Existem vários processos para calcular os percentis, entre eles, usando interpolação. Vamos ficar com um método mais simples, mostrado na Figura a seguir. As diferenças serão muito pequenas e desaparecerão à medida que aumenta o número de dados.
 
 \includegraphics{fluxograma_percentil.png}
 
@@ -859,16 +871,15 @@ Veja que os valores encontrados pelo \(\texttt{R}\) não coincidem com os calcul
 Já sabemos que as variáveis de um estudo dividem-se em quatro tipos:
 
 \begin{itemize}
-\tightlist
 \item
   \textbf{Qualitativas}:
 
   \begin{itemize}
   \tightlist
   \item
-    nominais
+    Nominais
   \item
-    ordinais
+    Ordinais
   \end{itemize}
 \item
   \textbf{Quantitativas}:
@@ -876,9 +887,9 @@ Já sabemos que as variáveis de um estudo dividem-se em quatro tipos:
   \begin{itemize}
   \tightlist
   \item
-    discretas
+    Discretas
   \item
-    contínuas
+    Contínuas
   \end{itemize}
 \end{itemize}
 
@@ -901,8 +912,7 @@ Total & 32 & 100.00\\
 \bottomrule
 \end{tabular}
 
-Quando a variável tabelada for do tipo qualitativa ordinal, as linhas da tabela de frequências devem ser dispostas na ordem existente para as categorias. A tabela abaixo mostra a distribuição de
-frequências das coletas segundo o mês de observação na base de dados \(\texttt{airquality}\), que é uma variável qualitativa ordinal. Nesse caso, podemos acrescentar mais duas colunas com as frequências acumuladas (absoluta e relativa), que mostram, para cada mês, a frequência das coletas até aquele mês. Por exemplo, até o mês de julho, foram coletadas 92 amostras, o que representa 60,13\% do total de amostras coletadas.
+Quando a variável tabelada for do tipo qualitativa ordinal, as linhas da tabela de frequências devem ser dispostas na ordem existente para as categorias. A tabela abaixo mostra a distribuição de frequências das coletas segundo o mês de observação na base de dados \(\texttt{airquality}\), que é uma variável qualitativa ordinal. Nesse caso, podemos acrescentar mais duas colunas com as frequências acumuladas (absoluta e relativa), que mostram, para cada mês, a frequência das coletas até aquele mês. Por exemplo, até o mês de julho, foram coletadas 92 amostras, o que representa 60,13\% do total de amostras coletadas.
 
 \begin{tabular}{l>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedleft\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}}
 \toprule
@@ -1139,7 +1149,7 @@ Uma das maneiras de representar o que é ``típico'' é através do valor mais f
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
-No exemplo acima, a classe modal é a que vai de 97.9 até 103.5. Assim, os dados repousam, tipicamente entre esses valores. Entretanto, temos dois picos.
+No exemplo acima, a classe modal é a que vai de 96.8 até 102.6. Assim, os dados repousam, tipicamente entre esses valores. Entretanto, temos dois picos.
 
 Geralmente, um histograma bimodal indica a existência de dois grupos, com valores centrados em dois pontos diferentes do eixo de valores. Uma distribuição de frequências pode também ser amodal, ou seja, todos os valores são igualmente frequentes. Ou também unimodal, quando os valores estão concentrados somente em um ponto/classe.
 
@@ -1449,7 +1459,7 @@ Uma forma de obtermos os valores de \(\mu\) e \(\sigma\) é medindo as alturas d
 
 A inferência estatística trata do problema de se obter informação sobre uma população a partir de uma amostra. Embora a população real possa ser constituída de pessoas, empresas, animais etc., as pesquisas estatísticas buscam informações sobre determinadas características dos sujeitos, características essas que podem ser representadas por números. Sendo assim, a cada sujeito da população está associado um número, o que nos permite apresentar a seguinte definição.
 
-\textbf{População:} \emph{A população de uma pesquisa estatística pode ser representada por uma variável aleatória $X$ que descreve a característica de interesse.}
+\textbf{População:} A população de uma pesquisa estatística pode ser representada por uma variável aleatória \(X\) que descreve a característica de interesse.
 
 Os métodos de inferência nos permitirão obter estimativas dos parâmetros (característica de interesse) de tal variável aleatória, que pode ser contínua ou discreta.
 
@@ -1462,8 +1472,7 @@ Uma forma de se obter uma amostra aleatória simples é escrever os números ou 
 
 Agora vamos formalizar o processo de seleção de uma amostra aleatória simples, de forma a relacioná-lo com os problemas de inferência estatística que iremos estudar. Seja uma população representada por uma variável aleatória \(X\). De tal população será sorteada uma amostra aleatória simples com reposição de tamanho \(n\). Como visto nos exemplos anteriores, cada sorteio dá origem a uma variável aleatória \(X_i\) e, como os sorteios são com reposição, todas essas variáveis têm a mesma distribuição de \(X\). Isso nos leva a seguinte definição.
 
-\textbf{Amostra:} \emph{Uma amostra aleatória simples (aas) de tamanho $n$ de uma v.a. $X$ (população) é um conjunto de $n$ v.a. $X_1, X_2, \ldots, X_n$ independentes e identicamente
-distribuídas (i.i.d.).}
+\textbf{Amostra:} Uma amostra aleatória simples (aas) de tamanho \(n\) de uma v.a. \(X\) (população) é um conjunto de \(n\) v.a. \(X_1, X_2, \ldots, X_n\) independentes e identicamente distribuídas (i.i.d.).
 
 É interessante notar a convenção usual: o valor observado de uma v.a. \(X\) é representado pela letra minúscula correspondente. Assim, depois do sorteio de uma aas de tamanho \(n\), temos valores observados \(x_1, x_2, \ldots, x_n\) das respectivas variáveis aleatórias.
 
@@ -1474,8 +1483,7 @@ Obtida uma aas, é possível calcular diversas características desta amostra, c
 
 Temos, então, a seguinte definição:
 
-\textbf{Estatística:} \emph{Uma estatística amostral ou estimador $T$ é qualquer função da
-amostra $X_1, X_2, \ldots, X_n$, isto é, $T = g(X_1, X_2, \ldots, X_n)$ onde $g$ é uma função qualquer.}
+\textbf{Estatística:} Uma estatística amostral ou estimador \(T\) é qualquer função da amostra \(X_1, X_2, \ldots, X_n\), isto é, \(T = g(X_1, X_2, \ldots, X_n)\) onde \(g\) é uma função qualquer.
 
 As estatísticas amostrais que estaremos considerando neste curso são:
 
@@ -1493,7 +1501,7 @@ Outras estatísticas possíveis são o mínimo amostral, o máximo amostral, a a
 
 De forma análoga, temos as características de interesse da população. No entanto, para diferenciar entre as duas situações (população e amostra), atribuimos nomes diferentes.
 
-\textbf{Parâmetro:} \emph{Um parâmetro é uma característica da população.}
+\textbf{Parâmetro:} Um parâmetro é uma característica da população.
 
 Assim, se a população é representada pela v.a. \(X\), alguns parâmetros são a esperança \(E(X)\) e a variância \(V(X)\). Com relação as características mais usuais, vamos usar a seguinte notação:
 
@@ -1519,7 +1527,7 @@ Suponha que dessa população iremos extrair uma aas de tamanho 2 e a estatísti
 
 Para conhecer o comportamento (distribuição) da média amostral, teríamos que conhecer todos os possíveis valores de \(X\), o que equivaleria a conhecer todas as possíveis amostras de tamanho 2 de tal população. Nesse exemplo, como só temos 4 elementos na população, a obtenção de todas as aas de tamanho 2 não é difícil. No entanto, para um número um pouco maior dele elementos, ou quando não conhecemos todo o espaço amostral, essa tarefa se torna complexa.
 
-\textbf{Distribuição de Probabilidade:}\emph{A função de distribuição amostral de uma estatística $T$ é a função de distribuição de probabilidades de $T$ ao longo de todas as possíveis amostras de tamanho $n$.}
+\textbf{Distribuição de Probabilidade:} A função de distribuição amostral de uma estatística \(T\) é a função de distribuição de probabilidades de \(T\) ao longo de todas as possíveis amostras de tamanho \(n\).
 
 Em outras palavras, uma distribuição amostral é a distribuição de probabilidades de uma medida estatística baseada em uma amostra aleatória. Ao retirar uma amostra aleatória de uma população estaremos considerando cada valor da amostra como um valor de uma variável aleatória cuja distribuição de probabilidade é a mesma da população no instante da retirada desse elemento para a amostra. Em consequência do fato de os valores de amostra serem aleatórios, decorre que qualquer quantidade calculada em função dos elementos da amostra também será uma variável aleatória.
 
@@ -1540,17 +1548,17 @@ Traduzindo esta situação para o contexto de estimadores e suas propriedades, t
 
 Temos, assim, ilustrados os seguintes conceitos:
 
-\textbf{Viés:}\emph{Um estimador $T$ é dito um estimador não-viesado do parâmetro $\theta$ se $E(T)=\theta$.}
+\textbf{Viés:} Um estimador \(T\) é dito um estimador não-viesado do parâmetro \(\theta\) se \(E(T)=\theta\), portanto \(Vies(T)=E(\theta)-\theta\)
 
 Essa esperança é calculada ao longo de todas as possíveis amostras, ou seja, é a esperança da distribuição amostral de \(T\). Nas partes (a) e (b) da Figura os estimadores são não-viesados e nas partes (c) e (d), os estimadores são viesados.
 
-Com relação aos estimadores \(bar X\), \(S^2\) e \(\hat \sigma^2\), veremos formalmente que os dois primeiros são não-viesados para estimar a média e a variância populacionais, respectivamente, enquanto \(\hat \sigma^2\) é viesado para estimar a variância populacional. Essa é a razão para se usar \(S^2\), e não \(\hat \sigma^2\).
+Com relação aos estimadores \(\bar X\), \(S^2\) e \(\hat \sigma^2\), veremos formalmente que os dois primeiros são não-viesados para estimar a média e a variância populacionais, respectivamente, enquanto \(\hat \sigma^2\) é viesado para estimar a variância populacional. Essa é a razão para se usar \(S^2\), e não \(\hat \sigma^2\).
 
-\textbf{Eficiência:}\emph{Se $T_1$ e $T_2$ são dois estimadores não-viesados do parâmetro $\theta$, diz-se que $T_1$ é mais eficiente que $T_2$ se $V(T_1)<V(T_2)$.}
+\textbf{Eficiência:} Se \(T_1\) e \(T_2\) são dois estimadores não-viesados do parâmetro \(\theta\), diz-se que \(T_1\) é mais eficiente que \(T_2\) se \(V(T_1)<V(T_2)\).
 
 Na Figura, o estimador da parte (a) é mais eficiente que o estimador da parte (b). Uma outra propriedade dos estimadores está relacionada a idéia bastante intuitiva de que a medida que se aumenta o tamanho da amostra, mais perto devemos ficar do verdadeiro valor do parâmetro.
 
-\textbf{Consistência:}\emph{Um estimador $T$ de um parâmetro $\theta$ é consistente se:}
+\textbf{Consistência:} Um estimador \(T\) de um parâmetro \(\theta\) é consistente se:
 
 \begin{itemize}
 \tightlist
@@ -1600,7 +1608,7 @@ Primeiramente, considere que são retiradas 15 amostras de tamanho 20 dessa popu
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-48-1} \end{center}
 
-Nessa simulação obtivemos \(\bar x =\) 10.05 e \(s =\) 0.36.
+Nessa simulação obtivemos \(\bar x =\) 9.93 e \(s =\) 0.4.
 
 Suponha agora que façamos o mesmo processo, porém ao invés de considerarmos 15 amostras de tamanho 20, consideramos 200 amostras.
 
@@ -1618,7 +1626,7 @@ Suponha agora que façamos o mesmo processo, porém ao invés de considerarmos 1
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
-Agora, obtivemos \(\bar x =\) 10 e \(s =\) 0.45.
+Agora, obtivemos \(\bar x =\) 10.01 e \(s =\) 0.45.
 
 Realizando o mesmo experimento, porém agora considerando 10000 amostras de tamanho 20, a distribuição da média amostral pode ser vista segundo o histograma abaixo.
 
@@ -1636,7 +1644,7 @@ Realizando o mesmo experimento, porém agora considerando 10000 amostras de tama
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
-Para este caso, a média das médias amostrais foi \(\bar x=\) 10 e o desvio padrão foi \(s =\) 0.45. Então, empiricamente, podemos perceber que a distribuição da média amostral se aproxima de uma distribuição normal com média \(\mu=10\) e desvio padrão \(\frac{\sigma}{\sqrt{n}}=\frac{2}{\sqrt{20}}=0,4472\).
+Para este caso, a média das médias amostrais foi \(\bar x=\) 10 e o desvio padrão foi \(s =\) 0.44. Então, empiricamente, podemos perceber que a distribuição da média amostral se aproxima de uma distribuição normal com média \(\mu=10\) e desvio padrão \(\frac{\sigma}{\sqrt{n}}=\frac{2}{\sqrt{20}}=0,4472\).
 
 \hypertarget{prova}{%
 \subsection{Prova}\label{prova}}
@@ -1756,7 +1764,7 @@ Primeiramente, considere que são retiradas 15 amostras de tamanho 20 dessa popu
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
-Nessa simulação obtivemos a média das variâncias igual a 4.07 e a variância das variâncias igual a 1.15.
+Nessa simulação obtivemos a média das variâncias igual a 3.85 e a variância das variâncias igual a 2.76.
 
 Suponha agora que façamos o mesmo processo, porém ao invés de considerarmos 15 amostras de tamanho 20, consideramos 1000 amostras.
 
@@ -1774,7 +1782,7 @@ Suponha agora que façamos o mesmo processo, porém ao invés de considerarmos 1
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
-Neste caso a média das variâncias foi igual a 4.03 e a variância das variâncias igual a 1.72.
+Neste caso a média das variâncias foi igual a 4 e a variância das variâncias igual a 1.66.
 
 Realizando o mesmo experimento, porém agora considerando 10000 amostras de tamanho 20, a distribuição da variância amostral pode ser vista segundo o histograma abaixo.
 
@@ -1792,7 +1800,7 @@ Realizando o mesmo experimento, porém agora considerando 10000 amostras de tama
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
-Neste caso, a média das variâncias é 3.99 e a variância é 1.68. Então, realmente, podemos perceber que a distribuição da variância amostral se aproxima de uma distribuição qui-quadrado com média \(\mu=4\) e variância \(\frac{2\sigma^4}{n-1}=\frac{2\times 16}{19}=1,684\).
+Neste caso, a média das variâncias é 3.99 e a variância é 1.66. Então, realmente, podemos perceber que a distribuição da variância amostral se aproxima de uma distribuição qui-quadrado com média \(\mu=4\) e variância \(\frac{2\sigma^4}{n-1}=\frac{2\times 16}{19}=1,684\).
 
 Destas propriedades temos que \[V(S^2)=\frac{2\sigma^4}{n-1}.\]
 
@@ -1865,7 +1873,7 @@ Suponha agora que façamos o mesmo processo, porém ao invés de considerarmos 1
 
 \begin{center}\includegraphics{inferencia_com_R_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
-Agora, obtivemos \(\hat p =\) 0.29.
+Agora, obtivemos \(\hat p =\) 0.3.
 
 Realizando o mesmo experimento, porém agora considerando 10000 amostras de tamanho 20, a distribuição da média amostral pode ser vista segundo o histograma abaixo.
 
@@ -1901,7 +1909,7 @@ Na prática, temos apenas uma amostra e, assim, é importante que se dê alguma 
 
 O que vamos estudar agora é como obter esse intervalo, de modo a ``acertar na maioria das vezes'', isto é, queremos um procedimento que garanta que, na maioria das vezes (ou das amostras possíveis), o intervalo obtido conterá o verdadeiro valor do parâmetro. A expressão ``na maioria das vezes'' será traduzida como ``probabilidade alta''. Dessa forma, estaremos lidando com afirmativas do seguinte tipo:
 
-\textbf{Com probabilidade alta (em geral, indicada por $1-\alpha$), o intervalo $\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]$ conterá o verdadeiro valor do parâmetro $\theta$.}
+**Com probabilidade alta (em geral, indicada por \(1-\alpha\)), o intervalo \(\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]\) conterá o verdadeiro valor do parâmetro \(\theta\).
 
 A interpretação correta de tal afirmativa é a seguinte: se \(1-\alpha=0,95\), por exemplo, então isso significa que o procedimento de construção do intervalo é tal que, em 95\% das possíveis amostras, o intervalo \(\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]\) obtido conterá o verdadeiro valor do parâmetro.
 
@@ -3299,9 +3307,21 @@ As frequências esperadas são calculadas pela multiplicação do tamanho da amo
 
 Já que a frequência esperada em \(E_4\) é menor do que 3, combinamos \(E_3\) e \(E_4\).
 
-\begin{longtable}[]{@{}llll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2817}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0986}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0986}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5211}}@{}}
 \toprule
-Número de Defeitos & \(O_i\) & \(E_i\) & \(\frac{(O_i-E_i)^2}{E_i}\) \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Número de Defeitos
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(O_i\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(E_i\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(\frac{(O_i-E_i)^2}{E_i}\)
+\end{minipage} \\
 \midrule
 \endhead
 0 & 32 & 28,32 & \(\frac{(32-28,32)^2}{28,32}=0.4782\) \\
@@ -3381,9 +3401,22 @@ Rejeita-se a hipótese de independência, se o valor observado da estatística d
 
 Uma companhia tem de escolher entre três planos de saúde. O gerente deseja saber se a preferência para os planos é independente da classificação do trabalho e quer usar \(\alpha=0.05\). As opiniões de uma amostra aleatória de 500 empregados foram coletadas:
 
-\begin{longtable}[]{@{}llllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.3649}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1892}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2162}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0676}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0676}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0946}}@{}}
 \toprule
-& & Plano de saúde & & & \\
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Plano de saúde
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} \\
 \midrule
 \endhead
 & & 1 & 2 & 3 & Total \\
@@ -3431,9 +3464,22 @@ Agora,
 
 As frequências esperadas são mostradas na tabela a seguir:
 
-\begin{longtable}[]{@{}llllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.3649}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1892}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2162}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0676}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0676}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0946}}@{}}
 \toprule
-& & Plano de saúde & & & \\
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Plano de saúde
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} \\
 \midrule
 \endhead
 & & 1 & 2 & 3 & Total \\
@@ -3528,9 +3574,9 @@ A estatística de teste será
 Portanto, podemos estabelecer para um teste com nível de significância \(\alpha\):
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.29}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.52}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.19}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2895}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5175}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1930}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Hipótese Alternativa (\(H_1\))
@@ -3647,9 +3693,9 @@ A estatística de teste é
 Portanto, podemos estabelecer para um teste com nível de significância \(\alpha\):
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.25}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.59}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.16}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2463}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5896}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1642}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Hipótese Alternativa (\(H_1\))
@@ -3758,9 +3804,9 @@ A estatística de teste é
 Portanto, podemos estabelecer para um teste com nível de significância \(\alpha\):
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.28}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.53}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.19}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2797}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5339}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1864}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Hipótese Alternativa (\(H_1\))
@@ -3864,8 +3910,8 @@ A estatística de teste é
 Portanto, podemos estabelecer para um teste com nível de significância \(\alpha\):
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.28}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.72}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2759}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7241}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Hipótese Alternativa (\(H_1\))
@@ -3880,9 +3926,15 @@ Região Crítica
 \bottomrule
 \end{longtable}
 
-\begin{longtable}[]{@{}ll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4507}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5493}}@{}}
 \toprule
-Hipótese Alternativa (\(H_1\)) & p-valor \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Hipótese Alternativa (\(H_1\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p-valor
+\end{minipage} \\
 \midrule
 \endhead
 \(H_1: \sigma^2_1\ne\sigma^2_2\) & \(2\times \min\{{P(F<f_0),P(F>f_0)}\}\) \\
@@ -3984,9 +4036,15 @@ A estatística de teste é
 
 Portanto, podemos estabelecer para um teste com nível de significância \(\alpha\):
 
-\begin{longtable}[]{@{}ll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3587}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6413}}@{}}
 \toprule
-Hipótese Alternativa (\(H_1\)) & Região Crítica \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Hipótese Alternativa (\(H_1\))
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Região Crítica
+\end{minipage} \\
 \midrule
 \endhead
 \(H_1: p_1\ne p_2\) & \(z_0<-z_{\frac{\alpha}{2}}\) ou \(z_0>z_{\frac{\alpha}{2}}\) \\
@@ -4067,9 +4125,27 @@ ANOVA é uma coleção de modelos estatísticos no qual a variância amostral é
 
 Considere um processo, produto ou serviço no qual queremos avaliar o impacto do fator \(A\), tal que \(A\) tenha \(k\) níveis, sendo que esses níveis são fixos. Suponha que uma amostra de \(N\) unidades experimentais é selecionada completamente aleatória de uma população de unidades experimentais. A unidade experimental é a unidade básica para o qual os tratamentos são aplicados. Podemos organizar os dados da seguinte forma:
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1299}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1299}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1299}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1299}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1558}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1299}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1948}}@{}}
 \toprule
-Nível & Fator A & & & & Somas & Médias \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Nível
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fator A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Somas
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Médias
+\end{minipage} \\
 \midrule
 \endhead
 1 & \(y_{11}\) & \(y_{12}\) & \(\ldots\) & \(y_{1n_1}\) & \(y_{1.}\) & \(\bar y_{1.}\) \\
@@ -4230,9 +4306,32 @@ Total & SQT & N-1 & & \\
 
 Considere o processo de produção de uma fibra sintética, no qual o experimentador quer conhecer a influência da porcentagem de algodão na resistência da fibra. Para isto, foi realizado um experimento totalmente aleatorizado, no qual diversos níveis de porcentagem de algodão foram avaliados com respeito à resistência da fibra. Um ponto importante no planejamento do experimento é que para cada nível do fator (porcentagem de algodão), os outros fatores que influenciam o processo (como o meio ambiente, máquina, matéria prima, etc) devem apresentar um padrão homogêneo de variabilidade. No experimento, tomamos 5 níveis para a porcentagem de algodão e 5 replicações:
 
-\begin{longtable}[]{@{}lllllllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}@{}}
 \toprule
-k & Algodão & Resistência da Fibra & & & & & Somas & Médias \\
+\begin{minipage}[b]{\linewidth}\raggedright
+k
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Algodão
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Resistência da Fibra
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Somas
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Médias
+\end{minipage} \\
 \midrule
 \endhead
 1 & 15 & 7 & 7 & 15 & 11 & 9 & 49 & 9,8 \\
@@ -4256,9 +4355,24 @@ Com isso, temos que
 
 \[SQE=SQT-SQA= 161,20\]
 
-\begin{longtable}[]{@{}lllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0972}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2778}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3750}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1389}}@{}}
 \toprule
-FV & SQ & Graus de Liberdade & Quadrados Médios & \(F_0\) \\
+\begin{minipage}[b]{\linewidth}\raggedright
+FV
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+SQ
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Graus de Liberdade
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Quadrados Médios
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F_0\)
+\end{minipage} \\
 \midrule
 \endhead
 Fator & 475,76 & 5-1=4 & \(\frac{475,76}{4}=118,94\) & \(14,757\) \\
@@ -4277,12 +4391,12 @@ Muita vezes, ao estudarmos um processo, produto ou serviço, temos diversos fato
 Para isto, considere um experimento com dois fatores, denominados A e B, no qual o fator A tem \(a\) níveis e o fator B tem \(b\) níveis. Para cada combinação de níveis, realizamos \(r\) réplicas. Na tabela a seguir, apresentamos os dados do experimento.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.09}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.23}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.23}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.09}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.23}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.14}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Fator A
@@ -4309,9 +4423,31 @@ Média & \(\bar y_{.1.}\) & \(\bar y_{.2.}\) & \(\ldots\) & \(\bar y_{.b.}\) & \
 
 Para exemplificar, uma empresa que produz limpadores de para-brisas para automóveis quer saber como os fatores Tipo de Caixa Redutora e Tipo de Eixo, utilizados na fabricação dos motores que acionam os limpadores, influenciam o ruído produzido, quando da utilização destes. Para isso realizamos um experimento com \(54\) motores, com \(3\) tipos de Eixo (Rolado, Cortado e Importado) e \(2\) tipos de Caixas Redutora (Nacional e Importada). Para cada motor (unidade experimental) medimos o ruído. Neste experimento, temos por interesse encontrar a combinação entre caixa redutora e eixo que minimiza o ruído
 
-\begin{longtable}[]{@{}llllllllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1447}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1184}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0789}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0789}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1184}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0789}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0789}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1447}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0789}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0789}}@{}}
 \toprule
-Fator A & Fator B & & & & & & & & \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Fator A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fator B
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} \\
 \midrule
 \endhead
 & Rolado & & & Cortado & & & Importado & & \\
@@ -4385,8 +4521,8 @@ onde,
 Em um experimento com dois fatores, temos como interesse avaliar se existe interação entre os fatores ao avaliar o efeito da interação através de um teste de hipóteses. Caso o efeito da interação não seja significativo, avaliamos os efeitos principais (individuais), também através de testes de hipóteses apropriados
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.35}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.65}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3611}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6389}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Objetivo
@@ -4425,17 +4561,15 @@ Na decomposição da soma de quadrados, vamos ``quebrar'' a variabilidade total 
 onde,
 
 \[SQ_T=\sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^{r}(y_{ijk}-\overline{y}_{...})^2\]\\
-\[SQ_A=b~r\sum_{i=1}^{a}(\overline{y}_{i..}-\overline{y}_{...})^2\]
-\[SQ_B=a~r\sum_{j=1}^{b}(\overline{y}_{.j.}-\overline{y}_{...})^2\]
-\[SQ_{AB}=r~\sum_{i=1}^{a}\sum_{j=1}^{b}(\overline{y}_{ij.}-\overline{y}_{i..}-\overline{y}_{.j.}+\overline{y}_{...})^2\]\\
+\[SQ_A=b~r\sum_{i=1}^{a}(\overline{y}_{i..}-\overline{y}_{...})^2\] \[SQ_B=a~r\sum_{j=1}^{b}(\overline{y}_{.j.}-\overline{y}_{...})^2\] \[SQ_{AB}=r~\sum_{i=1}^{a}\sum_{j=1}^{b}(\overline{y}_{ij.}-\overline{y}_{i..}-\overline{y}_{.j.}+\overline{y}_{...})^2\]\\
 \[SQ_E=\sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^{r}(y_{ijk}-\overline{y}_{ij.})^2\]
 
 Cada soma de quadrados dividido por seu grau de liberdade determina o quadrado médio (QM), ou seja
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.24}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.11}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.64}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2083}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2083}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5833}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Quadrado Médio
@@ -4489,9 +4623,27 @@ Valor esperado
 
 \textbf{Solução}
 
-\begin{longtable}[]{@{}llllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1733}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1067}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.0933}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}@{}}
 \toprule
-FV & SQ & Graus de Liberdade & Quadrados Médios & \(F_0\) & pvalor \\
+\begin{minipage}[b]{\linewidth}\raggedright
+FV
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+SQ
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Graus de Liberdade
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Quadrados Médios
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F_0\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+pvalor
+\end{minipage} \\
 \midrule
 \endhead
 A & 3,84 & 1 & 3,84 & 1,071 & 0,30588 \\
@@ -4975,9 +5127,24 @@ Portanto, rejeitamos \(H_0\) se \(F_0 > F_{(1-\alpha ; \, p ; \, n-p-1)}\) e se 
 
 A Tabela Anova com a estatística \(F\) é dada por
 
-\begin{longtable}[]{@{}lllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1649}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1959}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2062}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2165}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2165}}@{}}
 \toprule
-Fonte & Soma de Quadrados & Graus de Liberdade & Quadrado Médio & \(F_0\) \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Fonte
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Soma de Quadrados
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Graus de Liberdade
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Quadrado Médio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F_0\)
+\end{minipage} \\
 \midrule
 \endhead
 Regressão & SQR & \(p\) & \(\frac{SQR}{p}\) & \(F_0=\frac{QMR}{QME}\) \\
@@ -5091,9 +5258,27 @@ No nosso exemplo, como \(p-valor<\alpha\) rejeitamos \(H_0\), ou seja, temos que
 ## [1,] 4.741632e-10
 \end{verbatim}
 
-\begin{longtable}[]{@{}llllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1468}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1743}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1835}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1927}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1927}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1101}}@{}}
 \toprule
-Fonte & Soma de Quadrados & Graus de Liberdade & Quadrado Médio & \(F_0\) & p-valor \\
+\begin{minipage}[b]{\linewidth}\raggedright
+Fonte
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Soma de Quadrados
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Graus de Liberdade
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Quadrado Médio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F_0\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p-valor
+\end{minipage} \\
 \midrule
 \endhead
 Regressão & \ensuremath{6.519661\times 10^{5}} & 2 & \ensuremath{3.2598305\times 10^{5}} & 267.1770159 & \ensuremath{4.7416322\times 10^{-10}} \\
@@ -5238,9 +5423,24 @@ No nosso exemplo considerando \(\alpha=5\%\),
 
 Assim, um resumo pode ser visto na tabela abaixo:
 
-\begin{longtable}[]{@{}lllll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1139}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1266}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1772}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1772}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.4051}}@{}}
 \toprule
-\(\beta_j\) & \(t_0\) & \(t_{11;2.5\%}\) & \(p-valor\) & IC \\
+\begin{minipage}[b]{\linewidth}\raggedright
+\(\beta_j\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(t_0\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(t_{11;2.5\%}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(p-valor\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IC
+\end{minipage} \\
 \midrule
 \endhead
 \(\beta_0\) & -2.7072227 & -2,20 & 0.0203918 & {[}-942.9015346; -97.2518192{]} \\
@@ -6135,11 +6335,11 @@ O teste assume que a normalidade, independência e homocedasticiade da variânci
 Seja, \(H_0:\text{modelo linear adequado}\), então rejeitamos \(H_0\) se \(F_0>F_{(\alpha,m - p-1; n - m)}\), onde o p-valor é dado por: \(\text{P-valor}=P[F_{(m - p -1; n - m)}> F_0]\).
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.14}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.16}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.17}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.26}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.28}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1417}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1583}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2583}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2750}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Fonte
@@ -6251,6 +6451,732 @@ No \(\texttt{R}\) o comando utilizado será:
 \end{verbatim}
 
 Como não existem variáveis com VIF maior que 10, podemos dizer que não há multicolinearidade.
+
+\hypertarget{primeiros-passos-em-r}{%
+\chapter{Primeiros Passos em R}\label{primeiros-passos-em-r}}
+
+\hypertarget{introduuxe7uxe3o}{%
+\section{Introdução}\label{introduuxe7uxe3o}}
+
+\textbf{R permite que especialistas interpretem, interajam e visualizem dados de forma rápida e fácil}
+
+Antes de inicializar qualquer projeto aplicado através da linguagem computacional R, é importante entender um pouco sobre esta ferramenta, e para isto é necessário destacar que o \(\texttt{R}\) é um ambiente para análise de dados. Básicamente é uma linguagem, e pode ser entendida também como um projeto de código aberto, isto é, um projeto cujos códigos estão disponíveis para seu livre descarregamento sem custo nenhum, pemitindo a qualquer pessoa utilizá-los.
+
+A linguagem \(\texttt{R}\) surgiu no começo da década de 90, e foi inicialmente concebida por Robert Gentleman e Ross Ihaka, na época, ambos professores de Departamento de Estatística da Universidade de Auckland, na Nova Zelândia, e especialistas em dados. Desde 1997, o projeto \(\texttt{R}\) é gerenciado pelo \(\texttt{R}\) Core Group, sendo feito seu primeiro lançamento em fevereiro de 2000. O trabalhos que tiveram o uso intensivo da linguagem envolviam o mapeamento das tendências sociais e de marketing on-line, passando pelo desenvolvimento de modelos financeiros e globando também modelos climáticos para fomentar o desenvolvimento da economia e a sociedade. Assim, muitas das visualizações impactantes de dados e análises estatísticas que são performadas na atualidade por pesquisadores, estatísticos e cientistas de dados podem certamente estarem usando a linguagem \(\texttt{R}\) para estes propósitos.
+
+Diversos contribuidores do Core Group continuaram no desenvolvimento e aprimoramento do \(\texttt{R}\), dando surgimento a novas ferramentas e aplicativos, acumulando alto volume de pacotes (\emph{package}, no inglês) criadas pelos usuários com o intuito de aprimorar a funcionalidade do \(\texttt{R}\) em diversas áreas. A validação da qualidade desses pacotes se dá através de especialistas e líderes reconhecidos em todos os campos, contando com um suporte via crowdsourcing. Adicionalmente, a linguagem \(\texttt{R}\) se destaca por ser interativa, orientada a objetos e funções, onde os objetos podem ser conjuntos de dados, vetores, funções, matrizes etc, e cujas manipulações podem ser cálculos, entradas e saídas de dados, análises estatísticas e gráficos
+
+\hypertarget{instalando-o-r}{%
+\section{Instalando o R}\label{instalando-o-r}}
+
+No intuito de auxiliar no processo de download do software, é importante entender que ela é feita \(\texttt{R}\) através do CRAN (\emph{Comprehensive R Archive Network}), sendo uma rede de servidores que se encontra distribuída ao redo do mundo, contendo as diversãs e idénticas versões dos códigos e documentações da linguagem de forma atualizada.
+
+Para fazer download do software, inicialmente selecione a CRAN \href{https://cran.r-project.org/}{\texttt{https://cran.r-project.org/}} do seu país e em seguida a cidade mais próxima a você.
+
+\begin{verbatim}
++ Para o caso do Rio de Janeiro, selecione a CRAN Oswaldo Cruz Foundation, Rio de Janeiro, ou acesse [`http://cran.fiocruz.br/`](http://cran.fiocruz.br/)
+\end{verbatim}
+
+\hypertarget{passo-a-passo-da-instalauxe7uxe3o}{%
+\subsection{Passo a passo da instalação}\label{passo-a-passo-da-instalauxe7uxe3o}}
+
+\begin{itemize}
+\item
+  Após escolher a CRAN, selecione o link de download compatível com seu sistema operacional, o \(\texttt{R}\) se encontra disponível para Linux(Debian, Fedora/Redhat, Ubuntu), macOS e Windows.
+\item
+  Clique no link `install R for the first time'.
+\item
+  Por fim, selecione `Download R X.X.X for Windows', ou seja, a versão mais atual disponível.
+\item
+  Uma vez realizado o download, clique duas vezes no arquivo que foi descarregado e siga as instruções da instalação padrão.
+\item
+  Qualquer dúvida sobre a instalação ou demais, visite a página de perguntas frequentes: \href{http://cran.r-project.org/doc/FAQ/R-FAQ.html}{\texttt{http://cran.r-project.org/doc/FAQ/R-FAQ.html}}.
+\end{itemize}
+
+Após executar toda a instalação corretamente, o software pode ser acessado pelo Menu Iniciar (Sistema Windows) ou pelo ícone na sua área de trabalho. Na seguinte Figura está a interface de comando que deverá aparecer quando iniciar o \(\texttt{R}\),
+
+\begin{center}\includegraphics{R_interface} \end{center}
+
+\hypertarget{instalando-o-textttrstudio}{%
+\section{\texorpdfstring{Instalando o \(\texttt{RStudio}\)}{Instalando o \textbackslash texttt\{RStudio\}}}\label{instalando-o-textttrstudio}}
+
+O \(\texttt{RStudio}\) é um ambiente de desenvolvimento integrado (IDE) aberto e \emph{free} para o \emph{software} \(\texttt{R}\). Seu principal objetivo é facilitar a integração entre o \(\texttt{R}\) e o usuário, sendo uma interface \emph{user-friendly}. O \(\texttt{RStudio}\) é desenvolvido na linguagem de programação C++ e está disponível para diversos sistemas operacionais, tais como: Microsoft Windows, Mac OS X e GNU/Linux. Antes da instalação do \(\texttt{RStudio}\) é prioritário ter feito a instalação do \(\texttt{R}\).
+
+\begin{itemize}
+\tightlist
+\item
+\end{itemize}
+
+\hypertarget{passo-a-passo-para-a-instalauxe7uxe3o-textttrstudio}{%
+\subsection{\texorpdfstring{Passo a passo para a instalação \(\texttt{RStudio}\)}{Passo a passo para a instalação \textbackslash texttt\{RStudio\}}}\label{passo-a-passo-para-a-instalauxe7uxe3o-textttrstudio}}
+
+\begin{itemize}
+\item
+  Acesse no site oficial do \(\texttt{RStudio}\): \url{http://www.rstudio.org}
+\item
+  Clique no menu \emph{Products} (OPEN SOURCE Get started with R) \(\rightarrow\) RStudio
+\item
+  Descenda na página e selecione RStudio Desktop
+\item
+  Escolha o link de acordo com o seu sistema operacional
+\item
+  Instale o programa a partir do arquivo salvo
+\end{itemize}
+
+Uma vez instalado o software pode ser acessado pelo Menu Iniciar (Sistema Windows) ou pelo ícone na sua área de trabalho tendo o seguinte layout que conta com 4 quadrantes:
+
+\begin{center}\includegraphics{RStudio} \end{center}
+
+Esses quadrantes representam o editor, o console, o workspace e o output. O padrão e organização vem nesse formato e ordem, mas você pode ter uma disposição diferente priorizando suas preferências do formato, para isto acesse no menu \textbf{Tools} na opção \textbf{Global options} na seção do painel esquedo: \textbf{Pane Layout}. Os dois principais paineis do \(\texttt{RStudio}\) são o \textbf{editor} e o \textbf{console}.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Editor/Scripts: painel onde são escritos os códigos, o cujo espaço pode ser guardado, sendo aextensão do arquivo ``.R'' Assim como o layout pode ser ajustado, as cores do texto dos códigos também podem ser ajustadas facilitando a sua leitura (Siga o caminho: Tools \(\rightarrow\) Global optios \(\rightarrow\) Appearance).
+\item
+  Console: é o painel onde os códigos são rodados e onde também são fornecidas a maioria das saídas.
+\end{enumerate}
+
+Os demais painéis são auxiliares. O objetivo deles é facilitar pequenas tarefas que fazem parte tanto da programação quanto da análise de dados, como olhar a documentação de funções, analisar os objetos criados em uma sessão do \(\texttt{R}\), procurar e organizar os arquivos que compõem a nossa análise, armazenar e analisar os gráficos criados e muito mais.
+
+\begin{itemize}
+\tightlist
+\item
+  Environment: painel com todos os objetos criados na sessão.
+\item
+  History: painel com um histórico dos comandos rodados.
+\item
+  Files: mostra os arquivos no diretório de trabalho. É possível navegar entre diretórios.
+\item
+  Plots: painel onde os gráficos serão apresentados.
+\item
+  Packages: apresenta todos os pacotes instalados e carregados.
+\item
+  Help: janela onde a documentação das funções serão apresentadas.
+\item
+  Viewer: painel onde relatórios e dashboards serão apresentados.
+\end{itemize}
+
+\hypertarget{usando-o-textttrstudio-cloud}{%
+\section{\texorpdfstring{Usando o \(\texttt{RStudio}\) Cloud}{Usando o \textbackslash texttt\{RStudio\} Cloud}}\label{usando-o-textttrstudio-cloud}}
+
+Uma alternativa do \(\texttt{RStudio}\) é o \(\texttt{RStudio}\) Cloud, permitindo o uso on-line do \(\texttt{R}\) e do \(\texttt{RStudio}\). O \(\texttt{RStudio}\) Cloud se destaca por ser um serviço do \(\texttt{RStudio}\), com algumas restrições para o seu uso gratuito, mas oferecendo opções de planos para a expasão dos serviços e a possibilidade trabalhos colaborativos conjuntos. Umas grandes vantagens do \(\texttt{RStudio}\) Cloud é o seu armazenamento na nuvem no servidor de todos os projetos criados (incluindo todos os arquivos \(\texttt{R}\)). Além disso, você pode acessar aos arquivos/projetos em qualquer lugar, independentemente do computador que você estiver usando e a qualquer hora.
+
+Para poder acessar ao \(\texttt{RStudio}\) Cloud de forma gratuita, siga os seguintes passos:
+
+\begin{itemize}
+\item
+  Acesse em: \url{https://rstudio.cloud/plans}
+\item
+  Selecione o plano gratuito (Campo: Cloud \(\rightarrow\) \textbf{Free})
+\item
+  Seleccione \textcolor{cyan}{Sign Up}
+\item
+  Para logar, pode ser usado o seu e-mail ou escolher entre a conta \textbf{Google} ou \textbf{GitHub}.
+\end{itemize}
+
+Ao acessar na página do \(\texttt{RStudio}\) Cloud a página que aparece é a seguinte:
+
+Logando no \(\texttt{RStudio}\) Cloud
+
+Uma vez que você fizer o login na sua conta, será direcionado pelo sistema para criar o nome da sua conta:
+
+Criando um projeto no \(\texttt{RStudio}\) Cloud
+
+Posteriormente, será direcionado para os seus projetos, ali é só criar um novo projeto clicando no botão \textbf{New Project}:
+
+Interface do \(\texttt{RStudio}\) Cloud
+
+\hypertarget{criauxe7uxe3o-de-projetos}{%
+\section{Criação de Projetos}\label{criauxe7uxe3o-de-projetos}}
+
+\begin{itemize}
+\item
+  O \(\texttt{RStudio}\) tem uma funcionalidade muito importante que é a de criar projetos.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{Um projeto é basicamente uma pasta no seu computador ou na nuvem, na qual estarão todos os arquivos que você usará ou criará no processo de análise}.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{passos-para-a-criauxe7uxe3o}{%
+\subsection{Passos para a criação}\label{passos-para-a-criauxe7uxe3o}}
+
+\begin{itemize}
+\item
+  Selecione o menu \textbf{File} \(\rightarrow\) \textbf{New Project\ldots{}} .
+\item
+  Uma caixa de diálogo será aberta, clique em \textbf{New Directory} \(\rightarrow\) \textbf{New Project}
+\item
+  O primeiro campo da caixa de diálogo será usado para criar nome do projeto e pasta e uma nova pasta onde está contido. O segundo campo será usado caso deseje criar o projeto dentro de uma pasta já existente.
+\end{itemize}
+
+Assim que criar seu projeto ele será aberto no \(\texttt{RStudio}\), e o nome do projeto aparecerá no canto superior direito da tela. Na aba Files, aparecerão todos os arquivos contidos no projeto.
+
+A estrutura básica, considerando a extensão dos arquivos pode ser da forma:
+
+\hypertarget{manipulauxe7uxe3o-simples-no-console}{%
+\section{\texorpdfstring{Manipulação simples no \textbf{Console}}{Manipulação simples no Console}}\label{manipulauxe7uxe3o-simples-no-console}}
+
+A forma mais direta de interagir com o \(\texttt{R}\) é através das linhas de comandos
+
+\begin{itemize}
+\tightlist
+\item
+  Os comandos são digitados no prompt de comando (ou console) do \(\texttt{R}\), onde o símbolo \textcolor{cyan}{$">$"} indica que o prompt está listo para recebê-los.
+\item
+  Continuação da linha ou o comando enviado está incompleto é indicado pelo símbolo \textcolor{cyan}{"+"}.
+\item
+  Para submeter os comandos pressione a tecla \textcolor{cyan}{Enter}.
+\item
+  Para inserir vários comandos na mesma linha, utilize ponto e vírgula: \textcolor{cyan}{";"}.
+\end{itemize}
+
+\textcolor{cyan}{Alguns exemplos}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\SpecialCharTok{+}\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{5{-}8}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\SpecialCharTok{*}\DecValTok{9}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{10}\SpecialCharTok{/}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+Use os parênteses para calcular expressões, por exemplo, \textcolor{cyan}{$\left(\frac{20+7}{3}\right )^2$}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{((}\DecValTok{20} \SpecialCharTok{+} \DecValTok{7}\NormalTok{)}\SpecialCharTok{/}\DecValTok{3}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 81
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  O \(\texttt{R}\) ignora os espaços em brancos excessivos
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{18}               \SpecialCharTok{/}              \DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  String/caracteres devem ser inseridos entre aspas simples ou dupla: \textcolor{cyan}{' '} ou \textcolor{cyan}{" "}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Exemplo de string/caracter"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Exemplo de string/caracter"
+\end{verbatim}
+
+\hypertarget{pacotes}{%
+\section{Pacotes}\label{pacotes}}
+
+\begin{itemize}
+\item
+  A versão \textcolor{cyan}{base} do \(\texttt{R}\) possui uma coleção enorme de funções, como por exemplo:
+
+  \begin{itemize}
+  \item
+    Modelos estatísticos
+  \item
+    Algoritmos computacionais
+  \item
+    Métodos computacionais
+  \item
+    Visualização de dados
+  \item
+    E MUITAS outras funções
+  \end{itemize}
+\item
+  No entanto, às vezes precisamos acessar outros módulos que contenham funções mais específicas como por exemplo:
+
+  \begin{itemize}
+  \item
+    Análise multivariada
+  \item
+    Análise Bayesiana
+  \item
+    Manipulação de dados
+  \item
+    Gráficos a nível de publicação
+  \item
+    Big Data
+  \item
+    Machine Learning
+  \item
+    Processamento de imagens
+  \item
+    Modelos Econométricos
+  \item
+    etc.
+  \end{itemize}
+\end{itemize}
+
+Os pacotes podem ser entendidos como sendo uma coleção de funções que são chamadas diretamente de dentro do \(\texttt{R}\). Eles incluem: funções, dados para exemplificar as funcionalidades do pacote, arquivo com ajuda (help) para cada função, e uma descrição do pacote. Esses \textcolor{cyan}{pacotes} também são conhecidos como módulos, \textcolor{cyan}{bibliotecas} ou \textcolor{cyan}{packages}, pelo seu nome em inglês. Como indicado anteriormente, posser de um software de ambiente livre, qualquer pessoa pode desenvolver seus pacotes e submeter ao CRAN, disponibilizando através do GitHub ou standalone.
+
+\textbf{Instalando pacotes}
+
+\begin{itemize}
+\tightlist
+\item
+  Para instalar um pacote do \(\texttt{R}\) que já esteja no CRAN basta usar o comando:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{\textquotesingle{}ggplot2\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  Além da opção de comando, também podemos instalar pacotes utilizando os menus do \(\texttt{R}\) \textcolor{cyan}{(Pacotes $\rightarrow$ Instalar pacotes)}, ou do \(\texttt{RStudio}\) \textcolor{cyan}{(Tools $\rightarrow$ Install Packages ...)}
+\item
+  Uma vez que o pacote foi instalado não há mais a necessidade de instalar sempre que for utilizar as suas funcionalidades, basta carregar o pacote com os comandos: \textcolor{cyan}{$\texttt{library()}$} ou \textcolor{cyan}{$\texttt{require()}$}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{require}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{outros-recursos}{%
+\subsection{Outros recursos}\label{outros-recursos}}
+
+\hypertarget{help}{%
+\chapter{Help?}\label{help}}
+
+\begin{itemize}
+\tightlist
+\item
+  Para conhecer quais as funções disponíveis no pacote, faça:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{help}\NormalTok{(}\AttributeTok{package =} \StringTok{"survey"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Para pedir ajuda de uma determinada função:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?glm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{help}\NormalTok{(}\StringTok{"glm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Obtendo ajuda na internet:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{help.search}\NormalTok{(}\StringTok{"t.test"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Procurando por alguma função, mas esqueci o nome:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{apropos}\NormalTok{(}\StringTok{"lm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{??lm }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Para todas as outras coisas existe o \textcolor{cyan}{Google}!
+\item
+  Para algumas demonstrações da capacidade gráfica do \(\texttt{R}\):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{demo}\NormalTok{(graphics)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{demo}\NormalTok{(persp)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Criando objetos/variáveis}
+
+\textcolor{cyan}{Princípio 1}: Tudo que existe no \(\texttt{R}\) é um \textcolor{cyan}{objeto}
+
+\begin{itemize}
+\item
+  Ele é simplesmente um nome que guarda um valor
+\item
+  Para criar um objeto, basta usar o operador \textcolor{cyan}{$\texttt{=}$} ou \textcolor{cyan}{$\texttt{<-}$}
+\item
+  Salvando a operação \textcolor{cyan}{$\texttt{3*9}$} no \textcolor{cyan}{objeto1}:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{objeto1 }\OtherTok{=} \DecValTok{3}\SpecialCharTok{*}\DecValTok{9}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Para visualizar o valor armazenado, basta digitar o nome do objeto no prompt e apertar \textcolor{cyan}{Enter}:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{objeto1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 27
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Ou usar a função \textcolor{cyan}{$\texttt{print()}$}, ou ainda entre parênteses \textcolor{cyan}{$\texttt{(objeto1)}$}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(objeto1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 27
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(objeto1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 27
+\end{verbatim}
+
+\textcolor{cyan}{Regras básicas}
+
+\begin{itemize}
+\tightlist
+\item
+  O que é permitido?
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{=} \DecValTok{1}
+\NormalTok{a1 }\OtherTok{=} \DecValTok{2}
+\NormalTok{objeto }\OtherTok{=} \DecValTok{10}
+\NormalTok{dados\_objeto }\OtherTok{=} \DecValTok{11}
+\NormalTok{dados.objeto }\OtherTok{=} \DecValTok{12}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  O que não é permitido?
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{1a }\OtherTok{=} \DecValTok{1}
+\NormalTok{\_objeto }\OtherTok{=} \DecValTok{10}
+\NormalTok{dados}\SpecialCharTok{{-}}\NormalTok{objeto }\OtherTok{=} \DecValTok{20}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Funções}
+
+\begin{itemize}
+\item
+  Além do uso de objetos para guardar valores, as funções no R são utilizadas para guardar códigos
+\item
+  O procedimento é simples: sempre que rodamos uma função, o código que ela guarda será executado e um resultado será entregue
+\item
+  Uma função pode ter \(\texttt{n}\) argumentos, sendo eles separados por vírgulas
+\item
+  Exemplo: \textcolor{cyan}{Soma}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 80
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Para entender os argumentos, basta acionar o Help:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?sum}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Case-sensitive}
+
+\begin{itemize}
+\tightlist
+\item
+  Assim como a maioria das linguagens de programação o \(\texttt{R}\) também é sensível à letras minúsculas e maiúsculas
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\AttributeTok{foo =} \StringTok{"todas as letras sao minusculas"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "todas as letras sao minusculas"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\AttributeTok{FOO =} \StringTok{"todas as letras sao maiusculas"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "todas as letras sao maiusculas"
+\end{verbatim}
+
+\textbf{Comentários}
+
+\begin{itemize}
+\tightlist
+\item
+  Comentários em \(\texttt{R}\) podem ser inseridos depois do caractere \textcolor{cyan}{$\texttt{\#}$}
+\item
+  Desta forma, qualquer comando após o caractere \textcolor{cyan}{$\texttt{\#}$} não será executado
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\SpecialCharTok{*}\DecValTok{8}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2*8}
+\end{Highlighting}
+\end{Shaded}
+
+** Constantes armazenadas no \textcolor{cyan}{R} **
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.141593
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{letters}
+\end{Highlighting}
+\end{Shaded}
+
+\tiny
+
+\begin{verbatim}
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+## [20] "t" "u" "v" "w" "x" "y" "z"
+\end{verbatim}
+
+\normalsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LETTERS}
+\end{Highlighting}
+\end{Shaded}
+
+\tiny
+
+\begin{verbatim}
+##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+## [20] "T" "U" "V" "W" "X" "Y" "Z"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{month.abb}
+\end{Highlighting}
+\end{Shaded}
+
+\tiny
+
+\begin{verbatim}
+##  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
+\end{verbatim}
+
+\normalsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{month.name}
+\end{Highlighting}
+\end{Shaded}
+
+\tiny
+
+\begin{verbatim}
+##  [1] "January"   "February"  "March"     "April"     "May"       "June"     
+##  [7] "July"      "August"    "September" "October"   "November"  "December"
+\end{verbatim}
+
+\normalsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{Inf}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Inf
+\end{verbatim}
+
+\textbf{Diretório de trabalho}
+
+\begin{itemize}
+\tightlist
+\item
+  O comando \textcolor{cyan}{$\texttt{getwd()}$} te diz qual a pasta/diretório de trabalho atual do \(\texttt{R}\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/cloud/project"
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Já o comando \textcolor{cyan}{$\texttt{setwd()}$} redireciona a pasta/diretório de trabalho do \(\texttt{R}\)
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{setwd}\NormalTok{(}\StringTok{"C:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Users}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{paulamacaira}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Desktop"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textcolor{cyan}{Obs.:} Os caminhos devem estar separados por duas barras ou uma contra-barra.
 
   \bibliography{book.bib,packages.bib}
 

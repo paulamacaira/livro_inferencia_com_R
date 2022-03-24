@@ -12,7 +12,7 @@ Na prática, temos apenas uma amostra e, assim, é importante que se dê alguma 
 
 O que vamos estudar agora é como obter esse intervalo, de modo a "acertar na maioria das vezes", isto é, queremos um procedimento que garanta que, na maioria das vezes (ou das amostras possíveis), o intervalo obtido conterá o verdadeiro valor do parâmetro. A expressão "na maioria das vezes" será traduzida como "probabilidade alta". Dessa forma, estaremos lidando com afirmativas do seguinte tipo:
 
-\textbf{Com probabilidade alta (em geral, indicada por $1-\alpha$), o intervalo $\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]$ conterá o verdadeiro valor do parâmetro $\theta$.}
+**Com probabilidade alta (em geral, indicada por $1-\alpha$), o intervalo $\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]$ conterá o verdadeiro valor do parâmetro $\theta$.
 
 A interpretação correta de tal afirmativa é a seguinte: se $1-\alpha=0,95$, por exemplo, então isso significa que o procedimento de construção do intervalo é tal que, em 95% das possíveis amostras, o intervalo $\left[\hat\theta-\varepsilon,\hat\theta+\varepsilon\right]$ obtido conterá o verdadeiro valor do parâmetro. 
 
